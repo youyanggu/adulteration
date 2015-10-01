@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+data_dir = '../movie_data'
+
 def als_naive(U, V, Y, valid, lambda_, iterations):
     errors = []
     for i in range(iterations):
@@ -25,7 +27,7 @@ def get_error_rmse(Y, U, V, valid, n):
 """Extract random ratings from users."""
 def extract_ratings(max_users, ratings_per_user):
 	select_indices = []
-	ratings = pd.read_csv('data/ratings.csv')
+	ratings = pd.read_csv('{}/ratings.csv'.format(data_dir))
 	g = ratings.groupby('userId')
 	indices = g.indices
 	for i in range(1,max_users+1):
@@ -39,7 +41,7 @@ def extract_ratings(max_users, ratings_per_user):
 """Take ratings of top users from most-rated movies."""
 def extract_ratings2(max_users, max_movies):
 	select_indices = []
-	ratings = pd.read_csv('data/ratings.csv')
+	ratings = pd.read_csv('{}/ratings.csv'.format(data_dir))
 
 	g_user = ratings.groupby('userId')
 	user_size = g_user.size()
@@ -90,9 +92,9 @@ def gen_genre_matrix(movies, genres):
 
 ######
 
-tags = pd.read_csv('data/tags.csv')
-ratings = pd.read_csv('data/ratings_small.csv')
-movies = pd.read_csv('data/movies.csv')
+tags = pd.read_csv('{}/tags.csv'.format(data_dir))
+ratings = pd.read_csv('{}/ratings_small.csv'.format(data_dir))
+movies = pd.read_csv('{}/movies.csv'.format(data_dir))
 movie_titles = movies.title.tolist()
 genres = np.unique(np.array(list(itertools.chain.from_iterable([i.split('|') for i in movies.genres.tolist()]))))
 
