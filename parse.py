@@ -18,6 +18,8 @@ def parse_product(product):
     if len(product) == 0:
         return ''
     if len(product) == 1:
+        if 'carbon monoxide treatment' in product[0]:
+            return product[0].split(' of ')[-1]
         return product[0]
     if len(product) == 2:
         return product[1]
@@ -37,6 +39,8 @@ def parse_chemical(chemical):
                'suffocation risk as a result of the consumption of',
                'high content of', 'abnormal smell of', 'unauthorised']
     chem = chemical
+    if 'carbon monoxide treatment' in chemical:
+        return 'carbon monoxide treatment'
     for p in phrases:
         chem = chem.replace(p, '')
     chem = ' '.join(chem.split())

@@ -72,13 +72,13 @@ for fname in fnames:
     dfs.append(df)
 df = pd.concat(dfs)
 df.reset_index(drop=True, inplace=True)
-
-products_ = np.unique(df.groupby('product').filter(lambda x: len(x) > 1)['product'])
-chemicals_ = np.unique(df.groupby('chemical').filter(lambda x: len(x) > 1)['chemical'])
+df = clean_products(df)
 
 # create random pairs
-pairs = generate_random_pairs(products_, chemicals_, 250)
+pairs = gen_random_pairs(df, 600)
 pd.DataFrame.from_records(pairs, columns=['product', 'chemical']).to_csv('{}/pairs_random.csv'.format(rasff_dir), index=False)
+
+Y, valid = gen_matrix(df)
 
 # create category/chemical pairs
 d = {}
