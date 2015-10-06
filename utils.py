@@ -1,3 +1,4 @@
+import csv
 import itertools
 import numpy as np
 
@@ -17,6 +18,38 @@ def gen_random_pairs(products, chemicals, num_pairs):
         if has_and(c) or has_and(p):
             continue
         pairs.append((p,c))
+    return pairs
+
+def get_prod_chem():
+    return np.load('../rasff_data/products.npy'), np.load('../rasff_data/chemicals.npy')
+
+def gen_neg(Y, csv_file=None, num=200):
+    products, chemicals = get_prod_chem()
+    if csv_file is None:
+        # Randomly generate some negative pairs
+        all_pairs = np.array([(i,j) for i,j in zip(*np.where(Y==0))])
+        indices = np.random.choice(range(len(all_pairs)), num, replace=False)
+        pairs = all_pairs[indices]
+    else:
+        pairs = []
+        f = open(csv_file, 'rU')
+        reader = csv.reader(csv_file)
+        for line in reader:
+            prod, chem, is_neg = line
+            if is_neg == '':
+                continue
+            x_idx, y_idx = np.where(products==prod)[0][0], np.where(chemicals==chem)[0][0]
+            if Y[x_idx, y_idx] != 0:
+                continue
+            pairs.append((x_idx, y_idx))
+    for x,y in pairs:
+        Y[x,y] = -1
+    return Y
+
+
+def get_pairs(Y, rows, columns, products, chemicals):
+    x_, y_ = np.where(Y!=0)
+    pairs = np.array([(products[rows[i]], chemicals[columns[j]]) for i,j in zip(x_, y_)])
     return pairs
 
 def clean_products(df):

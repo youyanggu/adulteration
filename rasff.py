@@ -74,13 +74,24 @@ df = pd.concat(dfs)
 df.reset_index(drop=True, inplace=True)
 df = clean_products(df)
 
+products, chemicals = filter_p_c(df)
+
 # create random pairs
-pairs = gen_random_pairs(df, 600)
-pd.DataFrame.from_records(pairs, columns=['product', 'chemical']).to_csv('{}/pairs_random.csv'.format(rasff_dir), index=False)
+random_pairs = gen_random_pairs(df, 600)
+pd.DataFrame.from_records(random_pairs, columns=['product', 'chemical']).to_csv('{}/pairs_random.csv'.format(rasff_dir), index=False)
 
+# create matrix
 Y, valid = gen_matrix(df)
+Y_, rows_, columns_ = filter_matrix(Y, 2)
+#np.save('{}/matrix.npy'.format(rasff_dir), np.array([Y_, rows_, columns_]))
 
-# create category/chemical pairs
+# create actual pairs
+pairs = get_pairs(Y_, rows_, columns_, products, chemicals)
+pd.DataFrame.from_records(pairs, columns=['product', 'chemical']).to_csv('{}/pairs.csv'.format(rasff_dir), index=False)
+    
+
+"""
+# create product/chemical pairs
 d = {}
 for i in range(len(df)):
     key = (df.category.ix[i], df.chemical.ix[i])
@@ -88,7 +99,7 @@ for i in range(len(df)):
         d[key] = 1
     else:
         d[key] += 1
-
 d_filtered = {k : d[k] for k in d if d[k]>1} # all category/chemical pairs that appear more than once
-pd.DataFrame.from_records(d_filtered.keys(), columns=['product', 'chemical']).to_csv('{}/pairs.csv'.format(rasff_dir), index=False)
 
+pd.DataFrame.from_records(d_filtered.keys(), columns=['product', 'chemical']).to_csv('{}/pairs.csv'.format(rasff_dir), index=False)
+"""
