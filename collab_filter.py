@@ -7,38 +7,61 @@ from utils import *
 
 rasff_dir = '../rasff_data'
 
-def print_predictions(Y, Y_predict, print_stats=True):
-    #total = (Y*Y_predict!=0).sum()
-    #correct = (Y*Y_predict>0).sum()
-    #print "Total values to predict:      ", int((Y!=0).sum())
-    #print "Total values predicted:       ", abs(Y_predict).sum()
-    #print "Total wanted values predicted:", int(total)
-    #print "% predicted:", total*1.0/(Y!=0).sum()
-    #print "Accuracy:", correct*1.0/total
-    #print "Recall:", correct*1.0/(Y>0).sum()
+def plot_matrix(Y):
+    plt.imshow(Y, interpolation='none')
+    plt.colorbar()
+    plt.show(block=False)
 
+def f_score(precision, recall, beta=1):
+    return (1+beta**2)*(precision*recall)/(beta**2*precision+recall)
+
+def calc_score(Y, Y_predict, print_stats=True):
     products, chemicals = get_prod_chem()
-    count = correct = incorrect = no_guess = 0
+    count = true_no_guess = false_no_guess = 0
+    true_true = true_false = false_true = false_false = 0
     for (x,y), value in np.ndenumerate(Y):
         if value != 0:
             count += 1
             if print_stats: print "\n{}, {}".format(products[x], chemicals[y])
-            if print_stats: print "Guess:  {}".format(value>0)
+            if print_stats: print "Actual  : {}".format(value>0)
             predict_value = Y_predict[x,y]
             if predict_value == 0:
-                if print_stats: print "Actual: No guess"
-                no_guess += 1
-            else:
-                if print_stats: print "Actual: {}".format(predict_value>0)
-                if predict_value == value:
-                    correct += 1
+                if print_stats: print "Predict: No guess"
+                if value > 0:
+                    true_no_guess += 1
                 else:
-                    incorrect += 1
-            if print_stats: print "Correct: {}, Incorrect: {}, No guess: {}".format(correct, incorrect, no_guess)
-    print "\nCount:", count
-    print "% predicted:", 1-no_guess*1.0/count
-    print "Accuracy:", correct*1.0/(correct+incorrect)
-    print "Recall:", correct*1.0/count
+                    false_no_guess += 1
+            else:
+                if print_stats: print "Predict: {}".format(predict_value>0)
+                if predict_value == value:
+                    if value > 0:
+                        true_true += 1
+                    else:
+                        false_false += 1
+                else:
+                    if value > 0:
+                        true_false += 1
+                    else:
+                        false_true += 1
+            if print_stats: 
+                print "When True:  Correct: {}, Incorrect: {}, No guess: {}".format(
+                    true_true, true_false, true_no_guess)
+                print "When False: Correct: {}, Incorrect: {}, No guess: {}".format(
+                    false_false, false_true, false_no_guess)
+                print "Total:      Correct: {}, Incorrect: {}, No guess: {}".format(
+                    true_true+false_false, true_false+false_true, true_no_guess+false_no_guess)
+    correct = true_true + false_false
+    incorrect = true_false + false_true
+    no_guess = true_no_guess + false_no_guess
+    trues = true_true + true_false + true_no_guess
+    falses = false_false + false_true + false_no_guess
+    #print "\nCount:", count
+    recall = true_true*1.0/(trues)
+    precision = true_true*1.0/(true_true+false_true)
+    accuracy = true_true*1.0/(true_true+true_false)
+    #accuracy = (true_true+false_false)*1.0/count
+    #print "F-score:", f_score(precision, recall, 0.25)
+    return recall, precision, accuracy
 
 
 def classify(Y, threshold=0):
@@ -83,7 +106,6 @@ def validate(matrix):
 def collab_filter(Y, valid, Y_validate, valid_validate, lambda_, rank_, iterations):
     d = {}
     m, n = Y.shape
-    print "Lambda: {}, rank: {}".format(lambda_, rank_)
     U = 5 * np.random.rand(m, rank_)
     V = 5 * np.random.rand(n, rank_)
 
@@ -93,23 +115,24 @@ def collab_filter(Y, valid, Y_validate, valid_validate, lambda_, rank_, iteratio
         U, V = solve_iter(U, V, Y, valid, lambda_, rank_)
         rmse_error = get_error_rmse(Y, U, V, valid)
         rmse_validate_error = get_error_rmse(Y_validate, U, V, valid_validate)
-        #print 'Iteration #{}'.format(i+1), mse_error, mse_validate_error
+        #print 'Iteration #{}'.format(i+1), rmse_error, rmse_validate_error
+        #calc_score(Y_validate, classify(np.dot(U, V.T), 0.02), False)
         rmse.append(rmse_error)
         rmse_validate.append(rmse_validate_error)
     Y_hat = np.dot(U, V.T)
     d[(lambda_, rank_)] = min(rmse_validate)
-    print rmse_error, rmse_validate_error
+    #print rmse_error, rmse_validate_error
+    #calc_score(Y_validate, classify(np.dot(U, V.T), 0.02), False)
     return U, V
 
 def cf_test(U, V, Y_test, valid_test):
     return get_error_rmse(Y_test, U, V, valid_test)
 
 
-lambdas = [0.1]
-ranks = [1]
-#lambdas = [0.05]
-#ranks = [3]
-iterations = 15
+LAMBDAS = np.arange(0,0.07,0.01)
+RANKS = [1,2,3,4,5]
+ITERATIONS = 10
+THRESHOLD = 0.02
 
 def filter_by_indices(Y, indices):
     matrix = np.zeros(Y.shape)
@@ -126,17 +149,40 @@ def split_matrix(Y):
     Y_test = filter_by_indices(Y, testing)
     return Y_train, Y_validate, Y_test
 
-def run_cf_rasff():
+def run_cf_rasff(lambda_, rank_):
     Y, rows, columns = np.load('{}/matrix.npy'.format(rasff_dir))
     Y = gen_neg(Y, csv_file=None, num=int(Y.sum()))
     Y_train, Y_validate, Y_test = split_matrix(Y)
     valid_train, valid_validate, valid_test = [validate(Y_train), validate(Y_validate), validate(Y_test)]
-    for lambda_, rank_ in itertools.product(lambdas, ranks):
-        U, V = collab_filter(Y_train, valid_train, Y_validate, valid_validate, lambda_, rank_, iterations)
-    #print "Test RMSE:", cf_test(U, V, Y_test, valid_test)
-    return U, V
+    U, V = collab_filter(Y_train, valid_train, Y_validate, valid_validate, lambda_, rank_, ITERATIONS)
+    return U, V, Y_train, Y_validate, Y_test
 
-U, V = run_cf_rasff()
-Y_ = np.dot(U, V.T)
-Y_predict = classify(Y_)
+def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True):
+    # Do repeated random sub-sampling validation
+    print "\nLambda: {}, rank: {}".format(lambda_, rank_)
+    recalls, precisions, accuracies = [], [], []
+    for i in range(n):
+        U, V, Y_train, Y_validate, Y_test = run_cf_rasff(lambda_, rank_)
+        Y_ = np.dot(U, V.T)
+        Y_predict = classify(Y_, threshold)
+        Y = Y_test if test else Y_validate
+        if n==1:
+            r, p, a = calc_score(Y, Y_predict)
+        else:
+            r, p, a = calc_score(Y, Y_predict, False)
+        recalls.append(r)
+        precisions.append(p)
+        accuracies.append(a)
+    recalls = np.array(recalls)
+    precisions = np.array(precisions)
+    accuracies = np.array(accuracies)
+    print "\n    Recall\t  Precision\tAccuracy"
+    print recalls.mean(), precisions.mean(), accuracies.mean()
+
+def optimize(lambdas, ranks):
+    for lambda_, rank_ in itertools.product(lambdas, ranks):
+        cross_validate(5, lambda_, rank_, THRESHOLD, False)
+
+#cross_validate(5)
+
 

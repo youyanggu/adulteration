@@ -149,7 +149,7 @@ def collab_filter(Y, valid, Y_validate, valid_validate, lambda_, rank_, iteratio
         U, V = solve_iter(U, V, Y, valid, lambda_, rank_)
         rmse_error = get_error_rmse(Y, U, V, valid)
         rmse_validate_error = get_error_rmse(Y_validate, U, V, valid_validate)
-        #print 'Iteration #{}'.format(i+1), mse_error, mse_validate_error
+        #print 'Iteration #{}'.format(i+1), rmse_error, rmse_validate_error
         rmse.append(rmse_error)
         rmse_validate.append(rmse_validate_error)
     Y_hat = np.dot(U, V.T)

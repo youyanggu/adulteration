@@ -8,6 +8,17 @@ def validate(Y):
 def has_and(s):
     return s.startswith('and') or ' and ' in s
 
+def gen_random_matrix(shape,num):
+    # Generate mxn matrix with 0.5*num +1's and 0.5*num -1's. Else 0.
+    m,n = shape
+    matrix = np.zeros((m,n))
+    indices = [(x,y) for x,y in itertools.product(range(m), range(n))]
+    chosen = np.random.choice(range(len(indices)), num, replace=False)
+    for count, idx in enumerate(chosen):
+        i,j = indices[idx]
+        matrix[i,j] = 1 if count < num/2 else -1
+    return matrix
+
 def gen_random_pairs(products, chemicals, num_pairs):
     pairs = []
     n, m = len(products), len(chemicals)
