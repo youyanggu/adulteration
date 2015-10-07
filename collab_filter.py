@@ -132,7 +132,8 @@ def cf_test(U, V, Y_test, valid_test):
 LAMBDAS = np.arange(0,0.07,0.01)
 RANKS = [1,2,3,4,5]
 ITERATIONS = 10
-THRESHOLD = 0.02
+THRESHOLD = 0
+NEG_FILE = '{}/negative_pairs.csv'.format(rasff_dir)
 
 def filter_by_indices(Y, indices):
     matrix = np.zeros(Y.shape)
@@ -149,20 +150,20 @@ def split_matrix(Y):
     Y_test = filter_by_indices(Y, testing)
     return Y_train, Y_validate, Y_test
 
-def run_cf_rasff(lambda_, rank_):
+def run_cf_rasff(lambda_, rank_, neg_file=None):
     Y, rows, columns = np.load('{}/matrix.npy'.format(rasff_dir))
-    Y = gen_neg(Y, csv_file=None, num=int(Y.sum()))
+    Y = gen_neg(Y, csv_file=neg_file, num=int(Y.sum()))
     Y_train, Y_validate, Y_test = split_matrix(Y)
     valid_train, valid_validate, valid_test = [validate(Y_train), validate(Y_validate), validate(Y_test)]
     U, V = collab_filter(Y_train, valid_train, Y_validate, valid_validate, lambda_, rank_, ITERATIONS)
     return U, V, Y_train, Y_validate, Y_test
 
-def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True):
+def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True, neg_file=None):
     # Do repeated random sub-sampling validation
     print "\nLambda: {}, rank: {}".format(lambda_, rank_)
     recalls, precisions, accuracies = [], [], []
     for i in range(n):
-        U, V, Y_train, Y_validate, Y_test = run_cf_rasff(lambda_, rank_)
+        U, V, Y_train, Y_validate, Y_test = run_cf_rasff(lambda_, rank_, neg_file)
         Y_ = np.dot(U, V.T)
         Y_predict = classify(Y_, threshold)
         Y = Y_test if test else Y_validate
@@ -173,6 +174,7 @@ def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True):
         recalls.append(r)
         precisions.append(p)
         accuracies.append(a)
+    print (Y_predict>0).sum(), (Y_predict==0).sum(), (Y_predict<0).sum()
     recalls = np.array(recalls)
     precisions = np.array(precisions)
     accuracies = np.array(accuracies)
@@ -181,7 +183,7 @@ def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True):
 
 def optimize(lambdas, ranks):
     for lambda_, rank_ in itertools.product(lambdas, ranks):
-        cross_validate(5, lambda_, rank_, THRESHOLD, False)
+        cross_validate(5, lambda_, rank_, THRESHOLD, False, None)
 
 #cross_validate(5)
 

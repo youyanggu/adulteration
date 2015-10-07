@@ -43,23 +43,24 @@ def load_csv(fname):
     food.reset_index(drop=True, inplace=True)
     food.to_csv(clean_fname)
 
-for fname in fnames:
-    load_csv(fname)
+def run_load_csv():
+    for fname in fnames:
+        load_csv(fname)
 
 ##################
 # Analysis
 ##################
 
-def get_df(fname):
-    clean_fname = '{}/rasff_{}_clean.csv'.format(rasff_dir, fname)
-    df = pd.DataFrame.from_csv(clean_fname)
+def clean_df(df):
     subject = df.subject.values
-
     chemical, amount, product, origin = parse_subject(subject)
     df['chemical'] = chemical
     df['amount'] = amount
     df['product'] = product
     df['origin'] = origin
+    df.reset_index(drop=True, inplace=True)
+    df = clean_products(df)
+    df = clean_chemicals(df)
     return df
 
 categories = np.load('{}/categories.npy'.format(rasff_dir))
@@ -67,28 +68,36 @@ categories = np.load('{}/categories.npy'.format(rasff_dir))
 # combine data from different hazards
 dfs = []
 for fname in fnames:
-    df = get_df(fname)
+    clean_fname = '{}/rasff_{}_clean.csv'.format(rasff_dir, fname)
+    df = pd.DataFrame.from_csv(clean_fname)
     df['hazard'] = fname
     dfs.append(df)
 df = pd.concat(dfs)
-df.reset_index(drop=True, inplace=True)
-df = clean_products(df)
+df = clean_df(df)
 
 products, chemicals = filter_p_c(df)
 
-# create random pairs
-random_pairs = gen_random_pairs(df, 600)
-pd.DataFrame.from_records(random_pairs, columns=['product', 'chemical']).to_csv('{}/pairs_random.csv'.format(rasff_dir), index=False)
-
 # create matrix
-Y, valid = gen_matrix(df)
+Y = gen_matrix(df)
 Y_, rows_, columns_ = filter_matrix(Y, 2)
-#np.save('{}/matrix.npy'.format(rasff_dir), np.array([Y_, rows_, columns_]))
+products_final = products[rows_]
+chemicals_final = chemicals[columns_]
+np.save('{}/products.npy'.format(rasff_dir), products_final)
+np.save('{}/chemicals.npy'.format(rasff_dir), chemicals_final)
+with open('{}/products.csv'.format(rasff_dir), 'wb') as f:
+    csv.writer(f).writerows([[i] for i in products_final])
+with open('{}/chemicals.csv'.format(rasff_dir), 'wb') as f:
+    csv.writer(f).writerows([[i] for i in chemicals_final])
+np.save('{}/matrix.npy'.format(rasff_dir), np.array([Y_, rows_, columns_]))
 
 # create actual pairs
 pairs = get_pairs(Y_, rows_, columns_, products, chemicals)
 pd.DataFrame.from_records(pairs, columns=['product', 'chemical']).to_csv('{}/pairs.csv'.format(rasff_dir), index=False)
     
+# create random pairs
+random_pairs = gen_random_pairs(products_final, chemicals_final, 600)
+pd.DataFrame.from_records(random_pairs, columns=['product', 'chemical']).to_csv('{}/pairs_random.csv'.format(rasff_dir), index=False)
+
 
 """
 # create product/chemical pairs

@@ -2,13 +2,15 @@ import csv
 import itertools
 import numpy as np
 
+rasff_dir = '../rasff_data'
+
 def validate(Y):
     return np.isfinite(Y).astype(np.float64)
 
 def has_and(s):
     return s.startswith('and') or ' and ' in s
 
-def gen_random_matrix(shape,num):
+def gen_random_matrix(shape, num):
     # Generate mxn matrix with 0.5*num +1's and 0.5*num -1's. Else 0.
     m,n = shape
     matrix = np.zeros((m,n))
@@ -44,15 +46,17 @@ def gen_neg(Y, csv_file=None, num=200):
     else:
         pairs = []
         f = open(csv_file, 'rU')
-        reader = csv.reader(csv_file)
+        reader = csv.reader(f)
         for line in reader:
             prod, chem, is_neg = line
-            if is_neg == '':
+            if is_neg != 'X':
                 continue
             x_idx, y_idx = np.where(products==prod)[0][0], np.where(chemicals==chem)[0][0]
             if Y[x_idx, y_idx] != 0:
+                print "Marked as False, but actually True:", prod, chem
                 continue
             pairs.append((x_idx, y_idx))
+        f.close()
     for x,y in pairs:
         Y[x,y] = -1
     return Y
@@ -63,27 +67,21 @@ def get_pairs(Y, rows, columns, products, chemicals):
     pairs = np.array([(products[rows[i]], chemicals[columns[j]]) for i,j in zip(x_, y_)])
     return pairs
 
-def clean_products(df):
-    df['product'] = df['product'].str.lower()
-    products = np.unique(df['product'].values)
-    replace = []
-    d = {i:True for i in products}
-    for p in products:
-        if p+'s' in d:
-            replace.append(p)
-    for r in replace:
-        df['product'] = df['product'].str.replace(r+'s', r)
-    return df
 
 def filter_p_c(df, n=1, values=True):
-    products = np.unique(df['product'].values)
-    chemicals = np.unique(df['chemical'].values)
+    #products = np.unique(df['product'].values)
+    #chemicals = np.unique(df['chemical'].values)
     
     g_p = df.groupby('product').size()
     g_c = df.groupby('chemical').size()
 
     filtered_p = g_p[g_p>=n]
     filtered_c = g_c[g_c>=n]
+
+    if filtered_p.index[0] == '':
+        filtered_p = filtered_p[1:]
+    if filtered_c.index[0] == '':
+        filtered_c = filtered_c[1:]
 
     if values:
         return filtered_p.index.values, filtered_c.index.values
@@ -119,6 +117,8 @@ def filter_matrix(matrix, threshold):
     return matrix[rows][:, columns], rows, columns
 
 def gen_matrix(df):
+    """Converts df to matrix, where the rows are the unique products
+    and the columns are the unique chemicals."""
     products_all = df['product'].values
     chemicals_all = df['chemical'].values
     assert(len(df)==len(products_all)==len(chemicals_all))

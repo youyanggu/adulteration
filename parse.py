@@ -1,5 +1,22 @@
 import numpy as np
 
+def clean_products(df):
+    alt_names = pd.DataFrame.from_csv('{}/alternate_names.csv'.format(rasff_dir), header=None).ix[:,1].to_dict()
+    df['product'] = df['product'].str.lower()
+    products = np.unique(df['product'].values)
+    replace = []
+    d = {i:True for i in products}
+    df['product'] = [alt_names[p] if p in alt_names else p for p in df['product']]
+    for p in products:
+        if p+'s' in d:
+            replace.append(p)
+    for r in replace:
+        df['product'] = df['product'].str.replace(r+'s', r)
+    return df
+
+def clean_chemicals(df):
+    return df
+
 def parse_origin(origin):
     origin = origin[1:]
     if origin == []:
@@ -18,10 +35,15 @@ def parse_product(product):
     if len(product) == 0:
         return ''
     if len(product) == 1:
-        if 'carbon monoxide treatment' in product[0]:
+        if 'placing on the market of' in product[0] or \
+            'carbon monoxide treatment' in product[0]:
             return product[0].split(' of ')[-1]
+        if 'adverse reaction caused by' in product[0]:
+            return product[0].split(' by ')[-1]
         return product[0]
     if len(product) == 2:
+        if 'insufficient labelling of food supplement' in product[1]:
+            return 'food supplement'
         return product[1]
     if len(product) > 2:
         s = ' in '.join(product[1:])
@@ -37,15 +59,21 @@ def parse_amount(amount):
 def parse_chemical(chemical):
     phrases = ['unauthorised use of', 'too high content of', 'undeclared',
                'suffocation risk as a result of the consumption of',
-               'high content of', 'abnormal smell of', 'unauthorised']
+               'unauthorised substances', 'unauthorised substance',
+               'high content of', 'abnormal smell of', 'unauthorised',
+               'addition of', 'suspicion of', 'presence of']
     chem = chemical
-    if 'carbon monoxide treatment' in chemical:
-        return 'carbon monoxide treatment'
+    for sub in ['carbon monoxide treatment', 'adverse reaction', 'placing on the market']:
+        if sub in chem:
+            return ''
+    chem = chem.replace('colours', 'colour')
     for p in phrases:
         chem = chem.replace(p, '')
     chem = ' '.join(chem.split())
     if chem.startswith('and '):
         chem = chem[4:]
+    if ' and ' in chem:
+        return chem.split(' and ')[0]
     return chem
 
 def parse_subject(sub):
@@ -76,3 +104,4 @@ def parse_subject(sub):
 
     assert(len(chemical)==len(amount)==len(product)==len(origin)==len(sub))
     return chemical, amount, product, origin
+
