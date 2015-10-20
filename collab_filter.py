@@ -101,10 +101,10 @@ def solve_iter(U, V, Y, valid, lambda_, rank_):
     return U, V
 
 def validate(matrix):
+    # 0 is nan, 1 otherwise.
     return np.isfinite(matrix).astype(np.float64)
 
 def collab_filter(Y, valid, Y_validate, valid_validate, lambda_, rank_, iterations):
-    d = {}
     m, n = Y.shape
     U = 5 * np.random.rand(m, rank_)
     V = 5 * np.random.rand(n, rank_)
@@ -120,7 +120,6 @@ def collab_filter(Y, valid, Y_validate, valid_validate, lambda_, rank_, iteratio
         rmse.append(rmse_error)
         rmse_validate.append(rmse_validate_error)
     Y_hat = np.dot(U, V.T)
-    d[(lambda_, rank_)] = min(rmse_validate)
     #print rmse_error, rmse_validate_error
     #calc_score(Y_validate, classify(np.dot(U, V.T), 0.02), False)
     return U, V

@@ -51,12 +51,18 @@ def gen_neg(Y, csv_file=None, num=200):
             prod, chem, is_neg = line
             if is_neg != 'X':
                 continue
-            x_idx, y_idx = np.where(products==prod)[0][0], np.where(chemicals==chem)[0][0]
+            try:
+                x_idx = np.where(products==prod)[0][0]
+                y_idx = np.where(chemicals==chem)[0][0]
+            except IndexError:
+                print "Product or chemical not found for pair: {}, {}".format(prod, chem)
+                continue
             if Y[x_idx, y_idx] != 0:
-                print "Marked as False, but actually True:", prod, chem
+                print "Marked as False, but actually True: {}, {}".format(prod, chem)
                 continue
             pairs.append((x_idx, y_idx))
         f.close()
+        print "Number of negative cases:", len(pairs)
     for x,y in pairs:
         Y[x,y] = -1
     return Y

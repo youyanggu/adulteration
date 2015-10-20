@@ -6,12 +6,12 @@ def clean_products(df):
     products = np.unique(df['product'].values)
     replace = []
     d = {i:True for i in products}
-    df['product'] = [alt_names[p] if p in alt_names else p for p in df['product']]
     for p in products:
         if p+'s' in d:
             replace.append(p)
     for r in replace:
         df['product'] = df['product'].str.replace(r+'s', r)
+    df['product'] = [alt_names[p] if p in alt_names else p for p in df['product']]
     return df
 
 def clean_chemicals(df):
@@ -53,6 +53,8 @@ def parse_amount(amount):
     if len(amount) <= 1:
         return ''
     if len(amount) >= 2:
+        if 'unauthorised ingredient' in amount[0] or 'unauthorised ingredient' in amount[1]:
+            return ''
         # if more than 2 chemicals, just take first one for now
         return amount[1].split(')')[0]
 
@@ -60,6 +62,8 @@ def parse_chemical(chemical):
     phrases = ['unauthorised use of', 'too high content of', 'undeclared',
                'suffocation risk as a result of the consumption of',
                'unauthorised substances', 'unauthorised substance',
+               'unauthorised ingredients', 'unauthorised ingredient',
+               'unsuitable organoleptic characteristics of',
                'high content of', 'abnormal smell of', 'unauthorised',
                'addition of', 'suspicion of', 'presence of']
     chem = chemical

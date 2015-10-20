@@ -10,7 +10,7 @@ from utils import *
 ###################
 
 rasff_dir = '../rasff_data'
-fnames = ['co', 'fa', 'ic']
+fnames = ['co', 'fa', 'ic', 'hm', 'cc']
 
 def load_csv(fname):
     clean_fname = '{}/rasff_{}_clean.csv'.format(rasff_dir, fname)
