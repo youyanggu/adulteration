@@ -7,20 +7,28 @@ from api import *
 from ingredient import Ingredient
 from product import Product
 
-def load_categories():
-     with open('categories.pkl', 'rb') as f_in:
-          cats = pickle.load(f_in)
-     return cats
+#took out allergens, additives, procingredients, nutrients
+keys = [u'aisle', u'brand', u'food_category', u'ingredients',
+        u'manufacturer', u'product_description', u'product_name', 
+        u'product_size', u'serving_size', u'serving_size_uom', 
+        u'servings_per_container', u'shelf', u'upc'] 
 
-def load_cat_to_prods_cats():
-     with open('cat_to_prods_cats.pkl', 'rb') as f_in:
-          cat_to_prods = pickle.load(f_in)
-     return cat_to_prods
+def read_df():
+     return pd.read_hdf('products.h5', 'products')
+
+def read_df_i():
+     return pd.read_hdf('ingredients.h5', 'ingredients')
+
+def load_file(fname):
+     with open(fname, 'rb') as f_in:
+          data = pickle.load(f_in)
+     return data
+
+def load_categories():
+     return load_file('categories.pkl')
 
 def load_cat_to_prods():
-     with open('cat_to_prods.pkl', 'rb') as f_in:
-          cat_to_prods = pickle.load(f_in)
-     return cat_to_prods
+     return load_file('cat_to_prods.pkl')
 
 def update_categories(new_cats):
      if type(new_cats) == list:
@@ -32,19 +40,17 @@ def update_categories(new_cats):
           pickle.dump(new_cats, f_out)
      return new_cats
 
-
-def save_cat_to_prods(cat_to_prods):
-     cats = cat_to_prods.keys()
-     with open('cat_to_prods_cats.pkl', 'wb') as f_out:
-          pickle.dump(cats, f_out)
-     with open('cat_to_prods.pkl', 'wb') as f_out:
-          pickle.dump(cat_to_prods, f_out)
-
 """
 Searched terms:
-a: 0-350, b: 0-100, x: 0-100, z: all, 
-milk: 0-100, alcohol: 0-50, salt: 0-100, sugar: 0-50
-
+a-z: 0-100
+'bread, pasta, noodle, flour, dough' (100)
+milk, alcohol, salt, sugar (200)
+pear, apple, nut, water, caramel, cheese, butter, corn (200)
+food, drink, meat, vegetable, egg (200)
+cancer, health, vitamin, supplement, digest, pill, tablet (200)
+chicken, poultry, beef, pork, duck, goat, sheep, veal (200)
+ham, salami, turkey, sausage, meatloaf (200)
+asian, mexican, thai, french, italian, korean, japanese, spanish (200)
 """
 def get_categories(q, n=100, s=0, limit=100):
      def process_prods(prods, cats):
@@ -56,14 +62,24 @@ def get_categories(q, n=100, s=0, limit=100):
                          cats.append(category)
                          #print category
      cats = []
-     data = searchprods(q, n, s)
+     try:
+          data = searchprods(q, n, s)
+     except ValueError:
+          print "Query didn't work:", q
+          return []
      numFound = data['numFound']
+     if numFound == 0:
+          return []
      #print "NumFound:", numFound
      limit = min(limit, numFound)
      process_prods(data['productsArray'], cats)
      s += n
      while (s < limit):
-          data = searchprods(q, n, s)
+          try:
+               data = searchprods(q, n, s)
+          except ValueError:
+               print "Query didn't work:", q
+               return cats
           process_prods(data['productsArray'], cats)
           s += n
      return cats
@@ -72,9 +88,12 @@ def add_categories(search_terms, n=50, s=0, limit=50):
      set_cats = load_categories()
      l = len(set_cats)
      if type(search_terms) == str:
-          search_terms = [search_terms]
+          search_terms = search_terms.split(', ')
      for term in search_terms:
           cats = get_categories(term, n, s, limit)
+          for c in set(cats):
+               if c not in set_cats:
+                    print c
           set_cats.update(cats)
           print "{}: {} -> {}".format(term, l, len(set_cats))
           l = len(set_cats)
@@ -83,7 +102,7 @@ def add_categories(search_terms, n=50, s=0, limit=50):
 
 def get_category(upc, n=1):
      try:
-          data = labelarray(upc)
+          data = labelarray(upc, n)
      except ValueError:
           print "Invalid UPC:", upc
           return ''
@@ -138,12 +157,12 @@ def get_cat_prods_from_upc(upc):
      prods = data['productsArray']
      return prods
 
-def create_product(p):
-     return Product(p)
-
 def standardize_ingredient(i):
-     i = i.strip().strip('.')
-     return Ingredient(i)
+     i = i.strip() # remove trailing spaces
+     i = i.strip('.')
+     i = i.strip('*')
+     i = ' '.join(i.split()) # remove multiple spaces
+     return i
 
 def parse_ingredients(s):
      s = s.lower()
@@ -157,37 +176,77 @@ def parse_ingredients(s):
      all_ingredients = main_ingredients_split + subingredients
      return all_ingredients
 
+def gen_ingredients_df(df):
+     prod_ingredients = df['ingredients'].values
+     categories = df['food_category'].values
+     ingredients = []
+     for idx in range(len(df)):
+          s = parse_ingredients(prod_ingredients[idx])
+          for i in s:
+               new_i = standardize_ingredient(i)
+               ingredients.append((new_i, idx))
+     df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
+     return df_i
+
+
 def add_products(categories):
      try:
-          cat_to_prods = {}
+          products = []
           for c in sorted(categories):
-               products = []
                upc = get_upc_from_category(c)
                if not upc:
                     continue
                prods = get_cat_prods_from_upc(upc)
                if not prods:
+                    print "** No products found."
                     continue
+               count = 0
                for p in prods:
                     ingredients = p['ingredients']
                     if ingredients == '':
                          continue # skip products with no ingredients
-                    prod = create_product(p)  
+                    count += 1
+                    prod = []
+                    assert(c == p['food_category'])
+                    for k in sorted(keys):
+                         if k not in p:
+                              print '**ERROR: Key not found:', k
+                              prod.append(u'')
+                         else:
+                              prod.append(p[k])
+                    #prod = create_product(p)  
                     products.append(prod)
-               print "{} -> {} ({})".format(len(prods), len(products), len(products)*1.0/len(prods))
-               cat_to_prods[c] = products 
-          return cat_to_prods
+               if count == 0:
+                    print "** No products have ingredients."
+          return products
      except Exception as e:
           print e
-          return cat_to_prods
+          return products
 
-def find_missing_categories(cat_to_prods, categories):
-     missing_categories = set(categories) - set(cat_to_prods.keys())
-     new_cat_to_prods = add_products(missing_categories)
-     cat_to_prods.update(new_cat_to_prods)
-     return cat_to_prods
+def find_missing_categories():
+     new_cats = load_categories()
+     df = pd.read_hdf('products.h5', 'products')
+     old_cats = set(df['food_category'])
+     missing_categories = new_cats - old_cats
+     if len(missing_categories) == 0:
+          print "No missing categories!"
+          return None
+     new_prods = add_products(missing_categories)
+     new_df = pd.DataFrame.from_records(new_prods, columns=keys)
+     updated_df = pd.concat([df, new_df])
+     updated_df.to_hdf('products.h5', 'products', mode='w')
+     return missing_categories
 
 start_session()
 categories = load_categories()
-cat_to_prods = add_products(categories)
+products = add_products(categories)
+df = pd.DataFrame.from_records(products, columns=keys)
+#df.to_csv('products.csv', index=False, encoding='utf-8')
+df.to_hdf('products.h5', 'products', mode='w')
+
+df_i = gen_ingredients_df(df)
+df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
+
+
+
 

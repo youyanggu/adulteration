@@ -1,10 +1,11 @@
 import requests
 import json
 
-uid = 'iceui2'
-devid = 'iceui2'
+uid = 'iceui3'
+devid = 'iceui3'
 appid = 'ingredients'
-api_key = 'ebnwnutvy3rvyw86z8cayxxh'
+#api_key = 'ebnwnutvy3rvyw86z8cayxxh'
+api_key = 'etvxk3gnmvsm56kqv644uqks'
 session_id = None
 URL = "http://api.foodessentials.com"
 calls = 0
@@ -67,8 +68,9 @@ def ingredientsearch(q, n=10, s=0):
                'f' : 'json',
                'api_key' : api_key,
                }
+     tries = 5 if n<100 else 2
      func = requests.get(URL + '/ingredientsearch', params=params).json
-     data = multiple_tries(func, 2, ValueError)
+     data = multiple_tries(func, tries, ValueError)
      return data
 
 
@@ -81,8 +83,9 @@ def searchprods(q, n=1000, s=0):
                'f' : 'json',
                'api_key' : api_key,
                }
+     tries = 5 if n<100 else 2
      func = requests.get(URL + '/searchprods', params=params).json
-     data = multiple_tries(func, 2, ValueError)
+     data = multiple_tries(func, tries, ValueError)
      return data
 
 
@@ -95,6 +98,7 @@ def labelarray(upc, n=1000, s=0):
                'f' : 'json',
                'api_key' : api_key,
                }
+     tries = 5 if n<100 else 2
      func = requests.get(URL + '/labelarray', params=params).json
-     data = multiple_tries(func, 2, ValueError)
+     data = multiple_tries(func, tries, ValueError)
      return data
