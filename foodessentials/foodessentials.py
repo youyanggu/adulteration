@@ -4,8 +4,7 @@ import pickle
 import re
 
 from api import *
-from ingredient import Ingredient
-from product import Product
+from parse_ingredients import *
 
 #took out allergens, additives, procingredients, nutrients
 keys = [u'aisle', u'brand', u'food_category', u'ingredients',
@@ -30,6 +29,17 @@ def load_categories():
 def load_cat_to_prods():
      return load_file('cat_to_prods.pkl')
 
+def remove_categories(old_cats):
+     if type(old_cats) == list:
+          old_cats = set(old_cats)
+     cats = load_categories()
+     print "Categories: {} -> {}".format(len(cats), len(cats)-len(old_cats))
+     for i in old_cats:
+          cats.remove(i)
+     with open('categories.pkl', 'wb') as f_out:
+          pickle.dump(cats, f_out)
+
+
 def update_categories(new_cats):
      if type(new_cats) == list:
           new_cats = set(new_cats)
@@ -38,19 +48,20 @@ def update_categories(new_cats):
      print "Categories: {} -> {}".format(len(cats), len(new_cats))
      with open('categories.pkl', 'wb') as f_out:
           pickle.dump(new_cats, f_out)
-     return new_cats
+
 
 """
 Searched terms:
-a-z: 0-100
+a-z: 0-500
 'bread, pasta, noodle, flour, dough' (100)
-milk, alcohol, salt, sugar (200)
+milk, alcohol, salt, sugar, water (200)
 pear, apple, nut, water, caramel, cheese, butter, corn (200)
 food, drink, meat, vegetable, egg (200)
 cancer, health, vitamin, supplement, digest, pill, tablet (200)
 chicken, poultry, beef, pork, duck, goat, sheep, veal (200)
 ham, salami, turkey, sausage, meatloaf (200)
 asian, mexican, thai, french, italian, korean, japanese, spanish (200)
+coffee, tea (200)
 """
 def get_categories(q, n=100, s=0, limit=100):
      def process_prods(prods, cats):
@@ -98,7 +109,6 @@ def add_categories(search_terms, n=50, s=0, limit=50):
           print "{}: {} -> {}".format(term, l, len(set_cats))
           l = len(set_cats)
      update_categories(set_cats)
-
 
 def get_category(upc, n=1):
      try:
@@ -157,35 +167,20 @@ def get_cat_prods_from_upc(upc):
      prods = data['productsArray']
      return prods
 
-def standardize_ingredient(i):
-     i = i.strip() # remove trailing spaces
-     i = i.strip('.')
-     i = i.strip('*')
-     i = ' '.join(i.split()) # remove multiple spaces
-     return i
-
-def parse_ingredients(s):
-     s = s.lower()
-     ingredients_split = re.findall(r'([^,\(]*)\((.*?)\)', s)
-     middle_ingredients = [i[0] for i in ingredients_split]
-     subingredients = [parse_ingredients(i[1]) for i in ingredients_split]
-     subingredients = list(itertools.chain.from_iterable(subingredients))
-     main_ingredients = re.sub(r'\([^)]*\)', '', s)
-     main_ingredients_split = main_ingredients.split(',')
-     main_minus_middle_ingredients = [i for i in main_ingredients_split if i not in middle_ingredients]
-     all_ingredients = main_ingredients_split + subingredients
-     return all_ingredients
 
 def gen_ingredients_df(df):
      prod_ingredients = df['ingredients'].values
      categories = df['food_category'].values
      ingredients = []
      for idx in range(len(df)):
-          s = parse_ingredients(prod_ingredients[idx])
-          for i in s:
+          s_split = parse_ingredients(prod_ingredients[idx])
+          for i in s_split:
                new_i = standardize_ingredient(i)
+               if len(new_i) <= 1:
+                    continue
                ingredients.append((new_i, idx))
      df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
+     df_i.drop_duplicates(inplace=True)
      return df_i
 
 
@@ -233,9 +228,31 @@ def find_missing_categories():
           return None
      new_prods = add_products(missing_categories)
      new_df = pd.DataFrame.from_records(new_prods, columns=keys)
-     updated_df = pd.concat([df, new_df])
+     updated_df = pd.concat([df, new_df], ignore_index=True)
      updated_df.to_hdf('products.h5', 'products', mode='w')
      return missing_categories
+
+def filter_df_i(df_i, min_count=100):
+     counts = df_i['ingredient'].value_counts()
+     freq = df_i.groupby('ingredient')['ingredient'].transform('count')
+     df_i = df_i[freq >= min_count]
+     return df_i
+
+def find_products_by_ing(ing, split=False):
+     products = []
+     df = read_df()
+     df_i = read_df_i()
+     if split:
+          ing_split = df_i['ingredient'].apply(lambda x: x.split())
+          product_ids = df_i[ing_split.apply(lambda x: ing in x)]['product_id'].values
+     else:
+          product_ids = df_i[df_i['ingredient'] == ing]['product_id'].values
+     for p_id in product_ids:
+          pname = df.ix[p_id]['product_name'].lower()
+          products.append(pname)
+     print "Products found:", len(products)
+     return products
+
 
 start_session()
 categories = load_categories()
@@ -245,6 +262,10 @@ df = pd.DataFrame.from_records(products, columns=keys)
 df.to_hdf('products.h5', 'products', mode='w')
 
 df_i = gen_ingredients_df(df)
+counts = df_i['ingredient'].value_counts()
+df_i_filt = filter_df_i(df_i)
+counts_filt = df_i_filt['ingredient'].value_counts()
+
 df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
 
 
