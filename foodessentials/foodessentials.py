@@ -1,10 +1,16 @@
+import csv
+import inflect
 import numpy as np
 import pandas as pd
-import pickle
 import re
 
 from api import *
 from parse_ingredients import *
+
+def print_full(x):
+    pd.set_option('display.max_rows', len(x))
+    print x
+    pd.reset_option('display.max_rows')
 
 #took out allergens, additives, procingredients, nutrients
 keys = [u'aisle', u'brand', u'food_category', u'ingredients',
@@ -12,22 +18,37 @@ keys = [u'aisle', u'brand', u'food_category', u'ingredients',
         u'product_size', u'serving_size', u'serving_size_uom', 
         u'servings_per_container', u'shelf', u'upc'] 
 
-def read_df():
-     return pd.read_hdf('products.h5', 'products')
+def read_df(cat_min_count=10):
+     df = pd.read_hdf('products.h5', 'products')
+     if cat_min_count > 0:
+          freq = df.groupby('food_category')['food_category'].transform('count')
+          df = df[freq >= cat_min_count]
+     return df
 
 def read_df_i():
      return pd.read_hdf('ingredients.h5', 'ingredients')
 
 def load_file(fname):
-     with open(fname, 'rb') as f_in:
-          data = pickle.load(f_in)
-     return data
+     with open(fname, 'rU') as f_in:
+          r = csv.reader(f_in)
+          data = [i[0] for i in list(r)]
+     return set(data)
 
 def load_categories():
-     return load_file('categories.pkl')
+     return load_file('categories.csv')
 
-def load_cat_to_prods():
-     return load_file('cat_to_prods.pkl')
+def load_non_food_categories():
+     return load_file('non_food_categories.csv')
+
+def remove_non_food_categories():
+     cats_to_remove = []
+     old_cats = load_non_food_categories()
+     cur_cats = load_categories()
+     for cat in set([i.split('-')[0] for i in old_cats]):
+          if cat in cur_cats:
+               cats_to_remove.append(cat)
+     return set(cats_to_remove)
+
 
 def remove_categories(old_cats):
      if type(old_cats) == list:
@@ -36,8 +57,9 @@ def remove_categories(old_cats):
      print "Categories: {} -> {}".format(len(cats), len(cats)-len(old_cats))
      for i in old_cats:
           cats.remove(i)
-     with open('categories.pkl', 'wb') as f_out:
-          pickle.dump(cats, f_out)
+     with open('categories.csv', 'wb') as f_out:
+          wr = csv.writer(f_out)
+          wr.writerows([[i] for i in sorted(cats)])
 
 
 def update_categories(new_cats):
@@ -46,13 +68,14 @@ def update_categories(new_cats):
      cats = load_categories()
      new_cats = new_cats | cats
      print "Categories: {} -> {}".format(len(cats), len(new_cats))
-     with open('categories.pkl', 'wb') as f_out:
-          pickle.dump(new_cats, f_out)
+     with open('categories.csv', 'wb') as f_out:
+          wr = csv.writer(f_out)
+          wr.writerows([[i] for i in sorted(cats)])
 
 
 """
 Searched terms:
-a-z: 0-500
+a-z: all but a and d (up to 3000)
 'bread, pasta, noodle, flour, dough' (100)
 milk, alcohol, salt, sugar, water (200)
 pear, apple, nut, water, caramel, cheese, butter, corn (200)
@@ -168,22 +191,6 @@ def get_cat_prods_from_upc(upc):
      return prods
 
 
-def gen_ingredients_df(df):
-     prod_ingredients = df['ingredients'].values
-     categories = df['food_category'].values
-     ingredients = []
-     for idx in range(len(df)):
-          s_split = parse_ingredients(prod_ingredients[idx])
-          for i in s_split:
-               new_i = standardize_ingredient(i)
-               if len(new_i) <= 1:
-                    continue
-               ingredients.append((new_i, idx))
-     df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
-     df_i.drop_duplicates(inplace=True)
-     return df_i
-
-
 def add_products(categories):
      try:
           products = []
@@ -214,7 +221,7 @@ def add_products(categories):
                if count == 0:
                     print "** No products have ingredients."
           return products
-     except Exception as e:
+     except KeyboardInterrupt as e:
           print e
           return products
 
@@ -232,41 +239,98 @@ def find_missing_categories():
      updated_df.to_hdf('products.h5', 'products', mode='w')
      return missing_categories
 
+
+def convert_to_singular(df_i, regenerate=False):
+     if regenerate:
+          d = {}
+          p = inflect.engine()
+          ings = df_i['ingredient'].value_counts().index.values
+          lookup = {i: True for i in ings}
+          for i in ings:
+               # assume it is plural, try to convert to singular
+               sing = p.singular_noun(i)
+               if sing is False or sing == i:
+                    continue # already singular or no change
+               if sing in lookup:
+                    d[i] = sing
+     else:
+          with open('plural_to_singular.pkl', 'rb') as f_in:
+               d = pickle.load(f_in)
+     df_i['ingredient'] = [d[i] if i in d else i for i in df_i['ingredient']]
+     return df_i
+
+
+def gen_ingredients_df(df):
+     prod_ingredients = df['ingredients'].values
+     categories = df['food_category'].values
+     ingredients = []
+     for idx in range(len(df)):
+          s_split, middle_ings = parse_ingredients(prod_ingredients[idx])
+          for i in s_split:
+               new_i = standardize_ingredient(i)
+               if len(new_i) <= 1:
+                    continue
+               ingredients.append((new_i, idx))
+     df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
+     df_i = convert_to_singular(df_i)
+     df_i.drop_duplicates(inplace=True)
+     df_i.reset_index(inplace=True, drop=True)
+     return df_i
+
+
 def filter_df_i(df_i, min_count=100):
-     counts = df_i['ingredient'].value_counts()
      freq = df_i.groupby('ingredient')['ingredient'].transform('count')
      df_i = df_i[freq >= min_count]
      return df_i
 
-def find_products_by_ing(ing, split=False):
-     products = []
-     df = read_df()
+
+def find_products_by_ing(ing, split=False, df=None):
+     ing = ing.lower()
+     if df is None:
+          df = read_df()
      df_i = read_df_i()
      if split:
           ing_split = df_i['ingredient'].apply(lambda x: x.split())
           product_ids = df_i[ing_split.apply(lambda x: ing in x)]['product_id'].values
      else:
           product_ids = df_i[df_i['ingredient'] == ing]['product_id'].values
-     for p_id in product_ids:
-          pname = df.ix[p_id]['product_name'].lower()
-          products.append(pname)
+     product_ids = np.unique(product_ids)
+     products = df.ix[product_ids]
      print "Products found:", len(products)
      return products
 
 
-start_session()
-categories = load_categories()
-products = add_products(categories)
-df = pd.DataFrame.from_records(products, columns=keys)
-#df.to_csv('products.csv', index=False, encoding='utf-8')
-df.to_hdf('products.h5', 'products', mode='w')
+def get_perc(ing, df=None, split=False):
+     ing = ing.lower()
+     if df is None:
+          df = read_df()
+     percs = []
+     p_ing = find_products_by_ing(ing, split, df)
+     cat_counts = p_ing['food_category'].value_counts()
+     all_cat_counts = df['food_category'].value_counts()
+     for cat in cat_counts.index.values:
+          perc = cat_counts[cat]*1.0/all_cat_counts[cat]
+          if perc>0.1:
+               percs.append((perc, cat, all_cat_counts[cat]))
+     cat_perc = sorted(percs)
+     return cat_perc
 
+
+#start_session()
+#categories = load_categories()
+#products = add_products(categories)
+#missing_categories = find_missing_categories()
+#df = pd.DataFrame.from_records(products, columns=keys)
+#df.to_csv('products.csv', index=False, encoding='utf-8')
+#df.to_hdf('products.h5', 'products', mode='w')
+
+df = read_df()
 df_i = gen_ingredients_df(df)
 counts = df_i['ingredient'].value_counts()
 df_i_filt = filter_df_i(df_i)
 counts_filt = df_i_filt['ingredient'].value_counts()
 
-df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
+#df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
 
 
 
