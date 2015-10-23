@@ -29,7 +29,7 @@ def read_df_i():
      return pd.read_hdf('ingredients.h5', 'ingredients')
 
 def load_file(fname):
-     with open(fname, 'rU') as f_in:
+     with open(fname, 'rb') as f_in:
           r = csv.reader(f_in)
           data = [i[0] for i in list(r)]
      return set(data)

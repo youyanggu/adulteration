@@ -1,11 +1,11 @@
 import requests
 import json
 
-uid = 'iceui3'
-devid = 'iceui3'
+uid = 'iceui2'
+devid = 'iceui2'
 appid = 'ingredients'
-#api_key = 'ebnwnutvy3rvyw86z8cayxxh'
-api_key = 'etvxk3gnmvsm56kqv644uqks'
+api_key = 'ebnwnutvy3rvyw86z8cayxxh'
+#api_key = 'etvxk3gnmvsm56kqv644uqks'
 session_id = None
 URL = "http://api.foodessentials.com"
 calls = 0
