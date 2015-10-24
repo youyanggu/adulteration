@@ -35,6 +35,11 @@ def load_file(fname):
           data = [i[0] for i in list(r)]
      return set(data)
 
+def save_file(fname, data):
+     with open(fname, 'wb') as f_out:
+          wr = csv.writer(f_out)
+          wr.writerows([[i] for i in sorted(data)])
+
 def load_categories():
      return load_file('categories.csv')
 
@@ -47,7 +52,10 @@ def get_non_food_categories(new_cats):
      non_food_cats = set([i.split('-')[0] for i in old_cats])
      for cat in new_cats:
           if cat.split('-')[0] in non_food_cats:
+               if cat not in old_cats:
+                    print "New non-food category:", cat
                cats_to_remove.append(cat)
+     save_file('non_food_categories.csv', old_cats|set(cats_to_remove))
      return set(cats_to_remove)
 
 
@@ -58,9 +66,7 @@ def remove_categories(old_cats):
      print "Categories: {} -> {}".format(len(cats), len(cats)-len(old_cats))
      for i in old_cats:
           cats.remove(i)
-     with open('categories.csv', 'wb') as f_out:
-          wr = csv.writer(f_out)
-          wr.writerows([[i] for i in sorted(cats)])
+     save_file('categories.csv', cats)
 
 
 def update_categories(new_cats):
@@ -75,9 +81,7 @@ def update_categories(new_cats):
      new_cats = new_cats - non_food
      new_cats = new_cats | cats
      print "Categories: {} -> {}".format(len(cats), len(new_cats))
-     with open('categories.csv', 'wb') as f_out:
-          wr = csv.writer(f_out)
-          wr.writerows([[i] for i in sorted(new_cats)])
+     save_file('categories.csv', new_cats)
 
 
 """
