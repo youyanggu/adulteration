@@ -23,6 +23,7 @@ def read_df(cat_min_count=10):
      if cat_min_count > 0:
           freq = df.groupby('food_category')['food_category'].transform('count')
           df = df[freq >= cat_min_count]
+          df.reset_index(inplace=True, drop=True)
      return df
 
 def read_df_i():
@@ -40,12 +41,12 @@ def load_categories():
 def load_non_food_categories():
      return load_file('non_food_categories.csv')
 
-def remove_non_food_categories():
+def get_non_food_categories(new_cats):
      cats_to_remove = []
      old_cats = load_non_food_categories()
-     cur_cats = load_categories()
-     for cat in set([i.split('-')[0] for i in old_cats]):
-          if cat in cur_cats:
+     non_food_cats = set([i.split('-')[0] for i in old_cats])
+     for cat in new_cats:
+          if cat.split('-')[0] in non_food_cats:
                cats_to_remove.append(cat)
      return set(cats_to_remove)
 
@@ -66,16 +67,22 @@ def update_categories(new_cats):
      if type(new_cats) == list:
           new_cats = set(new_cats)
      cats = load_categories()
+     non_food = get_non_food_categories(new_cats)
+     if non_food:
+          print "Not adding non-food categories:"
+          for nf in sorted(non_food):
+               print nf
+     new_cats = new_cats - non_food
      new_cats = new_cats | cats
      print "Categories: {} -> {}".format(len(cats), len(new_cats))
      with open('categories.csv', 'wb') as f_out:
           wr = csv.writer(f_out)
-          wr.writerows([[i] for i in sorted(cats)])
+          wr.writerows([[i] for i in sorted(new_cats)])
 
 
 """
 Searched terms:
-a-z: all but a and d (up to 3000)
+a-z: all
 'bread, pasta, noodle, flour, dough' (100)
 milk, alcohol, salt, sugar, water (200)
 pear, apple, nut, water, caramel, cheese, butter, corn (200)
@@ -205,7 +212,7 @@ def add_products(categories):
                count = 0
                for p in prods:
                     ingredients = p['ingredients']
-                    if ingredients == '':
+                    if len(ingredients) <= 1:
                          continue # skip products with no ingredients
                     count += 1
                     prod = []
@@ -227,7 +234,7 @@ def add_products(categories):
 
 def find_missing_categories():
      new_cats = load_categories()
-     df = pd.read_hdf('products.h5', 'products')
+     df = read_df(cat_min_count=0)
      old_cats = set(df['food_category'])
      missing_categories = new_cats - old_cats
      if len(missing_categories) == 0:
@@ -270,18 +277,22 @@ def gen_ingredients_df(df):
                new_i = standardize_ingredient(i)
                if len(new_i) <= 1:
                     continue
+               #if new_i == '2% or less of celery':
+               #     print prod_ingredients[idx].lower()
                ingredients.append((new_i, idx))
      df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
      df_i = convert_to_singular(df_i)
      df_i.drop_duplicates(inplace=True)
      df_i.reset_index(inplace=True, drop=True)
-     return df_i
+     counts = df_i['ingredient'].value_counts()
+     return df_i, counts
 
 
 def filter_df_i(df_i, min_count=100):
      freq = df_i.groupby('ingredient')['ingredient'].transform('count')
      df_i = df_i[freq >= min_count]
-     return df_i
+     counts = df_i['ingredient'].value_counts()
+     return df_i, counts
 
 
 def find_products_by_ing(ing, split=False, df=None):
@@ -315,6 +326,13 @@ def get_perc(ing, df=None, split=False):
      cat_perc = sorted(percs)
      return cat_perc
 
+def get_ings_by_product(df, df_i):
+     d = df_i.groupby('product_id')['ingredient'].apply(lambda x: x.tolist()).to_dict()
+     return [d.get(i, []) for i in range(len(df))]
+
+def add_columns(df, df_i):
+     df['ingredients_clean'] = get_ings_by_product(df, df_i)
+     df['num_ingredients'] =  df['ingredients_clean'].apply(len)
 
 #start_session()
 #categories = load_categories()
@@ -323,14 +341,15 @@ def get_perc(ing, df=None, split=False):
 #df = pd.DataFrame.from_records(products, columns=keys)
 #df.to_csv('products.csv', index=False, encoding='utf-8')
 #df.to_hdf('products.h5', 'products', mode='w')
+#df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
 
 df = read_df()
-df_i = gen_ingredients_df(df)
-counts = df_i['ingredient'].value_counts()
-df_i_filt = filter_df_i(df_i)
-counts_filt = df_i_filt['ingredient'].value_counts()
+df_i, counts = gen_ingredients_df(df)
 
-#df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
+#df_i_filt, counts_filt = filter_df_i(df_i)
+
+add_columns(df, df_i)
+
 
 
 

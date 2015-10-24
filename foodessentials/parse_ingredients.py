@@ -5,6 +5,7 @@ def standardize_ingredient(s):
     s = ' '.join(s.split()) # remove multiple spaces
     if len(s)<=1:
         return ''
+    """
     if s in ['flavor enhancers', 'leavening agents', 
              'leavening', 'dried', 'natural sweetener',
              'an artificial flavor',
@@ -16,14 +17,16 @@ def standardize_ingredient(s):
              'natural artificial flavors',
              'artificial colors', 'colors',
              'artificial flavoring',
-             'a source of calcium', 'a milk derivative',
+             'a milk derivative',
              'a milk ingredient',
              'a preservative', 'a natural thickener',
              'an emulsifier', 'a natural mold inhibitor',
              'anticaking agent', 'sweetener',
              'anti-caking agent',
-             'made',
-             'and', 'or']:
+             ]:
+         return ''
+    """
+    if s in ['made', 'and', 'or']:
          return ''
     for term in ['preserves', 'prevents', 'prevent',
                  'provides', 'preserve', 'controls', 
@@ -31,7 +34,7 @@ def standardize_ingredient(s):
          if s.startswith('{} '.format(term)):
               return ''
     if s[-1] == '%':
-         return ''
+         s = re.sub(r'[0-9. ]+\%', '', s)
     return s
 
 def parse_ingredients(s):
@@ -48,6 +51,7 @@ def parse_ingredients(s):
     s = s.replace('0. 1%', '0.1%')
     s = s.replace('0. 5%', '0.5%')
     s = s.replace('org.', 'organic')
+    s = s.replace('a source of', '')
     for term in ['salt', 'water', 'enzymes', 'sugar', 'preservative', 
                  'color', 'carrageenan', 'spices',
                  'milk', 'dextrose', 'spice', 'yeast', 'soy', 'riboflavin',]:
@@ -55,7 +59,7 @@ def parse_ingredients(s):
     if '(from concentrate)' in s or '(concentrate)' in s:
         s = s.replace('(from concentrate)', 'from concentrate')
         s = s.replace('(concentrate)', 'from concentrate')
-    for term in ['added to', 'added for', 'used', 'to', 'as', 'for', 'from']:
+    for term in ['added to', 'added for', 'used', 'to', 'as', 'for']:
         if '{} '.format(term) in s:
             s = re.sub(r' {} [A-Za-z ]+'.format(term), '', s)
             s = re.sub(r'\({} [A-Za-z ]+\)'.format(term), '', s)
@@ -84,7 +88,7 @@ def parse_ingredients(s):
                    'contains one or more of',
                    'contains one more of',
                    'contains',
-                   'contain:'
+                   'contain:',
                    '2% or less of',
                    '2% less of',
                    'less than 2% of',
