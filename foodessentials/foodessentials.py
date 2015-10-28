@@ -2,6 +2,7 @@ import csv
 import inflect
 import numpy as np
 import pandas as pd
+import pickle
 import re
 
 from api import *
@@ -337,6 +338,19 @@ def get_ings_by_product(df, df_i):
 def add_columns(df, df_i):
      df['ingredients_clean'] = get_ings_by_product(df, df_i)
      df['num_ingredients'] =  df['ingredients_clean'].apply(len)
+
+def find_matching_ingredients():
+     all_ings = {}
+     for i in range(1, 10):
+          ings = showingredient(i)
+          if len(ings['sameasingredients']) == 0:
+               continue
+          arr = [(j['ingredientid'], j['name']) for j in ings['sameasingredients']]
+          arr_sorted = sorted(arr, key=lambda x:x[0])
+          key = arr_sorted[0][1]
+          for pair in arr_sorted:
+               all_ings[pair[1]] = key
+     return all_ings
 
 #start_session()
 #categories = load_categories()

@@ -74,6 +74,19 @@ def ingredientsearch(q, n=10, s=0):
      return data
 
 
+def showingredient(i_id):
+     counter()
+     params = {'id' : str(i_id),
+               'sid' : session_id,
+               'f' : 'json',
+               'api_key' : api_key,
+               }
+     tries = 5
+     func = requests.get(URL + '/showingredient', params=params).json
+     data = multiple_tries(func, tries, ValueError)
+     return data
+
+
 def searchprods(q, n=1000, s=0):
      counter()
      params = {'q' : q,
