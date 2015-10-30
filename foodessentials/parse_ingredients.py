@@ -7,9 +7,8 @@ def standardize_ingredient(s):
         return ''
     """
     if s in ['flavor enhancers', 'leavening agents', 
-             'leavening', 'dried', 'natural sweetener',
-             'an artificial flavor',
-             'if colored', 'artificial flavor', 'natural flavors',
+             'leavening', 'natural sweetener',
+             'artificial flavor', 'natural flavors',
              'flavor enhancer', 'natural', 'artificial flavor',
              'color', 'preservative', 'artificial flavors',
              'artificial color', 'preservatives', 'natural flavoring',
@@ -17,48 +16,71 @@ def standardize_ingredient(s):
              'natural artificial flavors',
              'artificial colors', 'colors',
              'artificial flavoring',
-             'a milk derivative',
-             'a milk ingredient',
-             'a preservative', 'a natural thickener',
-             'an emulsifier', 'a natural mold inhibitor',
              'anticaking agent', 'sweetener',
              'anti-caking agent',
              ]:
          return ''
     """
+    if s.startswith('a ') or s.startswith('an '):
+       return ''
+    if s in ['dried', 'live', 'active cultures', 'organic', 'if colored', 
+             'colored with', 'topping', 'or less of', 'from milk', 
+             'distilled', 'vitamins', 'minerals']:
+         return ''
+    if s.startswith('b') and len(s)<=3:
+         return 'vitamin ' + s
     if s in ['made', 'and', 'or']:
          return ''
-    for term in ['preserves', 'prevents', 'prevent',
-                 'provides', 'preserve', 'controls', 
-                 'maintains']:
-         if s.startswith('{} '.format(term)):
+    for term in ['preserve', 'prevent', 'provide', 'control', 
+                 'maintain', 'protect', 'include', 'made ']:
+         if s.startswith('{}'.format(term)):
               return ''
     if s[-1] == '%':
          s = re.sub(r'[0-9. ]+\%', '', s)
     return s
 
 def parse_ingredients(s):
+    if type(s) == unicode:
+        s = s.encode('ascii', 'ignore')
     s = s.strip()
     s = ' '.join(s.split()) # remove multiple spaces
     s = s.lower()
     if len(s) <= 1:
         return [], []
     s = s.replace('[', '(')
-    s = s.replace('}', '(')
+    s = s.replace('{', '(')
     s = s.replace(']', ')')
     s = s.replace('}', ')')
     s = s.replace('; ', ', ')
+    s = s.replace(' & ', ' and ')
     s = s.replace('0. 1%', '0.1%')
     s = s.replace('0. 5%', '0.5%')
-    s = s.replace('org.', 'organic')
+    s = s.replace('org.', 'organic ')
+    s = s.replace('vit.', 'vitamin ')
+    s = s.replace(' b-', ' b')
+    s = s.replace('no. ', '')
+    s = s.replace('no.', '')
     s = s.replace('a source of', '')
+    s = s.replace('thiamin ', 'thiamine ')
+    s = s.replace(' added', '')
+    s = s.replace('cured with', ',')
+    if ' and ' in s:
+        s = s.replace('half and half', 'halfandhalf')
+        s = s.replace('and artificial', 'andartificial')
+        s = s.replace('and natural', 'andnatural')
+        s = s.replace('and diglyceride', 'anddiglyceride')
+        s = s.replace(' and ', ', ')
+        s = s.replace('andartificial', 'and artificial')
+        s = s.replace('andnatural', 'and natural')
+        s = s.replace('anddiglyceride', 'and diglyceride')
+        s = s.replace('halfandhalf', 'half and half')
     for term in ['salt', 'water', 'enzymes', 'sugar', 'preservative', 
                  'color', 'carrageenan', 'spices',
                  'milk', 'dextrose', 'spice', 'yeast', 'soy', 'riboflavin',]:
         s = s.replace(term+'.', term+',')
-    if '(from concentrate)' in s or '(concentrate)' in s:
-        s = s.replace('(from concentrate)', 'from concentrate')
-        s = s.replace('(concentrate)', 'from concentrate')
+    if 'from concentrate' in s or '(concentrate)' in s:
+        s = s.replace('from concentrate', 'concentrate')
+        s = s.replace('(concentrate)', 'concentrate')
     for term in ['added to', 'added for', 'used', 'to', 'as', 'for']:
         if '{} '.format(term) in s:
             s = re.sub(r' {} [A-Za-z ]+'.format(term), '', s)
@@ -108,6 +130,7 @@ def parse_ingredients(s):
              s = s.replace(phrase, '')
         else:
              s = re.sub(r'[.,\(][ ]*{}'.format(phrase), ', ', s)
+    s = s.replace(':', ',')
     middle_ingredients = re.findall(r'([^,\(]*)\(', s)
     s_flat = s.replace('(', ', ').replace(')', '')
     all_ingredients = s_flat.split(', ')

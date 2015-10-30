@@ -14,10 +14,10 @@ def print_full(x):
     pd.reset_option('display.max_rows')
 
 #took out allergens, additives, procingredients, nutrients
-keys = [u'aisle', u'brand', u'food_category', u'ingredients',
-        u'manufacturer', u'product_description', u'product_name', 
-        u'product_size', u'serving_size', u'serving_size_uom', 
-        u'servings_per_container', u'shelf', u'upc'] 
+keys = ['aisle', 'brand', 'food_category', 'ingredients',
+        'manufacturer', 'product_description', 'product_name', 
+        'product_size', 'serving_size', 'serving_size_uom', 
+        'servings_per_container', 'shelf', 'upc'] 
 
 def read_df(cat_min_count=10):
      df = pd.read_hdf('products.h5', 'products')
@@ -225,7 +225,7 @@ def add_products(categories):
                     for k in sorted(keys):
                          if k not in p:
                               print '**ERROR: Key not found:', k
-                              prod.append(u'')
+                              prod.append('')
                          else:
                               prod.append(p[k])
                     #prod = create_product(p)  
@@ -282,7 +282,7 @@ def gen_ingredients_df(df):
                new_i = standardize_ingredient(i)
                if len(new_i) <= 1:
                     continue
-               #if new_i == '2% or less of celery':
+               #if new_i == 'live':
                #     print prod_ingredients[idx].lower()
                ingredients.append((new_i, idx))
      df_i = pd.DataFrame.from_records(ingredients, columns=['ingredient', 'product_id'])
@@ -338,6 +338,7 @@ def get_ings_by_product(df, df_i):
 def add_columns(df, df_i):
      df['ingredients_clean'] = get_ings_by_product(df, df_i)
      df['num_ingredients'] =  df['ingredients_clean'].apply(len)
+     df['hier'] = df[['aisle', 'shelf', 'food_category']].values.tolist()
 
 def find_matching_ingredients():
      all_ings = {}
