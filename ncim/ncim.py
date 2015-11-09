@@ -29,15 +29,21 @@ del df_hier['10']
 df_i = pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
 counts = df_i['ingredient'].value_counts()
 
-def get_ing_to_cuis():
+def get_ing_to_cuis(n=100):
     # Get CUI from ingredient name
     ing_to_cuis = {}
     strings = df['STR'].values
-    for i, ing in enumerate(counts.index.values[:1000]):
+    for i, ing in enumerate(counts.index.values[:n]):
+        print i, ing
         if i % 100 == 0:
             print i
         matches = df[strings==ing]
-        if len(matches) == 0:
+        if len(matches) == 0 and len(ing.split())==2:
+            # Search for reverse of the string.
+            matches = df[strings==', '.join(ing.split()[::-1])]
+            if len(matches) == 0:
+                matches = df[strings==' '.join(ing.split()[::-1])]
+        if len(matches) == 0: 
             # Contains rather than strictly equal
             matches = df[df['STR'].str.contains(ing)]
             if len(matches) == 0 and ' ' in ing:
@@ -61,6 +67,7 @@ def get_ing_to_cuis():
                     print "Found substring match: {} | {}".format(ing, ' '.join(split[begin_idx-1:]))
             else:
                 print "Found string match   : {}".format(ing)
+            
         else:
             print "Found direct match   : {}".format(ing)
         cuis = matches['CUI'].drop_duplicates().values
@@ -115,14 +122,13 @@ def get_ing_to_hiers():
     sources = ['NCI', 'NDFRT', 'SNOMEDCT_US', 'MSH']
     df_hier_short = df_hier[df_hier['CUI'].isin(ing_to_cui.values())]
     df_hier_short = df_hier_short[df_hier_short['SAB'].isin(sources)]
-    aui_to_cui = df.set_index('AUI')['CUI'].to_dict()
+    
     ing_to_hiers = {}
     for ing, cui in ing_to_cui.iteritems():
         hiers = df_hier_short[df_hier_short['CUI']==cui]
         if len(hiers) == 0:
             print "No hierarchy for:", ing, cui
             continue
-        print len(hiers)
         
         for i in np.unique(hiers['SAB']):
             if i not in sources_count:
@@ -130,14 +136,36 @@ def get_ing_to_hiers():
             else:
                 sources_count[i] += 1
         #print hiers
-        
+        cur_auis = hiers['AUI'].values
         rows = hiers['PTR'].str.split('.').values
-        cuis = []
-        for r in rows:
-            cuis.append([aui_to_cui[j] for j in r])
-        #print ing, cuis
-        ing_to_hiers[ing] = cuis
+        auis = []
+        for aui, r in zip(cur_auis, rows):
+            auis.append([j for j in r] + [aui])
+        #print ing, auis
+        ing_to_hiers[ing] = auis
     return ing_to_hiers
+
+def convert_auis_to_cuis(ing_to_hiers_aui):
+    aui_to_cui = df.set_index('AUI')['CUI'].to_dict()
+    ing_to_hiers = {}
+    for k, v in ing_to_hiers_aui.iteritems():
+        cuis = []
+        for path in v:
+            cuis.append([aui_to_cui[aui] for aui in path])
+        ing_to_hiers[k] = cuis
+    return ing_to_hiers
+
+
+def convert_hier_to_str(ing_to_hiers_aui):
+    aui_to_str = df.set_index('AUI')['STR'].to_dict()
+    ing_to_hiers_str = {}
+    for k, v in ing_to_hiers_aui.iteritems():
+        strs = []
+        for path in v:
+            strs.append([aui_to_str[aui] for aui in path])
+        ing_to_hiers_str[k] = strs
+    return ing_to_hiers_str
+
 
 def get_final_cuis():
     # Get all CUIs in hierarchies
@@ -149,5 +177,7 @@ def get_final_cuis():
 
 ing_to_cuis = get_ing_to_cuis()
 ing_to_cui = get_ing_to_cui()
-ing_to_hiers = get_ing_to_hiers()
+ing_to_hiers_aui = get_ing_to_hiers()
+ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui)
+ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui)
 final_cuis = get_final_cuis()

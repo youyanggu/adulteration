@@ -28,7 +28,11 @@ def standardize_ingredient(s):
              'distilled', 'vitamins', 'minerals']:
          return ''
     if s.startswith('b') and len(s)<=3:
-         return 'vitamin ' + s
+         try:
+             int(s[1:])
+             return 'vitamin ' + s
+         except ValueError:
+             pass     
     if s in ['made', 'and', 'or']:
          return ''
     for term in ['preserve', 'prevent', 'provide', 'control', 
