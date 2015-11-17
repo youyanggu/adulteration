@@ -300,11 +300,12 @@ def filter_df_i(df_i, min_count=100):
      return df_i, counts
 
 
-def find_products_by_ing(ing, split=False, df=None):
+def find_products_by_ing(ing, split=False, df=None, df_i=None):
      ing = ing.lower()
      if df is None:
           df = read_df()
-     df_i = read_df_i()
+     if df_i is None:
+          df_i = read_df_i()
      if split:
           ing_split = df_i['ingredient'].apply(lambda x: x.split())
           product_ids = df_i[ing_split.apply(lambda x: ing in x)]['product_id'].values
@@ -353,21 +354,24 @@ def find_matching_ingredients():
                all_ings[pair[1]] = key
      return all_ings
 
-#start_session()
-#categories = load_categories()
-#products = add_products(categories)
-#missing_categories = find_missing_categories()
-#df = pd.DataFrame.from_records(products, columns=keys)
-#df.to_csv('products.csv', index=False, encoding='utf-8')
-#df.to_hdf('products.h5', 'products', mode='w')
-#df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
+if __name__ == '__main__':
+     #start_session()
+     #categories = load_categories()
+     #products = add_products(categories)
+     #missing_categories = find_missing_categories()
+     #df = pd.DataFrame.from_records(products, columns=keys)
+     #df.to_csv('products.csv', index=False, encoding='utf-8')
+     #df.to_hdf('products.h5', 'products', mode='w')
+     #df_i.to_hdf('ingredients.h5', 'ingredients', mode='w')
 
-df = read_df()
-df_i, counts = gen_ingredients_df(df)
+     df = read_df()
+     #df_i, counts = gen_ingredients_df(df)
+     df_i = pd.read_hdf('ingredients.h5', 'ingredients')
+     counts = df_i['ingredient'].value_counts()
 
-#df_i_filt, counts_filt = filter_df_i(df_i)
+     #df_i_filt, counts_filt = filter_df_i(df_i)
 
-add_columns(df, df_i)
+     add_columns(df, df_i)
 
 
 

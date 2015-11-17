@@ -40,8 +40,8 @@ class OutputLayer(object):
         self.params = [self.W, self.b]
 
     def cost(self, y, out_len):
-        t1 = T.dot(self.p_y_given_x, T.sum(y, axis=1).T)[0,0]
-        t2 = T.log(T.sum(T.exp(self.p_y_given_x)))
+        t1 = T.dot(self.p_y_given_x, T.sum(y, axis=1).T).diagonal()
+        t2 = T.log(T.sum(T.exp(self.p_y_given_x), axis=1))
         return T.mean(-t1+t2*out_len)
 
     def errors(self, y):
@@ -56,6 +56,7 @@ class HiddenLayer(object):
                 rng.uniform(low=-1, high=1, size=(n_in, n_out)),
                 dtype=theano.config.floatX
             )
+            print W_values[0]
             W = theano.shared(value=W_values, name='W', borrow=True)
 
         if b is None:
@@ -90,7 +91,9 @@ class NN(object):
         )
         self.L2 = (
             (self.hiddenLayer.W ** 2).sum()
+            + (self.hiddenLayer.b ** 2).sum()
             + (self.outputLayer.W ** 2).sum()
+            + (self.outputLayer.b ** 2).sum()
         )
         
         self.cost = self.outputLayer.cost
@@ -101,7 +104,7 @@ class NN(object):
 
 
 def run_nn(x_train, y_train, output_lens, num_ingredients, n_hidden, 
-           learning_rate=0.0001, L2_reg=0.0001, n_epochs=5, batch_size=1):
+           learning_rate=0.05, L2_reg=0.001, n_epochs=15, batch_size=1):
     print 'Building model'
 
     x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
@@ -112,9 +115,13 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, n_hidden,
     y = T.itensor3('y')
     out_len = T.ivector('out_len')
 
-    n_train_batches = x_train.get_value(borrow=True).shape[0] / batch_size
+    if batch_size is None:
+        batch_size = x_train.get_value(borrow=True).shape[0]
+        n_train_batches = 1
+    else:
+        n_train_batches = x_train.get_value(borrow=True).shape[0] / batch_size
 
-    rng = np.random.RandomState(1234)
+    rng = np.random.RandomState(3)
 
     classifier = NN(
         rng=rng,
@@ -153,6 +160,10 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, n_hidden,
         for minibatch_index in xrange(n_train_batches):
             costs.append(train_model(minibatch_index))
         print np.array(costs).mean()
+        print classifier.hiddenLayer.W.get_value()[0]
+        #print classifier.outputLayer.W.get_value()[0]
+        #print classifier.hiddenLayer.b.get_value()
+        #print classifier.outputLayer.b.get_value()
 
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
     return classifier
@@ -161,19 +172,27 @@ def main():
     num_ingredients = 100
     df, df_i = import_data()
     inputs, outputs, output_lens = gen_input_outputs(df, df_i, num_ingredients)
-    assert(len(inputs)==len(outputs))
-    classifier = run_nn(inputs, outputs, output_lens, num_ingredients, 100)
+    classifier = run_nn(inputs, outputs, output_lens, num_ingredients, 100, n_epochs=50, batch_size=1000)
 
     embeddings = classifier.hiddenLayer.W.get_value()
     counts = df_i['ingredient'].value_counts()
 
-    neigh = sklearn.neighbors.NearestNeighbors(2, algorithm='brute', metric='cosine')
+    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
     neigh.fit(embeddings)
     ing_names = counts.index.values
+    ranks_all = []
     for i in range(num_ingredients):
+        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
+        ranks = 99-np.argsort(nearest_neighbors)
+        ranks_all.append(ranks)
         print '{} --> {}'.format(ing_names[i],
-            ing_names[neigh.kneighbors(embeddings[i])[1][0][1]])
+            ing_names[neigh.kneighbors(embeddings[i])[1][0][1:4]])
+    ranks_all = np.array(ranks_all)
 
+    ranks_coocc = get_coocc_ranks()
+
+    for i in range(num_ingredients):
+        print np.corrcoef(ranks_all[i], ranks_coocc[i])[0,1]**2
 
 
 if __name__ == '__main__':
