@@ -9,7 +9,7 @@ from gather_data import *
 
 theano.config.floatX = 'float32'
 
-def load_data(x, y, z):
+def load_data(x, y):
     def shared_dataset(x, borrow=True):
         shared_x = theano.shared(np.asarray(x.astype('int32'),
                                  dtype='int32'),
@@ -18,8 +18,7 @@ def load_data(x, y, z):
     
     x_train = shared_dataset(x)
     y_train = shared_dataset(y)
-    output_lens = shared_dataset(z)
-    return x_train, y_train, output_lens
+    return x_train, y_train
 
 
 class OutputLayer(object):
@@ -35,14 +34,16 @@ class OutputLayer(object):
             name='b',
             borrow=True
         )
-        self.p_y_given_x = T.dot(inp, self.W) + self.b
+        self.p_y_given_x = T.nnet.softmax(T.dot(inp, self.W) + self.b)
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
         self.params = [self.W, self.b]
 
-    def cost(self, y, out_len):
-        t1 = T.dot(self.p_y_given_x, T.sum(y, axis=1).T).diagonal()
-        t2 = T.log(T.sum(T.exp(self.p_y_given_x), axis=1))
-        return T.mean(-t1+t2*out_len)
+    def cost(self, y):
+        t1 = T.log(self.p_y_given_x)[T.arange(y.shape[0]), y]
+        t2 = T.sum(T.log(1-self.p_y_given_x)[T.arange(y.shape[0])]) - \
+                T.log(1-self.p_y_given_x)[T.arange(y.shape[0]), y]
+
+        return T.mean(-t1-t2)
 
     def errors(self, y):
         return T.mean(T.neq(self.y_pred, y))
@@ -103,17 +104,16 @@ class NN(object):
         
 
 
-def run_nn(x_train, y_train, output_lens, num_ingredients, m, 
+def run_nn(x_train, y_train, num_ingredients, m, 
            learning_rate=0.05, L2_reg=0.001, n_epochs=15, batch_size=1):
     print 'Building model'
 
-    x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
+    x_train, y_train = load_data(x_train, y_train)
 
     index = T.iscalar()  # index to a [mini]batch
     x = T.imatrix('x')  # the data is presented as rasterized images
     #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
-    y = T.itensor3('y')
-    out_len = T.ivector('out_len')
+    y = T.ivector('y')
 
     if batch_size is None:
         batch_size = x_train.get_value(borrow=True).shape[0]
@@ -130,7 +130,7 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
         m=m,
         n_out=num_ingredients,
     )
-    cost = classifier.cost(y, out_len) + L2_reg * classifier.L2
+    cost = classifier.cost(y) + L2_reg * classifier.L2
     #gparams = T.grad(cost, classifier.params)
     gparams = [T.grad(cost, param).astype('float32') for param in classifier.params]
     updates = [
@@ -145,7 +145,6 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
         givens={
             x: x_train[index * batch_size: (index + 1) * batch_size],
             y: y_train[index * batch_size: (index + 1) * batch_size],
-            out_len: output_lens[index * batch_size: (index + 1) * batch_size]
         }
     )
     predict_model = theano.function(
@@ -177,58 +176,54 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
 
     return classifier, pred
 
-def calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10):
-    pred_coocc = {}
-    for i in range(len(pred)):
-        idx = np.where(inputs[i]==1)[0][0]
-        if idx not in pred_coocc:
-            argsort_nn = np.searchsorted(pred[i], pred[i], sorter=np.argsort(pred[i]))
-            corr = np.corrcoef(argsort_nn, ranks_coocc[idx])[0,1]
-            intersects = np.intersect1d(np.argsort(pred[i])[::-1][1:top_n+1], 
-                                        np.argsort(ranks_coocc[idx])[::-1][1:top_n+1])
-            pred_coocc[idx] = (corr, len(intersects))
-    return pred_coocc
+def max_entropy(inputs, outputs):
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.cross_validation import train_test_split
+    regr = LogisticRegression()
+    X_train, X_test, y_train, y_test = train_test_split(
+        inputs, outputs, test_size=0.33, random_state=42)
+    regr.fit(X_train, y_train)
+    print regr.score(X_train, y_train)
+    print regr.score(X_test, y_test)
+    return regr
 
-def get_counts(inputs):
-    d = {}
-    s = np.sum(inputs, axis=0)
-    for i, j in enumerate(counts.index.values[:100]):
-        d[i] = (j, int(s[i]))
-    return d
+def predict_cat(counts, regr, idx_to_cat, num_ingredients, ings):
+    if type(ings) == str:
+        ings = [ings]
+    ing_list = counts.index.values[:num_ingredients]
+    indices = []
+    for ing in ings:
+        if ing in ing_list:
+            #print "Found", ing
+            idx = np.where(ing_list==ing)[0][0]
+            indices.append(idx)
+    if not indices:
+        return None, None
+    inp = np.zeros(num_ingredients)
+    inp[np.array(indices)] = 1
+    pred_class = regr.predict(inp)[0]
+    return idx_to_cat[pred_class], np.max(regr.predict_proba(inp))
 
+ 
 def main():
-    num_ingredients = 100
+    num_ingredients = 1000
+    output_cat = 'shelf'
     df, df_i = import_data()
-    inputs, outputs, output_lens = gen_input_outputs(df, df_i, num_ingredients)
-    classifier, pred = run_nn(inputs, outputs, output_lens, 
-                        num_ingredients, m=100, n_epochs=20, batch_size=100)
-
-    embeddings = classifier.hiddenLayer.W.get_value()
     counts = df_i['ingredient'].value_counts()
+    inputs, outputs, idx_to_cat = gen_input_outputs_cat(
+                        df, df_i, num_ingredients, output_cat)
+    
+    # Max entropy model
+    regr = max_entropy(inputs, outputs)
+    #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
-    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
-    neigh.fit(embeddings)
-    ing_names = counts.index.values
-    ranks_all = []
-    for i in range(num_ingredients):
-        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
-        ranks = (num_ingredients-1)-np.argsort(nearest_neighbors)
-        ranks_all.append(ranks)
-        print '{} --> {}'.format(ing_names[i],
-            ing_names[neigh.kneighbors(embeddings[i])[1][0][1:4]])
-    ranks_all = np.array(ranks_all)
+    # Neural network model
+    classifier, pred = run_nn(inputs, outputs, num_ingredients, 
+                                m=500, n_epochs=20, batch_size=100)
 
-    ranks_coocc = get_coocc_ranks()
-
-    r2s = []
-    for i in range(num_ingredients):
-        r2s.append(np.corrcoef(ranks_all[i], ranks_coocc[i])[0,1]**2)
-
-    pred_coocc = calc_nn_coocc(pred, inputs, ranks_coocc)
-    # Nearest cooccurance
-    #for i in range(num_ingredients):
-    #    nn = np.argsort(ranks_coocc[i])[::-1][1:4]
-    #    print '{} --> {}'.format(ing_names[i], ing_names[nn])
+    pred_cats = np.argmax(pred, axis=1)
+    acc = (pred_cats == outputs).sum() * 1.0 / len(pred)
+    print acc
 
 
 if __name__ == '__main__':

@@ -8,6 +8,39 @@ sys.path.append('../foodessentials')
 import foodessentials
 
 
+### CATEGORIES ###
+
+def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
+    """output_cat should be: 'aisle', 'shelf' or 'food_category'."""
+
+    counts = df_i['ingredient'].value_counts()
+    counts = counts[:num_ingredients]
+    onehot_ing = gen_onehot_vectors(counts.index.values, num_ingredients)
+
+    inputs = []
+    categories = []
+    categories_clean = df[output_cat].str.lower().values
+    cat_to_idx = {c : i for i, c in enumerate(np.unique(categories_clean))}
+    ingredients_clean = df['ingredients_clean'].values
+    for idx in range(len(df)):
+        l = convert_ingredient_list(ingredients_clean[idx], onehot_ing)
+        s = np.sum(np.array(l), axis=0)
+        if type(s)==np.float64:
+            assert(s==0)
+            continue
+        assert(len(s)==num_ingredients)
+        inputs.append(s)
+        categories.append(cat_to_idx[categories_clean[idx]])
+    
+    assert(len(inputs)==len(categories))
+    outputs = categories
+    idx_to_cat = {i:c for c,i in cat_to_idx.iteritems()}
+    return np.array(inputs), np.array(outputs), idx_to_cat
+
+
+
+### EMBEDDINGS ###
+
 def get_coocc_ranks():
     coocc = np.load('cooccurance.npy')
     coocc_sym = coocc*coocc.T
@@ -38,12 +71,12 @@ def get_cooccurance_matrix(ing_list):
     return matrix
 
 def gen_onehot_vectors(ings, num_ingredients):
+    """Returns a dictionary mapping the name to one-hot vector representation."""
     d = {}
-    ing_names = ings.index.values
-    for i in range(num_ingredients): # Take first 1500 ingredients
+    for i in range(num_ingredients): # Take first num_ingredients ingredients
         vector = np.zeros(num_ingredients)
         vector[i] = 1
-        d[ing_names[i]] = vector
+        d[ings[i]] = vector
     return d
 
 def convert_ingredient_list(ing_list, d):
@@ -52,8 +85,7 @@ def convert_ingredient_list(ing_list, d):
 def gen_input_outputs(df, df_i, num_ingredients):
     counts = df_i['ingredient'].value_counts()
     counts = counts[:num_ingredients]
-    foodessentials.add_columns(df, df_i)
-    d = gen_onehot_vectors(counts, num_ingredients)
+    d = gen_onehot_vectors(counts.index.values, num_ingredients)
 
     vectors = []
     ingredients_clean = df['ingredients_clean'].values
@@ -74,18 +106,20 @@ def gen_input_outputs(df, df_i, num_ingredients):
         if counter % 1000 == 1:
             print counter
         for i in range(l):
-            if i >= 1:
-                break # only do top 5 ingredients
+            if i >= 2:
+                break # only do top x ingredients
             output_lens_new.append(l-1)
+            assert(v[0].sum()==1)
             inputs.append(v[0]) # simple for now
             outputs_ = []
             for j in range(1, output_lens.max()):
                 if j < l:
+                    assert(v[j].sum()==1)
                     outputs_.append(v[j])
                 else:
                     outputs_.append(np.zeros(num_ingredients))
             outputs.append(outputs_)
-            v = np.roll(v, -1)
+            v = np.roll(v, -1, axis=0)
         counter += 1
 
     assert(len(inputs)==len(outputs)==len(output_lens_new))
