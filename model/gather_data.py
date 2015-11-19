@@ -8,6 +8,81 @@ sys.path.append('../foodessentials')
 import foodessentials
 
 
+def unique_rows(a):
+    a = np.ascontiguousarray(a)
+    unique_a = np.unique(a.view([('', a.dtype)]*a.shape[1]))
+    return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
+
+### VALID ###
+
+def gen_random_inp(l, num_ones):
+    sample = np.random.choice(l, num_ones, replace=False)
+    inp = np.zeros(l)
+    inp[sample] = 1
+    return inp
+
+def flip_arr(arr, num_flips=1):
+    assert(arr.sum() >= num_flips)
+    if num_flips == 0:
+        return arr
+    one_indices = np.where(arr==1)[0]
+    new_one_indices = []
+    while len(new_one_indices)<num_flips:
+        idx = np.random.choice(len(arr))
+        if idx not in one_indices and idx not in new_one_indices:
+            new_one_indices.append(idx)
+
+    z = np.zeros(len(arr))
+    all_one_indices = np.hstack((
+            np.random.choice(one_indices, len(one_indices)-num_flips, replace=False),
+            np.array(new_one_indices)))
+    z[all_one_indices] = 1
+    assert(arr.sum()==z.sum())
+    return z
+
+def flip_inputs(inputs, num_flips=1):
+    return np.array([flip_arr(i, num_flips) for i in inputs])
+
+def get_ing_names(counts, arr):
+    return counts.index.values[np.where(arr==1)[0]]
+
+def get_combos(inputs, outputs, counts, limit=50):
+    output = []
+    for idx, inp in enumerate(inputs):
+        output.append(regr.predict(inp), outputs[idx], get_ing_names(counts, inp))
+    return output
+
+def gen_input_outputs_invalid(length, num_ingredients, ings_per_prod):
+    """Generate invalid set of ingredients from random sampling."""
+    inputs = [gen_random_imp(num_ingredients, ings_per_prod) for i in range(length)]
+    outputs = np.zeros(length)
+    assert(len(inputs)==len(outputs))
+    return np.array(inputs), outputs
+
+
+def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
+    """Get a set number of ingredients and set as valid combination."""
+
+    counts = df_i['ingredient'].value_counts()
+    counts = counts[:num_ingredients]
+    onehot_ing = gen_onehot_vectors(counts.index.values, num_ingredients)
+
+    inputs = []
+    ingredients_clean = df['ingredients_clean'].values
+    for idx in range(len(df)):
+        l = convert_ingredient_list(ingredients_clean[idx], onehot_ing)
+        if len(l) < ings_per_prod:
+            continue
+        s = np.sum(np.array(l[:ings_per_prod]), axis=0)
+        assert(len(s)==num_ingredients)
+        assert(s.sum()==ings_per_prod)
+        inputs.append(s)
+    outputs = np.ones(len(inputs))
+    assert(len(inputs)==len(outputs))
+    return np.array(inputs), outputs
+
+
+
 ### CATEGORIES ###
 
 def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):

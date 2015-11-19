@@ -179,9 +179,9 @@ def run_nn(x_train, y_train, num_ingredients, m,
 def max_entropy(inputs, outputs):
     from sklearn.linear_model import LogisticRegression
     from sklearn.cross_validation import train_test_split
-    regr = LogisticRegression()
+    regr = LogisticRegression(C=1e5)
     X_train, X_test, y_train, y_test = train_test_split(
-        inputs, outputs, test_size=0.33, random_state=42)
+        inputs, outputs, test_size=1/3., random_state=42)
     regr.fit(X_train, y_train)
     print regr.score(X_train, y_train)
     print regr.score(X_test, y_test)
@@ -208,11 +208,15 @@ def predict_cat(counts, regr, idx_to_cat, num_ingredients, ings):
  
 def main():
     num_ingredients = 1000
-    output_cat = 'shelf'
+    ings_per_prod = 5
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
-    inputs, outputs, idx_to_cat = gen_input_outputs_cat(
-                        df, df_i, num_ingredients, output_cat)
+    inputs_v, outputs_v = gen_input_outputs_valid(
+                        df, df_i, num_ingredients, ings_per_prod)
+    inputs_i, outputs_i = gen_input_outputs_invalid(
+                        len(inputs_v), num_ingredients, ings_per_prod)
+    inputs = np.vstack((inputs_v, inputs_i))
+    outputs = np.hstack((outputs_v, outputs_i))
     
     # Max entropy model
     regr = max_entropy(inputs, outputs)
@@ -220,7 +224,7 @@ def main():
 
     # Neural network model
     classifier, pred = run_nn(inputs, outputs, num_ingredients, 
-                                m=500, n_epochs=20, batch_size=100)
+                                m=100, n_epochs=20, batch_size=1000)
 
     pred_cats = np.argmax(pred, axis=1)
     acc = (pred_cats == outputs).sum() * 1.0 / len(pred)
