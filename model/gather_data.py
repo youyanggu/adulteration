@@ -5,13 +5,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.append('../foodessentials')
-import foodessentials
-
-
-def unique_rows(a):
-    a = np.ascontiguousarray(a)
-    unique_a = np.unique(a.view([('', a.dtype)]*a.shape[1]))
-    return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
+import ing_utils
 
 ### VALID ###
 
@@ -21,27 +15,6 @@ def gen_random_inp(l, num_ones):
     inp[sample] = 1
     return inp
 
-def flip_arr(arr, num_flips=1):
-    assert(arr.sum() >= num_flips)
-    if num_flips == 0:
-        return arr
-    one_indices = np.where(arr==1)[0]
-    new_one_indices = []
-    while len(new_one_indices)<num_flips:
-        idx = np.random.choice(len(arr))
-        if idx not in one_indices and idx not in new_one_indices:
-            new_one_indices.append(idx)
-
-    z = np.zeros(len(arr))
-    all_one_indices = np.hstack((
-            np.random.choice(one_indices, len(one_indices)-num_flips, replace=False),
-            np.array(new_one_indices)))
-    z[all_one_indices] = 1
-    assert(arr.sum()==z.sum())
-    return z
-
-def flip_inputs(inputs, num_flips=1):
-    return np.array([flip_arr(i, num_flips) for i in inputs])
 
 def get_ing_names(counts, arr):
     return counts.index.values[np.where(arr==1)[0]]
@@ -54,7 +27,7 @@ def get_combos(inputs, outputs, counts, limit=50):
 
 def gen_input_outputs_invalid(length, num_ingredients, ings_per_prod):
     """Generate invalid set of ingredients from random sampling."""
-    inputs = [gen_random_imp(num_ingredients, ings_per_prod) for i in range(length)]
+    inputs = [gen_random_inp(num_ingredients, ings_per_prod) for i in range(length)]
     outputs = np.zeros(length)
     assert(len(inputs)==len(outputs))
     return np.array(inputs), outputs
@@ -84,6 +57,9 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
 
 
 ### CATEGORIES ###
+
+def get_ingredients_from_vector(counts, vector):
+    return counts.index.values[np.where(vector==1)[0]]
 
 def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
     """output_cat should be: 'aisle', 'shelf' or 'food_category'."""
@@ -126,10 +102,10 @@ def get_coocc_ranks():
     return np.array(ranks_all)
 
 def get_cooccurance_prob(ing1, ing2, df, df_i):
-    prods1 = foodessentials.find_products_by_ing(ing1, df=df, df_i=df_i)
+    prods1 = ing_utils.find_products_by_ing(ing1, df=df, df_i=df_i)
     counts1 = prods1.ingredients_clean.map(lambda x: ing2 in x).sum()
     prob1 = counts1*1.0/len(prods1)
-    prods2 = foodessentials.find_products_by_ing(ing2, df=df, df_i=df_i)
+    prods2 = ing_utils.find_products_by_ing(ing2, df=df, df_i=df_i)
     counts2 = prods2.ingredients_clean.map(lambda x: ing1 in x).sum()
     prob2 = counts2*1.0/len(prods2)
     return prob1, prob2
@@ -201,9 +177,13 @@ def gen_input_outputs(df, df_i, num_ingredients):
     return np.array(inputs), np.array(outputs), np.array(output_lens_new)
 
 def import_data():
+    def add_columns(df, df_i):
+        df['ingredients_clean'] = get_ings_by_product(df, df_i)
+        df['num_ingredients'] =  df['ingredients_clean'].apply(len)
+        df['hier'] = df[['aisle', 'shelf', 'food_category']].values.tolist()
     df = pd.read_hdf('../foodessentials/products.h5', 'products')
     df_i = pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
-    foodessentials.add_columns(df, df_i)
+    add_columns(df, df_i)
     return df, df_i
 
     

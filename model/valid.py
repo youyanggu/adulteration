@@ -179,9 +179,9 @@ def run_nn(x_train, y_train, num_ingredients, m,
 def max_entropy(inputs, outputs):
     from sklearn.linear_model import LogisticRegression
     from sklearn.cross_validation import train_test_split
-    regr = LogisticRegression(C=1e5)
     X_train, X_test, y_train, y_test = train_test_split(
         inputs, outputs, test_size=1/3., random_state=42)
+    regr = LogisticRegression(C=1e5)
     regr.fit(X_train, y_train)
     print regr.score(X_train, y_train)
     print regr.score(X_test, y_test)
@@ -205,6 +205,14 @@ def predict_cat(counts, regr, idx_to_cat, num_ingredients, ings):
     # Need to get accuracy for top 3 classes
     return idx_to_cat[pred_class], np.max(regr.predict_proba(inp))
 
+def print_predictions(inputs, outputs, regr, counts, limit=None):
+    for idx, inp in enumerate(inputs):
+        print '\n============================================' 
+        print 'Ingredients:', get_ingredients_from_vector(counts, inp)
+        print 'Predicted  :', 'Valid' if regr.predict(inp)[0]==1 else 'Invalid'
+        print 'Actual     :', 'Valid' if outputs[idx]==1 else 'Invalid'
+        if idx > limit:
+            break
  
 def main():
     num_ingredients = 1000
