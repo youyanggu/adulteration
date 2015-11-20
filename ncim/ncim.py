@@ -3,7 +3,8 @@ import pandas as pd
 
 folder = '../../Metathesaurus.RRF/META/'
 
-def gen_mrconso():
+def gen_raw_df():
+    # CUI/AUI
     cols = 'CUI | LAT | TS | LUI | STT | SUI | ISPREF | AUI | SAUI | SCUI | SDUI | SAB | TTY | CODE | STR | SRL | SUPPRESS | 18 | 19'.split(' | ')
     df = pd.read_csv(folder+'MRCONSO.RRF', sep='|', index_col=False, header=None, names=cols)
     df = df[['CUI', 'AUI', 'STR', 'SAB']]
@@ -11,21 +12,25 @@ def gen_mrconso():
     df = df.dropna(subset=['STR'])
     df.drop_duplicates(inplace=True)
     df.reset_index(drop=True, inplace=True)
-    df.to_hdf('mrconso.h5', 'mrconso', complib='blosc', complevel=5)
-    return df
+    #df.to_hdf('mrconso.h5', 'mrconso', complib='blosc', complevel=5)
+
+    # Semantic relationships
+    cols = ['CUI', 'TUI', 'STN', 'STY', 'ATUI', 'CVF', '6']
+    df_st = pd.read_csv(folder+'MRSTY.RRF', sep='|', index_col=False, header=None, names=cols)
+    del df_st['6']
+    #df_st.to_hdf('mrsty.h5', 'mrsty', complib='blosc', complevel=5)
+
+    # Relations
+    cols = ['CUI', 'AUI', 'CXN', 'PAUI', 'SAB', 'RELA', 'PTR', 'HCD', 'CVF', '10']
+    df_hier = pd.read_csv(folder+'MRHIER.RRF', sep='|', index_col=False, header=None, names=cols)
+    del df_hier['10']
+    #df_hier.to_hdf('mrhier.h5', 'mrhier', complib='blosc', complevel=5)
+
+    return df, df_st, df_hier
 
 df = pd.read_hdf('mrconso.h5', 'mrconso')
-
-# Semantic relationships
-cols = ['CUI', 'TUI', 'STN', 'STY', 'ATUI', 'CVF', '6']
-df_st = pd.read_csv(folder+'MRSTY.RRF', sep='|', index_col=False, header=None, names=cols)
-del df_st['6']
-
-# Relations
-cols = ['CUI', 'AUI', 'CXN', 'PAUI', 'SAB', 'RELA', 'PTR', 'HCD', 'CVF', '10']
-df_hier = pd.read_csv(folder+'MRHIER.RRF', sep='|', index_col=False, header=None, names=cols)
-del df_hier['10']
-
+df_st = pd.read_hdf('mrsty.h5', 'mrsty')
+df_hier = pd.read_hdf('mrhier.h5', 'mrhier')
 df_i = pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
 counts = df_i['ingredient'].value_counts()
 

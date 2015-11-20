@@ -6,6 +6,7 @@ import theano
 import theano.tensor as T
 
 from gather_data import *
+from utils import *
 
 theano.config.floatX = 'float32'
 

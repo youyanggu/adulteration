@@ -178,7 +178,7 @@ def gen_input_outputs(df, df_i, num_ingredients):
 
 def import_data():
     def add_columns(df, df_i):
-        df['ingredients_clean'] = get_ings_by_product(df, df_i)
+        df['ingredients_clean'] = ing_utils.get_ings_by_product(df, df_i)
         df['num_ingredients'] =  df['ingredients_clean'].apply(len)
         df['hier'] = df[['aisle', 'shelf', 'food_category']].values.tolist()
     df = pd.read_hdf('../foodessentials/products.h5', 'products')
