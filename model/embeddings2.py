@@ -11,6 +11,14 @@ from utils import *
 
 theano.config.floatX = 'float32'
 
+def get_batch(x_train, y_train, output_lens, idx, batch_size):
+    x = x_train[idx*batch_size : (idx+1)*batch_size]
+    y = y_train[idx*batch_size : (idx+1)*batch_size]
+    z = output_lens[idx*batch_size : (idx+1)*batch_size]
+    if scipy.sparse.issparse(y):
+        y = y.toarray()
+    return x, y, z
+
 def load_data(x, y, z):
     def shared_dataset(x, borrow=True):
         shared_x = theano.shared(np.asarray(x.astype('int32'),
@@ -129,7 +137,7 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
            learning_rate, L2_reg, n_epochs, batch_size, rng):
     print 'Building model'
 
-    x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
+    #x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
 
     index = T.iscalar()  # index to a [mini]batch
     x = T.ivector('x')
@@ -140,10 +148,10 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
     out_len = T.ivector('out_len')
 
     if batch_size is None:
-        batch_size = x_train.get_value(borrow=True).shape[0]
+        batch_size = x_train.shape[0]
         n_train_batches = 1
     else:
-        n_train_batches = x_train.get_value(borrow=True).shape[0] / batch_size
+        n_train_batches = x_train.shape[0] / batch_size
 
     classifier = NN(
         rng=rng,
@@ -163,21 +171,21 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
     ]
         
     train_model = theano.function(
-        inputs=[index],
+        inputs=[x, y, out_len],
         outputs=cost,
         updates=updates,
-        givens={
-            x: x_train[index * batch_size: (index + 1) * batch_size],
-            y: y_train[index * batch_size: (index + 1) * batch_size],
-            out_len: output_lens[index * batch_size: (index + 1) * batch_size]
-        }
+        #givens={
+        #    x: x_train[index * batch_size: (index + 1) * batch_size],
+        #    y: y_train[index * batch_size: (index + 1) * batch_size],
+        #    out_len: output_lens[index * batch_size: (index + 1) * batch_size]
+        #}
     )
     predict_model = theano.function(
-        inputs=[],
+        inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        givens={
-            x: x_train,
-        }
+        #givens={
+        #    x: x_train,
+        #}
     )
     print 'Training'
 
@@ -188,8 +196,11 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         epoch = epoch + 1
         print epoch
         costs = []
-        for minibatch_index in xrange(n_train_batches):
-            ret = train_model(minibatch_index)
+        for idx in xrange(n_train_batches):
+            #ret = train_model(idx)
+            x_train_, y_train_, output_lens_ = get_batch(
+                    x_train, y_train, output_lens, idx, batch_size)
+            ret = train_model(x_train_, y_train_, output_lens_)
             #print ret
             costs.append(ret)
         print np.array(costs).mean()
@@ -200,7 +211,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         #print classifier.outputLayer.b.get_value()
 
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
-    pred = predict_model()
+    #pred = predict_model(x_train)
+    pred = None
 
     return classifier, pred
 
@@ -283,6 +295,8 @@ def load_input_outputs():
     return inputs, outputs, output_lens
 
 def default_args():
+    df, df_i = import_data()
+    counts = df_i['ingredient'].value_counts()
     num_ingredients=120
     m=100
     input_size=100
@@ -295,6 +309,7 @@ def default_args():
     max_output_len=None
     max_rotations=None
     random_rotate=False
+    rng=np.random.RandomState(seed)
 
 
 def run_nn_helper(df, counts, 
@@ -309,9 +324,11 @@ def run_nn_helper(df, counts,
     else:
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
-    new_inputs = np.array([np.where(i==1)[0][0] for i in inputs]) ### NEW ADDITION
+    inputs, outputs, output_lens = (inputs.astype('int32'), 
+                        outputs.astype('int32'), 
+                        output_lens.astype('int32'))
 
-    classifier, pred = run_nn(new_inputs, outputs, output_lens, 
+    classifier, pred = run_nn(inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
                         m=m, 
                         input_size=input_size,
@@ -327,30 +344,15 @@ def run_nn_helper(df, counts,
     print_nearest_neighbors(counts.index.values, ranks_all, 3)
     return ranks_all
 
-    # Cooccurance r^2
-    #ranks_coocc = get_coocc_ranks()
-    #pred_coocc = calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10)
-    #print "Average r^2:", np.array([i[0]**2 for i in pred_coocc.values()]).mean()
-
-    # Kind of useless since nearest neighbors don't correlate with cooccurance.
-    #r2s = []
-    #for i in range(num_ingredients):
-    #    r2s.append(np.corrcoef(ranks_all[i], ranks_coocc[i])[0,1]**2)
-
-    # Nearest cooccurance
-    #for i in range(num_ingredients):
-    #    nn = np.argsort(ranks_coocc[i])[::-1][1:4]
-    #    print '{} --> {}'.format(ing_names[i], ing_names[nn])
-
 def main():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
+    params['m'] = 100
     #params['use_npy'] = True
-    #params['m'] = 100
     #params['seed'] = range(3)
-    params['num_ingredients'] = 5000
+    #params['num_ingredients'] = 5000
 
     for k,v in params.iteritems():
         if type(v) != list:

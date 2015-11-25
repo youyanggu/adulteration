@@ -144,11 +144,18 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
             inputs.append(get_index(v[0]))
             v_sum = np.sum(v[1:max_output_len], axis=0)
             v_sum = (v_sum>0).astype(int) # convert to 0 and 1's
-            outputs_ = scipy.sparse.csr(v_sum)
+            if num_ingredients>200:
+                outputs_ = scipy.sparse.csr_matrix(v_sum)
+            else:
+                outputs_ = v_sum
             outputs.append(outputs_)
         counter += 1
     assert(len(inputs)==len(outputs)==len(output_lens_new))
-    return np.array(inputs), np.array(outputs), np.array(output_lens_new)
+    if scipy.sparse.issparse(outputs[0]):
+        outputs = scipy.sparse.vstack(outputs)
+    else:
+        outputs = np.array(outputs)
+    return np.array(inputs), outputs, np.array(output_lens_new)
 
 def import_data():
     def add_columns(df, df_i):
