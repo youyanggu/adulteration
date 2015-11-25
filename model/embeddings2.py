@@ -260,6 +260,22 @@ def get_counts(inputs):
         d[i] = (j, int(s[i]))
     return d
 
+def print_nearest_neighbors(ing_names, ranks, top_n=3):
+    for i in range(ranks.shape[0]):
+        nearest_neighbors = np.argsort(ranks[i])
+        print '{} --> {}'.format(ing_names[i], ing_names[nearest_neighbors[1:top_n+1]])
+
+def get_nearest_neighbors(embeddings):
+    num_ingredients = embeddings.shape[0]
+    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
+    neigh.fit(embeddings)
+    ranks_all = []
+    for i in range(num_ingredients):
+        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
+        ranks = np.argsort(nearest_neighbors)
+        ranks_all.append(ranks)
+    return np.array(ranks_all)
+
 def load_input_outputs():
     inputs = np.load('inputs.npy')
     outputs = np.load('outputs.npy')
@@ -267,7 +283,7 @@ def load_input_outputs():
     return inputs, outputs, output_lens
 
 def default_args():
-    num_ingredients=100
+    num_ingredients=120
     m=100
     input_size=100
     learning_rate=0.05
@@ -278,19 +294,21 @@ def default_args():
     use_npy=False
     max_output_len=None
     max_rotations=None
+    random_rotate=False
 
 
-def run_nn_helper(num_ingredients=100, m=100, input_size=100,
+def run_nn_helper(df, counts, 
+         num_ingredients=120, m=100, input_size=100,
          learning_rate=0.05, L2_reg=0.001,
          n_epochs=10, batch_size=100, seed=3, 
-         use_npy=False, max_output_len=None, max_rotations=None, **kwargs):
+         use_npy=False, 
+         max_output_len=None, max_rotations=None, random_rotate=False,
+         **kwargs):
     if use_npy:
         inputs, outputs, output_lens = load_input_outputs()
     else:
-        df, df_i = import_data()
-        counts = df_i['ingredient'].value_counts()
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
-                counts, num_ingredients, max_output_len, max_rotations)
+                counts, num_ingredients, max_output_len, max_rotations, random_rotate)
     new_inputs = np.array([np.where(i==1)[0][0] for i in inputs]) ### NEW ADDITION
 
     classifier, pred = run_nn(new_inputs, outputs, output_lens, 
@@ -305,23 +323,14 @@ def run_nn_helper(num_ingredients=100, m=100, input_size=100,
                         )
 
     embeddings = classifier.inp_all.get_value()
-    
-    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
-    neigh.fit(embeddings)
-    ing_names = counts.index.values
-    ranks_all = []
-    for i in range(num_ingredients):
-        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
-        ranks = np.argsort(nearest_neighbors)
-        ranks_all.append(ranks)
-        print '{} --> {}'.format(ing_names[i],
-            ing_names[neigh.kneighbors(embeddings[i])[1][0][1:4]])
-    ranks_all = np.array(ranks_all)
+    ranks_all = get_nearest_neighbors(embeddings)
+    print_nearest_neighbors(counts.index.values, ranks_all, 3)
+    return ranks_all
 
-    ranks_coocc = get_coocc_ranks()
-
-    pred_coocc = calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10)
-    print "Average r^2:", np.array([i[0]**2 for i in pred_coocc.values()]).mean()
+    # Cooccurance r^2
+    #ranks_coocc = get_coocc_ranks()
+    #pred_coocc = calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10)
+    #print "Average r^2:", np.array([i[0]**2 for i in pred_coocc.values()]).mean()
 
     # Kind of useless since nearest neighbors don't correlate with cooccurance.
     #r2s = []
@@ -334,13 +343,32 @@ def run_nn_helper(num_ingredients=100, m=100, input_size=100,
     #    print '{} --> {}'.format(ing_names[i], ing_names[nn])
 
 def main():
+    df, df_i = import_data()
+    counts = df_i['ingredient'].value_counts()
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
-    params = {'use_npy' : [False]}
-    params['m'] = [100]
+    params = {}
+    #params['use_npy'] = True
+    #params['m'] = 100
+    #params['seed'] = range(3)
+    params['num_ingredients'] = 5000
 
+    for k,v in params.iteritems():
+        if type(v) != list:
+            params[k] = [v]
+
+    iterations = 0
+    total_ranks = None
     for param in my_product(params):
         print param
-        run_nn_helper(**param)
+        iterations += 1
+        ranks_all = run_nn_helper(df, counts, **param)
+        if total_ranks is None:
+            total_ranks = ranks_all
+        else:
+            total_ranks += ranks_all
+    avg_rank = total_ranks / iterations
+    print '========================================================='
+    print_nearest_neighbors(counts.index.values, avg_rank, 3)
 
 
 if __name__ == '__main__':

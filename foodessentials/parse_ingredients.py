@@ -27,7 +27,7 @@ def standardize_ingredient(s):
        return ''
     if s in ['dried', 'live', 'active cultures', 'organic', 'if colored', 
              'colored with', 'topping', 'or less of', 'from milk', 
-             'distilled', 'vitamins', 'minerals', 'added']:
+             'distilled', 'vitamins', 'minerals', 'added', 'no msg']:
          return ''
     if s.startswith('b') and len(s)<=3:
          try:

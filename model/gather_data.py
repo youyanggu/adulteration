@@ -3,6 +3,7 @@ import sys
 
 import numpy as np
 import pandas as pd
+import scipy
 
 sys.path.append('../foodessentials')
 import ing_utils
@@ -92,6 +93,9 @@ def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
 
 ### EMBEDDINGS ###
 
+def get_index(vec):
+    return np.where(vec==1)[0][0]
+
 def gen_onehot_vectors(ings, num_ingredients):
     """Returns a dictionary mapping the name to one-hot vector representation."""
     d = {}
@@ -106,7 +110,7 @@ def convert_ingredient_list(ing_list, d):
     return [d[i] for i in ing_list if i in d]
 
 def gen_input_outputs(ingredients_clean, counts, num_ingredients, 
-                      max_output_len=None, max_rotations=None):
+                      max_output_len=None, max_rotations=None, random_rotate=False):
     counts = counts[:num_ingredients]
     d = gen_onehot_vectors(counts.index.values, num_ingredients)
 
@@ -131,22 +135,18 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
         for i in range(l):
             if max_rotations and i >= max_rotations:
                 break # only do top x ingredients
-            #output_lens_new.append(l-1)
+            if random_rotate:
+                v = np.roll(v, np.random.randint(l), axis=0)
+            elif i>0:
+                v = np.roll(v, -1, axis=0)
             output_lens_new.append(min(l, max_output_len)-1)
             assert(v[0].sum()==1)
-            inputs.append(v[0])
-            outputs_ = np.sum(v[1:max_output_len], axis=0)
-            #outputs_ = []
-            #for j in range(1, max_output_len):
-            #    if j < l:
-            #        assert(v[j].sum()==1)
-            #        outputs_.append(v[j])
-            #    else:
-            #        outputs_.append(np.zeros(num_ingredients))
+            inputs.append(get_index(v[0]))
+            v_sum = np.sum(v[1:max_output_len], axis=0)
+            v_sum = (v_sum>0).astype(int) # convert to 0 and 1's
+            outputs_ = scipy.sparse.csr(v_sum)
             outputs.append(outputs_)
-            v = np.roll(v, -1, axis=0)
         counter += 1
-
     assert(len(inputs)==len(outputs)==len(output_lens_new))
     return np.array(inputs), np.array(outputs), np.array(output_lens_new)
 
