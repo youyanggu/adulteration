@@ -92,35 +92,6 @@ def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
 
 ### EMBEDDINGS ###
 
-def get_coocc_ranks():
-    coocc = np.load('cooccurance.npy')
-    coocc_sym = coocc*coocc.T
-    ranks_all = []
-    for i in range(coocc.shape[0]):
-        rank = np.searchsorted(coocc_sym[i], coocc_sym[i], sorter=np.argsort(coocc_sym[i]))
-        ranks_all.append(rank)
-    return np.array(ranks_all)
-
-def get_cooccurance_prob(ing1, ing2, df, df_i):
-    prods1 = ing_utils.find_products_by_ing(ing1, df=df, df_i=df_i)
-    counts1 = prods1.ingredients_clean.map(lambda x: ing2 in x).sum()
-    prob1 = counts1*1.0/len(prods1)
-    prods2 = ing_utils.find_products_by_ing(ing2, df=df, df_i=df_i)
-    counts2 = prods2.ingredients_clean.map(lambda x: ing1 in x).sum()
-    prob2 = counts2*1.0/len(prods2)
-    return prob1, prob2
-
-def get_cooccurance_matrix(ing_list):
-    matrix = np.eye(len(ing_list))
-    df, df_i = import_data()
-    for i,j in itertools.combinations(range(len(ing_list)), 2):
-        print ing_list[i], ing_list[j]
-        prob1, prob2 = get_cooccurance_prob(ing_list[i], ing_list[j], df, df_i)
-        print prob1, prob2
-        matrix[i,j] = prob1
-        matrix[j,i] = prob2
-    return matrix
-
 def gen_onehot_vectors(ings, num_ingredients):
     """Returns a dictionary mapping the name to one-hot vector representation."""
     d = {}
@@ -131,16 +102,16 @@ def gen_onehot_vectors(ings, num_ingredients):
     return d
 
 def convert_ingredient_list(ing_list, d):
+    """Return one-hot representation of a list of ingredients."""
     return [d[i] for i in ing_list if i in d]
 
-def gen_input_outputs(df, df_i, num_ingredients):
-    counts = df_i['ingredient'].value_counts()
+def gen_input_outputs(ingredients_clean, counts, num_ingredients, 
+                      max_output_len=None, max_rotations=None):
     counts = counts[:num_ingredients]
     d = gen_onehot_vectors(counts.index.values, num_ingredients)
 
     vectors = []
-    ingredients_clean = df['ingredients_clean'].values
-    for idx in range(len(df)):
+    for idx in range(len(ingredients_clean)):
         l = convert_ingredient_list(ingredients_clean[idx], d)
         vectors.append(l)
     print len(vectors)
@@ -149,6 +120,7 @@ def gen_input_outputs(df, df_i, num_ingredients):
     inputs = []
     outputs = []
     counter = 0
+    max_output_len = output_lens.max() if max_output_len is None else max_output_len+1
     for v in vectors:
         l = len(v)
         if l < 2:
@@ -157,18 +129,20 @@ def gen_input_outputs(df, df_i, num_ingredients):
         if counter % 1000 == 1:
             print counter
         for i in range(l):
-            if i >= 2:
+            if max_rotations and i >= max_rotations:
                 break # only do top x ingredients
-            output_lens_new.append(l-1)
+            #output_lens_new.append(l-1)
+            output_lens_new.append(min(l, max_output_len)-1)
             assert(v[0].sum()==1)
-            inputs.append(v[0]) # simple for now
-            outputs_ = []
-            for j in range(1, output_lens.max()):
-                if j < l:
-                    assert(v[j].sum()==1)
-                    outputs_.append(v[j])
-                else:
-                    outputs_.append(np.zeros(num_ingredients))
+            inputs.append(v[0])
+            outputs_ = np.sum(v[1:max_output_len], axis=0)
+            #outputs_ = []
+            #for j in range(1, max_output_len):
+            #    if j < l:
+            #        assert(v[j].sum()==1)
+            #        outputs_.append(v[j])
+            #    else:
+            #        outputs_.append(np.zeros(num_ingredients))
             outputs.append(outputs_)
             v = np.roll(v, -1, axis=0)
         counter += 1

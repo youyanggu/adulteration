@@ -217,7 +217,7 @@ def print_predictions(inputs, outputs, regr, idx_to_cat, counts, limit=None):
  
 def main():
     num_ingredients = 1000
-    output_cat = 'shelf'
+    output_cat = 'food_category'
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     inputs, outputs, idx_to_cat = gen_input_outputs_cat(

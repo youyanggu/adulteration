@@ -7,6 +7,10 @@ def save_regr(regr, fname):
     with open(fname, 'wb') as f:
         pickle.dump(regr, f)
 
+def load_regr(fname):
+    with open(fname, 'rb') as f:
+        return pickle.load(f)
+
 def print_full(x):
     pd.set_option('display.max_rows', len(x))
     print x

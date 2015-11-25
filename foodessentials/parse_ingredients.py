@@ -21,11 +21,13 @@ def standardize_ingredient(s):
              ]:
          return ''
     """
+    if s.startswith('from '):
+       s = s.replace('from ', '')
     if s.startswith('a ') or s.startswith('an '):
        return ''
     if s in ['dried', 'live', 'active cultures', 'organic', 'if colored', 
              'colored with', 'topping', 'or less of', 'from milk', 
-             'distilled', 'vitamins', 'minerals']:
+             'distilled', 'vitamins', 'minerals', 'added']:
          return ''
     if s.startswith('b') and len(s)<=3:
          try:
@@ -114,11 +116,16 @@ def parse_ingredients(s):
                    'contains one or more of',
                    'contains one more of',
                    'contains',
+                   'contain 2% or less of',
+                   'contain less than 2% of',
+                   'contain 2% or less of the following',
                    'contain:',
+                   'may contain one or more of the following',
                    '2% or less of',
                    '2% less of',
                    'less than 2% of',
                    'less than 2%',
+                   'less than 0.5% of',
                    'more of the following',
                    'each of the following',
                    'the following',

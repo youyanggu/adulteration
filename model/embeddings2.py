@@ -85,11 +85,20 @@ class HiddenLayer(object):
 
 
 class NN(object):
-    def __init__(self, rng, inp, n_in, m, n_out):
-        self.inp = inp
+    def __init__(self, rng, inp_idx, n_in, m, n_out, inp_all=None):
+        if inp_all is None:
+            inp_all_values = np.asarray(
+                #rng.uniform(low=-1, high=1, size=(n_out, n_in)), dtype=theano.config.floatX
+                np.zeros((n_out, n_in), dtype=theano.config.floatX)
+            )
+            print inp_all_values[0]
+            inp_all = theano.shared(value=inp_all_values, name='inp_all', borrow=True)
+        self.inp_all = inp_all
+
+        self.inp = inp_all[inp_idx]
         self.hiddenLayer = HiddenLayer(
             rng=rng,
-            inp=inp,
+            inp=self.inp,
             n_in=n_in,
             n_out=m,
             activation=T.nnet.sigmoid
@@ -100,7 +109,8 @@ class NN(object):
             n_out=n_out
         )
         self.L2 = (
-            (self.hiddenLayer.W ** 2).sum()
+            (self.inp_all ** 2).sum()
+            + (self.hiddenLayer.W ** 2).sum()
             + (self.hiddenLayer.b ** 2).sum()
             + (self.outputLayer.W ** 2).sum()
             + (self.outputLayer.b ** 2).sum()
@@ -111,18 +121,19 @@ class NN(object):
         self.t2 = self.outputLayer.t2
         self.errors = self.outputLayer.errors
 
-        self.params = self.hiddenLayer.params + self.outputLayer.params
+        self.params = [self.inp_all] + self.hiddenLayer.params + self.outputLayer.params
         
 
 
-def run_nn(x_train, y_train, output_lens, num_ingredients, m, 
+def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
            learning_rate, L2_reg, n_epochs, batch_size, rng):
     print 'Building model'
 
     x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
 
     index = T.iscalar()  # index to a [mini]batch
-    x = T.imatrix('x')  # the data is presented as rasterized images
+    x = T.ivector('x')
+    #x = T.imatrix('x')  # the data is presented as rasterized images
     #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
     y = T.imatrix('y')
     #y = T.itensor3('y')
@@ -136,8 +147,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
 
     classifier = NN(
         rng=rng,
-        inp=x,
-        n_in=num_ingredients,
+        inp_idx=x,
+        n_in=input_size,
         m=m,
         n_out=num_ingredients,
     )
@@ -183,6 +194,7 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
             costs.append(ret)
         print np.array(costs).mean()
         print classifier.hiddenLayer.W.get_value()[0]
+        print classifier.inp_all.get_value()[0]
         #print classifier.hiddenLayer.b.get_value()
         #print classifier.outputLayer.W.get_value()[0]
         #print classifier.outputLayer.b.get_value()
@@ -267,7 +279,9 @@ def default_args():
     max_output_len=None
     max_rotations=None
 
-def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
+
+def run_nn_helper(num_ingredients=100, m=100, input_size=100,
+         learning_rate=0.05, L2_reg=0.001,
          n_epochs=10, batch_size=100, seed=3, 
          use_npy=False, max_output_len=None, max_rotations=None, **kwargs):
     if use_npy:
@@ -277,10 +291,12 @@ def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
         counts = df_i['ingredient'].value_counts()
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations)
+    new_inputs = np.array([np.where(i==1)[0][0] for i in inputs]) ### NEW ADDITION
 
-    classifier, pred = run_nn(inputs, outputs, output_lens, 
+    classifier, pred = run_nn(new_inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
                         m=m, 
+                        input_size=input_size,
                         learning_rate=learning_rate, 
                         L2_reg=L2_reg,
                         n_epochs=n_epochs, 
@@ -288,9 +304,8 @@ def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
                         rng=np.random.RandomState(seed)
                         )
 
-    embeddings = classifier.hiddenLayer.W.get_value()
+    embeddings = classifier.inp_all.get_value()
     
-
     neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
     neigh.fit(embeddings)
     ing_names = counts.index.values
@@ -320,8 +335,8 @@ def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
 
 def main():
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
-    params = {}
-    params['m'] = [10]
+    params = {'use_npy' : [False]}
+    params['m'] = [100]
 
     for param in my_product(params):
         print param
