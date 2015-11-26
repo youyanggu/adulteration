@@ -7,6 +7,7 @@ import theano
 import theano.tensor as T
 
 from gather_data import *
+from scoring import *
 from utils import *
 
 theano.config.floatX = 'float32'
@@ -194,9 +195,11 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
     epoch = 0
     while epoch < n_epochs:
         epoch = epoch + 1
-        print epoch
+        print '---------------------'
+        print 'Epoch #', epoch
         costs = []
         for idx in xrange(n_train_batches):
+            #print idx
             #ret = train_model(idx)
             x_train_, y_train_, output_lens_ = get_batch(
                     x_train, y_train, output_lens, idx, batch_size)
@@ -209,6 +212,13 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         #print classifier.hiddenLayer.b.get_value()
         #print classifier.outputLayer.W.get_value()[0]
         #print classifier.outputLayer.b.get_value()
+
+        embeddings = classifier.inp_all.get_value()
+        ranks_all = get_nearest_neighbors(embeddings)
+        score, perfect_score, random_score = calc_score(ranks_all, num_ingredients)
+        print score[np.isfinite(score)].mean()
+        print perfect_score[np.isfinite(perfect_score)].mean()
+        print random_score[np.isfinite(random_score)].mean()
 
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
     #pred = predict_model(x_train)
@@ -288,10 +298,19 @@ def get_nearest_neighbors(embeddings):
         ranks_all.append(ranks)
     return np.array(ranks_all)
 
-def load_input_outputs():
-    inputs = np.load('inputs.npy')
-    outputs = np.load('outputs.npy')
-    output_lens = np.load('output_lens.npy')
+def save_input_outputs(inputs, outputs, output_lens, suffix=''):
+    if suffix:
+        suffix = '_' + suffix
+    np.save('inputs{}.npy'.format(suffix), inputs)
+    np.save('outputs{}.npy'.format(suffix), outputs)
+    np.save('output_lens{}.npy'.format(suffix), output_lens)
+
+def load_input_outputs(suffix=''):
+    if suffix:
+        suffix = '_' + suffix
+    inputs = np.load('inputs{}.npy'.format(suffix))
+    outputs = np.load('outputs{}.npy'.format(suffix))
+    output_lens = np.load('output_lens{}.npy'.format(suffix))
     return inputs, outputs, output_lens
 
 def default_args():
@@ -349,21 +368,32 @@ def main():
     counts = df_i['ingredient'].value_counts()
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
-    params['m'] = 100
-    #params['use_npy'] = True
+    params['num_ingredients'] = 5000 # must be here
+    params['use_npy'] = True
+    params['learning_rate'] = 0.1
+    params['m'] = 1000
     #params['seed'] = range(3)
-    #params['num_ingredients'] = 5000
+    params['batch_size'] = 5000
+    params['input_size'] = 300
 
     for k,v in params.iteritems():
         if type(v) != list:
             params[k] = [v]
 
+    param_scores = {}
     iterations = 0
     total_ranks = None
     for param in my_product(params):
         print param
         iterations += 1
         ranks_all = run_nn_helper(df, counts, **param)
+        score, perfect_score, random_score = calc_score(ranks_all, 
+            param['num_ingredients'])
+        param_scores[tuple(sorted(param.items()))] = score.mean()
+        print score[np.isfinite(score)].mean()
+        print perfect_score[np.isfinite(perfect_score)].mean()
+        print random_score[np.isfinite(random_score)].mean()
+        #print score.mean(), perfect_score.mean(), random_score.mean()
         if total_ranks is None:
             total_ranks = ranks_all
         else:

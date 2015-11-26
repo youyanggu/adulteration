@@ -130,7 +130,7 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
         if l < 2:
             counter += 1
             continue
-        if counter % 1000 == 1:
+        if counter % 1000 == 0:
             print counter
         for i in range(l):
             if max_rotations and i >= max_rotations:
@@ -143,7 +143,7 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
             assert(v[0].sum()==1)
             inputs.append(get_index(v[0]))
             v_sum = np.sum(v[1:max_output_len], axis=0)
-            v_sum = (v_sum>0).astype(int) # convert to 0 and 1's
+            #v_sum = (v_sum>0).astype(int) # if duplicates
             if num_ingredients>200:
                 outputs_ = scipy.sparse.csr_matrix(v_sum)
             else:
@@ -153,6 +153,7 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
     assert(len(inputs)==len(outputs)==len(output_lens_new))
     if scipy.sparse.issparse(outputs[0]):
         outputs = scipy.sparse.vstack(outputs)
+        outputs = scipy.sparse.csr_matrix(outputs) # need to cast for old scipy
     else:
         outputs = np.array(outputs)
     return np.array(inputs), outputs, np.array(output_lens_new)
