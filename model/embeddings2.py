@@ -302,14 +302,17 @@ def save_input_outputs(inputs, outputs, output_lens, suffix=''):
     if suffix:
         suffix = '_' + suffix
     np.save('inputs{}.npy'.format(suffix), inputs)
-    np.save('outputs{}.npy'.format(suffix), outputs)
+    np.savez('outputs{}.npz'.format(suffix), data=outputs.data, 
+            indices=outputs.indices, indptr=outputs.indptr, shape=outputs.shape)
     np.save('output_lens{}.npy'.format(suffix), output_lens)
 
 def load_input_outputs(suffix=''):
     if suffix:
         suffix = '_' + suffix
     inputs = np.load('inputs{}.npy'.format(suffix))
-    outputs = np.load('outputs{}.npy'.format(suffix))
+    loader = np.load('outputs{}.npz'.format(suffix))
+    outputs = scipy.sparse.csr_matrix((loader['data'], 
+        loader['indices'], loader['indptr']), shape=loader['shape'])
     output_lens = np.load('output_lens{}.npy'.format(suffix))
     return inputs, outputs, output_lens
 
@@ -339,7 +342,7 @@ def run_nn_helper(df, counts,
          max_output_len=None, max_rotations=None, random_rotate=False,
          **kwargs):
     if use_npy:
-        inputs, outputs, output_lens = load_input_outputs()
+        inputs, outputs, output_lens = load_input_outputs(str(num_ingredients))
     else:
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
@@ -369,7 +372,7 @@ def main():
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
     params['num_ingredients'] = 5000 # must be here
-    params['use_npy'] = True
+    params['use_npy'] = False
     params['learning_rate'] = 0.1
     params['m'] = 1000
     #params['seed'] = range(3)

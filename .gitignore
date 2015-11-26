@@ -6,3 +6,4 @@ scratch.py
 *.bak
 *.pkl
 *.npy
+*.npz
