@@ -7,3 +7,4 @@ scratch.py
 *.pkl
 *.npy
 *.npz
+*.bin

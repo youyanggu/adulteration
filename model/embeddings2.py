@@ -216,9 +216,6 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         embeddings = classifier.inp_all.get_value()
         ranks_all = get_nearest_neighbors(embeddings)
         score, perfect_score, random_score = calc_score(ranks_all, num_ingredients)
-        print score[np.isfinite(score)].mean()
-        print perfect_score[np.isfinite(perfect_score)].mean()
-        print random_score[np.isfinite(random_score)].mean()
 
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
     #pred = predict_model(x_train)
@@ -346,9 +343,10 @@ def run_nn_helper(df, counts,
     else:
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
-    inputs, outputs, output_lens = (inputs.astype('int32'), 
-                        outputs.astype('int32'), 
-                        output_lens.astype('int32'))
+        inputs, outputs, output_lens = (inputs.astype('int32'), 
+                            outputs.astype('int32'), 
+                            output_lens.astype('int32'))
+        #save_input_outputs(inputs, outputs, output_lens, str(num_ingredients))
 
     classifier, pred = run_nn(inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
@@ -364,7 +362,7 @@ def run_nn_helper(df, counts,
     embeddings = classifier.inp_all.get_value()
     ranks_all = get_nearest_neighbors(embeddings)
     print_nearest_neighbors(counts.index.values, ranks_all, 3)
-    return ranks_all
+    return ranks_all, classifier
 
 def main():
     df, df_i = import_data()
@@ -389,13 +387,11 @@ def main():
     for param in my_product(params):
         print param
         iterations += 1
-        ranks_all = run_nn_helper(df, counts, **param)
+        ranks_all, classifier = run_nn_helper(df, counts, **param)
         score, perfect_score, random_score = calc_score(ranks_all, 
             param['num_ingredients'])
         param_scores[tuple(sorted(param.items()))] = score.mean()
-        print score[np.isfinite(score)].mean()
-        print perfect_score[np.isfinite(perfect_score)].mean()
-        print random_score[np.isfinite(random_score)].mean()
+        
         #print score.mean(), perfect_score.mean(), random_score.mean()
         if total_ranks is None:
             total_ranks = ranks_all
@@ -404,6 +400,12 @@ def main():
     avg_rank = total_ranks / iterations
     print '========================================================='
     print_nearest_neighbors(counts.index.values, avg_rank, 3)
+
+    score, perfect_score, random_score = calc_score(avg_rank, 
+            param['num_ingredients'])
+    #print score[np.isfinite(score)].mean()
+    #print perfect_score[np.isfinite(perfect_score)].mean()
+    #print random_score[np.isfinite(random_score)].mean()
 
 
 if __name__ == '__main__':

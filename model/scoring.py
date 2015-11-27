@@ -20,7 +20,7 @@ def get_scores():
     scores = df.as_matrix().T + df.as_matrix()
     return scores
 
-def calc_score(ranks, total_ings):
+def calc_score(ranks, total_ings, print_scores=True):
     scores = get_scores()
     n = scores.shape[0]
     ranks = ranks[:n, :n]
@@ -33,5 +33,10 @@ def calc_score(ranks, total_ings):
     avg_rankings = np.sum(scores*ranks, axis=1) / s
     perfect_avg_rankings = np.sum(scores_sorted*perfect_rankings, axis=1) / s
     random_avg_rankings = np.sum(scores*gen_random_ranks(n, total_ings), axis=1) / s
+
+    if print_scores:
+        print avg_rankings[np.isfinite(avg_rankings)].mean()
+        print perfect_avg_rankings[np.isfinite(perfect_avg_rankings)].mean()
+        print random_avg_rankings[np.isfinite(random_avg_rankings)].mean()
 
     return avg_rankings, perfect_avg_rankings, random_avg_rankings
