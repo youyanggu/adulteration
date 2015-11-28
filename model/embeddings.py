@@ -7,9 +7,18 @@ import theano
 import theano.tensor as T
 
 from gather_data import *
+from scoring import *
 from utils import *
 
 theano.config.floatX = 'float32'
+
+def get_batch(x_train, y_train, output_lens, idx, batch_size):
+    x = x_train[idx*batch_size : (idx+1)*batch_size]
+    y = y_train[idx*batch_size : (idx+1)*batch_size]
+    z = output_lens[idx*batch_size : (idx+1)*batch_size]
+    if scipy.sparse.issparse(y):
+        y = y.toarray()
+    return x, y, z
 
 def load_data(x, y, z):
     def shared_dataset(x, borrow=True):
@@ -85,11 +94,20 @@ class HiddenLayer(object):
 
 
 class NN(object):
-    def __init__(self, rng, inp, n_in, m, n_out):
-        self.inp = inp
+    def __init__(self, rng, inp_idx, n_in, m, n_out, inp_all=None):
+        if inp_all is None:
+            inp_all_values = np.asarray(
+                rng.uniform(low=-1, high=1, size=(n_out, n_in)), dtype=theano.config.floatX
+                #np.zeros((n_out, n_in), dtype=theano.config.floatX)
+            )
+            print inp_all_values[0]
+            inp_all = theano.shared(value=inp_all_values, name='inp_all', borrow=True)
+        self.inp_all = inp_all
+
+        self.inp = inp_all[inp_idx]
         self.hiddenLayer = HiddenLayer(
             rng=rng,
-            inp=inp,
+            inp=self.inp,
             n_in=n_in,
             n_out=m,
             activation=T.nnet.sigmoid
@@ -100,7 +118,8 @@ class NN(object):
             n_out=n_out
         )
         self.L2 = (
-            (self.hiddenLayer.W ** 2).sum()
+            (self.inp_all ** 2).sum()
+            + (self.hiddenLayer.W ** 2).sum()
             + (self.hiddenLayer.b ** 2).sum()
             + (self.outputLayer.W ** 2).sum()
             + (self.outputLayer.b ** 2).sum()
@@ -111,33 +130,34 @@ class NN(object):
         self.t2 = self.outputLayer.t2
         self.errors = self.outputLayer.errors
 
-        self.params = self.hiddenLayer.params + self.outputLayer.params
+        self.params = [self.inp_all] + self.hiddenLayer.params + self.outputLayer.params
         
 
 
-def run_nn(x_train, y_train, output_lens, num_ingredients, m, 
+def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
            learning_rate, L2_reg, n_epochs, batch_size, rng):
     print 'Building model'
 
-    x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
+    #x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
 
     index = T.iscalar()  # index to a [mini]batch
-    x = T.imatrix('x')  # the data is presented as rasterized images
+    x = T.ivector('x')
+    #x = T.imatrix('x')  # the data is presented as rasterized images
     #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
     y = T.imatrix('y')
     #y = T.itensor3('y')
     out_len = T.ivector('out_len')
 
     if batch_size is None:
-        batch_size = x_train.get_value(borrow=True).shape[0]
+        batch_size = x_train.shape[0]
         n_train_batches = 1
     else:
-        n_train_batches = x_train.get_value(borrow=True).shape[0] / batch_size
+        n_train_batches = x_train.shape[0] / batch_size
 
     classifier = NN(
         rng=rng,
-        inp=x,
-        n_in=num_ingredients,
+        inp_idx=x,
+        n_in=input_size,
         m=m,
         n_out=num_ingredients,
     )
@@ -152,21 +172,21 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
     ]
         
     train_model = theano.function(
-        inputs=[index],
+        inputs=[x, y, out_len],
         outputs=cost,
         updates=updates,
-        givens={
-            x: x_train[index * batch_size: (index + 1) * batch_size],
-            y: y_train[index * batch_size: (index + 1) * batch_size],
-            out_len: output_lens[index * batch_size: (index + 1) * batch_size]
-        }
+        #givens={
+        #    x: x_train[index * batch_size: (index + 1) * batch_size],
+        #    y: y_train[index * batch_size: (index + 1) * batch_size],
+        #    out_len: output_lens[index * batch_size: (index + 1) * batch_size]
+        #}
     )
     predict_model = theano.function(
-        inputs=[],
+        inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        givens={
-            x: x_train,
-        }
+        #givens={
+        #    x: x_train,
+        #}
     )
     print 'Training'
 
@@ -175,20 +195,37 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m,
     epoch = 0
     while epoch < n_epochs:
         epoch = epoch + 1
-        print epoch
+        print '---------------------'
+        print 'Epoch #', epoch
         costs = []
-        for minibatch_index in xrange(n_train_batches):
-            ret = train_model(minibatch_index)
+        for idx in xrange(n_train_batches):
+            #print idx
+            #ret = train_model(idx)
+            x_train_, y_train_, output_lens_ = get_batch(
+                    x_train, y_train, output_lens, idx, batch_size)
+            ret = train_model(x_train_, y_train_, output_lens_)
             #print ret
             costs.append(ret)
+        print "Learning rate:", learning_rate
+        learning_rate = max(0.005, learning_rate/2.)
+        updates = [
+                (param, param - learning_rate * gparam)
+                for param, gparam in zip(classifier.params, gparams)
+        ]
         print np.array(costs).mean()
         print classifier.hiddenLayer.W.get_value()[0]
+        print classifier.inp_all.get_value()[0]
         #print classifier.hiddenLayer.b.get_value()
         #print classifier.outputLayer.W.get_value()[0]
         #print classifier.outputLayer.b.get_value()
 
+        embeddings = classifier.inp_all.get_value()
+        ranks_all = get_nearest_neighbors(embeddings)
+        highest_rank, score, random_score = calc_score(ranks_all, num_ingredients)
+
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
-    pred = predict_model()
+    #pred = predict_model(x_train)
+    pred = None
 
     return classifier, pred
 
@@ -248,39 +285,100 @@ def get_counts(inputs):
         d[i] = (j, int(s[i]))
     return d
 
-def load_input_outputs():
-    inputs = np.load('inputs.npy')
-    outputs = np.load('outputs.npy')
-    output_lens = np.load('output_lens.npy')
+def print_nearest_neighbors(ing_names, ranks, top_n=3):
+    for i in range(ranks.shape[0]):
+        nearest_neighbors = np.argsort(ranks[i])
+        print '{} --> {}'.format(ing_names[i], ing_names[nearest_neighbors[1:top_n+1]])
+
+def get_nearest_neighbors(embeddings):
+    num_ingredients = embeddings.shape[0]
+    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
+    neigh.fit(embeddings)
+    ranks_all = []
+    for i in range(num_ingredients):
+        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
+        ranks = np.argsort(nearest_neighbors)
+        ranks_all.append(ranks)
+    return np.array(ranks_all)
+
+def save_input_outputs(inputs, outputs, output_lens, suffix=''):
+    if suffix:
+        suffix = '_' + str(suffix)
+    np.save('inputs{}.npy'.format(suffix), inputs)
+    np.savez('outputs{}.npz'.format(suffix), data=outputs.data, 
+            indices=outputs.indices, indptr=outputs.indptr, shape=outputs.shape)
+    np.save('output_lens{}.npy'.format(suffix), output_lens)
+
+def load_input_outputs(suffix=''):
+    if suffix:
+        suffix = '_' + str(suffix)
+    inputs = np.load('inputs{}.npy'.format(suffix))
+    loader = np.load('outputs{}.npz'.format(suffix))
+    outputs = scipy.sparse.csr_matrix((loader['data'], 
+        loader['indices'], loader['indptr']), shape=loader['shape'])
+    output_lens = np.load('output_lens{}.npy'.format(suffix))
     return inputs, outputs, output_lens
 
+def save_embeddings(embeddings, suffix=''):
+    fname = 'embeddings_{}.npy'.format(suffix)
+    np.save(fname, embeddings)
+
+def load_embeddings(suffix=''):
+    fname = 'embeddings_{}.npy'.format(suffix)
+    return np.load(fname)
+
+def print_embeddings(ings, embeddings):
+    for i,v in enumerate(ings):
+        print v
+        print embeddings[i]
+
 def default_args():
-    num_ingredients=100
-    m=100
-    input_size=100
-    learning_rate=0.05
-    L2_reg=0.001
+    df, df_i = import_data()
+    counts = df_i['ingredient'].value_counts()
+    num_ingredients=120
+    m=20
+    input_size=10
+    learning_rate=0.1
+    L2_reg=0.0005
     n_epochs=10
     batch_size=100
     seed=3
     use_npy=False
-    max_output_len=None
-    max_rotations=None
+    max_output_len=4
+    max_rotations=5
+    random_rotate=True
+    rng=np.random.RandomState(seed)
 
-def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
+
+def run_nn_helper(df, counts, 
+         num_ingredients=120, m=20, input_size=10,
+         learning_rate=0.1, L2_reg=0.0005,
          n_epochs=10, batch_size=100, seed=3, 
-         use_npy=False, max_output_len=None, max_rotations=None, **kwargs):
+         use_npy=False, 
+         max_output_len=4, max_rotations=5, random_rotate=True,
+         **kwargs):
     if use_npy:
-        inputs, outputs, output_lens = load_input_outputs()
+        inputs, outputs, output_lens = load_input_outputs(str(num_ingredients))
     else:
-        df, df_i = import_data()
-        counts = df_i['ingredient'].value_counts()
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
-                counts, num_ingredients, max_output_len, max_rotations)
+                counts, num_ingredients, max_output_len, max_rotations, random_rotate)
+        inputs, outputs, output_lens = (inputs.astype('int32'), 
+                            outputs.astype('int32'), 
+                            output_lens.astype('int32'))
+        #save_input_outputs(inputs, outputs, output_lens, str(num_ingredients))
+
+    print "# of data points:", len(inputs)
+    # Randomize inputs
+    np.random.seed(seed)
+    random_idx = np.random.permutation(len(inputs))
+    inputs = inputs[random_idx]
+    outputs = outputs[random_idx]
+    output_lens = output_lens[random_idx]
 
     classifier, pred = run_nn(inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
                         m=m, 
+                        input_size=input_size,
                         learning_rate=learning_rate, 
                         L2_reg=L2_reg,
                         n_epochs=n_epochs, 
@@ -288,45 +386,69 @@ def run_nn_helper(num_ingredients=100, m=100, learning_rate=0.05, L2_reg=0.001,
                         rng=np.random.RandomState(seed)
                         )
 
-    embeddings = classifier.hiddenLayer.W.get_value()
-    
-
-    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
-    neigh.fit(embeddings)
-    ing_names = counts.index.values
-    ranks_all = []
-    for i in range(num_ingredients):
-        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
-        ranks = np.argsort(nearest_neighbors)
-        ranks_all.append(ranks)
-        print '{} --> {}'.format(ing_names[i],
-            ing_names[neigh.kneighbors(embeddings[i])[1][0][1:4]])
-    ranks_all = np.array(ranks_all)
-
-    ranks_coocc = get_coocc_ranks()
-
-    pred_coocc = calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10)
-    print "Average r^2:", np.array([i[0]**2 for i in pred_coocc.values()]).mean()
-
-    # Kind of useless since nearest neighbors don't correlate with cooccurance.
-    #r2s = []
-    #for i in range(num_ingredients):
-    #    r2s.append(np.corrcoef(ranks_all[i], ranks_coocc[i])[0,1]**2)
-
-    # Nearest cooccurance
-    #for i in range(num_ingredients):
-    #    nn = np.argsort(ranks_coocc[i])[::-1][1:4]
-    #    print '{} --> {}'.format(ing_names[i], ing_names[nn])
+    embeddings = classifier.inp_all.get_value()
+    ranks_all = get_nearest_neighbors(embeddings)
+    print_nearest_neighbors(counts.index.values, ranks_all, 3)
+    return ranks_all, classifier
 
 def main():
+    df, df_i = import_data()
+    counts = df_i['ingredient'].value_counts()
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
-    params['m'] = [10]
 
+    # one must be here
+    #params['num_ingredients'] = 5000
+    params['num_ingredients'] = 1000
+
+    params['use_npy'] = True
+    #params['learning_rate'] = 0.1
+    #params['L2_reg'] = 0.0005
+    params['m'] = 20
+    params['input_size'] = 20
+    params['seed'] = 3
+    params['n_epochs'] = 5
+    params['batch_size'] = 200
+    params['max_output_len'] = 8
+    params['max_rotations'] = 10
+    #params['random_rotate'] = True
+
+    for k,v in params.iteritems():
+        if type(v) != list:
+            params[k] = [v]
+
+    param_scores = {}
+    iterations = 0
+    total_ranks = None
     for param in my_product(params):
-        print param
-        run_nn_helper(**param)
+        print '==========================================='
+        for k in param:
+            if len(params[k]) > 1:
+                print '{} : {}'.format(k, param[k])
+        iterations += 1
+        ranks_all, classifier = run_nn_helper(df, counts, **param)
+        highest_rank, score, random_score = calc_score(ranks_all, 
+            param['num_ingredients'], print_scores=False)
+        #param_scores[tuple(sorted(param.items()))] = score.mean()
+        
+        if total_ranks is None:
+            total_ranks = ranks_all
+        else:
+            total_ranks += ranks_all
+    if iterations > 1:
+        #print param_scores
+        avg_rank = total_ranks / iterations
+        print '\n==========================================================='
+        print '==========================================================='
+        print_nearest_neighbors(counts.index.values, avg_rank, 3)
+        highest_rank, score, random_score = calc_score(avg_rank, 
+                param['num_ingredients'])
 
+    # Only use the last param's weights for now.
+    #num_ingredients = params['num_ingredients'][-1]
+    #embeddings = classifier.inp_all.get_value()
+    #save_embeddings(embeddings, num_ingredients)
+    #print_embeddings(counts.index.values[:num_ingredients], embeddings)
 
 if __name__ == '__main__':
     main()
