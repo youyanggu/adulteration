@@ -124,7 +124,8 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
     inputs = []
     outputs = []
     counter = 0
-    max_output_len = output_lens.max() if max_output_len is None else max_output_len+1
+    if max_output_len is None:
+        max_output_len = output_lens.max()-1
     for v in vectors:
         l = len(v)
         if l < 2:
@@ -139,10 +140,17 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
                 v = np.roll(v, np.random.randint(l), axis=0)
             elif i>0:
                 v = np.roll(v, -1, axis=0)
-            output_lens_new.append(min(l, max_output_len)-1)
+            output_lens_new.append(min(l-1, max_output_len))
             assert(v[0].sum()==1)
             inputs.append(get_index(v[0]))
-            v_sum = np.sum(v[1:max_output_len], axis=0)
+            v_sum = np.sum(v[1:max_output_len+1], axis=0)
+            #if max_output_len < l-1:
+            #    # Choose a subset of the ingredients.
+            #    indices = np.random.choice(np.arange(1,l), max_output_len, replace=False)
+            #    v_sum = np.sum(v[indices], axis=0)
+            #else:
+            #    v_sum = np.sum(v[1:], axis=0)
+            
             #v_sum = (v_sum>0).astype(int) # if duplicates
             if num_ingredients>200:
                 outputs_ = scipy.sparse.csr_matrix(v_sum)

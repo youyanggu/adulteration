@@ -97,8 +97,8 @@ class NN(object):
     def __init__(self, rng, inp_idx, n_in, m, n_out, inp_all=None):
         if inp_all is None:
             inp_all_values = np.asarray(
-                #rng.uniform(low=-1, high=1, size=(n_out, n_in)), dtype=theano.config.floatX
-                np.zeros((n_out, n_in), dtype=theano.config.floatX)
+                rng.uniform(low=-1, high=1, size=(n_out, n_in)), dtype=theano.config.floatX
+                #np.zeros((n_out, n_in), dtype=theano.config.floatX)
             )
             print inp_all_values[0]
             inp_all = theano.shared(value=inp_all_values, name='inp_all', borrow=True)
@@ -206,6 +206,12 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
             ret = train_model(x_train_, y_train_, output_lens_)
             #print ret
             costs.append(ret)
+        print "Learning rate:", learning_rate
+        learning_rate = max(0.005, learning_rate/2.)
+        updates = [
+                (param, param - learning_rate * gparam)
+                for param, gparam in zip(classifier.params, gparams)
+        ]
         print np.array(costs).mean()
         print classifier.hiddenLayer.W.get_value()[0]
         print classifier.inp_all.get_value()[0]
@@ -215,7 +221,7 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
 
         embeddings = classifier.inp_all.get_value()
         ranks_all = get_nearest_neighbors(embeddings)
-        score, perfect_score, random_score = calc_score(ranks_all, num_ingredients)
+        highest_rank, score, random_score = calc_score(ranks_all, num_ingredients)
 
     print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
     #pred = predict_model(x_train)
@@ -297,7 +303,7 @@ def get_nearest_neighbors(embeddings):
 
 def save_input_outputs(inputs, outputs, output_lens, suffix=''):
     if suffix:
-        suffix = '_' + suffix
+        suffix = '_' + str(suffix)
     np.save('inputs{}.npy'.format(suffix), inputs)
     np.savez('outputs{}.npz'.format(suffix), data=outputs.data, 
             indices=outputs.indices, indptr=outputs.indptr, shape=outputs.shape)
@@ -305,7 +311,7 @@ def save_input_outputs(inputs, outputs, output_lens, suffix=''):
 
 def load_input_outputs(suffix=''):
     if suffix:
-        suffix = '_' + suffix
+        suffix = '_' + str(suffix)
     inputs = np.load('inputs{}.npy'.format(suffix))
     loader = np.load('outputs{}.npz'.format(suffix))
     outputs = scipy.sparse.csr_matrix((loader['data'], 
@@ -313,30 +319,43 @@ def load_input_outputs(suffix=''):
     output_lens = np.load('output_lens{}.npy'.format(suffix))
     return inputs, outputs, output_lens
 
+def save_embeddings(embeddings, suffix=''):
+    fname = 'embeddings_{}.npy'.format(suffix)
+    np.save(fname, embeddings)
+
+def load_embeddings(suffix=''):
+    fname = 'embeddings_{}.npy'.format(suffix)
+    return np.load(fname)
+
+def print_embeddings(ings, embeddings):
+    for i,v in enumerate(ings):
+        print v
+        print embeddings[i]
+
 def default_args():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     num_ingredients=120
-    m=100
-    input_size=100
-    learning_rate=0.05
-    L2_reg=0.001
+    m=20
+    input_size=10
+    learning_rate=0.1
+    L2_reg=0.0005
     n_epochs=10
     batch_size=100
     seed=3
     use_npy=False
-    max_output_len=None
-    max_rotations=None
-    random_rotate=False
+    max_output_len=4
+    max_rotations=5
+    random_rotate=True
     rng=np.random.RandomState(seed)
 
 
 def run_nn_helper(df, counts, 
-         num_ingredients=120, m=100, input_size=100,
-         learning_rate=0.05, L2_reg=0.001,
+         num_ingredients=120, m=20, input_size=10,
+         learning_rate=0.1, L2_reg=0.0005,
          n_epochs=10, batch_size=100, seed=3, 
          use_npy=False, 
-         max_output_len=None, max_rotations=None, random_rotate=False,
+         max_output_len=4, max_rotations=5, random_rotate=True,
          **kwargs):
     if use_npy:
         inputs, outputs, output_lens = load_input_outputs(str(num_ingredients))
@@ -347,6 +366,14 @@ def run_nn_helper(df, counts,
                             outputs.astype('int32'), 
                             output_lens.astype('int32'))
         #save_input_outputs(inputs, outputs, output_lens, str(num_ingredients))
+
+    print "# of data points:", len(inputs)
+    # Randomize inputs
+    np.random.seed(seed)
+    random_idx = np.random.permutation(len(inputs))
+    inputs = inputs[random_idx]
+    outputs = outputs[random_idx]
+    output_lens = output_lens[random_idx]
 
     classifier, pred = run_nn(inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
@@ -369,13 +396,22 @@ def main():
     counts = df_i['ingredient'].value_counts()
     my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
-    params['num_ingredients'] = 5000 # must be here
-    params['use_npy'] = False
-    params['learning_rate'] = 0.1
-    params['m'] = 1000
-    #params['seed'] = range(3)
-    params['batch_size'] = 5000
-    params['input_size'] = 300
+
+    # one must be here
+    #params['num_ingredients'] = 5000
+    params['num_ingredients'] = 1000
+
+    params['use_npy'] = True
+    #params['learning_rate'] = 0.1
+    #params['L2_reg'] = 0.0005
+    params['m'] = 20
+    params['input_size'] = 20
+    params['seed'] = 3
+    params['n_epochs'] = 5
+    params['batch_size'] = 200
+    params['max_output_len'] = 8
+    params['max_rotations'] = 10
+    #params['random_rotate'] = True
 
     for k,v in params.iteritems():
         if type(v) != list:
@@ -385,28 +421,34 @@ def main():
     iterations = 0
     total_ranks = None
     for param in my_product(params):
-        print param
+        print '==========================================='
+        for k in param:
+            if len(params[k]) > 1:
+                print '{} : {}'.format(k, param[k])
         iterations += 1
         ranks_all, classifier = run_nn_helper(df, counts, **param)
-        score, perfect_score, random_score = calc_score(ranks_all, 
-            param['num_ingredients'])
-        param_scores[tuple(sorted(param.items()))] = score.mean()
+        highest_rank, score, random_score = calc_score(ranks_all, 
+            param['num_ingredients'], print_scores=False)
+        #param_scores[tuple(sorted(param.items()))] = score.mean()
         
-        #print score.mean(), perfect_score.mean(), random_score.mean()
         if total_ranks is None:
             total_ranks = ranks_all
         else:
             total_ranks += ranks_all
-    avg_rank = total_ranks / iterations
-    print '========================================================='
-    print_nearest_neighbors(counts.index.values, avg_rank, 3)
+    if iterations > 1:
+        #print param_scores
+        avg_rank = total_ranks / iterations
+        print '\n==========================================================='
+        print '==========================================================='
+        print_nearest_neighbors(counts.index.values, avg_rank, 3)
+        highest_rank, score, random_score = calc_score(avg_rank, 
+                param['num_ingredients'])
 
-    score, perfect_score, random_score = calc_score(avg_rank, 
-            param['num_ingredients'])
-    #print score[np.isfinite(score)].mean()
-    #print perfect_score[np.isfinite(perfect_score)].mean()
-    #print random_score[np.isfinite(random_score)].mean()
-
+    # Only use the last param's weights for now.
+    #num_ingredients = params['num_ingredients'][-1]
+    #embeddings = classifier.inp_all.get_value()
+    #save_embeddings(embeddings, num_ingredients)
+    #print_embeddings(counts.index.values[:num_ingredients], embeddings)
 
 if __name__ == '__main__':
     main()
