@@ -358,14 +358,14 @@ def run_nn_helper(df, counts,
          max_output_len=4, max_rotations=5, random_rotate=True,
          **kwargs):
     if use_npy:
-        inputs, outputs, output_lens = load_input_outputs(str(num_ingredients))
+        inputs, outputs, output_lens = load_input_outputs(num_ingredients)
     else:
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
         inputs, outputs, output_lens = (inputs.astype('int32'), 
                             outputs.astype('int32'), 
                             output_lens.astype('int32'))
-        #save_input_outputs(inputs, outputs, output_lens, str(num_ingredients))
+        #save_input_outputs(inputs, outputs, output_lens, num_ingredients)
 
     print "# of data points:", len(inputs)
     # Randomize inputs
@@ -399,18 +399,18 @@ def main():
 
     # one must be here
     #params['num_ingredients'] = 5000
-    params['num_ingredients'] = 1000
+    params['num_ingredients'] = 120
 
-    params['use_npy'] = True
+    params['use_npy'] = False
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
-    params['m'] = 20
-    params['input_size'] = 20
-    params['seed'] = 3
-    params['n_epochs'] = 5
-    params['batch_size'] = 200
-    params['max_output_len'] = 8
-    params['max_rotations'] = 10
+    #params['m'] = 20
+    #params['input_size'] = 20
+    params['seed'] = range(10)
+    params['n_epochs'] = 15
+    #params['batch_size'] = 200
+    #params['max_output_len'] = 8
+    #params['max_rotations'] = 10
     #params['random_rotate'] = True
 
     for k,v in params.iteritems():
@@ -422,6 +422,7 @@ def main():
     total_ranks = None
     for param in my_product(params):
         print '==========================================='
+        print param
         for k in param:
             if len(params[k]) > 1:
                 print '{} : {}'.format(k, param[k])
@@ -437,7 +438,12 @@ def main():
             total_ranks += ranks_all
     if iterations > 1:
         #print param_scores
-        avg_rank = total_ranks / iterations
+        avg_rank_raw = total_ranks / iterations
+        avg_rank = np.array([
+            np.searchsorted(avg_rank_raw[i], avg_rank_raw[i], 
+                sorter=np.argsort(avg_rank_raw[i]))
+            for i in range(avg_rank_raw.shape[0])
+            ])
         print '\n==========================================================='
         print '==========================================================='
         print_nearest_neighbors(counts.index.values, avg_rank, 3)

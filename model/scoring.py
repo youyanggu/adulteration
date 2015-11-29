@@ -58,3 +58,5 @@ def calc_score(ranks, total_ings, print_scores=True, score_path='scores.csv'):
         print random_avg_rankings[np.isfinite(random_avg_rankings)].mean()
 
     return highest_ranks, avg_rankings, random_avg_rankings
+
+    
