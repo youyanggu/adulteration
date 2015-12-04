@@ -10,6 +10,9 @@ from gather_data import *
 from scoring import *
 from utils import *
 
+data_dir = 'data/'
+embed_dir = 'embeddings/'
+
 theano.config.floatX = 'float32'
 
 def get_batch(x_train, y_train, output_lens, idx, batch_size):
@@ -223,14 +226,14 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         ranks_all = get_nearest_neighbors(embeddings)
         highest_rank, score, random_score = calc_score(ranks_all, num_ingredients)
 
-    print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
+    print 'The code ran for %.2fm' % ((time.time() - start_time) / 60.)
     #pred = predict_model(x_train)
     pred = None
 
     return classifier, pred
 
 def get_coocc_ranks():
-    coocc = np.load('cooccurance.npy')
+    coocc = np.load(data_dir+'cooccurance.npy')
     coocc_sym = coocc*coocc.T
     ranks_all = []
     for i in range(coocc.shape[0]):
@@ -256,7 +259,7 @@ def get_cooccurance_matrix(ing_list):
         print prob1, prob2
         matrix[i,j] = prob1
         matrix[j,i] = prob2
-    #np.save('cooccurance.npy', matrix)
+    #np.save(data_dir+'cooccurance.npy', matrix)
     return matrix
 
 def calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10):
@@ -290,6 +293,27 @@ def print_nearest_neighbors(ing_names, ranks, top_n=3):
         nearest_neighbors = np.argsort(ranks[i])
         print '{} --> {}'.format(ing_names[i], ing_names[nearest_neighbors[1:top_n+1]])
 
+def compare_neighbors(neigh, embeddings, all_ings, ing, ings_to_compare):
+    assert(ing in all_ings)
+    for i in ings_to_compare:
+        assert(i in all_ings)
+    if type(ings_to_compare) == list:
+        ings_to_compare = np.array(ings_to_compare)
+    ing_idx = np.where(all_ings==ing)[0][0]
+    nn_values, nn_idx = neigh.kneighbors(embeddings[ing_idx])
+    nn_values = nn_values[0]
+    nn_idx = nn_idx[0]
+    ings_to_compare_idx = [np.where(all_ings==i)[0][0] for i in ings_to_compare]
+    ings_to_compare_ranks = [np.where(nn_idx==i)[0][0] for i in ings_to_compare_idx]
+    cosine_distances = nn_values[ings_to_compare_ranks]
+    args = np.argsort(cosine_distances)
+    sorted_cosine_distances = sorted(cosine_distances)
+    sorted_ings_to_compare = ings_to_compare[args]
+    assert(len(sorted_cosine_distances)==len(sorted_ings_to_compare))
+    for i in range(len(ings_to_compare)):
+        print sorted_ings_to_compare[i], sorted_cosine_distances[i]
+    return sorted_cosine_distances, sorted_ings_to_compare
+
 def get_nearest_neighbors(embeddings):
     num_ingredients = embeddings.shape[0]
     neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
@@ -304,27 +328,27 @@ def get_nearest_neighbors(embeddings):
 def save_input_outputs(inputs, outputs, output_lens, suffix=''):
     if suffix:
         suffix = '_' + str(suffix)
-    np.save('inputs{}.npy'.format(suffix), inputs)
-    np.savez('outputs{}.npz'.format(suffix), data=outputs.data, 
+    np.save(data_dir+'inputs{}.npy'.format(suffix), inputs)
+    np.savez(data_dir+'outputs{}.npz'.format(suffix), data=outputs.data, 
             indices=outputs.indices, indptr=outputs.indptr, shape=outputs.shape)
-    np.save('output_lens{}.npy'.format(suffix), output_lens)
+    np.save(data_dir+'output_lens{}.npy'.format(suffix), output_lens)
 
 def load_input_outputs(suffix=''):
     if suffix:
         suffix = '_' + str(suffix)
-    inputs = np.load('inputs{}.npy'.format(suffix))
-    loader = np.load('outputs{}.npz'.format(suffix))
+    inputs = np.load(data_dir+'inputs{}.npy'.format(suffix))
+    loader = np.load(data_dir+'outputs{}.npz'.format(suffix))
     outputs = scipy.sparse.csr_matrix((loader['data'], 
         loader['indices'], loader['indptr']), shape=loader['shape'])
-    output_lens = np.load('output_lens{}.npy'.format(suffix))
+    output_lens = np.load(data_dir+'output_lens{}.npy'.format(suffix))
     return inputs, outputs, output_lens
 
 def save_embeddings(embeddings, suffix=''):
-    fname = 'embeddings_{}.npy'.format(suffix)
+    fname = embed_dir+'embeddings_{}.npy'.format(suffix)
     np.save(fname, embeddings)
 
 def load_embeddings(suffix=''):
-    fname = 'embeddings_{}.npy'.format(suffix)
+    fname = embed_dir+'embeddings_{}.npy'.format(suffix)
     return np.load(fname)
 
 def print_embeddings(ings, embeddings):
@@ -360,6 +384,7 @@ def run_nn_helper(df, counts,
     if use_npy:
         inputs, outputs, output_lens = load_input_outputs(num_ingredients)
     else:
+        print "Gathering inputs/outputs..."
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
         inputs, outputs, output_lens = (inputs.astype('int32'), 
@@ -404,14 +429,14 @@ def main():
     params['use_npy'] = False
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
-    #params['m'] = 20
-    #params['input_size'] = 20
-    params['seed'] = range(10)
-    params['n_epochs'] = 15
-    #params['batch_size'] = 200
-    #params['max_output_len'] = 8
-    #params['max_rotations'] = 10
-    #params['random_rotate'] = True
+    params['m'] = 20
+    params['input_size'] = 10
+    params['seed'] = 3#range(10)
+    params['n_epochs'] = 5
+    params['batch_size'] = 200
+    params['max_output_len'] = 10
+    params['max_rotations'] = 10
+    params['random_rotate'] = True
 
     for k,v in params.iteritems():
         if type(v) != list:

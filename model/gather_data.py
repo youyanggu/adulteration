@@ -59,6 +59,15 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
 
 ### CATEGORIES ###
 
+def input_from_embeddings(one_hot_inputs, embeddings):
+    assert(one_hot_inputs.shape[1]==embeddings.shape[0])
+    new_inputs = []
+    for inp in one_hot_inputs:
+        ing_indices = np.where(inp==1)[0]
+        new_inp = np.sum(embeddings[ing_indices], axis=0)/len(ing_indices)
+        new_inputs.append(new_inp)
+    return np.array(new_inputs)
+
 def get_ingredients_from_vector(counts, vector):
     return counts.index.values[np.where(vector==1)[0]]
 
@@ -131,8 +140,8 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
         if l < 2:
             counter += 1
             continue
-        if counter % 1000 == 0:
-            print counter
+        #if counter % 1000 == 0:
+        #    print counter
         for i in range(l):
             if max_rotations and i >= max_rotations:
                 break # only do top x ingredients
@@ -161,10 +170,13 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
     assert(len(inputs)==len(outputs)==len(output_lens_new))
     if scipy.sparse.issparse(outputs[0]):
         outputs = scipy.sparse.vstack(outputs)
-        outputs = scipy.sparse.csr_matrix(outputs) # need to cast for old scipy
+        #outputs = scipy.sparse.csr_matrix(outputs) # need to cast for old scipy
     else:
         outputs = np.array(outputs)
     return np.array(inputs), outputs, np.array(output_lens_new)
+
+
+### GENERAL ###
 
 def import_data():
     def add_columns(df, df_i):

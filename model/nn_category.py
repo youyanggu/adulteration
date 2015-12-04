@@ -41,10 +41,10 @@ class OutputLayer(object):
 
     def cost(self, y):
         t1 = T.log(self.p_y_given_x)[T.arange(y.shape[0]), y]
-        t2 = T.sum(T.log(1-self.p_y_given_x)[T.arange(y.shape[0])]) - \
+        t2 = T.sum(T.log(1-self.p_y_given_x), axis=1) - \
                 T.log(1-self.p_y_given_x)[T.arange(y.shape[0]), y]
-
-        return T.mean(-t1-t2)
+        #return T.mean(-t1-t2)
+        return T.sum(-t1-t2) * 1.0 / y.shape[0]
 
     def errors(self, y):
         return T.mean(T.neq(self.y_pred, y))
@@ -105,8 +105,8 @@ class NN(object):
         
 
 
-def run_nn(x_train, y_train, num_ingredients, m, 
-           learning_rate=0.05, L2_reg=0.001, n_epochs=15, batch_size=1):
+def run_nn(x_train, y_train, num_ingredients, num_outputs, m, 
+           learning_rate=0.01, L2_reg=0.001, n_epochs=15, batch_size=1):
     print 'Building model'
 
     x_train, y_train = load_data(x_train, y_train)
@@ -129,7 +129,7 @@ def run_nn(x_train, y_train, num_ingredients, m,
         inp=x,
         n_in=num_ingredients,
         m=m,
-        n_out=num_ingredients,
+        n_out=num_outputs,
     )
     cost = classifier.cost(y) + L2_reg * classifier.L2
     #gparams = T.grad(cost, classifier.params)
@@ -214,26 +214,34 @@ def print_predictions(inputs, outputs, regr, idx_to_cat, counts, limit=None):
         print 'Actual cat   :', idx_to_cat[outputs[idx]]
         if idx > limit:
             break
- 
+
+
 def main():
     num_ingredients = 1000
-    output_cat = 'food_category'
+    output_cat = 'aisle'
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     inputs, outputs, idx_to_cat = gen_input_outputs_cat(
                         df, df_i, num_ingredients, output_cat)
+    num_outputs = len(np.unique(outputs))
+
+    # Randomize inputs/outputs
+    np.random.seed(3)
+    random_idx = np.random.permutation(len(inputs))
+    inputs = inputs[random_idx]
+    outputs = outputs[random_idx]
+    idx_to_cat = {random_idx[i] : idx_to_cat[i] for i in range(num_outputs)}
+
+    # Normalize
+    inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
     
     # Max entropy model
     regr = max_entropy(inputs, outputs)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    classifier, pred = run_nn(inputs, outputs, num_ingredients, 
-                                m=500, n_epochs=20, batch_size=100)
-
-    pred_cats = np.argmax(pred, axis=1)
-    acc = (pred_cats == outputs).sum() * 1.0 / len(pred)
-    print acc
+    classifier, pred = run_nn(inputs, outputs, num_ingredients, num_outputs,
+                                m=1000, n_epochs=10, batch_size=200)
 
 
 if __name__ == '__main__':

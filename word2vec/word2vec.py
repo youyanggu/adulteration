@@ -1,10 +1,11 @@
 import sys
 
 from gensim.models import Word2Vec
+import numpy as np
 
 sys.path.append('../model')
 from gather_data import import_data
-from embeddings2 import get_nearest_neighbors
+from gen_embeddings import get_nearest_neighbors
 from scoring import calc_score
 
 #model = Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
@@ -65,7 +66,7 @@ def get_most_similar_restricted(limit=120):
     highest_ranks, avg_rankings, random_avg_rankings = calc_score(ranks, limit, 
         print_scores=False, score_path='../model/scores.csv')
 
-    indices = found_ings[found_ings<100]
+    indices = found_ings[found_ings<highest_ranks.shape[0]]
     highest_ranks = highest_ranks[indices]
     avg_rankings = avg_rankings[indices]
     random_avg_rankings = random_avg_rankings[indices]

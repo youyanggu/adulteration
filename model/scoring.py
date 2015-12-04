@@ -21,7 +21,7 @@ def gen_random_ranks(n, total_ings):
         random_ranks.append(np.insert(perm, i, 0))
     return np.vstack(random_ranks)
 
-def get_scores(score_path='scores.csv'):
+def get_scores(score_path='data/scores.csv'):
     df = pd.read_csv(score_path, header=0, index_col=0)
     df = df.ix[1:]
     df.drop('Unnamed: 1', axis=1, inplace=True)
@@ -32,7 +32,7 @@ def get_scores(score_path='scores.csv'):
     scores = df.as_matrix().T + df.as_matrix()
     return scores
 
-def calc_score(ranks, total_ings, print_scores=True, score_path='scores.csv'):
+def calc_score(ranks, total_ings, print_scores=True, score_path='data/scores.csv'):
     scores = get_scores(score_path)
     n = scores.shape[0]
     ranks = ranks[:n, :n]
@@ -59,4 +59,11 @@ def calc_score(ranks, total_ings, print_scores=True, score_path='scores.csv'):
 
     return highest_ranks, avg_rankings, random_avg_rankings
 
-    
+
+def get_ing_category(score_path='data/scores2.csv'):
+    df = pd.read_csv(score_path, header=0)
+    df = df.ix[:,:2]
+    df = df[df['Category'].notnull()]
+    df['Category'] = df['Category'].astype(int)
+    df = df.replace({df['Category'].max() : sorted(df['Category'].unique())[-2]+1})
+    return df
