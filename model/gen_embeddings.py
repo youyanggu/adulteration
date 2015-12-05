@@ -113,7 +113,7 @@ class NN(object):
             inp=self.inp,
             n_in=n_in,
             n_out=m,
-            activation=T.nnet.sigmoid
+            activation=T.tanh#T.nnet.sigmoid
         )
         self.outputLayer = OutputLayer(
             inp=self.hiddenLayer.output,
@@ -224,7 +224,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
 
         embeddings = classifier.inp_all.get_value()
         ranks_all = get_nearest_neighbors(embeddings)
-        highest_rank, score, random_score = calc_score(ranks_all, num_ingredients)
+        highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+            ranks_all, num_ingredients)
 
     print 'The code ran for %.2fm' % ((time.time() - start_time) / 60.)
     #pred = predict_model(x_train)
@@ -351,10 +352,18 @@ def load_embeddings(suffix=''):
     fname = embed_dir+'embeddings_{}.npy'.format(suffix)
     return np.load(fname)
 
-def print_embeddings(ings, embeddings):
-    for i,v in enumerate(ings):
-        print v
-        print embeddings[i]
+def print_embeddings(ings, embeddings, fname=None):
+    if fname:
+        f_out = open(fname, 'wb')
+    for i in range(len(embeddings)):
+        if not fname:
+            print ings[i]
+            print embeddings[i]
+        else:
+            f_out.write(ings[i]+'\n')
+            f_out.write(str(embeddings[i])+'\n')
+    if fname:
+        f_out.close()
 
 def default_args():
     df, df_i = import_data()
@@ -426,13 +435,13 @@ def main():
     #params['num_ingredients'] = 5000
     params['num_ingredients'] = 120
 
-    params['use_npy'] = False
+    params['use_npy'] = True
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
     params['m'] = 20
     params['input_size'] = 10
-    params['seed'] = 3#range(10)
-    params['n_epochs'] = 5
+    params['seed'] = range(3)
+    params['n_epochs'] = 7
     params['batch_size'] = 200
     params['max_output_len'] = 10
     params['max_rotations'] = 10
@@ -453,8 +462,8 @@ def main():
                 print '{} : {}'.format(k, param[k])
         iterations += 1
         ranks_all, classifier = run_nn_helper(df, counts, **param)
-        highest_rank, score, random_score = calc_score(ranks_all, 
-            param['num_ingredients'], print_scores=False)
+        highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+            ranks_all, param['num_ingredients'], print_scores=False)
         #param_scores[tuple(sorted(param.items()))] = score.mean()
         
         if total_ranks is None:
@@ -472,8 +481,8 @@ def main():
         print '\n==========================================================='
         print '==========================================================='
         print_nearest_neighbors(counts.index.values, avg_rank, 3)
-        highest_rank, score, random_score = calc_score(avg_rank, 
-                param['num_ingredients'])
+        highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+            avg_rank, param['num_ingredients'])
 
     # Only use the last param's weights for now.
     #num_ingredients = params['num_ingredients'][-1]

@@ -2,6 +2,7 @@ import time
 
 import numpy as np
 import sklearn.neighbors
+from sklearn.cross_validation import train_test_split
 import theano
 import theano.tensor as T
 
@@ -10,7 +11,14 @@ from utils import *
 
 theano.config.floatX = 'float32'
 
-def load_data(x, y):
+def get_batch(x_train, y_train, idx, batch_size):
+    x = x_train[idx*batch_size : (idx+1)*batch_size]
+    y = y_train[idx*batch_size : (idx+1)*batch_size]
+    if scipy.sparse.issparse(y):
+        y = y.toarray()
+    return x, y
+
+def load_data(x, y=None):
     def shared_dataset(x, borrow=True):
         shared_x = theano.shared(np.asarray(x.astype('int32'),
                                  dtype='int32'),
@@ -18,9 +26,19 @@ def load_data(x, y):
         return shared_x
     
     x_train = shared_dataset(x)
-    y_train = shared_dataset(y)
-    return x_train, y_train
+    if y is None:
+        return x_train
+    else:
+        y_train = shared_dataset(y)
+        return x_train, y_train
 
+def calc_accuracy(pred, y_test, lower_to_upper_cat=None):
+    pred_cats = np.argmax(pred, axis=1)
+    if lower_to_upper_cat:
+        pred_cats = np.array([lower_to_upper_cat[i] for i in pred_cats])
+        y_test = np.array([lower_to_upper_cat[i] for i in y_test])
+    acc = (pred_cats == y_test).sum() * 1.0 / len(pred)
+    return acc
 
 class OutputLayer(object):
     def __init__(self, inp, n_in, n_out):
@@ -58,9 +76,10 @@ class HiddenLayer(object):
                 rng.uniform(low=-1, high=1, size=(n_in, n_out)),
                 dtype=theano.config.floatX
             )
-            print W_values[0]
+            #W_values = np.zeros((n_in, n_out), dtype=theano.config.floatX)
+            #print W_values[0]
             W = theano.shared(value=W_values, name='W', borrow=True)
-
+            
         if b is None:
             b_values = np.zeros((n_out,), dtype=theano.config.floatX)
             b = theano.shared(value=b_values, name='b', borrow=True)
@@ -84,7 +103,7 @@ class NN(object):
             inp=inp,
             n_in=n_in,
             n_out=m,
-            activation=T.nnet.sigmoid
+            activation=T.tanh
         )
         self.outputLayer = OutputLayer(
             inp=self.hiddenLayer.output,
@@ -105,11 +124,12 @@ class NN(object):
         
 
 
-def run_nn(x_train, y_train, num_ingredients, num_outputs, m, 
-           learning_rate=0.01, L2_reg=0.001, n_epochs=15, batch_size=1):
+def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m, 
+           learning_rate=0.1, L2_reg=0.0005, n_epochs=10, batch_size=10):
     print 'Building model'
 
-    x_train, y_train = load_data(x_train, y_train)
+    #x_train, y_train = load_data(x_train, y_train)
+    #x_test, y_test = load_data(x_test, y_test)
 
     index = T.iscalar()  # index to a [mini]batch
     x = T.imatrix('x')  # the data is presented as rasterized images
@@ -117,10 +137,10 @@ def run_nn(x_train, y_train, num_ingredients, num_outputs, m,
     y = T.ivector('y')
 
     if batch_size is None:
-        batch_size = x_train.get_value(borrow=True).shape[0]
+        batch_size = x_train.shape[0]
         n_train_batches = 1
     else:
-        n_train_batches = x_train.get_value(borrow=True).shape[0] / batch_size
+        n_train_batches = x_train.shape[0] / batch_size
 
     rng = np.random.RandomState(3)
 
@@ -140,20 +160,27 @@ def run_nn(x_train, y_train, num_ingredients, num_outputs, m,
     ]
         
     train_model = theano.function(
-        inputs=[index],
+        inputs=[x, y],
         outputs=cost,
         updates=updates,
-        givens={
-            x: x_train[index * batch_size: (index + 1) * batch_size],
-            y: y_train[index * batch_size: (index + 1) * batch_size],
-        }
+        #givens={
+        #    x: x_train[index * batch_size: (index + 1) * batch_size],
+        #    y: y_train[index * batch_size: (index + 1) * batch_size],
+        #}
+    )
+    train_model_all = theano.function(
+        inputs=[x],
+        outputs=classifier.outputLayer.p_y_given_x,
+        #givens={
+        #    x: x_train,
+        #}
     )
     predict_model = theano.function(
-        inputs=[],
+        inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        givens={
-            x: x_train,
-        }
+        #givens={
+        #    x: x_test,
+        #}
     )
     print 'Training'
 
@@ -162,24 +189,38 @@ def run_nn(x_train, y_train, num_ingredients, num_outputs, m,
     epoch = 0
     while epoch < n_epochs:
         epoch = epoch + 1
-        print epoch
+        print '---------------------'
+        print 'Epoch #', epoch
         costs = []
-        for minibatch_index in xrange(n_train_batches):
-            costs.append(train_model(minibatch_index))
+        for idx in xrange(n_train_batches):
+            x_train_, y_train_ = get_batch(x_train, y_train, idx, batch_size)
+            ret = train_model(x_train_, y_train_)
+            costs.append(ret)
+
+        print "Learning rate:", learning_rate
+        learning_rate = max(0.001, learning_rate/2.)
+        updates = [
+                (param, param - learning_rate * gparam)
+                for param, gparam in zip(classifier.params, gparams)
+        ]
+
         print np.array(costs).mean()
+        pred = predict_model(x_test)
+        print "Train acc :", calc_accuracy(train_model_all(x_train), y_train)
+        print "Test acc  :", calc_accuracy(pred, y_test)
+
         print classifier.hiddenLayer.W.get_value()[0]
         #print classifier.outputLayer.W.get_value()[0]
         #print classifier.hiddenLayer.b.get_value()
         #print classifier.outputLayer.b.get_value()
 
-    print >> sys.stderr, ('The code ran for %.2fm' % ((time.time() - start_time) / 60.))
-    pred = predict_model()
+    print 'The code ran for %.2fm' % ((time.time() - start_time) / 60.)
+    #pred = predict_model()
 
     return classifier, pred
 
 def max_entropy(inputs, outputs):
     from sklearn.linear_model import LogisticRegression
-    from sklearn.cross_validation import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(
         inputs, outputs, test_size=1/3., random_state=42)
     regr = LogisticRegression(C=1e5)
@@ -189,6 +230,7 @@ def max_entropy(inputs, outputs):
     return regr
 
 def predict_cat(counts, regr, idx_to_cat, num_ingredients, ings):
+    """Given a list of ingredients (ing), predict the category."""
     if type(ings) == str:
         ings = [ings]
     ing_list = counts.index.values[:num_ingredients]
@@ -206,12 +248,13 @@ def predict_cat(counts, regr, idx_to_cat, num_ingredients, ings):
     # Need to get accuracy for top 3 classes
     return idx_to_cat[pred_class], np.max(regr.predict_proba(inp))
 
-def print_predictions(inputs, outputs, regr, idx_to_cat, counts, limit=None):
+def print_predictions(inputs, outputs, pred, idx_to_cat, counts, limit=None):
     for idx, inp in enumerate(inputs):
         print '\n============================================' 
         print 'Ingredients  :', get_ingredients_from_vector(counts, inp)
-        print 'Predicted cat:', idx_to_cat[regr.predict(inp)[0]]
-        print 'Actual cat   :', idx_to_cat[outputs[idx]]
+        #print 'Predicted cat:', idx_to_cat[regr.predict(inp)[0]]
+        print 'Predicted cat :', idx_to_cat[pred[idx]]
+        print 'Actual cat    :', idx_to_cat[outputs[idx]]
         if idx > limit:
             break
 
@@ -223,25 +266,31 @@ def main():
     counts = df_i['ingredient'].value_counts()
     inputs, outputs, idx_to_cat = gen_input_outputs_cat(
                         df, df_i, num_ingredients, output_cat)
-    num_outputs = len(np.unique(outputs))
+    inputs, outputs = inputs.astype('int32'), outputs.astype('int32')
+    num_outputs = outputs.max()+1
 
-    # Randomize inputs/outputs
-    np.random.seed(3)
-    random_idx = np.random.permutation(len(inputs))
-    inputs = inputs[random_idx]
-    outputs = outputs[random_idx]
-    idx_to_cat = {random_idx[i] : idx_to_cat[i] for i in range(num_outputs)}
-
-    # Normalize
-    inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
-    
     # Max entropy model
-    regr = max_entropy(inputs, outputs)
+    # Normalize
+    #inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
+    #regr = max_entropy(inputs_n, outputs)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    classifier, pred = run_nn(inputs, outputs, num_ingredients, num_outputs,
-                                m=1000, n_epochs=10, batch_size=200)
+    X_train, X_test, y_train, y_test = train_test_split(
+        inputs, outputs, test_size=1/3., random_state=42)
+
+    classifier, pred = run_nn(X_train, y_train, X_test, y_test, 
+                              num_ingredients, num_outputs,
+                              m=15, n_epochs=5, batch_size=10,
+                              learning_rate=0.01, L2_reg=0.0005)
+
+    pred_cats = np.argmax(pred, axis=1)
+    if output_cat != 'food_category':
+        lower_to_upper_cat = None
+    else:
+        lower_to_upper_cat = get_upper_cat(df, output_cat, 'aisle')
+    #print calc_accuracy(pred, y_test, lower_to_upper_cat)
+    #print_predictions(X_test, y_test, pred_cats, idx_to_cat, counts, limit=100)
 
 
 if __name__ == '__main__':

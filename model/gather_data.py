@@ -16,15 +16,16 @@ def gen_random_inp(l, num_ones):
     inp[sample] = 1
     return inp
 
-
 def get_ing_names(counts, arr):
     return counts.index.values[np.where(arr==1)[0]]
 
+"""
 def get_combos(inputs, outputs, counts, limit=50):
     output = []
     for idx, inp in enumerate(inputs):
         output.append(regr.predict(inp), outputs[idx], get_ing_names(counts, inp))
     return output
+"""
 
 def gen_input_outputs_invalid(length, num_ingredients, ings_per_prod):
     """Generate invalid set of ingredients from random sampling."""
@@ -36,7 +37,6 @@ def gen_input_outputs_invalid(length, num_ingredients, ings_per_prod):
 
 def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
     """Get a set number of ingredients and set as valid combination."""
-
     counts = df_i['ingredient'].value_counts()
     counts = counts[:num_ingredients]
     onehot_ing = gen_onehot_vectors(counts.index.values, num_ingredients)
@@ -58,6 +58,25 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
 
 
 ### CATEGORIES ###
+
+def get_upper_cat(df, lower_cat_name, upper_cat_name):
+    lower_cat = df[lower_cat_name].str.lower().values
+    upper_cat = df[upper_cat_name].str.lower().values
+
+    lower_cat_to_idx = {c : i for i, c in enumerate(np.unique(lower_cat))}
+    upper_cat_to_idx = {c : i for i, c in enumerate(np.unique(upper_cat))}
+
+    num_categories = len(np.unique(lower_cat))
+    lower_to_upper_cat = {}
+    for i in range(len(df)):
+        if len(lower_to_upper_cat) >= num_categories:
+            break
+        if lower_cat_to_idx[lower_cat[i]] in lower_to_upper_cat:
+            continue
+        else:
+            lower_to_upper_cat[lower_cat_to_idx[lower_cat[i]]] = (
+                upper_cat_to_idx[upper_cat[i]])
+    return lower_to_upper_cat
 
 def input_from_embeddings(one_hot_inputs, embeddings):
     assert(one_hot_inputs.shape[1]==embeddings.shape[0])

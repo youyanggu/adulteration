@@ -1,6 +1,30 @@
 import numpy as np
 import pandas as pd
 
+def calc_avg_rank_of_ing_cat(ranks, score_path='data/scores2.csv'):
+    assert(ranks.shape[0]==ranks.shape[1])
+    df = get_ing_category(score_path)
+    n = len(df)
+    ranks = ranks[:n, :n]
+    categories = df['Category'].values
+
+    mean_ranks = []
+    for idx, row_ranks in enumerate(ranks):
+        cur_idx = np.where(row_ranks==0)[0][0]
+        cur_cat = categories[cur_idx]
+        if cur_cat == categories.max():
+            # Uncategorized.
+            continue
+        ings_same_cat = np.where(categories==cur_cat)[0]
+        ings_same_cat = ings_same_cat[ings_same_cat<ranks.shape[1]]
+        ings_same_cat = ings_same_cat[ings_same_cat!=idx]
+        if len(ings_same_cat)==0:
+            print "Warning: No other ings in category {} for ing {}.".format(cur_cat, idx)
+            continue
+        ranks_same_cat = row_ranks[ings_same_cat]
+        mean_ranks.append(ranks_same_cat.mean())
+    return np.array(mean_ranks).mean()
+
 def calc_highest_ranks(ranks, scores):
     highest_ranks = []
     for i, v in enumerate(scores):
@@ -12,6 +36,16 @@ def calc_highest_ranks(ranks, scores):
             highest_ranks.append(np.nan)
     highest_ranks = np.array(highest_ranks)
     return highest_ranks
+
+def calc_random_avg_rank(num_ings, iters=10000):
+    avg_num_annotated = 7
+    perc_in_top_3 = np.array([np.random.choice(np.arange(1,num_ings), 
+        avg_num_annotated).min()<=3 for i in range(iters)]).mean()
+    avg_best_rank = np.array([np.random.choice(np.arange(1,num_ings), 
+        avg_num_annotated).min() for i in range(iters)]).mean()
+    avg_rank = np.array([np.random.choice(np.arange(1,num_ings), 
+        avg_num_annotated).mean() for i in range(iters)]).mean()
+    return perc_in_top_3, avg_best_rank, avg_rank
 
 def gen_random_ranks(n, total_ings):
     random_ranks = []
@@ -45,19 +79,21 @@ def calc_score(ranks, total_ings, print_scores=True, score_path='data/scores.csv
     #perfect_rankings = np.array([np.arange(1,n+1) for i in range(n)])
     
     avg_rankings = np.sum(scores*ranks, axis=1) / s
+    avg_rank_of_ing_cat = calc_avg_rank_of_ing_cat(ranks)
     #perfect_avg_rankings = np.sum(scores_sorted*perfect_rankings, axis=1) / s
     random_avg_rankings = np.sum(scores*gen_random_ranks(n, total_ings), axis=1) / s
 
     if print_scores:
         print "Scores"
         print "=========="
-        print (highest_ranks<=3).sum(dtype=float) / np.isfinite(highest_ranks).sum()
-        print highest_ranks[np.isfinite(highest_ranks)].mean()
-        print avg_rankings[np.isfinite(avg_rankings)].mean()
+        print "% found in top 3 :", (highest_ranks<=3).sum(dtype=float) / np.isfinite(highest_ranks).sum()
+        print "Avg highest rank :"highest_ranks[np.isfinite(highest_ranks)].mean()
+        print "Avg rank         :", avg_rankings[np.isfinite(avg_rankings)].mean()
         #print perfect_avg_rankings[np.isfinite(perfect_avg_rankings)].mean()
-        print random_avg_rankings[np.isfinite(random_avg_rankings)].mean()
+        print "Avg rank of cat  :", avg_rank_of_ing_cat
+        print "Random rank      :", random_avg_rankings[np.isfinite(random_avg_rankings)].mean()    
 
-    return highest_ranks, avg_rankings, random_avg_rankings
+    return highest_ranks, avg_rankings, avg_rank_of_ing_cat, random_avg_rankings
 
 
 def get_ing_category(score_path='data/scores2.csv'):
