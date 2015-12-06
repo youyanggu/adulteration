@@ -228,10 +228,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
             ranks_all, num_ingredients)
 
     print 'The code ran for %.2fm' % ((time.time() - start_time) / 60.)
-    #pred = predict_model(x_train)
-    pred = None
 
-    return classifier, pred
+    return classifier, predict_model
 
 def get_coocc_ranks():
     coocc = np.load(data_dir+'cooccurance.npy')
@@ -409,7 +407,7 @@ def run_nn_helper(df, counts,
     outputs = outputs[random_idx]
     output_lens = output_lens[random_idx]
 
-    classifier, pred = run_nn(inputs, outputs, output_lens, 
+    classifier, predict_model = run_nn(inputs, outputs, output_lens, 
                         num_ingredients=num_ingredients, 
                         m=m, 
                         input_size=input_size,

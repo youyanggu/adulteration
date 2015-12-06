@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 
-def calc_avg_rank_of_ing_cat(ranks, score_path='data/scores2.csv'):
+def calc_avg_rank_of_ing_cat(ranks, score_dir='data'):
     assert(ranks.shape[0]==ranks.shape[1])
-    df = get_ing_category(score_path)
+    df = get_ing_category(score_dir)
     n = len(df)
     ranks = ranks[:n, :n]
     categories = df['Category'].values
@@ -55,8 +55,8 @@ def gen_random_ranks(n, total_ings):
         random_ranks.append(np.insert(perm, i, 0))
     return np.vstack(random_ranks)
 
-def get_scores(score_path='data/scores.csv'):
-    df = pd.read_csv(score_path, header=0, index_col=0)
+def get_scores(score_dir='data'):
+    df = pd.read_csv(score_dir+'/scores.csv', header=0, index_col=0)
     df = df.ix[1:]
     df.drop('Unnamed: 1', axis=1, inplace=True)
     total = df['total']
@@ -66,20 +66,20 @@ def get_scores(score_path='data/scores.csv'):
     scores = df.as_matrix().T + df.as_matrix()
     return scores
 
-def calc_score(ranks, total_ings, print_scores=True, score_path='data/scores.csv'):
-    scores = get_scores(score_path)
+def calc_score(ranks, total_ings, print_scores=True, score_dir='data'):
+    scores = get_scores(score_dir)
     n = scores.shape[0]
-    ranks = ranks[:n, :n]
+    ranks_ = ranks[:n, :n]
     s = np.sum(scores, axis=1, dtype=float)
-    actual_scores = np.sum(ranks*scores, axis=1)
+    actual_scores = np.sum(ranks_*scores, axis=1)
 
-    highest_ranks = calc_highest_ranks(ranks, scores)
+    highest_ranks = calc_highest_ranks(ranks_, scores)
 
     scores_sorted = np.fliplr(np.sort(scores, axis=1))
     #perfect_rankings = np.array([np.arange(1,n+1) for i in range(n)])
     
-    avg_rankings = np.sum(scores*ranks, axis=1) / s
-    avg_rank_of_ing_cat = calc_avg_rank_of_ing_cat(ranks)
+    avg_rankings = np.sum(scores*ranks_, axis=1) / s
+    avg_rank_of_ing_cat = calc_avg_rank_of_ing_cat(ranks, score_dir)
     #perfect_avg_rankings = np.sum(scores_sorted*perfect_rankings, axis=1) / s
     random_avg_rankings = np.sum(scores*gen_random_ranks(n, total_ings), axis=1) / s
 
@@ -87,7 +87,7 @@ def calc_score(ranks, total_ings, print_scores=True, score_path='data/scores.csv
         print "Scores"
         print "=========="
         print "% found in top 3 :", (highest_ranks<=3).sum(dtype=float) / np.isfinite(highest_ranks).sum()
-        print "Avg highest rank :"highest_ranks[np.isfinite(highest_ranks)].mean()
+        print "Avg highest rank :", highest_ranks[np.isfinite(highest_ranks)].mean()
         print "Avg rank         :", avg_rankings[np.isfinite(avg_rankings)].mean()
         #print perfect_avg_rankings[np.isfinite(perfect_avg_rankings)].mean()
         print "Avg rank of cat  :", avg_rank_of_ing_cat
@@ -96,8 +96,8 @@ def calc_score(ranks, total_ings, print_scores=True, score_path='data/scores.csv
     return highest_ranks, avg_rankings, avg_rank_of_ing_cat, random_avg_rankings
 
 
-def get_ing_category(score_path='data/scores2.csv'):
-    df = pd.read_csv(score_path, header=0)
+def get_ing_category(score_dir='data'):
+    df = pd.read_csv(score_dir+'/scores2.csv', header=0)
     df = df.ix[:,:2]
     df = df[df['Category'].notnull()]
     df['Category'] = df['Category'].astype(int)

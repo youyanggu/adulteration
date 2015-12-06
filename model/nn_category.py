@@ -19,17 +19,17 @@ def get_batch(x_train, y_train, idx, batch_size):
     return x, y
 
 def load_data(x, y=None):
-    def shared_dataset(x, borrow=True):
-        shared_x = theano.shared(np.asarray(x.astype('int32'),
-                                 dtype='int32'),
+    def shared_dataset(x, dtype, borrow=True):
+        shared_x = theano.shared(np.asarray(x,
+                                 dtype=dtype),
                                  borrow=borrow)
         return shared_x
     
-    x_train = shared_dataset(x)
+    x_train = shared_dataset(x, str(x.dtype))
     if y is None:
         return x_train
     else:
-        y_train = shared_dataset(y)
+        y_train = shared_dataset(y, str(x.dtype))
         return x_train, y_train
 
 def calc_accuracy(pred, y_test, lower_to_upper_cat=None):
@@ -132,7 +132,10 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
     #x_test, y_test = load_data(x_test, y_test)
 
     index = T.iscalar()  # index to a [mini]batch
-    x = T.imatrix('x')  # the data is presented as rasterized images
+    if x_train.dtype == 'float32':
+        x = T.fmatrix('x')
+    else:
+        x = T.imatrix('x')
     #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
     y = T.ivector('y')
 
@@ -205,9 +208,8 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
         ]
 
         print np.array(costs).mean()
-        pred = predict_model(x_test)
         print "Train acc :", calc_accuracy(train_model_all(x_train), y_train)
-        print "Test acc  :", calc_accuracy(pred, y_test)
+        print "Test acc  :", calc_accuracy(predict_model(x_test), y_test)
 
         print classifier.hiddenLayer.W.get_value()[0]
         #print classifier.outputLayer.W.get_value()[0]
@@ -215,15 +217,12 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
         #print classifier.outputLayer.b.get_value()
 
     print 'The code ran for %.2fm' % ((time.time() - start_time) / 60.)
-    #pred = predict_model()
 
-    return classifier, pred
+    return classifier, predict_model
 
-def max_entropy(inputs, outputs):
+def max_entropy(X_train, y_train, X_test, y_test, C=1e5):
     from sklearn.linear_model import LogisticRegression
-    X_train, X_test, y_train, y_test = train_test_split(
-        inputs, outputs, test_size=1/3., random_state=42)
-    regr = LogisticRegression(C=1e5)
+    regr = LogisticRegression(C=C)
     regr.fit(X_train, y_train)
     print regr.score(X_train, y_train)
     print regr.score(X_test, y_test)
@@ -258,38 +257,95 @@ def print_predictions(inputs, outputs, pred, idx_to_cat, counts, limit=None):
         if idx > limit:
             break
 
+def zero_embeddings(embeddings, found_ings):
+    l = len(embeddings)
+    found_ings = found_ings[found_ings<l]
+    zero_indices = np.array([i for i in range(l) if i not in found_ings])
+    new_embeddings = np.copy(embeddings)
+    new_embeddings[zero_indices] = np.zeros(embeddings.shape[1])
+    return new_embeddings
+
+def prob_method(df, category, alpha=0):
+    """Use unigram probabilities to predict category. Alpha is used for alpha smoothing."""
+    n = len(df)
+    cat_to_idx = {c : i for i, c in enumerate(
+        np.unique(df[category].str.lower().values))}
+    train_indices = np.random.choice(n, n*2/3., replace=False)
+    test_indices = np.setdiff1d(np.arange(n), train_indices)
+    df_train = df.ix[train_indices]
+    df_test = df.ix[test_indices]
+
+    ing_to_cat_freq = get_ing_cat_frequencies(df_train, category, cat_to_idx, alpha)
+    ings = df_test['ingredients_clean'].values
+    cats = df_test[category].str.lower().values
+    num_categories = len(cat_to_idx)
+    true_cats = np.array([cat_to_idx[c] for c in cats])
+    pred_cats = []
+    for i in range(len(df_test)):
+        cur_cat = cat_to_idx[cats[i]]
+        ings_arr = []
+        for ing in ings[i]:
+            if ing in ing_to_cat_freq:
+                ings_arr.append(ing_to_cat_freq[ing])
+            else:
+                uniform_prob = np.ones(num_categories)*1./num_categories
+                ings_arr.append(uniform_prob)
+        ings_arr = np.array(ings_arr)
+        if len(ings_arr)==0:
+            pred_cats.append(np.log(np.zeros(num_categories)))
+            continue
+        pred_cat = np.sum(np.log(ings_arr), axis=0) # sum of log probs
+        pred_cats.append(pred_cat)
+    pred_cats = np.vstack(pred_cats)
+    assert(len(pred_cats)==len(true_cats)==len(df_test))
+
+    print calc_accuracy(pred_cats, true_cats)
+    if category != 'aisle':
+        lower_to_upper_cat = get_upper_cat(df, category, 'aisle')
+        print calc_accuracy(pred_cats, true_cats, lower_to_upper_cat)
+    return pred_cats, true_cats
 
 def main():
-    num_ingredients = 1000
-    output_cat = 'aisle'
+    num_ingredients = 5000
+    ings_per_prod = None
+    use_embeddings = True
+    output_cat = 'food_category'
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
-    inputs, outputs, idx_to_cat = gen_input_outputs_cat(
-                        df, df_i, num_ingredients, output_cat)
-    inputs, outputs = inputs.astype('int32'), outputs.astype('int32')
+    inputs_, outputs, idx_to_cat = gen_input_outputs_cat(
+                        df, df_i, num_ingredients, output_cat, ings_per_prod)
+    inputs_, outputs = inputs_.astype('int32'), outputs.astype('int32')
+    if use_embeddings:
+        #embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
+        #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]
+        embeddings = 2*np.random.random((embeddings.shape))-1 # Try random embeddings
+        inputs = input_from_embeddings(inputs_, embeddings.astype('float32'), 
+            normalize=False)
+    else:
+        inputs = inputs_
     num_outputs = outputs.max()+1
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        inputs, outputs, test_size=1/3., random_state=42)
 
     # Max entropy model
     # Normalize
     #inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
-    #regr = max_entropy(inputs_n, outputs)
+    #regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    X_train, X_test, y_train, y_test = train_test_split(
-        inputs, outputs, test_size=1/3., random_state=42)
-
-    classifier, pred = run_nn(X_train, y_train, X_test, y_test, 
-                              num_ingredients, num_outputs,
-                              m=15, n_epochs=5, batch_size=10,
+    classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, 
+                              X_train.shape[1], num_outputs,
+                              m=1200, n_epochs=5, batch_size=10,
                               learning_rate=0.01, L2_reg=0.0005)
 
+    pred = predict_model(X_test)
     pred_cats = np.argmax(pred, axis=1)
-    if output_cat != 'food_category':
-        lower_to_upper_cat = None
-    else:
+    print calc_accuracy(pred, y_test)
+    if output_cat != 'aisle':
         lower_to_upper_cat = get_upper_cat(df, output_cat, 'aisle')
-    #print calc_accuracy(pred, y_test, lower_to_upper_cat)
+        print calc_accuracy(pred, y_test, lower_to_upper_cat)
     #print_predictions(X_test, y_test, pred_cats, idx_to_cat, counts, limit=100)
 
 

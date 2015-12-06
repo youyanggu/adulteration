@@ -59,6 +59,35 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
 
 ### CATEGORIES ###
 
+def get_ing_cat_frequencies(df, category, cat_to_idx, alpha=0):
+    ings = df['ingredients_clean'].values
+    cats = df[category].str.lower().values
+    num_categories = len(cat_to_idx)
+    ing_to_cat_freq = {}
+    cat_to_freq = [0]*num_categories
+    for i in range(len(df)):
+        cur_cat = cat_to_idx[cats[i]]
+        cat_to_freq[cur_cat] += 1
+        for ing in ings[i]:
+            if ing in ing_to_cat_freq:
+                ing_to_cat_freq[ing][cur_cat] += 1
+            else:
+                arr = [0]*num_categories
+                arr[cur_cat] = 1
+                ing_to_cat_freq[ing] = arr
+
+    # Normalize + add smoothing
+    cat_to_freq = np.array(cat_to_freq).astype(float)
+    for k,v in ing_to_cat_freq.iteritems():
+        ing_to_cat_freq[k] = np.nan_to_num(np.array(v) / cat_to_freq)
+
+    for k,v in ing_to_cat_freq.iteritems():
+        ing_to_cat_freq[k] = (v+alpha) / (np.sum(v)+alpha*num_categories)
+    assert(np.isclose(np.sum(ing_to_cat_freq.values()), len(ing_to_cat_freq)))
+
+    return ing_to_cat_freq
+
+
 def get_upper_cat(df, lower_cat_name, upper_cat_name):
     lower_cat = df[lower_cat_name].str.lower().values
     upper_cat = df[upper_cat_name].str.lower().values
@@ -78,19 +107,22 @@ def get_upper_cat(df, lower_cat_name, upper_cat_name):
                 upper_cat_to_idx[upper_cat[i]])
     return lower_to_upper_cat
 
-def input_from_embeddings(one_hot_inputs, embeddings):
+def input_from_embeddings(one_hot_inputs, embeddings, normalize):
+    """Map one-hot inputs to embeddings space."""
     assert(one_hot_inputs.shape[1]==embeddings.shape[0])
     new_inputs = []
     for inp in one_hot_inputs:
         ing_indices = np.where(inp==1)[0]
-        new_inp = np.sum(embeddings[ing_indices], axis=0)/len(ing_indices)
+        new_inp = np.sum(embeddings[ing_indices], axis=0)
+        if normalize:
+            new_inp = new_inp / len(ing_indices)
         new_inputs.append(new_inp)
     return np.array(new_inputs)
 
 def get_ingredients_from_vector(counts, vector):
     return counts.index.values[np.where(vector==1)[0]]
 
-def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
+def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat, ings_per_prod=None):
     """output_cat should be: 'aisle', 'shelf' or 'food_category'."""
 
     counts = df_i['ingredient'].value_counts()
@@ -104,7 +136,10 @@ def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat):
     ingredients_clean = df['ingredients_clean'].values
     for idx in range(len(df)):
         l = convert_ingredient_list(ingredients_clean[idx], onehot_ing)
-        s = np.sum(np.array(l), axis=0)
+        if ings_per_prod:
+            s = np.sum(np.array(l[:ings_per_prod]), axis=0)
+        else:
+            s = np.sum(np.array(l), axis=0)
         if type(s)==np.float64:
             assert(s==0)
             continue

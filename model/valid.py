@@ -13,17 +13,17 @@ from utils import *
 theano.config.floatX = 'float32'
 
 def load_data(x, y=None):
-    def shared_dataset(x, borrow=True):
-        shared_x = theano.shared(np.asarray(x.astype('int32'),
-                                 dtype='int32'),
+    def shared_dataset(x, dtype, borrow=True):
+        shared_x = theano.shared(np.asarray(x,
+                                 dtype=dtype),
                                  borrow=borrow)
         return shared_x
     
-    x_train = shared_dataset(x)
+    x_train = shared_dataset(x, str(x.dtype))
     if y is None:
         return x_train
     else:
-        y_train = shared_dataset(y)
+        y_train = shared_dataset(y, str(x.dtype))
         return x_train, y_train
 
 
@@ -47,6 +47,7 @@ def print_predictions(inputs, outputs, pred, counts, limit=None):
  
 def main():
     num_ingredients = 1000
+    use_embeddings = True
     ings_per_prod = 5
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
@@ -57,19 +58,24 @@ def main():
     inputs = np.vstack((inputs_v, inputs_i))
     outputs = np.hstack((outputs_v, outputs_i))
 
+    if use_embeddings:
+        embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
+        inputs = input_from_embeddings(inputs, embeddings)
+
     # Scramble inputs/outputs
     np.random.seed(3)
     random_idx = np.random.permutation(len(inputs))
     inputs = inputs[random_idx]
     outputs = outputs[random_idx]
     
+    X_train, X_test, y_train, y_test = train_test_split(
+        inputs, outputs, test_size=1/3., random_state=42)
+
     # Max entropy model
-    regr = max_entropy(inputs, outputs)
+    regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    X_train, X_test, y_train, y_test = train_test_split(
-        inputs, outputs, test_size=1/3., random_state=42)
     classifier, pred = run_nn(X_train, y_train, X_test, y_test, num_ingredients, 2,
                                 m=10, n_epochs=10, batch_size=10,
                                 learning_rate=0.01, L2_reg=0.0003)
