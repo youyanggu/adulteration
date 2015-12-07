@@ -139,11 +139,7 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
     #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
     y = T.ivector('y')
 
-    if batch_size is None:
-        batch_size = x_train.shape[0]
-        n_train_batches = 1
-    else:
-        n_train_batches = x_train.shape[0] / batch_size
+    n_train_batches = x_train.shape[0] / batch_size
 
     rng = np.random.RandomState(3)
 
@@ -155,7 +151,6 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
         n_out=num_outputs,
     )
     cost = classifier.cost(y) + L2_reg * classifier.L2
-    #gparams = T.grad(cost, classifier.params)
     gparams = [T.grad(cost, param).astype('float32') for param in classifier.params]
     updates = [
         (param, param - learning_rate * gparam)
@@ -166,24 +161,14 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
         inputs=[x, y],
         outputs=cost,
         updates=updates,
-        #givens={
-        #    x: x_train[index * batch_size: (index + 1) * batch_size],
-        #    y: y_train[index * batch_size: (index + 1) * batch_size],
-        #}
     )
     train_model_all = theano.function(
         inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        #givens={
-        #    x: x_train,
-        #}
     )
     predict_model = theano.function(
         inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        #givens={
-        #    x: x_test,
-        #}
     )
     print 'Training'
 
@@ -195,7 +180,7 @@ def run_nn(x_train, y_train, x_test, y_test, num_ingredients, num_outputs, m,
         print '---------------------'
         print 'Epoch #', epoch
         costs = []
-        for idx in xrange(n_train_batches):
+        for idx in range(n_train_batches):
             x_train_, y_train_ = get_batch(x_train, y_train, idx, batch_size)
             ret = train_model(x_train_, y_train_)
             costs.append(ret)

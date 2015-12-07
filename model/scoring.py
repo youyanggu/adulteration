@@ -6,7 +6,7 @@ def calc_avg_rank_of_ing_cat(ranks, score_dir='data'):
     df = get_ing_category(score_dir)
     n = len(df)
     ranks = ranks[:n, :n]
-    categories = df['Category'].values
+    categories = df['category'].values
 
     mean_ranks = []
     for idx, row_ranks in enumerate(ranks):
@@ -19,7 +19,7 @@ def calc_avg_rank_of_ing_cat(ranks, score_dir='data'):
         ings_same_cat = ings_same_cat[ings_same_cat<ranks.shape[1]]
         ings_same_cat = ings_same_cat[ings_same_cat!=idx]
         if len(ings_same_cat)==0:
-            print "Warning: No other ings in category {} for ing {}.".format(cur_cat, idx)
+            #print "Warning: No other ings in category {} for ing {}.".format(cur_cat, idx)
             continue
         ranks_same_cat = row_ranks[ings_same_cat]
         mean_ranks.append(ranks_same_cat.mean())
@@ -99,7 +99,7 @@ def calc_score(ranks, total_ings, print_scores=True, score_dir='data'):
 def get_ing_category(score_dir='data'):
     df = pd.read_csv(score_dir+'/scores2.csv', header=0)
     df = df.ix[:,:2]
-    df = df[df['Category'].notnull()]
-    df['Category'] = df['Category'].astype(int)
-    df = df.replace({df['Category'].max() : sorted(df['Category'].unique())[-2]+1})
+    df = df[df['category'].notnull()]
+    df['category'] = df['category'].astype(int)
+    df = df.replace({df['category'].max() : sorted(df['category'].unique())[-2]+1})
     return df

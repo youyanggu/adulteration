@@ -8,3 +8,4 @@ scratch.py
 *.npy
 *.npz
 *.bin
+*.txt

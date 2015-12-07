@@ -15,6 +15,15 @@ embed_dir = 'embeddings/'
 
 theano.config.floatX = 'float32'
 
+def subsample(x_train, y_train, output_lens, prob):
+    use_indices = []
+    for i in range(len(x_train)):
+        if np.random.random() < prob[x_train[i]]:
+            use_indices.append(i)
+    use_indices = np.array(use_indices)
+    return x_train[use_indices], y_train[use_indices], output_lens[use_indices]
+
+
 def get_batch(x_train, y_train, output_lens, idx, batch_size):
     x = x_train[idx*batch_size : (idx+1)*batch_size]
     y = y_train[idx*batch_size : (idx+1)*batch_size]
@@ -138,7 +147,7 @@ class NN(object):
 
 
 def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
-           learning_rate, L2_reg, n_epochs, batch_size, rng):
+           learning_rate, L2_reg, n_epochs, batch_size, rng, min_count):
     print 'Building model'
 
     #x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
@@ -150,12 +159,6 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
     y = T.imatrix('y')
     #y = T.itensor3('y')
     out_len = T.ivector('out_len')
-
-    if batch_size is None:
-        batch_size = x_train.shape[0]
-        n_train_batches = 1
-    else:
-        n_train_batches = x_train.shape[0] / batch_size
 
     classifier = NN(
         rng=rng,
@@ -195,17 +198,22 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
 
     start_time = time.time()
 
+    prob = np.array([min(1, i) for i in (min_count*1./np.bincount(x_train))])
+
     epoch = 0
     while epoch < n_epochs:
         epoch = epoch + 1
         print '---------------------'
         print 'Epoch #', epoch
+        x_train_sub, y_train_sub, output_lens_sub = subsample(
+            x_train, y_train, output_lens, prob)
+        n_train_batches = x_train_sub.shape[0] / batch_size
         costs = []
-        for idx in xrange(n_train_batches):
+        for idx in range(n_train_batches):
             #print idx
             #ret = train_model(idx)
             x_train_, y_train_, output_lens_ = get_batch(
-                    x_train, y_train, output_lens, idx, batch_size)
+                    x_train_sub, y_train_sub, output_lens_sub, idx, batch_size)
             ret = train_model(x_train_, y_train_, output_lens_)
             #print ret
             costs.append(ret)
@@ -223,7 +231,7 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         #print classifier.outputLayer.b.get_value()
 
         embeddings = classifier.inp_all.get_value()
-        ranks_all = get_nearest_neighbors(embeddings)
+        ranks_all, neigh = get_nearest_neighbors(embeddings)
         highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
             ranks_all, num_ingredients)
 
@@ -236,7 +244,8 @@ def get_coocc_ranks():
     coocc_sym = coocc*coocc.T
     ranks_all = []
     for i in range(coocc.shape[0]):
-        rank = coocc.shape[1]-np.searchsorted(coocc_sym[i], coocc_sym[i], sorter=np.argsort(coocc_sym[i]))-1
+        rank = coocc.shape[1]-np.searchsorted(
+            coocc_sym[i], coocc_sym[i], sorter=np.argsort(coocc_sym[i]))-1
         ranks_all.append(rank)
     return np.array(ranks_all)
 
@@ -272,7 +281,8 @@ def calc_nn_coocc(pred, inputs, ranks_coocc, top_n=10, prune=10):
     for i in range(len(pred)):
         idx = np.where(inputs[i]==1)[0][0]
         if idx not in pred_coocc:
-            argsort_nn = pred.shape[1]-np.searchsorted(pred[i], pred[i], sorter=np.argsort(pred[i]))-1
+            argsort_nn = pred.shape[1]-np.searchsorted(
+                pred[i], pred[i], sorter=np.argsort(pred[i]))-1
             corr = np.corrcoef(prune_ranks(argsort_nn, prune), 
                                prune_ranks(ranks_coocc[idx], prune))[0,1]
             intersects = np.intersect1d(np.argsort(pred[i])[::-1][1:top_n+1], 
@@ -315,14 +325,15 @@ def compare_neighbors(neigh, embeddings, all_ings, ing, ings_to_compare):
 
 def get_nearest_neighbors(embeddings):
     num_ingredients = embeddings.shape[0]
-    neigh = sklearn.neighbors.NearestNeighbors(num_ingredients, algorithm='brute', metric='cosine')
+    neigh = sklearn.neighbors.NearestNeighbors(
+        num_ingredients, algorithm='brute', metric='cosine')
     neigh.fit(embeddings)
     ranks_all = []
     for i in range(num_ingredients):
         nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
         ranks = np.argsort(nearest_neighbors)
         ranks_all.append(ranks)
-    return np.array(ranks_all)
+    return np.array(ranks_all), neigh
 
 def save_input_outputs(inputs, outputs, output_lens, suffix=''):
     if suffix:
@@ -379,6 +390,7 @@ def default_args():
     max_rotations=5
     random_rotate=True
     rng=np.random.RandomState(seed)
+    min_count=5000
 
 
 def run_nn_helper(df, counts, 
@@ -387,6 +399,7 @@ def run_nn_helper(df, counts,
          n_epochs=10, batch_size=100, seed=3, 
          use_npy=False, 
          max_output_len=4, max_rotations=5, random_rotate=True,
+         min_count=5000,
          **kwargs):
     if use_npy:
         inputs, outputs, output_lens = load_input_outputs(num_ingredients)
@@ -397,7 +410,7 @@ def run_nn_helper(df, counts,
         inputs, outputs, output_lens = (inputs.astype('int32'), 
                             outputs.astype('int32'), 
                             output_lens.astype('int32'))
-        #save_input_outputs(inputs, outputs, output_lens, num_ingredients)
+        save_input_outputs(inputs, outputs, output_lens, num_ingredients)
 
     print "# of data points:", len(inputs)
     # Randomize inputs
@@ -415,35 +428,38 @@ def run_nn_helper(df, counts,
                         L2_reg=L2_reg,
                         n_epochs=n_epochs, 
                         batch_size=batch_size,
-                        rng=np.random.RandomState(seed)
+                        rng=np.random.RandomState(seed),
+                        min_count=min_count
                         )
 
     embeddings = classifier.inp_all.get_value()
-    ranks_all = get_nearest_neighbors(embeddings)
-    print_nearest_neighbors(counts.index.values, ranks_all, 3)
+    ranks_all, neigh = get_nearest_neighbors(embeddings)
+    #print_nearest_neighbors(counts.index.values, ranks_all, 3)
     return ranks_all, classifier
 
 def main():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
-    my_product = lambda x: [dict(itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
+    my_product = lambda x: [dict(
+        itertools.izip(x, i)) for i in itertools.product(*x.itervalues())]
     params = {}
 
     # one must be here
     #params['num_ingredients'] = 5000
     params['num_ingredients'] = 120
 
-    params['use_npy'] = True
+    params['use_npy'] = False
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
-    params['m'] = 20
-    params['input_size'] = 10
-    params['seed'] = range(3)
-    params['n_epochs'] = 7
-    params['batch_size'] = 200
-    params['max_output_len'] = 10
-    params['max_rotations'] = 10
+    params['m'] = 10
+    params['input_size'] = 10#75
+    params['seed'] = 3
+    params['n_epochs'] = 10
+    params['batch_size'] = 100
+    params['max_output_len'] = 4#10
+    params['max_rotations'] = None#10
     params['random_rotate'] = True
+    params['min_count'] = 2500
 
     for k,v in params.iteritems():
         if type(v) != list:

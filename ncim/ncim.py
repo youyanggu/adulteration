@@ -33,11 +33,13 @@ def gen_raw_df():
 
     return df, df_st, df_hier
 
-def get_ing_to_cuis(ings, num_ingredients):
+def get_ing_to_cuis(ings, df):
     # Get CUI from ingredient name
+    if type(ings) == str:
+        ings = [ings]
     ing_to_cuis = {}
     strings = df['STR'].values
-    for i, ing in enumerate(ings[:num_ingredients]):
+    for i, ing in enumerate(ings):
         print i, ing
         matches = df[strings==ing]
         if len(matches) == 0 and len(ing.split())==2:
@@ -74,7 +76,7 @@ def get_ing_to_cuis(ings, num_ingredients):
             print "Found direct match   : {}".format(ing)
         cuis = matches['CUI'].drop_duplicates().values
         ing_to_cuis[ing] = cuis
-        print "{} --> {}".format(num_ingredients, len(ing_to_cuis))
+    print "{} --> {}".format(len(ings), len(ing_to_cuis))
     return ing_to_cuis
 
 
@@ -171,7 +173,7 @@ def convert_hier_to_str(ing_to_hiers_aui, df):
     return ing_to_hiers_str
 
 
-def gen_ing_rep(ing_to_hiers):
+def gen_ing_rep(ing_to_hiers, cuis_to_idx=None):
     def gen_cuis_to_idx(ing_to_hiers):
         cuis = set()
         for k,v in ing_to_hiers.iteritems():
@@ -182,7 +184,8 @@ def gen_ing_rep(ing_to_hiers):
         cuis_to_idx = {v : i for i,v in enumerate(cuis)}
         return cuis_to_idx
 
-    cuis_to_idx = gen_cuis_to_idx(ing_to_hiers)
+    if cuis_to_idx is None:
+        cuis_to_idx = gen_cuis_to_idx(ing_to_hiers)
     l = len(cuis_to_idx)
     ings, reps = [], []
     for k,v in ing_to_hiers.iteritems():
@@ -190,11 +193,13 @@ def gen_ing_rep(ing_to_hiers):
         for path in v:
             v = np.zeros(l)
             for cui in path:
-                v[cuis_to_idx[cui]] = 1
+                if cui in cuis_to_idx:
+                    v[cuis_to_idx[cui]] = 1
             vectors.append(v)
         ings.append(k)
         reps.append(np.mean(np.array(vectors), axis=0))
-    return np.array(ings), np.array(reps)
+    assert(len(cuis_to_idx) == max(cuis_to_idx.values())+1)
+    return np.array(ings), np.array(reps), cuis_to_idx
 
 
 def calc_new_ranks(all_ings, ings, reps):
@@ -213,7 +218,7 @@ def calc_new_ranks(all_ings, ings, reps):
     return new_ranks
 
 def generate_nearest_neighbors(all_ings, ings, reps, print_neighbors=True, top_n=3):
-    ranks = get_nearest_neighbors(reps)
+    ranks, neigh = get_nearest_neighbors(reps)
     if print_neighbors:
         ing_to_nn = {}
         for i in range(ranks.shape[0]):
@@ -225,7 +230,24 @@ def generate_nearest_neighbors(all_ings, ings, reps, print_neighbors=True, top_n
                 print '{} --> N/A'.format(i)
             else:
                 print '{} --> {}'.format(i, ing_to_nn[i])
-    return ranks
+    return ranks, neigh
+
+def convert_ing_to_rep(ings, sources, cuis_to_idx, neigh=None):
+    ing_to_cuis = get_ing_to_cuis(ings, df)
+    ing_to_cui = get_ing_to_cui(ing_to_cuis, df_hier, df_st)
+    ing_to_hiers_aui = get_ing_to_hiers(ing_to_cui, df_hier, sources)
+    ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df)
+    if len(ing_to_hiers) == 0:
+        print "Cannot find representation for ing:", ing
+
+    found_ings, reps, _ = gen_ing_rep(ing_to_hiers, cuis_to_idx)
+    nns = []
+    if neigh:
+        for rep in reps:
+            # Record top 3 neighbors.
+            nns.append(neigh.kneighbors(rep)[1][0][:3])
+    assert(len(found_ings)==len(reps)==len(nns))
+    return found_ings, reps, np.array(nns)
 
 def main():
     num_ingredients = 1000
@@ -241,13 +263,25 @@ def main():
     with open('ing_to_cuis.pkl', 'rb') as f:
         ing_to_cuis = pickle.load(f)
 
-    #ing_to_cuis = get_ing_to_cuis(counts, num_ingredients)
+    #ing_to_cuis = get_ing_to_cuis(counts[:num_ingredients], df)
     ing_to_cui = get_ing_to_cui(ing_to_cuis, df_hier, df_st)
     ing_to_hiers_aui = get_ing_to_hiers(ing_to_cui, df_hier, sources)
     ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df)
     ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui, df)
-    ings, reps = gen_ing_rep(ing_to_hiers)
-    generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps)
+    ings, reps, cuis_to_idx = gen_ing_rep(ing_to_hiers)
+    ranks, neigh = generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps)
+
+    # Write nearest neighbors of unknown ingredients to file.
+    with open('nn_{}.txt'.format(num_ingredients), 'wb') as f_out:
+        #new_ings = counts[num_ingredients:2*num_ingredients].index.values
+        #found_ings, reps, nns = convert_ing_to_rep(
+        #    new_ings, sources, cuis_to_idx, neigh)
+        for i in range(len(new_ings)):
+            ing_idx = np.where(found_ings==new_ings[i])[0]
+            if len(ing_idx)==0:
+                f_out.write('{} --> N/A\n'.format(new_ings[i]))
+                continue
+            f_out.write('{} --> {}\n'.format(new_ings[i], ings[nns[ing_idx[0]]]))
 
 if __name__ == '__main__':
     main()

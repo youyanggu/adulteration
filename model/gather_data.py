@@ -10,11 +10,23 @@ import ing_utils
 
 ### VALID ###
 
-def gen_random_inp(l, num_ones):
-    sample = np.random.choice(l, num_ones, replace=False)
-    inp = np.zeros(l)
-    inp[sample] = 1
-    return inp
+def gen_random_inp(population, l, num_ones):
+    if len(population) == l:
+        sample = np.random.choice(population, num_ones, replace=False)
+        inp = np.zeros(l)
+        inp[sample] = 1
+        return inp
+    else:
+        # weighted
+        ones = []
+        len_pop = len(population)
+        while len(ones) < num_ones:
+            sample = population[np.random.randint(len_pop)]
+            if sample not in ones:
+                ones.append(sample)
+        inp = np.zeros(l)
+        inp[np.array(ones)] = 1
+        return inp
 
 def get_ing_names(counts, arr):
     return counts.index.values[np.where(arr==1)[0]]
@@ -27,10 +39,21 @@ def get_combos(inputs, outputs, counts, limit=50):
     return output
 """
 
-def gen_input_outputs_invalid(length, num_ingredients, ings_per_prod):
+def gen_input_outputs_invalid(df_i, num_samples, num_ingredients, ings_per_prod, weighted=True):
     """Generate invalid set of ingredients from random sampling."""
-    inputs = [gen_random_inp(num_ingredients, ings_per_prod) for i in range(length)]
-    outputs = np.zeros(length)
+    if weighted:
+        counts = df_i['ingredient'].value_counts()
+        counts = counts[:num_ingredients]
+        population = []
+        for i,v in enumerate(counts):
+            population.extend([i]*v)
+        population = np.array(population)
+    else:
+        population = np.arange(num_ingredients)
+
+    inputs = [gen_random_inp(
+        population, num_ingredients, ings_per_prod) for i in range(num_samples)]
+    outputs = np.zeros(num_samples)
     assert(len(inputs)==len(outputs))
     return np.array(inputs), outputs
 
@@ -215,7 +238,7 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
             #    v_sum = np.sum(v[1:], axis=0)
             
             #v_sum = (v_sum>0).astype(int) # if duplicates
-            if num_ingredients>200:
+            if num_ingredients>0:#200:
                 outputs_ = scipy.sparse.csr_matrix(v_sum)
             else:
                 outputs_ = v_sum
