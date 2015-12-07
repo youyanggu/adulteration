@@ -7,6 +7,7 @@ import theano
 import theano.tensor as T
 
 from gather_data import *
+from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
 from utils import *
 
 theano.config.floatX = 'float32'
@@ -313,10 +314,11 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         inputs, outputs, test_size=1/3., random_state=42)
 
+    print "Running model..."
     # Max entropy model
     # Normalize
     #inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
-    #regr = max_entropy(X_train, y_train, X_test, y_test)
+    regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
@@ -333,6 +335,11 @@ def main():
         print calc_accuracy(pred, y_test, lower_to_upper_cat)
     #print_predictions(X_test, y_test, pred_cats, idx_to_cat, counts, limit=100)
 
+    embeddings = classifier.hiddenLayer.W.get_value()
+    ranks, neigh = get_nearest_neighbors(embeddings)
+    print_nearest_neighbors(counts.index.values[:1000], ranks)
+    highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+            ranks, num_ingredients)
 
 if __name__ == '__main__':
     main()

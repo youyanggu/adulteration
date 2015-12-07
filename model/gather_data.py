@@ -39,11 +39,14 @@ def get_combos(inputs, outputs, counts, limit=50):
     return output
 """
 
-def gen_input_outputs_invalid(df_i, num_samples, num_ingredients, ings_per_prod, weighted=True):
-    """Generate invalid set of ingredients from random sampling."""
+def gen_input_outputs_invalid(inputs_v, num_ingredients, ings_per_prod, weighted=True):
+    """
+    Generate invalid set of ingredients from random sampling.
+    Generates ingredients in the same frequents as the valid inputs.
+    """
+    num_samples = len(inputs_v)
     if weighted:
-        counts = df_i['ingredient'].value_counts()
-        counts = counts[:num_ingredients]
+        counts = np.sum(inputs_v, axis=0, dtype=int)
         population = []
         for i,v in enumerate(counts):
             population.extend([i]*v)

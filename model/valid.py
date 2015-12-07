@@ -7,6 +7,7 @@ import theano
 import theano.tensor as T
 
 from gather_data import *
+from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
 from nn_category import *
 from utils import *
 
@@ -55,7 +56,7 @@ def main():
     inputs_v, outputs_v = gen_input_outputs_valid(
                         df, df_i, num_ingredients, ings_per_prod)
     inputs_i, outputs_i = gen_input_outputs_invalid(
-                        df_i, len(inputs_v), num_ingredients, ings_per_prod, weighted)
+                        inputs_v, num_ingredients, ings_per_prod, weighted)
     inputs_ = np.vstack((inputs_v, inputs_i))
     outputs = np.hstack((outputs_v, outputs_i))
 
@@ -78,18 +79,26 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         inputs, outputs, test_size=1/3., random_state=42)
 
+    print "Running model..."
     # Max entropy model
-    #regr = max_entropy(X_train, y_train, X_test, y_test)
+    regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    classifier, pred = run_nn(X_train, y_train, X_test, y_test, num_ingredients, 2,
+    classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, num_ingredients, 2,
                                 m=10, n_epochs=20, batch_size=10,
                                 learning_rate=0.01, L2_reg=0.0003)
 
+    pred = predict_model(X_test)
     pred_cats = np.argmax(pred, axis=1)
     #print calc_accuracy(pred, y_test)
     #print_predictions(X_test, y_test, pred_cats, counts, limit=100)
+
+    embeddings = classifier.hiddenLayer.W.get_value()
+    ranks, neigh = get_nearest_neighbors(embeddings)
+    print_nearest_neighbors(counts.index.values[:1000], ranks)
+    highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+            ranks, num_ingredients)
 
 if __name__ == '__main__':
     main()
