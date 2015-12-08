@@ -10,6 +10,28 @@ import ing_utils
 
 ### VALID ###
 
+def flip_arr(arr, num_flips=1):
+    assert(arr.sum() >= num_flips)
+    if num_flips == 0:
+        return arr
+    one_indices = np.where(arr==1)[0]
+    new_one_indices = []
+    while len(new_one_indices)<num_flips:
+        idx = np.random.choice(len(arr))
+        if idx not in one_indices and idx not in new_one_indices:
+            new_one_indices.append(idx)
+
+    z = np.zeros(len(arr))
+    all_one_indices = np.hstack((
+            np.random.choice(one_indices, len(one_indices)-num_flips, replace=False),
+            np.array(new_one_indices)))
+    z[all_one_indices] = 1
+    assert(arr.sum()==z.sum())
+    return z
+
+def flip_inputs(inputs, num_flips=1):
+    return np.array([flip_arr(i, num_flips) for i in inputs]).astype('int32')
+
 def gen_random_inp(population, l, num_ones):
     if len(population) == l:
         sample = np.random.choice(population, num_ones, replace=False)
@@ -39,12 +61,13 @@ def get_combos(inputs, outputs, counts, limit=50):
     return output
 """
 
-def gen_input_outputs_invalid(inputs_v, num_ingredients, ings_per_prod, weighted=True):
+def gen_input_outputs_invalid(inputs_v, frac_samples, num_ingredients, 
+    ings_per_prod, weighted=True):
     """
     Generate invalid set of ingredients from random sampling.
     Generates ingredients in the same frequents as the valid inputs.
     """
-    num_samples = len(inputs_v)
+    num_samples = int(frac_samples * len(inputs_v))
     if weighted:
         counts = np.sum(inputs_v, axis=0, dtype=int)
         population = []
@@ -58,7 +81,7 @@ def gen_input_outputs_invalid(inputs_v, num_ingredients, ings_per_prod, weighted
         population, num_ingredients, ings_per_prod) for i in range(num_samples)]
     outputs = np.zeros(num_samples)
     assert(len(inputs)==len(outputs))
-    return np.array(inputs), outputs
+    return np.array(inputs).astype('int32'), outputs.astype('int32')
 
 
 def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
@@ -72,14 +95,15 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
     for idx in range(len(df)):
         l = convert_ingredient_list(ingredients_clean[idx], onehot_ing)
         if len(l) < ings_per_prod:
+            # Ignore product if it contains too few ingredients.
             continue
         s = np.sum(np.array(l[:ings_per_prod]), axis=0)
         assert(len(s)==num_ingredients)
-        assert(s.sum()==ings_per_prod)
+        #assert(s.sum()==ings_per_prod)
         inputs.append(s)
     outputs = np.ones(len(inputs))
     assert(len(inputs)==len(outputs))
-    return np.array(inputs), outputs
+    return np.array(inputs).astype('int32'), outputs.astype('int32')
 
 
 
@@ -176,8 +200,10 @@ def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat, ings_per_prod=N
     assert(len(inputs)==len(categories))
     outputs = categories
     idx_to_cat = {i:c for c,i in cat_to_idx.iteritems()}
-    return np.array(inputs), np.array(outputs), idx_to_cat
-
+    return (np.array(inputs).astype('int32'), 
+        np.array(outputs).astype('int32'), 
+        idx_to_cat
+        )
 
 
 ### EMBEDDINGS ###
@@ -250,10 +276,13 @@ def gen_input_outputs(ingredients_clean, counts, num_ingredients,
     assert(len(inputs)==len(outputs)==len(output_lens_new))
     if scipy.sparse.issparse(outputs[0]):
         outputs = scipy.sparse.vstack(outputs)
-        #outputs = scipy.sparse.csr_matrix(outputs) # need to cast for old scipy
+        outputs = scipy.sparse.csr_matrix(outputs) # need to cast for old scipy
     else:
         outputs = np.array(outputs)
-    return np.array(inputs), outputs, np.array(output_lens_new)
+    return (np.array(inputs).astype('int32'), 
+        outputs.astype('int32'), 
+        np.array(output_lens_new).astype('int32')
+        )
 
 
 ### GENERAL ###

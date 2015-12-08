@@ -273,9 +273,9 @@ def main():
 
     # Write nearest neighbors of unknown ingredients to file.
     with open('nn_{}.txt'.format(num_ingredients), 'wb') as f_out:
-        #new_ings = counts[num_ingredients:2*num_ingredients].index.values
-        #found_ings, reps, nns = convert_ing_to_rep(
-        #    new_ings, sources, cuis_to_idx, neigh)
+        new_ings = counts[num_ingredients:2*num_ingredients].index.values
+        found_ings, new_ings_reps, nns = convert_ing_to_rep(
+            new_ings, sources, cuis_to_idx, neigh)
         for i in range(len(new_ings)):
             ing_idx = np.where(found_ings==new_ings[i])[0]
             if len(ing_idx)==0:

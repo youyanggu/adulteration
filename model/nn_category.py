@@ -8,6 +8,7 @@ import theano.tensor as T
 
 from gather_data import *
 from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
+from scoring import calc_score
 from utils import *
 
 theano.config.floatX = 'float32'
@@ -251,12 +252,12 @@ def zero_embeddings(embeddings, found_ings):
     new_embeddings[zero_indices] = np.zeros(embeddings.shape[1])
     return new_embeddings
 
-def prob_method(df, category, alpha=0):
+def prob_method(df, category, alpha=0, test_size=1/3.):
     """Use unigram probabilities to predict category. Alpha is used for alpha smoothing."""
     n = len(df)
     cat_to_idx = {c : i for i, c in enumerate(
         np.unique(df[category].str.lower().values))}
-    train_indices = np.random.choice(n, n*2/3., replace=False)
+    train_indices = np.random.choice(n, n*(1-test_size), replace=False)
     test_indices = np.setdiff1d(np.arange(n), train_indices)
     df_train = df.ix[train_indices]
     df_test = df.ix[test_indices]
@@ -291,55 +292,75 @@ def prob_method(df, category, alpha=0):
         print calc_accuracy(pred_cats, true_cats, lower_to_upper_cat)
     return pred_cats, true_cats
 
+def search_smoothing(df, alphas, test_size=1/3.):
+    for alpha in alphas:
+        print "Alpha = {}".format(alpha)
+        print "Aisle"
+        pred_cats, true_cats = prob_method(df, 'aisle', alpha, test_size)
+        print "Shelf"
+        pred_cats, true_cats = prob_method(df, 'shelf', alpha, test_size)
+        print "Food Category"
+        pred_cats, true_cats = prob_method(df, 'food_category', alpha, test_size)
+        print "----------"
+
 def main():
-    num_ingredients = 5000
-    ings_per_prod = None
-    use_embeddings = True
-    output_cat = 'food_category'
+    num_ingredients = 1000
+    ings_per_prod = 5
+    use_embeddings = False
+    output_cat = 'shelf'
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     inputs_, outputs, idx_to_cat = gen_input_outputs_cat(
                         df, df_i, num_ingredients, output_cat, ings_per_prod)
-    inputs_, outputs = inputs_.astype('int32'), outputs.astype('int32')
     if use_embeddings:
         #embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
         #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]
-        embeddings = 2*np.random.random((embeddings.shape))-1 # Try random embeddings
-        inputs = input_from_embeddings(inputs_, embeddings.astype('float32'), 
+        embeddings = 2*np.random.random((num_ingredients, 20))-1 # Try random embeddings
+        embeddings = embeddings.astype('float32')
+        inputs = input_from_embeddings(inputs_, embeddings, 
             normalize=False)
     else:
         inputs = inputs_
     num_outputs = outputs.max()+1
 
+    print "# of data points:", len(inputs)
+    # Scramble inputs/outputs
+    np.random.seed(3)
+    random_idx = np.random.permutation(len(inputs))
+    inputs = inputs[random_idx]
+    outputs = outputs[random_idx]
+
     X_train, X_test, y_train, y_test = train_test_split(
         inputs, outputs, test_size=1/3., random_state=42)
 
-    print "Running model..."
+    print "Running models..."
     # Max entropy model
     # Normalize
     #inputs_n = inputs / np.sum(inputs, axis=1)[:,None]
-    regr = max_entropy(X_train, y_train, X_test, y_test)
+    #regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
-    # Neural network model
-    classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, 
-                              X_train.shape[1], num_outputs,
-                              m=1200, n_epochs=5, batch_size=10,
-                              learning_rate=0.01, L2_reg=0.0005)
+    for m in [100, 500, 1000, 1500]:
+        # Neural network model
+        classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, 
+                                  X_train.shape[1], num_outputs,
+                                  m=m, n_epochs=5, batch_size=10,
+                                  learning_rate=0.01, L2_reg=0.0005)
 
-    pred = predict_model(X_test)
-    pred_cats = np.argmax(pred, axis=1)
-    print calc_accuracy(pred, y_test)
-    if output_cat != 'aisle':
-        lower_to_upper_cat = get_upper_cat(df, output_cat, 'aisle')
-        print calc_accuracy(pred, y_test, lower_to_upper_cat)
-    #print_predictions(X_test, y_test, pred_cats, idx_to_cat, counts, limit=100)
+        pred = predict_model(X_test)
+        pred_cats = np.argmax(pred, axis=1)
+        print calc_accuracy(pred, y_test)
+        if output_cat != 'aisle':
+            lower_to_upper_cat = get_upper_cat(df, output_cat, 'aisle')
+            print calc_accuracy(pred, y_test, lower_to_upper_cat)
+        #print_predictions(X_test, y_test, pred_cats, idx_to_cat, counts, limit=100)
 
-    embeddings = classifier.hiddenLayer.W.get_value()
-    ranks, neigh = get_nearest_neighbors(embeddings)
-    print_nearest_neighbors(counts.index.values[:1000], ranks)
-    highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
-            ranks, num_ingredients)
+        if not use_embeddings:
+            embeddings_out = classifier.hiddenLayer.W.get_value()
+            ranks, neigh = get_nearest_neighbors(embeddings_out)
+            #print_nearest_neighbors(counts.index.values[:num_ingredients], ranks)
+            highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+                    ranks, num_ingredients)
 
 if __name__ == '__main__':
     main()

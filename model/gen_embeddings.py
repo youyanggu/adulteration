@@ -16,6 +16,8 @@ embed_dir = 'embeddings/'
 theano.config.floatX = 'float32'
 
 def subsample(x_train, y_train, output_lens, prob):
+    if prob is None:
+        return x_train, y_train, output_lens
     use_indices = []
     for i in range(len(x_train)):
         if np.random.random() < prob[x_train[i]]:
@@ -198,7 +200,9 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
 
     start_time = time.time()
 
-    prob = np.array([min(1, i) for i in (min_count*1./np.bincount(x_train))])
+    prob = None
+    if min_count:
+        prob = np.array([min(1, i) for i in (min_count*1./np.bincount(x_train))])
 
     epoch = 0
     while epoch < n_epochs:
@@ -297,10 +301,22 @@ def get_counts(inputs):
         d[i] = (j, int(s[i]))
     return d
 
-def print_nearest_neighbors(ing_names, ranks, top_n=3):
-    for i in range(ranks.shape[0]):
-        nearest_neighbors = np.argsort(ranks[i])
-        print '{} --> {}'.format(ing_names[i], ing_names[nearest_neighbors[1:top_n+1]])
+def print_nearest_neighbors(ing_names, ranks, top_n=3, fname=None):
+    if fname:
+        with open(fname, 'wb') as f_out:
+            for i in range(ranks.shape[0]):
+                nearest_neighbors = np.argsort(ranks[i])
+                f_out.write('{} --> {}\n'.format(ing_names[i], 
+                np.array_str(ing_names[nearest_neighbors[1:top_n+1]], 
+                    max_line_width=10000).replace('\n', '')
+                ))
+    else:
+        for i in range(ranks.shape[0]):
+            nearest_neighbors = np.argsort(ranks[i])
+            print '{} --> {}'.format(ing_names[i], 
+                np.array_str(ing_names[nearest_neighbors[1:top_n+1]], 
+                    max_line_width=10000).replace('\n', '')
+                )
 
 def compare_neighbors(neigh, embeddings, all_ings, ing, ings_to_compare):
     assert(ing in all_ings)
@@ -407,10 +423,7 @@ def run_nn_helper(df, counts,
         print "Gathering inputs/outputs..."
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
-        inputs, outputs, output_lens = (inputs.astype('int32'), 
-                            outputs.astype('int32'), 
-                            output_lens.astype('int32'))
-        save_input_outputs(inputs, outputs, output_lens, num_ingredients)
+        #save_input_outputs(inputs, outputs, output_lens, num_ingredients)
 
     print "# of data points:", len(inputs)
     # Randomize inputs

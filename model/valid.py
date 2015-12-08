@@ -6,9 +6,9 @@ from sklearn.cross_validation import train_test_split
 import theano
 import theano.tensor as T
 
-from gather_data import *
 from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
 from nn_category import *
+from scoring import calc_score
 from utils import *
 
 theano.config.floatX = 'float32'
@@ -28,9 +28,7 @@ def load_data(x, y=None):
         return x_train, y_train
 
 
-def calc_accuracy(pred, y_test, tensor=True):
-    if tensor:
-        y_test = y_test.get_value()
+def calc_accuracy(pred, y_test):
     pred_cats = np.argmax(pred, axis=1)
     acc = (pred_cats == y_test).sum() * 1.0 / len(pred)
     return acc
@@ -48,57 +46,90 @@ def print_predictions(inputs, outputs, pred, counts, limit=None):
  
 def main():
     num_ingredients = 1000
-    use_embeddings = False
+    use_embeddings = True
     ings_per_prod = 5
-    weighted = True
+    frac_weighted = 0.95
+    invalid_multiplier = 0.95
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
-    inputs_v, outputs_v = gen_input_outputs_valid(
+    inputs_v_, outputs_v = gen_input_outputs_valid(
                         df, df_i, num_ingredients, ings_per_prod)
-    inputs_i, outputs_i = gen_input_outputs_invalid(
-                        inputs_v, num_ingredients, ings_per_prod, weighted)
-    inputs_ = np.vstack((inputs_v, inputs_i))
-    outputs = np.hstack((outputs_v, outputs_i))
+    inputs_i_w_, outputs_i_w = gen_input_outputs_invalid(inputs_v_,
+                        invalid_multiplier*frac_weighted, 
+                        num_ingredients, ings_per_prod, weighted=True)
+    inputs_i_, outputs_i = gen_input_outputs_invalid(inputs_v_,
+                        invalid_multiplier*(1-frac_weighted), 
+                        num_ingredients, ings_per_prod, weighted=False)
 
-    inputs_, outputs = inputs_.astype('int32'), outputs.astype('int32')
     if use_embeddings:
         #embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
         #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]
-        embeddings = 2*np.random.random((embeddings.shape))-1 # Try random embeddings
-        inputs = input_from_embeddings(inputs_, embeddings.astype('float32'), 
-            normalize=False)
+        embeddings = 2*np.random.random((num_ingredients, 20))-1 # Try random embeddings
+        embeddings = embeddings.astype('float32')
+        normalize = False
+        inputs_v = input_from_embeddings(inputs_v_, embeddings, 
+            normalize=normalize)
+        inputs_i_w = input_from_embeddings(inputs_i_w_, embeddings, 
+            normalize=normalize)
+        inputs_i = input_from_embeddings(inputs_i_, embeddings, 
+            normalize=normalize)
     else:
-        inputs = inputs_
+        inputs_v = inputs_v_
+        inputs_i_w = inputs_i_w_
+        inputs_i = inputs_i_
+
+    X_train_v, X_test_v, y_train_v, y_test_v = train_test_split(
+        inputs_v, outputs_v, test_size=1/3., random_state=42)
+    X_train_i_w, X_test_i_w, y_train_i_w, y_test_i_w = train_test_split(
+        inputs_i_w, outputs_i_w, test_size=1/3., random_state=42)
+    X_train_i, X_test_i, y_train_i, y_test_i = train_test_split(
+        inputs_i, outputs_i, test_size=1/3., random_state=42)
+
+    X_train = np.vstack((X_train_v, X_train_i_w, X_train_i))
+    y_train = np.hstack((y_train_v, y_train_i_w, y_train_i))
+    X_test = np.vstack((X_test_v, X_test_i_w, X_test_i))
+    y_test = np.hstack((y_test_v, y_test_i_w, y_test_i))
 
     # Scramble inputs/outputs
     np.random.seed(3)
-    random_idx = np.random.permutation(len(inputs))
-    inputs = inputs[random_idx]
-    outputs = outputs[random_idx]
-    
-    X_train, X_test, y_train, y_test = train_test_split(
-        inputs, outputs, test_size=1/3., random_state=42)
+    random_idx_tr = np.random.permutation(len(X_train))
+    random_idx_te = np.random.permutation(len(X_test))
+    X_train = X_train[random_idx_tr]
+    y_train = y_train[random_idx_tr]
+    X_test = X_test[random_idx_te]
+    y_test = y_test[random_idx_te]
 
-    print "Running model..."
+    print "Running models..."
     # Max entropy model
     regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model
-    classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, num_ingredients, 2,
-                                m=10, n_epochs=20, batch_size=10,
-                                learning_rate=0.01, L2_reg=0.0003)
+    classifier, predict_model = run_nn(X_train, y_train, X_test, y_test, 
+                                X_train.shape[1], num_outputs=2,
+                                m=20, n_epochs=10, batch_size=10,
+                                learning_rate=0.05, L2_reg=0.0001)
 
-    pred = predict_model(X_test)
-    pred_cats = np.argmax(pred, axis=1)
+    #pred = predict_model(X_test)
+    #pred_cats = np.argmax(pred, axis=1)
     #print calc_accuracy(pred, y_test)
     #print_predictions(X_test, y_test, pred_cats, counts, limit=100)
 
-    embeddings = classifier.hiddenLayer.W.get_value()
-    ranks, neigh = get_nearest_neighbors(embeddings)
-    print_nearest_neighbors(counts.index.values[:1000], ranks)
-    highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
-            ranks, num_ingredients)
+    print "Max Entropy (Valid, Invalid, Invalid weighted):"
+    print calc_accuracy(regr.predict_proba(X_test_v), y_test_v)
+    print calc_accuracy(regr.predict_proba(X_test_i), y_test_i)
+    print calc_accuracy(regr.predict_proba(X_test_i_w), y_test_i_w)
+    print "Neural Network (Valid, Invalid, Invalid weighted):"
+    print calc_accuracy(predict_model(X_test_v), y_test_v)
+    print calc_accuracy(predict_model(X_test_i), y_test_i)
+    print calc_accuracy(predict_model(X_test_i_w), y_test_i_w)
+
+    if not use_embeddings:
+        embeddings_out = classifier.hiddenLayer.W.get_value()
+        ranks, neigh = get_nearest_neighbors(embeddings_out)
+        #print_nearest_neighbors(counts.index.values[:num_ingredients], ranks)
+        highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
+                ranks, num_ingredients)
 
 if __name__ == '__main__':
     main()

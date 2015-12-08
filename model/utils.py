@@ -25,25 +25,3 @@ def scramble_data(inputs, outputs):
     assert(len(inputs)==len(outputs))
     indices = np.random.permutation(len(inputs))
     return inputs[indices], outputs[indices]
-
-def flip_arr(arr, num_flips=1):
-    assert(arr.sum() >= num_flips)
-    if num_flips == 0:
-        return arr
-    one_indices = np.where(arr==1)[0]
-    new_one_indices = []
-    while len(new_one_indices)<num_flips:
-        idx = np.random.choice(len(arr))
-        if idx not in one_indices and idx not in new_one_indices:
-            new_one_indices.append(idx)
-
-    z = np.zeros(len(arr))
-    all_one_indices = np.hstack((
-            np.random.choice(one_indices, len(one_indices)-num_flips, replace=False),
-            np.array(new_one_indices)))
-    z[all_one_indices] = 1
-    assert(arr.sum()==z.sum())
-    return z
-
-def flip_inputs(inputs, num_flips=1):
-    return np.array([flip_arr(i, num_flips) for i in inputs])

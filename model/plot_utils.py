@@ -11,7 +11,7 @@ def plot_tsne(X_tsne, labels=None, only_cats=True, indices=None, limit=None):
     categories = ['non-labeled', 'fruit/nuts', 'vegetables', 'meat/fish', 'grain', 'dairy',
                   'vitamin', 'flavor/color', 'additive', 'seasoning',
                   'oil', 'other'] #lime
-    cats = get_ing_category()['Category'].values
+    cats = get_ing_category()['category'].values
     if only_cats:
         if indices is not None:
             wanted = indices[indices<len(cats)]
@@ -49,3 +49,13 @@ def tsne(embeddings, plot=False):
     if plot:
         plot_tsne(X_tsne)
     return X_tsne
+
+def plot_smoothing(x, a, b, c):
+    plt.plot(x, a, label='Aisle')
+    plt.plot(x, b, label='Shelf')
+    plt.plot(x, c, label='Food Category')
+    plt.legend(loc='lower left')
+    plt.xlabel('log alpha')
+    plt.ylabel('accuracy')
+    plt.grid()
+    plt.show(block=False)
