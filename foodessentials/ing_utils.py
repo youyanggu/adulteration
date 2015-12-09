@@ -29,18 +29,17 @@ def find_products_by_ing(ing, split=False, df=None, df_i=None):
      return products
 
 
-def get_perc(ing, df=None, split=False):
+def get_perc(ing, category='food_category', df=None, df_i=None, split=False):
      ing = ing.lower()
      if df is None:
           df = read_df()
      percs = []
-     p_ing = find_products_by_ing(ing, split, df)
-     cat_counts = p_ing['food_category'].value_counts()
-     all_cat_counts = df['food_category'].value_counts()
+     p_ing = find_products_by_ing(ing, split, df, df_i)
+     cat_counts = p_ing[category].str.lower().value_counts()
+     all_cat_counts = df[category].str.lower().value_counts()
      for cat in cat_counts.index.values:
           perc = cat_counts[cat]*1.0/all_cat_counts[cat]
-          if perc>0.1:
-               percs.append((perc, cat, all_cat_counts[cat]))
+          percs.append((perc, cat, cat_counts[cat]))
      cat_perc = sorted(percs)
      return cat_perc
 

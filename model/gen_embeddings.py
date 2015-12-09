@@ -228,8 +228,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
                 for param, gparam in zip(classifier.params, gparams)
         ]
         print np.array(costs).mean()
-        print classifier.hiddenLayer.W.get_value()[0]
-        print classifier.inp_all.get_value()[0]
+        #print classifier.hiddenLayer.W.get_value()[0]
+        #print classifier.inp_all.get_value()[0]
         #print classifier.hiddenLayer.b.get_value()
         #print classifier.outputLayer.W.get_value()[0]
         #print classifier.outputLayer.b.get_value()
@@ -426,7 +426,7 @@ def run_nn_helper(df, counts,
         #save_input_outputs(inputs, outputs, output_lens, num_ingredients)
 
     print "# of data points:", len(inputs)
-    # Randomize inputs
+    # Scramble inputs/outputs
     np.random.seed(seed)
     random_idx = np.random.permutation(len(inputs))
     inputs = inputs[random_idx]
@@ -458,21 +458,21 @@ def main():
     params = {}
 
     # one must be here
-    #params['num_ingredients'] = 5000
-    params['num_ingredients'] = 120
+    params['num_ingredients'] = 5000
+    #params['num_ingredients'] = 120
 
-    params['use_npy'] = False
+    params['use_npy'] = True
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
     params['m'] = 10
-    params['input_size'] = 10#75
+    params['input_size'] = 75
     params['seed'] = 3
-    params['n_epochs'] = 10
-    params['batch_size'] = 100
-    params['max_output_len'] = 4#10
+    params['n_epochs'] = 8
+    params['batch_size'] = 200
+    params['max_output_len'] = 10
     params['max_rotations'] = None#10
     params['random_rotate'] = True
-    params['min_count'] = 2500
+    params['min_count'] = 5000
 
     for k,v in params.iteritems():
         if type(v) != list:

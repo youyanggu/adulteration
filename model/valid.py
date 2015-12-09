@@ -46,10 +46,10 @@ def print_predictions(inputs, outputs, pred, counts, limit=None):
  
 def main():
     num_ingredients = 1000
-    use_embeddings = True
-    ings_per_prod = 5
+    use_embeddings = False
+    ings_per_prod = 3
     frac_weighted = 0.95
-    invalid_multiplier = 0.95
+    invalid_multiplier = 1
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     inputs_v_, outputs_v = gen_input_outputs_valid(
@@ -62,9 +62,9 @@ def main():
                         num_ingredients, ings_per_prod, weighted=False)
 
     if use_embeddings:
-        #embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
+        embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
         #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]
-        embeddings = 2*np.random.random((num_ingredients, 20))-1 # Try random embeddings
+        #embeddings = 2*np.random.random((num_ingredients, 300))-1 # Try random embeddings
         embeddings = embeddings.astype('float32')
         normalize = False
         inputs_v = input_from_embeddings(inputs_v_, embeddings, 
