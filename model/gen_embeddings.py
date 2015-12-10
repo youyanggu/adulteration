@@ -152,14 +152,8 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
            learning_rate, L2_reg, n_epochs, batch_size, rng, min_count):
     print 'Building model'
 
-    #x_train, y_train, output_lens = load_data(x_train, y_train, output_lens)
-
-    index = T.iscalar()  # index to a [mini]batch
     x = T.ivector('x')
-    #x = T.imatrix('x')  # the data is presented as rasterized images
-    #y = T.ivector('y')  # the labels are presented as 1D vector of [int] labels
     y = T.imatrix('y')
-    #y = T.itensor3('y')
     out_len = T.ivector('out_len')
 
     classifier = NN(
@@ -183,18 +177,10 @@ def run_nn(x_train, y_train, output_lens, num_ingredients, m, input_size,
         inputs=[x, y, out_len],
         outputs=cost,
         updates=updates,
-        #givens={
-        #    x: x_train[index * batch_size: (index + 1) * batch_size],
-        #    y: y_train[index * batch_size: (index + 1) * batch_size],
-        #    out_len: output_lens[index * batch_size: (index + 1) * batch_size]
-        #}
     )
     predict_model = theano.function(
         inputs=[x],
         outputs=classifier.outputLayer.p_y_given_x,
-        #givens={
-        #    x: x_train,
-        #}
     )
     print 'Training'
 
@@ -390,6 +376,16 @@ def print_embeddings(ings, embeddings, fname=None):
     if fname:
         f_out.close()
 
+def print_output(ing_names, num_ingredients, predict_model, top_n=3):
+    ing_names = ing_names[:num_ingredients]
+    pred_outputs = predict_model(np.arange(num_ingredients).astype('int32'))
+    for i, ing in enumerate(ing_names):
+        out = np.argsort(pred_outputs[i])[::-1]
+        print '{} --> {}'.format(ing, 
+                np.array_str(ing_names[out[:top_n]], 
+                    max_line_width=10000).replace('\n', '')
+                )
+
 def default_args():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
@@ -423,7 +419,7 @@ def run_nn_helper(df, counts,
         print "Gathering inputs/outputs..."
         inputs, outputs, output_lens = gen_input_outputs(df['ingredients_clean'].values, 
                 counts, num_ingredients, max_output_len, max_rotations, random_rotate)
-        #save_input_outputs(inputs, outputs, output_lens, num_ingredients)
+        save_input_outputs(inputs, outputs, output_lens, num_ingredients)
 
     print "# of data points:", len(inputs)
     # Scramble inputs/outputs
@@ -448,7 +444,7 @@ def run_nn_helper(df, counts,
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)
     #print_nearest_neighbors(counts.index.values, ranks_all, 3)
-    return ranks_all, classifier
+    return ranks_all, classifier, predict_model
 
 def main():
     df, df_i = import_data()
@@ -458,21 +454,21 @@ def main():
     params = {}
 
     # one must be here
-    params['num_ingredients'] = 5000
-    #params['num_ingredients'] = 120
+    #params['num_ingredients'] = 5000
+    params['num_ingredients'] = 120
 
     params['use_npy'] = True
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
     params['m'] = 10
-    params['input_size'] = 75
+    params['input_size'] = 10
     params['seed'] = 3
-    params['n_epochs'] = 8
+    params['n_epochs'] = 5
     params['batch_size'] = 200
     params['max_output_len'] = 10
     params['max_rotations'] = None#10
     params['random_rotate'] = True
-    params['min_count'] = 5000
+    params['min_count'] = None
 
     for k,v in params.iteritems():
         if type(v) != list:
@@ -488,7 +484,7 @@ def main():
             if len(params[k]) > 1:
                 print '{} : {}'.format(k, param[k])
         iterations += 1
-        ranks_all, classifier = run_nn_helper(df, counts, **param)
+        ranks_all, classifier, predict_model = run_nn_helper(df, counts, **param)
         highest_rank, score, avg_rank_of_ing_cat, random_score = calc_score(
             ranks_all, param['num_ingredients'], print_scores=False)
         #param_scores[tuple(sorted(param.items()))] = score.mean()

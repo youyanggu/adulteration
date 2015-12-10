@@ -43,11 +43,24 @@ def print_predictions(inputs, outputs, pred, counts, limit=None):
         print 'Actual     :', 'Valid' if outputs[idx]==1 else 'Invalid'
         if idx > limit:
             break
- 
+
+def track_ing_changes(predict_model, inputs, num_changes):
+    probs_valid = []
+    if type(num_changes) == int:
+        num_changes = [num_changes]
+    for n in num_changes:
+        prob = np.argmax(
+            predict_model(
+                change_inputs(
+                    inputs, n)), axis=1).sum() * 1. / len(inputs)
+        print n, prob
+        probs_valid.append(prob)
+    return np.array(probs_valid)
+
 def main():
     num_ingredients = 1000
     use_embeddings = False
-    ings_per_prod = 3
+    ings_per_prod = 5
     frac_weighted = 0.95
     invalid_multiplier = 1
     df, df_i = import_data()
@@ -64,7 +77,7 @@ def main():
     if use_embeddings:
         embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
         #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]
-        #embeddings = 2*np.random.random((num_ingredients, 300))-1 # Try random embeddings
+        #embeddings = 2*np.random.random((num_ingredients, 20))-1 # Try random embeddings
         embeddings = embeddings.astype('float32')
         normalize = False
         inputs_v = input_from_embeddings(inputs_v_, embeddings, 
@@ -101,7 +114,7 @@ def main():
 
     print "Running models..."
     # Max entropy model
-    regr = max_entropy(X_train, y_train, X_test, y_test)
+    #regr = max_entropy(X_train, y_train, X_test, y_test)
     #predict_cat(counts, regr, idx_to_cat, num_ingredients, ings)
 
     # Neural network model

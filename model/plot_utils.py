@@ -50,12 +50,25 @@ def tsne(embeddings, plot=False):
         plot_tsne(X_tsne)
     return X_tsne
 
-def plot_smoothing(x, a, b, c):
-    plt.plot(x, a, label='Aisle')
-    plt.plot(x, b, label='Shelf')
-    plt.plot(x, c, label='Food Category')
+def plot_smoothing(x, y_a, y_b, y_c):
+    plt.plot(x, y_a, label='Aisle')
+    plt.plot(x, y_b, label='Shelf')
+    plt.plot(x, y_c, label='Food Category')
     plt.legend(loc='lower left')
     plt.xlabel('log alpha')
     plt.ylabel('accuracy')
     plt.grid()
     plt.show(block=False)
+
+
+def plot_ing_changes(x, y_v, y_i, y_i_w, n=5):
+    plt.plot(x, y_v, label='Valid')
+    plt.plot(x, y_i, label='Invalid (random)')
+    plt.plot(x, y_i_w, label='Invalid (weighted)')
+    plt.axvline(n, color='k', linestyle='--')
+    plt.legend(loc='upper left')
+    plt.xlabel('# of ingredients')
+    plt.ylabel('% predicted as valid')
+    plt.grid()
+    plt.show(block=False)
+

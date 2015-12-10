@@ -29,8 +29,40 @@ def flip_arr(arr, num_flips=1):
     assert(arr.sum()==z.sum())
     return z
 
+def add_arr(arr, num_adds=1):
+    if num_adds == 0:
+        return arr
+    indices = np.where(arr==0)[0]
+    new_one_indices = np.random.choice(indices, num_adds, replace=False)
+    arr[new_one_indices] = 1
+    return arr
+
+def remove_arr(arr, num_removes=1):
+    if num_removes == 0:
+        return arr
+    indices = np.where(arr!=0)[0]
+    num_removes = min(num_removes, len(indices))
+    new_one_indices = np.random.choice(indices, num_removes, replace=False)
+    arr[new_one_indices] = 0
+    return arr
+
 def flip_inputs(inputs, num_flips=1):
+    inputs = np.copy(inputs)
     return np.array([flip_arr(i, num_flips) for i in inputs]).astype('int32')
+
+def add_inputs(inputs, num_adds=1):
+    inputs = np.copy(inputs)
+    return np.array([add_arr(i, num_adds) for i in inputs]).astype('int32')
+
+def remove_inputs(inputs, num_removes=1):
+    inputs = np.copy(inputs)
+    return np.array([remove_arr(i, num_removes) for i in inputs]).astype('int32')
+
+def change_inputs(inputs, num_changes):
+    if num_changes>0:
+        return add_inputs(inputs, num_changes)
+    else:
+        return remove_inputs(inputs, -num_changes)
 
 def gen_random_inp(population, l, num_ones):
     if len(population) == l:
