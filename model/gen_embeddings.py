@@ -457,15 +457,15 @@ def main():
     #params['num_ingredients'] = 5000
     params['num_ingredients'] = 120
 
-    params['use_npy'] = True
+    params['use_npy'] = False
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
     params['m'] = 10
     params['input_size'] = 10
     params['seed'] = 3
-    params['n_epochs'] = 5
+    params['n_epochs'] = 8
     params['batch_size'] = 200
-    params['max_output_len'] = 10
+    params['max_output_len'] = 5
     params['max_rotations'] = None#10
     params['random_rotate'] = True
     params['min_count'] = None

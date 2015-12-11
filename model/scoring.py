@@ -103,3 +103,65 @@ def get_ing_category(score_dir='data'):
     df['category'] = df['category'].astype(int)
     df = df.replace({df['category'].max() : sorted(df['category'].unique())[-2]+1})
     return df
+
+def predict_ing_category(
+    ing_list, ings, embeddings, neigh, true_cats_train, top_n, output_str=False):
+    def retrieve_cat(nn_cats):
+        nn_cats = np.array([i for i in nn_cats if i not in [11]])
+        nn_cats = nn_cats[:top_n]
+        mode = np.argmax(np.bincount(nn_cats))
+        return mode
+    if type(ings) == str:
+        ings = [ings]
+    indices = np.array([np.where(ing_list==i)[0][0] for i in ings])
+    embeddings = embeddings[indices]
+    nn_values, nn_idx = neigh.kneighbors(embeddings)
+    predict_cats = []
+    for i, v in enumerate(indices):
+        nn_cats = np.array([true_cats_train[j] for j in nn_idx[i]])
+        predict_cat = retrieve_cat(nn_cats)
+        predict_cats.append(predict_cat)
+    predict_cats = np.array(predict_cats)
+    if output_str:
+        categories = np.array(['non-labeled', 'fruit/nuts', 'vegetables', 
+                  'meat/fish', 'grain', 'dairy', 'vitamin', 'flavor/color', 
+                  'additive', 'seasoning', 'oil', 'other'])
+        return categories[predict_cats]
+    return predict_cats
+
+def run_predict_ing_category(
+    ing_list, embeddings, top_n=8, train_perc=0.9, print_res=False):
+    def calc_accuracy(true_cats, predict_cats):
+        indices = np.array([i for i,v in enumerate(true_cats) if v != 11])
+        acc = (true_cats[indices] == predict_cats[indices]).sum()*1./len(indices)
+        return acc
+
+    categories = np.array(['non-labeled', 'fruit/nuts', 'vegetables', 
+                  'meat/fish', 'grain', 'dairy', 'vitamin', 'flavor/color', 
+                  'additive', 'seasoning', 'oil', 'other'])
+    num_ingredients = len(embeddings)
+    df_score = get_ing_category()
+    true_cats = df_score.category.values
+    train_indices = np.random.choice(
+        num_ingredients, int(train_perc*num_ingredients), replace=False)
+    ing_list_train = ing_list[train_indices]
+    true_cats_train = true_cats[train_indices]
+    test_indices = np.setdiff1d(np.arange(num_ingredients), train_indices)
+    train_embeddings = embeddings[train_indices]
+    ranks, neigh = get_nearest_neighbors(train_embeddings)
+
+    predict_cats = predict_ing_category(
+        ing_list, ing_list[test_indices], embeddings, neigh, true_cats_train, top_n)
+    acc = calc_accuracy(true_cats[test_indices], predict_cats)
+    print acc
+    if print_res:
+        print '{0:<40} | {1:<12} | {2:<12}'.format('Ingredient', 'Predicted', 'Actual')
+        for i,v in enumerate(test_indices):
+            if true_cats[v] != 11:
+                print '{0:<40} | {1:<12} | {2:<12}'.format(
+                    ing_list[v], categories[predict_cats[i]], categories[true_cats[v]])
+    return acc
+
+
+
+
