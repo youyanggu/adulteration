@@ -79,9 +79,10 @@ def get_error_rmse(Y, U, V, valid):
     return np.sqrt(np.sum((valid * (Y - np.dot(U, V.T)))**2) / n)
 
 def split_data(ratings):
+    """60/20/20 split."""
     size = len(ratings)
-    training_size = int(0.5 * size)
-    validation_size = int(0.3 * size)
+    training_size = int(0.6 * size)
+    validation_size = int(0.2 * size)
     test_size = size - training_size - validation_size
 
     training_indices = np.random.choice(range(size), training_size, replace=False)
@@ -162,6 +163,7 @@ def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True, n
     print "\nLambda: {}, rank: {}".format(lambda_, rank_)
     recalls, precisions, accuracies = [], [], []
     for i in range(n):
+        print "Iteration:", i
         U, V, Y_train, Y_validate, Y_test = run_cf_rasff(lambda_, rank_, neg_file)
         Y_ = np.dot(U, V.T)
         Y_predict = classify(Y_, threshold)

@@ -1,4 +1,7 @@
 import numpy as np
+import pandas as pd
+
+rasff_dir = '../../rasff_data'
 
 def clean_products(df):
     alt_names = pd.DataFrame.from_csv('{}/alternate_names.csv'.format(rasff_dir), header=None).ix[:,1].to_dict()

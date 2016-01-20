@@ -11,13 +11,13 @@ folder = '../../Metathesaurus.RRF/META/'
 def gen_raw_df():
     # CUI/AUI
     cols = 'CUI | LAT | TS | LUI | STT | SUI | ISPREF | AUI | SAUI | SCUI | SDUI | SAB | TTY | CODE | STR | SRL | SUPPRESS | 18 | 19'.split(' | ')
-    df = pd.read_csv(folder+'MRCONSO.RRF', sep='|', index_col=False, header=None, names=cols)
-    df = df[['CUI', 'AUI', 'STR', 'SAB']]
-    df['STR'] = df['STR'].str.lower()
-    df = df.dropna(subset=['STR'])
-    df.drop_duplicates(inplace=True)
-    df.reset_index(drop=True, inplace=True)
-    #df.to_hdf('mrconso.h5', 'mrconso', complib='blosc', complevel=5)
+    df_conso = pd.read_csv(folder+'MRCONSO.RRF', sep='|', index_col=False, header=None, names=cols)
+    df_conso = df_conso[['CUI', 'AUI', 'STR', 'SAB']]
+    df_conso['STR'] = df_conso['STR'].str.lower()
+    df_conso = df_conso.dropna(subset=['STR'])
+    df_conso.drop_duplicates(inplace=True)
+    df_conso.reset_index(drop=True, inplace=True)
+    #df_conso.to_hdf('mrconso.h5', 'mrconso', complib='blosc', complevel=5)
 
     # Semantic relationships
     cols = ['CUI', 'TUI', 'STN', 'STY', 'ATUI', 'CVF', '6']
@@ -31,7 +31,11 @@ def gen_raw_df():
     del df_hier['10']
     #df_hier.to_hdf('mrhier.h5', 'mrhier', complib='blosc', complevel=5)
 
-    return df, df_st, df_hier
+    cols = ['CUI', 'LUI', 'SUI', 'METAUI', 'STYPE', 'CODE', 'ATUI', 'SATUI',
+            'ATN', 'SAB', 'ATV', 'SUPPRESS', 'CVF']
+    df_sat = pd.read_csv(folder+'MRSAT.RRF', sep='|', index_col=False, header=None, names=cols)
+
+    return df_conso, df_st, df_hier, df_sat
 
 def get_ing_to_cuis(ings, df):
     # Get CUI from ingredient name
@@ -47,31 +51,32 @@ def get_ing_to_cuis(ings, df):
             matches = df[strings==', '.join(ing.split()[::-1])]
             if len(matches) == 0:
                 matches = df[strings==' '.join(ing.split()[::-1])]
-        if len(matches) == 0: 
+        if len(matches) == 0:
+            #continue # TEMP LINE
             # Contains rather than strictly equal
             matches = df[df['STR'].str.contains(ing)]
-            if len(matches) == 0 and ' ' in ing:
-                # Remove one word at a time from the left
-                split = ing.split()
-                l = len(split)
-                begin_idx = 1
-                while len(matches) == 0 and begin_idx < l:
-                    matches = df[strings==' '.join(split[begin_idx:])]
-                    begin_idx += 1
-                if len(matches) == 0:
-                    # Remove one word at a time from the right
-                    end_idx = l-1
-                    while len(matches) == 0 and end_idx > 0:
-                        matches = df[strings==' '.join(split[:end_idx])]
-                        end_idx -= 1
+            if len(matches) == 0:
+                if ' ' in ing:
+                    # Remove one word at a time from the left
+                    split = ing.split()
+                    l = len(split)
+                    begin_idx = 1
+                    while len(matches) == 0 and begin_idx < l:
+                        matches = df[strings==' '.join(split[begin_idx:])]
+                        begin_idx += 1
+                    if len(matches) == 0:
+                        # Remove one word at a time from the right
+                        end_idx = l-1
+                        while len(matches) == 0 and end_idx > 0:
+                            matches = df[strings==' '.join(split[:end_idx])]
+                            end_idx -= 1
                 if len(matches) == 0:
                     print "*** No match for: {}".format(ing)
                     continue
                 else:
                     print "Found substring match: {} --> {}".format(ing, ' '.join(split[begin_idx-1:]))
             else:
-                print "Found string match   : {}".format(ing)
-            
+                print "Found string match   : {}".format(ing) 
         else:
             print "Found direct match   : {}".format(ing)
         cuis = matches['CUI'].drop_duplicates().values
@@ -254,20 +259,21 @@ def main():
     sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH']
     #sources = ['SNOMEDCT_US']
 
-    df = pd.read_hdf('mrconso.h5', 'mrconso')
+    df_conso = pd.read_hdf('mrconso.h5', 'mrconso')
     df_st = pd.read_hdf('mrsty.h5', 'mrsty')
     df_hier = pd.read_hdf('mrhier.h5', 'mrhier')
+    df_sat = pd.read_hdf('mrsat.h5', 'mrsat')
     df_i = pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
     counts = df_i['ingredient'].value_counts()
     all_ings = counts.index.values
     with open('ing_to_cuis.pkl', 'rb') as f:
         ing_to_cuis = pickle.load(f)
 
-    #ing_to_cuis = get_ing_to_cuis(counts[:num_ingredients], df)
+    #ing_to_cuis = get_ing_to_cuis(counts[:num_ingredients], df_conso)
     ing_to_cui = get_ing_to_cui(ing_to_cuis, df_hier, df_st)
     ing_to_hiers_aui = get_ing_to_hiers(ing_to_cui, df_hier, sources)
-    ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df)
-    ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui, df)
+    ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df_conso)
+    ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui, df_conso)
     ings, reps, cuis_to_idx = gen_ing_rep(ing_to_hiers)
     ranks, neigh = generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps)
 

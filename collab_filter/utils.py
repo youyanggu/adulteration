@@ -2,7 +2,7 @@ import csv
 import itertools
 import numpy as np
 
-rasff_dir = '../rasff_data'
+rasff_dir = '../../rasff_data'
 
 def validate(Y):
     return np.isfinite(Y).astype(np.float64)
@@ -34,7 +34,7 @@ def gen_random_pairs(products, chemicals, num_pairs):
     return pairs
 
 def get_prod_chem():
-    return np.load('../rasff_data/products.npy'), np.load('../rasff_data/chemicals.npy')
+    return np.load('{}/products.npy'.format(rasff_dir)), np.load('{}/chemicals.npy'.format(rasff_dir))
 
 def gen_neg(Y, csv_file=None, num=200):
     products, chemicals = get_prod_chem()
