@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 def read_df(cat_min_count=10):
-     df = pd.read_hdf('products.h5', 'products')
+     df = pd.read_hdf('../foodessentials/products.h5', 'products')
      if cat_min_count > 0:
           freq = df.groupby('food_category')['food_category'].transform('count')
           df = df[freq >= cat_min_count]
@@ -10,7 +10,7 @@ def read_df(cat_min_count=10):
      return df
 
 def read_df_i():
-     return pd.read_hdf('ingredients.h5', 'ingredients')
+     return pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
 
 def find_products_by_ing(ing, split=False, df=None, df_i=None):
      ing = ing.lower()
@@ -25,7 +25,7 @@ def find_products_by_ing(ing, split=False, df=None, df_i=None):
           product_ids = df_i[df_i['ingredient'] == ing]['product_id'].values
      product_ids = np.unique(product_ids)
      products = df.ix[product_ids]
-     print "Products found:", len(products)
+     #print "Products found:", len(products)
      return products
 
 

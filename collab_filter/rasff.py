@@ -35,6 +35,7 @@ def load_csv(fname):
             rows.append(curRow)
             curRow = []
         first = not first
+        count += 1
 
     df = pd.DataFrame.from_records(np.array(rows), exclude='#', columns=header)
     food = df[df['type'].str.lower()=='food']
@@ -84,14 +85,15 @@ def main():
     # create matrix
     Y = gen_matrix(df)
     Y_, rows_, columns_ = filter_matrix(Y, 2)
+    #Y_, rows_, columns_ = filter_matrix(Y, 1)
     products_final = products[rows_]
     chemicals_final = chemicals[columns_]
     np.save('{}/products.npy'.format(rasff_dir), products_final)
     np.save('{}/chemicals.npy'.format(rasff_dir), chemicals_final)
-    with open('{}/products.csv'.format(rasff_dir), 'wb') as f:
-        csv.writer(f).writerows([[i] for i in products_final])
-    with open('{}/chemicals.csv'.format(rasff_dir), 'wb') as f:
-        csv.writer(f).writerows([[i] for i in chemicals_final])
+    #with open('{}/products.csv'.format(rasff_dir), 'wb') as f:
+    #    csv.writer(f).writerows([[i] for i in products_final])
+    #with open('{}/chemicals.csv'.format(rasff_dir), 'wb') as f:
+    #    csv.writer(f).writerows([[i] for i in chemicals_final])
     np.save('{}/matrix.npy'.format(rasff_dir), np.array([Y_, rows_, columns_]))
 
     # create actual pairs

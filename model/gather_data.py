@@ -141,6 +141,23 @@ def gen_input_outputs_valid(df, df_i, num_ingredients, ings_per_prod):
 
 ### CATEGORIES ###
 
+def break_down_inputs(inputs, outputs):
+    """Give each ingredient in the input their own input. Also convert 
+    input to indices only."""
+    assert len(inputs)==len(outputs)
+    final_inputs = []
+    final_outputs = []
+    l = len(inputs)
+    for i in range(l):
+        ones = np.where(inputs[i]==1)[0]
+        for one in ones:
+            final_inputs.append(one)
+            final_outputs.append(outputs[i])
+    return (np.array(final_inputs).reshape(-1,1).astype('int32'), 
+        np.array(final_outputs).astype('int32')
+        )
+
+
 def get_ing_cat_frequencies(df, category, cat_to_idx, alpha=0):
     ings = df['ingredients_clean'].values
     cats = df[category].str.lower().values
@@ -204,10 +221,9 @@ def input_from_embeddings(one_hot_inputs, embeddings, normalize):
 def get_ingredients_from_vector(counts, vector):
     return counts.index.values[np.where(vector==1)[0]]
 
-def gen_input_outputs_cat(df, df_i, num_ingredients, output_cat, ings_per_prod=None):
+def gen_input_outputs_cat(df, counts, num_ingredients, output_cat, ings_per_prod=None):
     """output_cat should be: 'aisle', 'shelf' or 'food_category'."""
 
-    counts = df_i['ingredient'].value_counts()
     counts = counts[:num_ingredients]
     onehot_ing = gen_onehot_vectors(counts.index.values, num_ingredients)
 

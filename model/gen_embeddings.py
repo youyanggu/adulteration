@@ -332,7 +332,7 @@ def get_nearest_neighbors(embeddings):
     neigh.fit(embeddings)
     ranks_all = []
     for i in range(num_ingredients):
-        nearest_neighbors = neigh.kneighbors(embeddings[i])[1][0]
+        nearest_neighbors = neigh.kneighbors(embeddings[i:i+1])[1][0]
         ranks = np.argsort(nearest_neighbors)
         ranks_all.append(ranks)
     return np.array(ranks_all), neigh

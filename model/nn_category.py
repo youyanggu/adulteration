@@ -357,7 +357,7 @@ def main():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     inputs_, outputs, idx_to_cat = gen_input_outputs_cat(
-                        df, df_i, num_ingredients, output_cat, ings_per_prod)
+                        df, counts, num_ingredients, output_cat, ings_per_prod)
     if use_embeddings:
         #embeddings = np.load('embeddings/embeddings_{}.npy'.format(num_ingredients))
         #embeddings = np.load('../word2vec/word2vec_embeddings.npy')[1][:num_ingredients]

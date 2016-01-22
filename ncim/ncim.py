@@ -7,6 +7,7 @@ sys.path.append('../model')
 from gen_embeddings import get_nearest_neighbors
 
 folder = '../../Metathesaurus.RRF/META/'
+prefix = '../ncim/'
 
 def gen_raw_df():
     # CUI/AUI
@@ -39,12 +40,14 @@ def gen_raw_df():
 
 def get_ing_to_cuis(ings, df):
     # Get CUI from ingredient name
+    direct_match = string_match = substring_match = no_match = 0
     if type(ings) == str:
         ings = [ings]
     ing_to_cuis = {}
     strings = df['STR'].values
     for i, ing in enumerate(ings):
         print i, ing
+        ing = ing.strip()
         matches = df[strings==ing]
         if len(matches) == 0 and len(ing.split())==2:
             # Search for reverse of the string.
@@ -72,15 +75,23 @@ def get_ing_to_cuis(ings, df):
                             end_idx -= 1
                 if len(matches) == 0:
                     print "*** No match for: {}".format(ing)
+                    no_match += 1
                     continue
                 else:
                     print "Found substring match: {} --> {}".format(ing, ' '.join(split[begin_idx-1:]))
+                    substring_match += 1
             else:
                 print "Found string match   : {}".format(ing) 
+                string_match += 1
         else:
             print "Found direct match   : {}".format(ing)
+            direct_match += 1
         cuis = matches['CUI'].drop_duplicates().values
         ing_to_cuis[ing] = cuis
+    print "Direct matches   :", direct_match
+    print "String matches   :", string_match
+    print "Substring matches:", substring_match
+    print "No matches       :", no_match
     print "{} --> {}".format(len(ings), len(ing_to_cuis))
     return ing_to_cuis
 
@@ -237,51 +248,55 @@ def generate_nearest_neighbors(all_ings, ings, reps, print_neighbors=True, top_n
                 print '{} --> {}'.format(i, ing_to_nn[i])
     return ranks, neigh
 
-def convert_ing_to_rep(ings, sources, cuis_to_idx, neigh=None):
-    ing_to_cuis = get_ing_to_cuis(ings, df)
+def convert_ing_to_rep(ings, sources, cuis_to_idx):
+    ing_to_cuis = get_ing_to_cuis(ings, df_conso)
     ing_to_cui = get_ing_to_cui(ing_to_cuis, df_hier, df_st)
     ing_to_hiers_aui = get_ing_to_hiers(ing_to_cui, df_hier, sources)
-    ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df)
+    ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df_conso)
     if len(ing_to_hiers) == 0:
-        print "Cannot find representation for ing:", ing
+        print "Cannot find representation for ingredients."
 
     found_ings, reps, _ = gen_ing_rep(ing_to_hiers, cuis_to_idx)
-    nns = []
-    if neigh:
-        for rep in reps:
-            # Record top 3 neighbors.
-            nns.append(neigh.kneighbors(rep)[1][0][:3])
-    assert(len(found_ings)==len(reps)==len(nns))
-    return found_ings, reps, np.array(nns)
+    assert len(found_ings)==len(reps)
+    return found_ings, reps
 
-def main():
-    num_ingredients = 1000
+def run(fname=None, num_ingredients=5000):
     sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH']
     #sources = ['SNOMEDCT_US']
 
-    df_conso = pd.read_hdf('mrconso.h5', 'mrconso')
-    df_st = pd.read_hdf('mrsty.h5', 'mrsty')
-    df_hier = pd.read_hdf('mrhier.h5', 'mrhier')
-    df_sat = pd.read_hdf('mrsat.h5', 'mrsat')
+    df_conso = pd.read_hdf('{}mrconso.h5'.format(prefix), 'mrconso')
+    df_st = pd.read_hdf('{}mrsty.h5'.format(prefix), 'mrsty')
+    df_hier = pd.read_hdf('{}mrhier.h5'.format(prefix), 'mrhier')
+    #df_sat = pd.read_hdf('{}mrsat.h5'.format(prefix), 'mrsat')
     df_i = pd.read_hdf('../foodessentials/ingredients.h5', 'ingredients')
     counts = df_i['ingredient'].value_counts()
     all_ings = counts.index.values
-    with open('ing_to_cuis.pkl', 'rb') as f:
-        ing_to_cuis = pickle.load(f)
-
-    #ing_to_cuis = get_ing_to_cuis(counts[:num_ingredients], df_conso)
+    
+    if fname:
+        with open(prefix+fname, 'rb') as f:
+            ing_to_cuis = pickle.load(f)
+    else:
+        ing_to_cuis = get_ing_to_cuis(counts[:num_ingredients].index.values, df_conso)
     ing_to_cui = get_ing_to_cui(ing_to_cuis, df_hier, df_st)
     ing_to_hiers_aui = get_ing_to_hiers(ing_to_cui, df_hier, sources)
     ing_to_hiers = convert_auis_to_cuis(ing_to_hiers_aui, df_conso)
     ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui, df_conso)
     ings, reps, cuis_to_idx = gen_ing_rep(ing_to_hiers)
-    ranks, neigh = generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps)
+    ranks, neigh = generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps, False)
+    return cuis_to_idx, neigh
+
+
+def main():
+    fname = 'ing_to_cuis_5000.pkl'
+    num_ingredients = 5000
+    cuis_to_idx, neigh = run(fname, num_ingredients)
 
     # Write nearest neighbors of unknown ingredients to file.
     with open('nn_{}.txt'.format(num_ingredients), 'wb') as f_out:
         new_ings = counts[num_ingredients:2*num_ingredients].index.values
-        found_ings, new_ings_reps, nns = convert_ing_to_rep(
+        found_ings, new_ings_reps = convert_ing_to_rep(
             new_ings, sources, cuis_to_idx, neigh)
+        nns = neigh.kneighbors(new_ings_reps)[1][:,:3] # top 3 neighbors
         for i in range(len(new_ings)):
             ing_idx = np.where(found_ings==new_ings[i])[0]
             if len(ing_idx)==0:

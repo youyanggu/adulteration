@@ -1,16 +1,20 @@
 import itertools
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('TKAgg')
 import matplotlib.pyplot as plt
 
 from utils import *
 
-rasff_dir = '../rasff_data'
+rasff_dir = '../../rasff_data'
 
 def plot_matrix(Y):
     plt.imshow(Y, interpolation='none')
     plt.colorbar()
-    plt.show(block=False)
+    plt.xlabel('adulterants')
+    plt.ylabel('products')
+    plt.show()
 
 def f_score(precision, recall, beta=1):
     return (1+beta**2)*(precision*recall)/(beta**2*precision+recall)
@@ -22,17 +26,17 @@ def calc_score(Y, Y_predict, print_stats=True):
     for (x,y), value in np.ndenumerate(Y):
         if value != 0:
             count += 1
-            if print_stats: print "\n{}, {}".format(products[x], chemicals[y])
-            if print_stats: print "Actual  : {}".format(value>0)
+            if print_stats: print "\nProduct   : {}\nSubstance : {}".format(products[x], chemicals[y])
+            if print_stats: print "Actual    : {}".format(value>0)
             predict_value = Y_predict[x,y]
             if predict_value == 0:
-                if print_stats: print "Predict: No guess"
+                if print_stats: print "Predict   : No guess"
                 if value > 0:
                     true_no_guess += 1
                 else:
                     false_no_guess += 1
             else:
-                if print_stats: print "Predict: {}".format(predict_value>0)
+                if print_stats: print "Predict   : {}".format(predict_value>0)
                 if predict_value == value:
                     if value > 0:
                         true_true += 1
@@ -44,11 +48,11 @@ def calc_score(Y, Y_predict, print_stats=True):
                     else:
                         false_true += 1
             if print_stats: 
-                print "When True:  Correct: {}, Incorrect: {}, No guess: {}".format(
+                print "When True : Correct: {}, Incorrect: {}, No guess: {}".format(
                     true_true, true_false, true_no_guess)
                 print "When False: Correct: {}, Incorrect: {}, No guess: {}".format(
                     false_false, false_true, false_no_guess)
-                print "Total:      Correct: {}, Incorrect: {}, No guess: {}".format(
+                print "Total     : Correct: {}, Incorrect: {}, No guess: {}".format(
                     true_true+false_false, true_false+false_true, true_no_guess+false_no_guess)
     correct = true_true + false_false
     incorrect = true_false + false_true
@@ -163,10 +167,11 @@ def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True, n
     print "\nLambda: {}, rank: {}".format(lambda_, rank_)
     recalls, precisions, accuracies = [], [], []
     for i in range(n):
-        print "Iteration:", i
         U, V, Y_train, Y_validate, Y_test = run_cf_rasff(lambda_, rank_, neg_file)
         Y_ = np.dot(U, V.T)
         Y_predict = classify(Y_, threshold)
+        #plot_matrix(Y_predict)
+        #Y_predict = classify(2*np.random.random(Y_.shape)-1, threshold)
         Y = Y_test if test else Y_validate
         if n==1:
             r, p, a = calc_score(Y, Y_predict)
@@ -179,12 +184,31 @@ def cross_validate(n=1, lambda_=0.06, rank_=3, threshold=THRESHOLD, test=True, n
     recalls = np.array(recalls)
     precisions = np.array(precisions)
     accuracies = np.array(accuracies)
-    print "\n    Recall\t  Precision\tAccuracy"
-    print recalls.mean(), precisions.mean(), accuracies.mean()
+    return recalls.mean(), precisions.mean(), accuracies.mean()
 
 def optimize(lambdas, ranks):
     for lambda_, rank_ in itertools.product(lambdas, ranks):
-        cross_validate(5, lambda_, rank_, THRESHOLD, False, None)
+        print "\n    Recall\t  Precision\tAccuracy"
+        print cross_validate(5, lambda_, rank_, THRESHOLD, False, None)
+
+def plot_threshold(thresholds):
+    recalls, precisions, accuracies = [], [], []
+    for t in thresholds:
+        print "Threshold:", t
+        r, p, a = cross_validate(20, 0.001, 5, t, False, None)
+        print "\n    Recall\t  Precision\tAccuracy"
+        print r, p, a
+        recalls.append(r)
+        precisions.append(p)
+        accuracies.append(a)
+    plt.plot(recalls, label='recall')
+    plt.plot(precisions, label='precision')
+    plt.plot(accuracies, label='accuracy')
+    plt.xlabel('increasing threshold')
+    plt.legend(loc='upper left')
+    plt.title('Effect of a threshold')
+    plt.grid()
+    plt.show(block=False)
 
 #cross_validate(5)
 
