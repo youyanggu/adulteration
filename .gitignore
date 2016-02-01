@@ -9,3 +9,5 @@ scratch.py
 *.npz
 *.bin
 *.txt
+*.png
+*.html

@@ -185,6 +185,13 @@ def main():
     chemical_counts = df_.groupby('chemical_').size().sort_values()[::-1]
     category_counts = df_.groupby('category_').size().sort_values()[::-1]
     
+    pairs = df_.groupby(['chemical_', 'product']).size().sort_values()[::-1]
+    print 'Number of entries  :', len(df_)
+    print 'Unique entries     :', len(pairs)
+    print 'Unique adulterants :', len(df_['chemical_'].unique())
+    print 'Unique products    :', len(df_['product'].unique())
+    print 'Unique categories  :', len(df_['category'].unique())
+
     #analyze_found_chemicals(df_, found_chems)
     #gen_nearest_neighbors(chemicals, ings)
 

@@ -1,4 +1,5 @@
 import itertools
+import pickle
 import time
 
 import numpy as np
@@ -15,6 +16,15 @@ data_dir = 'data/'
 embed_dir = 'embeddings/'
 
 theano.config.floatX = 'float32'
+
+def test_model(predict_model, ings, idx_to_cat, top_n=None):
+    num_ingredients = len(ings)
+    results = predict_model(range(num_ingredients))
+    ranks = np.fliplr(np.argsort(results))
+    if top_n:
+        ranks = ranks[:,:top_n]
+    for i, ing in enumerate(ings):
+        print '{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
 
 def subsample(x_train, y_train, prob):
     if prob is None:
@@ -36,12 +46,16 @@ def get_batch(x_train, y_train, idx, batch_size):
 
 
 class NN(object):
-    def __init__(self, rng, inp_idx, n_in, m, n_out, inp_all=None):
+    def __init__(self, rng, inp_idx, num_ingredients, n_in, m, n_out, inp_all=None):
         if inp_all is None:
-            inp_all_values = np.asarray(
-                rng.uniform(low=-1, high=1, size=(n_out, n_in)), dtype=theano.config.floatX
-                #np.zeros((n_out, n_in), dtype=theano.config.floatX)
-            )
+            if n_in == num_ingredients:
+                # one-hot vectors
+                inp_all_values = np.eye(n_in)
+            else:
+                inp_all_values = np.asarray(
+                    rng.uniform(low=-1, high=1, size=(num_ingredients, n_in)), dtype=theano.config.floatX
+                    #np.zeros((n_out, n_in), dtype=theano.config.floatX)
+                )
             print inp_all_values[0]
             inp_all = theano.shared(value=inp_all_values, name='inp_all', borrow=True)
         self.inp_all = inp_all
@@ -73,7 +87,7 @@ class NN(object):
         self.params = [self.inp_all] + self.hiddenLayer.params + self.outputLayer.params
         
 
-def run_nn(x_train, y_train, num_ingredients, m, input_size,
+def run_nn(x_train, y_train, num_ingredients, num_outputs, m, input_size,
            learning_rate, L2_reg, n_epochs, batch_size, rng, min_count):
     print 'Building model'
 
@@ -83,9 +97,10 @@ def run_nn(x_train, y_train, num_ingredients, m, input_size,
     classifier = NN(
         rng=rng,
         inp_idx=x,
+        num_ingredients=num_ingredients,
         n_in=input_size,
         m=m,
-        n_out=num_ingredients,
+        n_out=num_outputs,
     )
     cost = classifier.cost(y) + L2_reg * classifier.L2
     #gparams = T.grad(cost, classifier.params)
@@ -163,7 +178,9 @@ def load_input_outputs(suffix=''):
         suffix = '_' + str(suffix)
     inputs = np.load(data_dir+'inputs_cat{}.npy'.format(suffix))
     outputs = np.load(data_dir+'outputs_cat{}.npy'.format(suffix))
-    return inputs, outputs
+    with open('idx_to_cat.pkl', 'rb') as f_in:
+        idx_to_cat = pickle.load(f_in)
+    return inputs, outputs, idx_to_cat
 
 def default_args():
     df, df_i = import_data()
@@ -179,19 +196,20 @@ def default_args():
     use_npy=False
     ings_per_prod=None
     rng=np.random.RandomState(seed)
-    min_count=None
+    min_count=5000
 
 
 def run_nn_helper(df, counts, 
-         num_ingredients=120, m=20, input_size=10,
+         num_ingredients=5000, m=20, input_size=10,
          learning_rate=0.1, L2_reg=0.0005,
          n_epochs=10, batch_size=100, seed=3, 
          use_npy=False, 
          ings_per_prod=5,
          min_count=None,
          **kwargs):
+    ings = counts.index.values[:num_ingredients]
     if use_npy:
-        inputs, outputs = load_input_outputs(num_ingredients)
+        inputs, outputs, idx_to_cat = load_input_outputs(num_ingredients)
         inputs, outputs = break_down_inputs(inputs, outputs)
     else:
         print "Gathering inputs/outputs..."
@@ -201,6 +219,7 @@ def run_nn_helper(df, counts,
         save_input_outputs(inputs_, outputs_, num_ingredients)
         inputs, outputs = break_down_inputs(inputs_, outputs_)
 
+    num_outputs = outputs.max()+1
     print "# of data points:", len(inputs)
     # Scramble inputs/outputs
     np.random.seed(seed)
@@ -210,6 +229,7 @@ def run_nn_helper(df, counts,
 
     classifier, predict_model = run_nn(inputs, outputs, 
                         num_ingredients=num_ingredients, 
+                        num_outputs=num_outputs,
                         m=m, 
                         input_size=input_size,
                         learning_rate=learning_rate, 
@@ -219,6 +239,8 @@ def run_nn_helper(df, counts,
                         rng=np.random.RandomState(seed),
                         min_count=min_count
                         )
+
+    test_model(predict_model, ings, idx_to_cat, 3)
 
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)
@@ -236,7 +258,7 @@ def main():
     params['num_ingredients'] = 5000
     #params['num_ingredients'] = 120
 
-    params['use_npy'] = False
+    params['use_npy'] = True
     #params['learning_rate'] = 0.1
     #params['L2_reg'] = 0.0005
     params['m'] = 10

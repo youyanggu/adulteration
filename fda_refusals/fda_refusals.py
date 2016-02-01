@@ -4,7 +4,7 @@ import glob
 import numpy as np
 import pandas as pd
 
-REFUSAL_FOLDER =  '../../fda_refusals/'
+REFUSAL_FOLDER =  '../fda_refusals/'
 
 def parse_code_prefix():
     fname = REFUSAL_FOLDER + 'code_prefix.csv'
@@ -18,7 +18,7 @@ def parse_charges():
     charges_df['SCTN_NAME'] = charges_df['SCTN_NAME'].str.lower()
     charges_df['is_adulteration'] = charges_df['SCTN_NAME'].str.contains("adulteration") | charges_df['SCTN_NAME'].str.contains("402")
     assert len(charges_df['ASC_ID'].unique()) == len(charges_df)
-    charges_df = charges_df.sort('ASC_ID').set_index('ASC_ID')
+    charges_df = charges_df.sort_values('ASC_ID').set_index('ASC_ID')
     return charges_df
 
 def is_adulteration(df, charges_df):
@@ -58,7 +58,15 @@ def run():
     df['adulterant'] = df['main_charge'].apply(lambda x: charges_df['adulterant'].ix[x])
     prefix_to_cat = parse_code_prefix()
     df['category'] = df['code_prefix'].apply(lambda x: prefix_to_cat[x])
-    df = df.reset_index()
+    df = df.reset_index(drop=True)
+
+    pairs = df.groupby(['adulterant', 'category']).size().sort_values()[::-1]
+    print 'Number of entries  :', len(df)
+    print 'Unique entries     :', len(pairs)
+    print 'Unique adulterants :', len(df['adulterant'].unique())
+    print 'Unique products    :', len(df['PRODUCT_CODE'].unique())
+    print 'Unique categories  :', len(df['category'].unique())
+
     return df
 
 

@@ -1,9 +1,32 @@
+import itertools
 import time
 
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+def generate_pairs(df_, categories=None, chemicals=None):
+    pair_counts = df_.groupby(['ingredient_category', 'adulterant']).size().sort_values()
+    chem_counts = df_.groupby('adulterant').size().sort_values()
+    cat_counts = df_.groupby('ingredient_category').size().sort_values()
+    if categories is None:
+        categories = df_['ingredient_category'].unique()
+    if chemicals is None:
+        chemicals = df_['adulterant'].unique()
+    pairs = []
+    for cat, chem in itertools.product(categories, df_['adulterant'].unique()):
+        if cat == '---' or chem == '':
+            continue
+        pair = (cat, chem)
+        pair_count = pair_counts.get(pair, 0)
+        cat_count = cat_counts.get(cat, 0)
+        chem_count = chem_counts.get(chem, 0)
+        pairs.append((pair[0], pair[1], pair_count, cat_count, chem_count))
+    pairs_df = pd.DataFrame(pairs, 
+        columns=['ingredient_category', 'adulterant', 'pair_count', 'cat_count', 'chem_count'])
+    #pairs_df.to_csv('pairs_all.csv', index=False)
+    return pairs_df
+            
 def scrape_usp_data():
     URL = 'http://www.foodfraud.org/search/site?search_api_views_fulltext='
     COLUMNS = ['unique_id', 'regulatory_status', 'report_type', 'ingredient_category',

@@ -153,7 +153,7 @@ def break_down_inputs(inputs, outputs):
         for one in ones:
             final_inputs.append(one)
             final_outputs.append(outputs[i])
-    return (np.array(final_inputs).reshape(-1,1).astype('int32'), 
+    return (np.array(final_inputs).astype('int32'), 
         np.array(final_outputs).astype('int32')
         )
 
