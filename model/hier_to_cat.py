@@ -17,14 +17,13 @@ embed_dir = 'embeddings/'
 
 theano.config.floatX = 'float32'
 
-def test_model(predict_model, ings, idx_to_cat, top_n=None, fname=None):
-    num_ingredients = len(ings)
-    results = predict_model(range(num_ingredients))
+def test_model(predict_model, ings, reps, idx_to_cat, top_n=None, fname=None):
+    results = predict_model(reps)
     ranks = np.fliplr(np.argsort(results))
-    if fname:
-        f_out = open(fname, 'wb')
     if top_n:
         ranks = ranks[:,:top_n]
+    if fname:
+        f_out = open(fname, 'wb')
     for i, ing in enumerate(ings):
         if fname:
             f_out.write('{} --> {}\n'.format(ing, [idx_to_cat[j] for j in ranks[i]]))
@@ -44,29 +43,17 @@ def subsample(x_train, y_train, prob):
     return x_train[use_indices], y_train[use_indices]
 
 
-def get_batch(x_train, y_train, idx, batch_size):
+def get_batch(x_train, y_train, idx, batch_size, ing_idx_to_hier_map):
     x = x_train[idx*batch_size : (idx+1)*batch_size]
+    x = np.array([ing_idx_to_hier_map[i] for i in x])
     y = y_train[idx*batch_size : (idx+1)*batch_size]
     if scipy.sparse.issparse(y):
         y = y.toarray()
     return x, y
 
 class NN(object):
-    def __init__(self, rng, inp_idx, num_ingredients, n_in, m, n_out, inp_all=None):
-        if inp_all is None:
-            if n_in == num_ingredients:
-                # one-hot vectors
-                inp_all_values = np.eye(n_in)
-            else:
-                inp_all_values = np.asarray(
-                    rng.uniform(low=-1, high=1, size=(num_ingredients, n_in)), dtype=theano.config.floatX
-                    #np.zeros((n_out, n_in), dtype=theano.config.floatX)
-                )
-            print inp_all_values[0]
-            inp_all = theano.shared(value=inp_all_values, name='inp_all', borrow=True)
-        self.inp_all = inp_all
-
-        self.inp = inp_all[inp_idx]
+    def __init__(self, rng, inp, num_ingredients, n_in, m, n_out):
+        self.inp = inp
         self.hiddenLayer = HiddenLayer(
             rng=rng,
             inp=self.inp,
@@ -80,8 +67,7 @@ class NN(object):
             n_out=n_out
         )
         self.L2 = (
-            (self.inp_all ** 2).sum()
-            + (self.hiddenLayer.W ** 2).sum()
+            (self.hiddenLayer.W ** 2).sum()
             + (self.hiddenLayer.b ** 2).sum()
             + (self.outputLayer.W ** 2).sum()
             + (self.outputLayer.b ** 2).sum()
@@ -90,18 +76,18 @@ class NN(object):
         self.cost = self.outputLayer.cost
         self.errors = self.outputLayer.errors
 
-        self.params = [self.inp_all] + self.hiddenLayer.params + self.outputLayer.params
+        self.params = self.hiddenLayer.params + self.outputLayer.params
         
 def run_nn(x_train, y_train, num_ingredients, num_outputs, m, input_size,
-           learning_rate, L2_reg, n_epochs, batch_size, rng, min_count):
+           learning_rate, L2_reg, n_epochs, batch_size, rng, min_count, ing_idx_to_hier_map):
     print 'Building model'
 
-    x = T.ivector('x')
+    x = T.fmatrix('x')
     y = T.ivector('y')
 
     classifier = NN(
         rng=rng,
-        inp_idx=x,
+        inp=x,
         num_ingredients=num_ingredients,
         n_in=input_size,
         m=m,
@@ -145,7 +131,7 @@ def run_nn(x_train, y_train, num_ingredients, num_outputs, m, input_size,
             #print idx
             #ret = train_model(idx)
             x_train_, y_train_ = get_batch(
-                    x_train_sub, y_train_sub, idx, batch_size)
+                    x_train_sub, y_train_sub, idx, batch_size, ing_idx_to_hier_map)
             ret = train_model(x_train_, y_train_)
             #print ret
             costs.append(ret)
@@ -185,6 +171,17 @@ def load_input_outputs(suffix=''):
     with open('idx_to_cat.pkl', 'rb') as f_in:
         idx_to_cat = pickle.load(f_in)
     return inputs, outputs, idx_to_cat
+
+def gen_ing_idx_to_hier_map(ings_ordered):
+    ing_to_idx_map = {ings_ordered[i] : i for i in range(len(ings_ordered))}
+    ing_idx_to_hier_map = {}
+    ings = np.load('../ncim/all_ings.npy')
+    reps = np.load('../ncim/all_ings_reps.npy')
+    assert len(ings)==len(reps)
+    for i in range(len(ings)):
+        ing_idx_to_hier_map[ing_to_idx_map[ings[i]]] = reps[i].astype('float32')
+    return ing_idx_to_hier_map
+
 
 def default_args():
     df, df_i = import_data()
@@ -230,6 +227,13 @@ def run_nn_helper(df, counts,
     inputs = inputs[random_idx]
     outputs = outputs[random_idx]
 
+    ing_idx_to_hier_map = gen_ing_idx_to_hier_map(ings)
+    input_size = ing_idx_to_hier_map.values()[0].shape[0]
+    inp_exist_indices = np.array(
+        [i for i in range(len(inputs)) if inputs[i] in ing_idx_to_hier_map])
+    inputs = inputs[inp_exist_indices]
+    outputs = outputs[inp_exist_indices]
+
     classifier, predict_model = run_nn(inputs, outputs, 
                         num_ingredients=num_ingredients, 
                         num_outputs=num_outputs,
@@ -240,10 +244,18 @@ def run_nn_helper(df, counts,
                         n_epochs=n_epochs, 
                         batch_size=batch_size,
                         rng=np.random.RandomState(seed),
-                        min_count=min_count
+                        min_count=min_count,
+                        ing_idx_to_hier_map=ing_idx_to_hier_map,
                         )
 
-    test_model(predict_model, ings, idx_to_cat, 3)
+    valid_ing_indices = [i for i in range(num_ingredients) if i in ing_idx_to_hier_map]
+    valid_ing_reps = np.array([ing_idx_to_hier_map[i] for i in valid_ing_indices])
+    valid_ings = [ings[i] for i in valid_ing_indices]
+    test_model(predict_model, valid_ings, valid_ing_reps, idx_to_cat, 3)
+
+    found_ings = np.load('../rasff/found_chems.npy')
+    new_ings_reps = np.load('../rasff/found_chems_reps.npy')
+    test_model(predict_model, found_ings, new_ings_reps.astype('float32'), idx_to_cat, 3)
 
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)

@@ -3,6 +3,7 @@ import sys
 
 import numpy as np
 import pandas as pd
+from sklearn.externals import joblib
 
 sys.path.append('../foodessentials')
 sys.path.append('../collab_filter')
@@ -14,8 +15,8 @@ import gather_data
 import ncim
 
 def count_num_formulas(counts):
-    df_conso = pd.read_hdf('mrconso.h5', 'mrconso')
-    df_sat = pd.read_hdf('mrsat.h5', 'mrsat')
+    df_conso = pd.read_hdf('../ncim/mrconso.h5', 'mrconso')
+    df_sat = pd.read_hdf('../ncim/mrsat.h5', 'mrsat')
     ing_to_cuis2 = get_ing_to_cuis(counts.index.values[:1000], df_conso)
     df_sat2 = df_sat[df_sat['ATN']=='Chemical_Formula']
     s = set(df_sat2.CUI.unique())
@@ -46,7 +47,7 @@ def search_chemicals(counts, chemicals, print_results=False):
     d_c = {}
     ings = counts.index.values
     for c in chemicals:
-        #cc = clean_chemical(c)
+        cc = c#clean_chemical(c)
         if cc in ings:
             if print_results:
                 print 'True  | {:<20} | {}'.format(cc, counts[cc])
@@ -78,11 +79,14 @@ def analyze_found_chemicals(df_, found_chems):
 def gen_nearest_neighbors(chemicals, ings, df_):
     num_ingredients = 5000
     num_neighbors = 5
-    ings = ings[:num_ingredients]
-    cuis_to_idx, neigh = ncim.run('ing_to_cuis_5000.pkl', num_ingredients)
+    ings_ordered = ings[:num_ingredients]
     sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH']
-    found_ings, new_ings_reps = ncim.convert_ing_to_rep(
-            chemicals, sources, cuis_to_idx)
+    #ings, reps, cuis_to_idx, neigh = ncim.run('../ncim/ing_to_cuis_5000.pkl', num_ingredients)
+    #found_ings, new_ings_reps = ncim.convert_ing_to_rep(
+    #        chemicals, sources, cuis_to_idx)
+    neigh = joblib.load('../ncim/neigh.pkl') 
+    found_ings = np.load('../rasff/found_chems.npy')
+    new_ings_reps = np.load('../rasff/found_chems_reps.npy')
     distances, neighbors = neigh.kneighbors(new_ings_reps)
     not_found_ings = [c for c in chemicals if c not in found_ings]
 
@@ -112,8 +116,7 @@ def gen_nearest_neighbors(chemicals, ings, df_):
         for nn_idx in neighbors_trunc[i]:
             nn = ings[nn_idx]
             print nn
-            #cats = ing_utils.get_perc(nn, 'shelf')
-            cats = get_perc(nn, 'shelf')
+            cats = ing_utils.get_perc(nn, 'shelf')
             if len(cats) == 0:
                 continue
             for perc, cat, count in cats:
@@ -144,6 +147,15 @@ def gen_nearest_neighbors(chemicals, ings, df_):
         best_chems = sorted(d, key=d.get, reverse=True)
         cat_to_best_chems[cat] = [(j, d[j]/num_neighbors) for j in best_chems]
     
+    with open('../outputs/cat_to_best_chems.txt', 'wb') as f:
+        for chem, cats in cat_to_best_chems.iteritems():
+            f.write('\n=================================================================')
+            f.write('\n')
+            f.write(chem)
+            f.write('\n-----------------------------------------------------------------')
+            for cat, perc in cats:
+                f.write('\n{0: <50} {1}'.format(cat, perc))
+
     return chem_to_best_cats, cat_to_best_chems
 
 def generate_pairs(df_, categories=None, chemicals=None):
@@ -165,12 +177,12 @@ def generate_pairs(df_, categories=None, chemicals=None):
         pairs.append((pair[0], pair[1], pair_count, cat_count, chem_count))
     pairs_df = pd.DataFrame(pairs, 
         columns=['category', 'chemical', 'pair_count', 'cat_count', 'chem_count'])
-    #pairs_df.to_csv('pairs_df.csv', index=False)
+    #pairs_df.to_csv('pairs_rasff.csv', index=False)
     return pairs_df
             
 
 def main():
-    mapping = pd.read_csv('mapping.csv')
+    mapping = pd.read_csv('../rasff/rasff_mapping.csv')
     d = {a : b for a,b in zip(mapping.category.values, mapping.shelf.values)}
     df_ = rasff.load_df()
     df_['category_'] = df_['category'].replace(d)

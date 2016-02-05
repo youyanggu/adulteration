@@ -64,21 +64,24 @@ def get_ing_to_cuis(ings, df):
                     split = ing.split()
                     l = len(split)
                     begin_idx = 1
+                    cur_match = ''
                     while len(matches) == 0 and begin_idx < l:
-                        matches = df[strings==' '.join(split[begin_idx:])]
+                        cur_match = ' '.join(split[begin_idx:])
+                        matches = df[strings==cur_match]
                         begin_idx += 1
                     if len(matches) == 0:
                         # Remove one word at a time from the right
                         end_idx = l-1
+                        cur_match = ' '.join(split[:end_idx])
                         while len(matches) == 0 and end_idx > 0:
-                            matches = df[strings==' '.join(split[:end_idx])]
+                            matches = df[strings==cur_match]
                             end_idx -= 1
-                if len(matches) == 0:
+                if len(matches) == 0 or len(cur_match)<3:
                     print "*** No match for: {}".format(ing)
                     no_match += 1
                     continue
                 else:
-                    print "Found substring match: {} --> {}".format(ing, ' '.join(split[begin_idx-1:]))
+                    print "Found substring match: {} --> {}".format(ing, cur_match)
                     substring_match += 1
             else:
                 print "Found string match   : {}".format(ing) 
@@ -283,13 +286,13 @@ def run(fname=None, num_ingredients=5000):
     ing_to_hiers_str = convert_hier_to_str(ing_to_hiers_aui, df_conso)
     ings, reps, cuis_to_idx = gen_ing_rep(ing_to_hiers)
     ranks, neigh = generate_nearest_neighbors(all_ings[:num_ingredients], ings, reps, False)
-    return cuis_to_idx, neigh
+    return ings, reps, cuis_to_idx, neigh
 
 
 def main():
-    fname = 'ing_to_cuis_5000.pkl'
+    fname = '../ncim/ing_to_cuis_5000.pkl'
     num_ingredients = 5000
-    cuis_to_idx, neigh = run(fname, num_ingredients)
+    ings, reps, cuis_to_idx, neigh = run(fname, num_ingredients)
 
     # Write nearest neighbors of unknown ingredients to file.
     with open('nn_{}.txt'.format(num_ingredients), 'wb') as f_out:
