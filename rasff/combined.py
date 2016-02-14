@@ -32,6 +32,7 @@ def count_num_formulas(counts):
             n_formulas += 1
 
 def clean_chemical(c):
+    c = c.strip('.,;: ')
     c = c.lower()
     c = c.replace('sulphite', 'sulfite')
     c = c.replace('colour', 'color')
@@ -39,6 +40,7 @@ def clean_chemical(c):
         c = c.split(' of ')[-1]
     if ' - ' in c:
         c = c.split(' - ')[-1]
+    c = c.strip('.,;: ')
     return c
 
 def search_chemicals(counts, chemicals, print_results=False):

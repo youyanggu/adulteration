@@ -17,7 +17,7 @@ embed_dir = 'embeddings/'
 
 theano.config.floatX = 'float32'
 
-def test_model(predict_model, ings, reps, idx_to_cat, top_n=None, fname=None):
+def test_model(predict_model, ings, reps, idx_to_cat, top_n=None, fname=None, target_ings=None):
     results = predict_model(reps)
     ranks = np.fliplr(np.argsort(results))
     if top_n:
@@ -25,10 +25,18 @@ def test_model(predict_model, ings, reps, idx_to_cat, top_n=None, fname=None):
     if fname:
         f_out = open(fname, 'wb')
     for i, ing in enumerate(ings):
-        if fname:
-            f_out.write('{} --> {}\n'.format(ing, [idx_to_cat[j] for j in ranks[i]]))
-        else:
-            print '{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
+        include = True
+        if target_ings:
+            include = False
+            for target_ing in target_ings:
+                if target_ing in ing:
+                    include = True
+                    break
+        if include:
+            if fname:
+                f_out.write('{} --> {}\n'.format(ing, [idx_to_cat[j] for j in ranks[i]]))
+            else:
+                print '{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
     if fname:
         f_out.close()
 
