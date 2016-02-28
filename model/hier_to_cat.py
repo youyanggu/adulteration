@@ -9,6 +9,7 @@ import theano.tensor as T
 
 from gather_data import *
 from scoring import *
+from split_data import *
 from utils import *
 from nn_category import HiddenLayer, OutputLayer
 
@@ -17,7 +18,7 @@ embed_dir = 'embeddings/'
 
 theano.config.floatX = 'float32'
 
-def test_model(predict_model, ings, reps, idx_to_cat, top_n=None, fname=None, target_ings=None):
+def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=None):
     results = predict_model(reps)
     ranks = np.fliplr(np.argsort(results))
     if top_n:
@@ -191,21 +192,44 @@ def gen_ing_idx_to_hier_map(ings_ordered):
     return ing_idx_to_hier_map
 
 def gen_ing_cat_pair_map(inputs, outputs):
-    """Generate map that takes as input the ing/cat pair and output whether
-    or not this pair has appeared."""
+    """Generate map that takes as input the ing/cat pair if this pair exists."""
     ing_cat_pair_map = {}
     for inp, out in zip(inputs, outputs):
         if (inp, out) not in ing_cat_pair_map:
             ing_cat_pair_map[(inp, out)] = True
     return ing_cat_pair_map
 
-def evaluate(valid_ing_indices, results, ing_cat_pair_map):
+def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
+    """Generate map that takes as input the adulterant/cat pair if this pair exists."""
+    if df_ is None:
+        with open('../model/adulerant_cat_pair_map.pkl', 'rb') as f_in:
+            adulterant_cat_pair_map = pickle.load(f_in)
+    else:
+        adulterant_cat_pair_map = {}
+        cat_to_idx = {v: k for k, v in idx_to_cat.items()}
+        chemicals = df_['chemical_'].values
+        categories = df_['category_'].values
+        for chem, cat in zip(chemicals, categories):
+            if not cat or cat == '---':
+                continue
+            cat = cat.lower()
+            idx = np.where(found_ings==chem)[0]
+            if len(idx) == 0:
+                continue
+            idx = idx[0]
+            cat_idx = cat_to_idx[cat]
+            adulterant_cat_pair_map[(idx, cat_idx)] = True
+    return adulterant_cat_pair_map
+
+def evaluate(valid_ing_indices, results, ing_cat_pair_map, random=False):
     """Evaluation metric via the mean average precision."""
     # Match prec: 0.448 vs 0.136 for random
     # MAP: 0.497 vs 0.166 for random
-    ranks = np.fliplr(np.argsort(results))
-    ranks_random = np.array([np.random.permutation(
-        results.shape[1]) for i in range(results.shape[0])])
+    if not random:
+        ranks = np.fliplr(np.argsort(results))
+    else:
+        ranks = np.array([np.random.permutation(
+            results.shape[1]) for i in range(results.shape[0])])
     precisions = []
     match_percs = []
     for i, rank in enumerate(ranks):
@@ -218,6 +242,8 @@ def evaluate(valid_ing_indices, results, ing_cat_pair_map):
         num_cats = len(cats)
 
         c_ranks = sorted([np.where(rank==c)[0][0] for c in cats])
+        if len(c_ranks) == 0:
+            continue
         mean_precision = 0
         for j, c_rank in enumerate(c_ranks):
             mean_precision += (j+1.)/(c_rank+1)
@@ -289,9 +315,13 @@ def run_nn_helper(df, counts,
     inputs = inputs[inp_exist_indices]
     outputs = outputs[inp_exist_indices]
 
-    ing_cat_pair_map = gen_ing_cat_pair_map(inputs, outputs)
+    inputs_tr, outputs_tr, inputs_te, outputs_te = split_data(
+        inputs, outputs, test_ratio=1/3.)
 
-    classifier, predict_model = run_nn(inputs, outputs, 
+    ing_cat_pair_map = gen_ing_cat_pair_map(inputs, outputs)
+    adulterant_cat_pair_map = gen_adulterant_cat_pair_map()
+
+    classifier, predict_model = run_nn(inputs_tr, outputs_tr, 
                         num_ingredients=num_ingredients, 
                         num_outputs=num_outputs,
                         m=m, 
@@ -309,14 +339,14 @@ def run_nn_helper(df, counts,
     valid_ing_reps = np.array([ing_idx_to_hier_map[i] for i in valid_ing_indices])
     valid_ings = [ings[i] for i in valid_ing_indices]
     valid_ing_results = predict_model(valid_ing_reps)
-    test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
+    #test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
     evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
 
     found_ings = np.load('../rasff/found_chems.npy')
     new_ings_reps = np.load('../rasff/found_chems_reps.npy').astype('float32')
     new_ings_results = predict_model(new_ings_reps)
-    test_model(new_ings_results, found_ings, idx_to_cat, 3)
-    #evaluate(valid_ing_indices, new_ings_results, ing_cat_pair_map)
+    #test_model(new_ings_results, found_ings, idx_to_cat, 3)
+    evaluate(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
 
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)

@@ -12,3 +12,4 @@ scratch.py
 *.png
 *.html
 chemnet_database/
+wikipedia/pages/
