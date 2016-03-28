@@ -19,7 +19,6 @@ embed_dir = 'embeddings/'
 theano.config.floatX = 'float32'
 
 def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=None):
-    results = predict_model(reps)
     ranks = np.fliplr(np.argsort(results))
     if top_n:
         ranks = ranks[:,:top_n]
