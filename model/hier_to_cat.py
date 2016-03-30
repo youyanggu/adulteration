@@ -201,7 +201,7 @@ def gen_ing_cat_pair_map(inputs, outputs):
 def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
     """Generate map that takes as input the adulterant/cat pair if this pair exists."""
     if df_ is None:
-        with open('../model/adulerant_cat_pair_map.pkl', 'rb') as f_in:
+        with open('../model/adulterant_cat_pair_map.pkl', 'rb') as f_in:
             adulterant_cat_pair_map = pickle.load(f_in)
     else:
         adulterant_cat_pair_map = {}
@@ -219,49 +219,6 @@ def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
             cat_idx = cat_to_idx[cat]
             adulterant_cat_pair_map[(idx, cat_idx)] = True
     return adulterant_cat_pair_map
-
-def evaluate(valid_ing_indices, results, ing_cat_pair_map, random=False):
-    """Evaluation metric via the mean average precision."""
-    # Match prec: 0.448 vs 0.136 for random
-    # MAP: 0.497 vs 0.166 for random
-    if not random:
-        ranks = np.fliplr(np.argsort(results))
-    else:
-        ranks = np.array([np.random.permutation(
-            results.shape[1]) for i in range(results.shape[0])])
-    precisions = []
-    match_percs = []
-    for i, rank in enumerate(ranks):
-        ing_idx = valid_ing_indices[i]
-
-        cats = set()
-        for j in range(results.shape[1]):
-            if (ing_idx, j) in ing_cat_pair_map:
-                cats.add(j)
-        num_cats = len(cats)
-
-        c_ranks = sorted([np.where(rank==c)[0][0] for c in cats])
-        if len(c_ranks) == 0:
-            continue
-        mean_precision = 0
-        for j, c_rank in enumerate(c_ranks):
-            mean_precision += (j+1.)/(c_rank+1)
-        mean_precision /= len(c_ranks)
-        precisions.append(mean_precision)
-
-        matches = 0
-        for cat_rank, cat_idx in enumerate(rank[:num_cats]):
-            cat_rank += 1
-            if (ing_idx, cat_idx) in ing_cat_pair_map:
-                matches += 1
-        match_perc = matches * 1. / num_cats
-        match_percs.append(match_perc)
-    precisions = np.array(precisions)
-    match_percs = np.array(match_percs)
-    print "MAP    :", precisions.mean()
-    print "Match %:", match_percs.mean()
-
-
 
 def default_args():
     df, df_i = import_data()
@@ -339,13 +296,13 @@ def run_nn_helper(df, counts,
     valid_ings = [ings[i] for i in valid_ing_indices]
     valid_ing_results = predict_model(valid_ing_reps)
     #test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
-    evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
+    evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
 
     found_ings = np.load('../rasff/found_chems.npy')
     new_ings_reps = np.load('../rasff/found_chems_reps.npy').astype('float32')
     new_ings_results = predict_model(new_ings_reps)
     #test_model(new_ings_results, found_ings, idx_to_cat, 3)
-    evaluate(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
+    evaluate_map(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
 
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)

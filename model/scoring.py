@@ -1,6 +1,48 @@
 import numpy as np
 import pandas as pd
 
+def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False):
+    """Evaluation metric via the mean average precision."""
+    # Match prec: 0.448 vs 0.136 for random
+    # MAP: 0.497 vs 0.166 for random
+    if not random:
+        ranks = np.fliplr(np.argsort(results))
+    else:
+        ranks = np.array([np.random.permutation(
+            results.shape[1]) for i in range(results.shape[0])])
+    precisions = []
+    match_percs = []
+    for i, rank in enumerate(ranks):
+        ing_idx = valid_ing_indices[i]
+
+        cats = set()
+        for j in range(results.shape[1]):
+            if (ing_idx, j) in ing_cat_pair_map:
+                cats.add(j)
+        num_cats = len(cats)
+
+        c_ranks = sorted([np.where(rank==c)[0][0] for c in cats])
+        if len(c_ranks) == 0:
+            continue
+        mean_precision = 0
+        for j, c_rank in enumerate(c_ranks):
+            mean_precision += (j+1.)/(c_rank+1)
+        mean_precision /= len(c_ranks)
+        precisions.append(mean_precision)
+
+        matches = 0
+        for cat_rank, cat_idx in enumerate(rank[:num_cats]):
+            cat_rank += 1
+            if (ing_idx, cat_idx) in ing_cat_pair_map:
+                matches += 1
+        match_perc = matches * 1. / num_cats
+        match_percs.append(match_perc)
+    precisions = np.array(precisions)
+    match_percs = np.array(match_percs)
+    print "MAP    :", precisions.mean()
+    print "Match %:", match_percs.mean()
+
+
 def calc_avg_rank_of_ing_cat(ranks, score_dir='data'):
     assert(ranks.shape[0]==ranks.shape[1])
     df = get_ing_category(score_dir)

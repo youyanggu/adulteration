@@ -1,11 +1,12 @@
 import itertools
+import os
 import sys
 
 import numpy as np
 import pandas as pd
 import scipy
 
-sys.path.append('../foodessentials')
+sys.path.append('{}/foodessentials'.format(os.path.dirname(os.path.dirname(__file__))))
 import ing_utils
 
 ### VALID ###
