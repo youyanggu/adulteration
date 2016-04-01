@@ -199,25 +199,31 @@ def gen_ing_cat_pair_map(inputs, outputs):
     return ing_cat_pair_map
 
 def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
-    """Generate map that takes as input the adulterant/cat pair if this pair exists."""
+    """Generate map that contains existing adulterant/category pairs."""
     if df_ is None:
         with open('../model/adulterant_cat_pair_map.pkl', 'rb') as f_in:
             adulterant_cat_pair_map = pickle.load(f_in)
-    else:
-        adulterant_cat_pair_map = {}
-        cat_to_idx = {v: k for k, v in idx_to_cat.items()}
-        chemicals = df_['chemical_'].values
-        categories = df_['category_'].values
-        for chem, cat in zip(chemicals, categories):
-            if not cat or cat == '---':
-                continue
-            cat = cat.lower()
-            idx = np.where(found_ings==chem)[0]
-            if len(idx) == 0:
-                continue
-            idx = idx[0]
-            cat_idx = cat_to_idx[cat]
-            adulterant_cat_pair_map[(idx, cat_idx)] = True
+        return adulterant_cat_pair_map
+    if found_ings is None:
+        found_ings = np.load('../rasff/all_rasff_chems.npy')
+        #found_ings = np.array(df_.groupby('chemical').size().order()[::-1].index)
+    if idx_to_cat is None:
+        with open('../ncim/idx_to_cat.pkl', 'rb') as f_in:
+            idx_to_cat = pickle.load(f_in)
+    adulterant_cat_pair_map = {}
+    cat_to_idx = {v: k for k, v in idx_to_cat.items()}
+    chemicals = df_['chemical_'].values
+    categories = df_['category_'].values
+    for chem, cat in zip(chemicals, categories):
+        if not cat or cat == '---':
+            continue
+        cat = cat.lower()
+        idx = np.where(found_ings==chem)[0]
+        if len(idx) == 0:
+            continue
+        idx = idx[0]
+        cat_idx = cat_to_idx[cat]
+        adulterant_cat_pair_map[(idx, cat_idx)] = True
     return adulterant_cat_pair_map
 
 def default_args():

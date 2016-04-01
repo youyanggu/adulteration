@@ -58,6 +58,9 @@ def get_category(title):
     categories = [i['title'] for i in content]
     return categories
 
+def get_adulterants():
+    return np.load(os.path.join(DIRNAME, '../rasff/all_rasff_chems.npy'))
+
 def get_ings(num_ingredients):
     df_i = pd.read_hdf(
         os.path.join(DIRNAME, '../foodessentials/ingredients.h5'), 'ingredients')
@@ -80,6 +83,10 @@ def get_page_html(title):
     return html
 
 def search(term):
+    def preprocess(term):
+        term = re.sub('.*E \d* - ', '', term)
+        return term
+    term = preprocess(term)
     params = {
               'action'   : 'query',
               'format'   : 'json',
@@ -93,18 +100,18 @@ def search(term):
     hits = [i['title'].encode('utf8') for i in content]
     return hits
 
-def get_ing_to_title(load_saved=True):
-
-    if load_saved:
+def get_ing_to_title(ings=None):
+    """Convert ing names to their Wikipedia titles."""
+    if ings is None:
         with open(os.path.join(DIRNAME, 'ing_to_hits.pkl'), 'rb') as f:
             ing_to_hits = pickle.load(f)
     else:
-        ings = get_ings(5000)
         ing_to_hits = {}
         for i, ing in enumerate(ings):
-            hits = search(ing)
-            print '{} {} --> {}'.format(i, ing, hits[0])
-            ing_to_hits[ing] = hits
+            if ing:
+                hits = search(ing)
+                print '{} {} --> {}'.format(i, ing, hits[0])
+                ing_to_hits[ing] = hits
         with open(os.path.join(DIRNAME, 'ing_to_hits.pkl'), 'wb') as f:
             pickle.dump(ing_to_hits, f)
     return ing_to_hits
@@ -115,11 +122,12 @@ def clean_title(title):
         title = title.replace(' ', '_')
         return title
 
-def run_wiki(start=0, load_saved=True, summary=True):
+def run_wiki(ings=None, start=0, summary=True, overwrite=False):
     """Download Wikipedia text from title."""
-    ing_to_hits = get_ing_to_title(load_saved=load_saved)
+    ing_to_hits = get_ing_to_title(ings)
+    if ings is None:
+        ings = sorted(ing_to_hits.keys())
     seen_titles = set()
-    ings = get_ings(5000)
     for i, ing in enumerate(ings):
         if i < start:
             continue
@@ -128,21 +136,23 @@ def run_wiki(start=0, load_saved=True, summary=True):
         if not title or title in seen_titles:
             continue
         seen_titles.add(title)
+        file_title = clean_title(title)
+        if summary:
+            fname = 'summary/{}.txt'.format(file_title)
+        else:
+            fname = 'pages/{}.txt'.format(file_title)
+        if os.path.isfile(fname) and not overwrite:
+            print "File already exists for: {}. overwrite is False.".format(fname)
+            continue
         if summary:
             html = get_summary(title)
         else:
             html = get_page_html(title)
         soup = BeautifulSoup(html, 'lxml')
         raw_text = soup.text
-        file_title = clean_title(title)
-        if summary:
-            with open('summary/{}.txt'.format(file_title), 'wb') as f:
-                f.write(title+'\n')
-                f.write(raw_text.encode('utf8'))
-        else:
-            with open('pages/{}.txt'.format(file_title), 'wb') as f:
-                f.write(title+'\n')
-                f.write(raw_text.encode('utf8'))
+        with open(fname, 'wb') as f:
+            f.write(title+'\n')
+            f.write(raw_text.encode('utf8'))
 
 def clean_page(f):
     text = []
@@ -246,15 +256,20 @@ def gen_word2vec_dict(save_file=None, model=None):
             pickle.dump(word_to_vector, f)
     return word_to_vector
 
-def input_to_tokens(inp, ings=None):
+def input_to_tokens(inp=None, ings=None):
     """Generates end-to-end word tokens from input index (of ingredients)."""
     if type(inp) == int:
         inp = [inp]
     all_tokens = []
     if ings is None:
         ings = get_ings(5000)
+    if inp is None:
+        inp = range(len(ings))
     ing_to_title = get_ing_to_title()
     for i in inp:
+        if not ings[i]:
+            all_tokens.append([])
+            continue
         title = ing_to_title[ings[i]][0]
         if not title:
             all_tokens.append([])
@@ -267,18 +282,23 @@ def input_to_tokens(inp, ings=None):
                 all_tokens.append(tokens)
     return all_tokens
 
-def gen_inputs_to_outputs(inputs, outputs, save_file=True):
-    #from hier_to_cat import load_input_outputs, break_down_inputs
-    #inputs, outputs, idx_to_cat = load_input_outputs(5000)
-    #inputs, outputs = break_down_inputs(inputs, outputs)
-    #input_to_outputs = {i : [] for i in range(inputs.max()+1)}
-    #for inp, out in zip(inputs, outputs):
-    #    input_to_outputs[inp].append(out)
+def gen_inputs_to_outputs_adulterants(adulterant_cat_pair_map, save_file='input_to_outputs_adulterants.pkl'):
+    input_max = max([k[0] for k in adulterant_cat_pair_map.keys()])
+    output_max = 130 #max([k[1] for k in adulterant_cat_pair_map.keys()])
+    input_to_outputs = {i : np.zeros(output_max+1, dtype=int) for i in range(input_max+1)}
+    for inp, out in adulterant_cat_pair_map.keys():
+        input_to_outputs[inp][out] += 1
+    if save_file:
+        with open(os.path.join(DIRNAME, save_file), 'w') as f:
+            pickle.dump(input_to_outputs, f)
+    return input_to_outputs
+
+def gen_inputs_to_outputs(inputs, outputs, save_file='input_to_outputs.pkl'):
     input_to_outputs = {i : np.zeros(outputs.max()+1, dtype=int) for i in range(inputs.max()+1)}
     for inp, out in zip(inputs, outputs):
         input_to_outputs[inp][out] += 1
     if save_file:
-        with open(os.path.join(DIRNAME, 'input_to_outputs.pkl'), 'w') as f:
+        with open(os.path.join(DIRNAME, save_file), 'w') as f:
             pickle.dump(input_to_outputs, f)
     return input_to_outputs
 
