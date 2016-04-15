@@ -13,7 +13,7 @@ from utils import *
 data_dir = 'data/'
 embed_dir = 'embeddings/'
 
-theano.config.floatX = 'float32'
+#theano.config.floatX = 'float32'
 
 def subsample(x_train, y_train, output_lens, prob):
     if prob is None:

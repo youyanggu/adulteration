@@ -3,6 +3,7 @@ import pickle
 import time
 
 import numpy as np
+from sklearn.cross_validation import train_test_split
 import sklearn.neighbors
 import theano
 import theano.tensor as T
@@ -16,7 +17,7 @@ from nn_category import HiddenLayer, OutputLayer
 data_dir = 'data/'
 embed_dir = 'embeddings/'
 
-theano.config.floatX = 'float32'
+#theano.config.floatX = 'float32'
 
 def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=None):
     ranks = np.fliplr(np.argsort(results))
@@ -33,12 +34,29 @@ def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=No
                     include = True
                     break
         if include:
+            s = u'{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
             if fname:
-                f_out.write('{} --> {}\n'.format(ing, [idx_to_cat[j] for j in ranks[i]]))
+                s = s+'\n'
+                f_out.write(s.encode('utf8'))
             else:
-                print '{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
+                print s
     if fname:
         f_out.close()
+
+def evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, select_indices=None):
+    """Generate MAP and precision at N for predictions."""
+    if select_indices is not None:
+        valid_ing_indices_idx = [i for i,v in enumerate(valid_ing_indices) if v in select_indices]
+        print '{} --> {}'.format(len(valid_ing_indices), len(valid_ing_indices_idx))
+        valid_ing_indices = valid_ing_indices[valid_ing_indices_idx]
+        valid_ing_results = valid_ing_results[valid_ing_indices_idx]
+    avg_true_results = gen_avg_true_results(valid_ing_indices)
+    print "Random:"
+    evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map, random=True)
+    print "Avg True Results:"
+    evaluate_map(valid_ing_indices, avg_true_results, ing_cat_pair_map, random=False)
+    print "Model:"
+    evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map, random=False)
 
 def subsample(x_train, y_train, prob):
     if prob is None:
@@ -180,14 +198,21 @@ def load_input_outputs(suffix=''):
         idx_to_cat = pickle.load(f_in)
     return inputs, outputs, idx_to_cat
 
-def gen_ing_idx_to_hier_map(ings_ordered):
+def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False):
     ing_to_idx_map = {ings_ordered[i] : i for i in range(len(ings_ordered))}
     ing_idx_to_hier_map = {}
-    ings = np.load('../ncim/all_ings.npy')
-    reps = np.load('../ncim/all_ings_reps.npy')
+    parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    if adulterants:
+        ings = np.load(parent_dir+'/rasff/found_chems.npy')
+        reps = np.load(parent_dir+'/rasff/found_chems_reps.npy').astype('float32')
+    else:
+        ings = np.load(parent_dir+'/ncim/all_ings.npy')
+        reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
     assert len(ings)==len(reps)
     for i in range(len(ings)):
-        ing_idx_to_hier_map[ing_to_idx_map[ings[i]]] = reps[i].astype('float32')
+        if ings[i] not in ing_to_idx_map:
+            continue
+        ing_idx_to_hier_map[ing_to_idx_map[ings[i]]] = reps[i]
     return ing_idx_to_hier_map
 
 def gen_ing_cat_pair_map(inputs, outputs):
@@ -277,9 +302,13 @@ def run_nn_helper(df, counts,
     inputs = inputs[inp_exist_indices]
     outputs = outputs[inp_exist_indices]
 
-    inputs_tr, outputs_tr, inputs_te, outputs_te = split_data(
-        inputs, outputs, test_ratio=1/3.)
-
+    #inputs_tr, outputs_tr, inputs_te, outputs_te = split_data(
+    #    inputs, outputs, test_size=1/3.)
+    train_indices, test_indices = train_test_split(
+                range(num_ingredients), test_size=1/3., random_state=42)
+    inputs_tr, outputs_tr, inputs_te, outputs_te = split_data_by_indices(
+        inputs, outputs, train_indices, test_indices)
+    
     ing_cat_pair_map = gen_ing_cat_pair_map(inputs, outputs)
     adulterant_cat_pair_map = gen_adulterant_cat_pair_map()
 
@@ -297,18 +326,37 @@ def run_nn_helper(df, counts,
                         ing_idx_to_hier_map=ing_idx_to_hier_map,
                         )
 
+    """
+    # Only use valid hierarchies.
     valid_ing_indices = [i for i in range(num_ingredients) if i in ing_idx_to_hier_map]
     valid_ing_reps = np.array([ing_idx_to_hier_map[i] for i in valid_ing_indices])
     valid_ings = [ings[i] for i in valid_ing_indices]
     valid_ing_results = predict_model(valid_ing_reps)
     #test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
-    evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
+    """
+    valid_ing_indices = range(num_ingredients)
+    valid_ing_reps = np.array([ing_idx_to_hier_map.get(i, np.zeros(3751).astype('float32')) for i in valid_ing_indices])
+    valid_ing_results = predict_model(valid_ing_reps)
+    
+    #evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
 
     found_ings = np.load('../rasff/found_chems.npy')
     new_ings_reps = np.load('../rasff/found_chems_reps.npy').astype('float32')
     new_ings_results = predict_model(new_ings_reps)
     #test_model(new_ings_results, found_ings, idx_to_cat, 3)
-    evaluate_map(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
+    #evaluate_map(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
+
+
+    ###
+    if type(valid_ing_indices) == list:
+        valid_ing_indices = np.array(valid_ing_indices)
+    print "======= Training evaluation ========"
+    evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, set(train_indices))
+    print "======= Validation evaluation ========"
+    evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, set(test_indices))
+    print "======= Adulteration evaluation ========"
+    evaluate(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
+    ###
 
     embeddings = classifier.inp_all.get_value()
     ranks_all, neigh = get_nearest_neighbors(embeddings)

@@ -1,5 +1,27 @@
+import os
+import pickle
+
 import numpy as np
 import pandas as pd
+
+DIRNAME = os.path.dirname(__file__)
+
+def gen_avg_true_results(valid_ing_indices):
+    # Another baseline is to use the average Y distribution.
+    fname = os.path.join(DIRNAME, '../wikipedia/input_to_outputs.pkl')
+    with open(fname, 'r') as f_in:
+        input_to_outputs = pickle.load(f_in)
+
+    avg_true_results = None
+    for i in valid_ing_indices:
+        if avg_true_results is None:
+            avg_true_results = input_to_outputs[i] * 1. / input_to_outputs[i].sum()
+        else:
+            avg_true_results += input_to_outputs[i] * 1. / input_to_outputs[i].sum()
+    avg_true_results /= len(valid_ing_indices)
+    assert np.isclose(avg_true_results.sum(), 1, atol=1e-5)
+    avg_true_results = np.array([avg_true_results for i in valid_ing_indices])
+    return avg_true_results
 
 def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False):
     """Evaluation metric via the mean average precision."""

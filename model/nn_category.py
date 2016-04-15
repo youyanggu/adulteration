@@ -11,7 +11,7 @@ from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
 from scoring import calc_score
 from utils import *
 
-theano.config.floatX = 'float32'
+#theano.config.floatX = 'float32'
 
 def get_batch(x_train, y_train, idx, batch_size):
     x = x_train[idx*batch_size : (idx+1)*batch_size]
