@@ -3,6 +3,7 @@
 scratch.py
 *.h5
 *.csv
+*.xlsx
 *.bak
 *.pkl
 *.npy
