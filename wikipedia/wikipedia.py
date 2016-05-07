@@ -244,7 +244,6 @@ def tokenize(text):
     punctuations = ''
     #clean_text = text.lower().translate(
     #    {i:None for i in punctuations})
-    print type(text)
     clean_text = text.lower().translate(None, punctuations)
     clean_text = clean_text.replace('?', '.').replace('!', '.')
     clean_text = clean_text.decode('utf8')
@@ -259,19 +258,23 @@ def read_corpus(wanted_titles=None):
         with open(fname, 'r') as f_in:
             title = f_in.readline().replace('\n', '')
             text = ''.join(f_in.readlines())
-        file_title = os.path.basename(fname)[:-4]
-        file_title = file_title.replace('e\xcc\x81', '\xc3\xa9')  # Tomato_puree
-        file_title = file_title.replace('n\xcc\x83', '\xc3\xb1') # Jalapeno
-        file_title = file_title.replace('c\xcc\xa7ai\xcc\x81', '\xc3\xa7a\xc3\xad') # Acai_palm
-        file_title = file_title.replace('a\xcc\x82', '\xc3\xa2') # Neufchâtel_cheese
-        file_title = file_title.replace('e\xcc\x82', '\xc3\xaa') # Crepe
-        #if file_title.endswith('pe'):
-        #    print file_title, file_title in wanted_titles
-        if wanted_titles and file_title not in wanted_titles:
-            continue
-        titles.append(file_title)
+        if wanted_titles:
+            file_title = os.path.basename(fname)[:-4]
+            file_title = file_title.replace('e\xcc\x81', '\xc3\xa9')  # Tomato_puree
+            file_title = file_title.replace('n\xcc\x83', '\xc3\xb1') # Jalapeno
+            file_title = file_title.replace('c\xcc\xa7ai\xcc\x81', '\xc3\xa7a\xc3\xad') # Acai_palm
+            file_title = file_title.replace('a\xcc\x82', '\xc3\xa2') # Neufchâtel_cheese
+            file_title = file_title.replace('e\xcc\x82', '\xc3\xaa') # Crepe
+            #if file_title.endswith('pe'):
+            #    print file_title, file_title in wanted_titles
+            if file_title not in wanted_titles:
+                continue
+            titles.append(file_title)
+            corpus[file_title] = text
+        else:
+            titles.append(title)
+            corpus[title] = text
         #count = Counter(tokens)
-        corpus[file_title] = text
     titles = np.array(titles)
     return corpus, titles
 
