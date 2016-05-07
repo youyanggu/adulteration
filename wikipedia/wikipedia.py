@@ -5,6 +5,7 @@ import numpy as np
 import os
 import pandas as pd
 import pickle
+import re
 import requests
 import string
 import sys
@@ -70,6 +71,11 @@ def get_ings(num_ingredients):
     else:
         return counts.index.values
 
+def get_products():
+    with open('../ncim/idx_to_cat.pkl', 'rb') as f_in:
+        idx_to_cat = pickle.load(f_in)
+    return [idx_to_cat[i] for i in sorted(idx_to_cat.keys())]
+
 def get_page_html(title):
     params = {
               'action' : 'parse',
@@ -102,6 +108,9 @@ def search(term):
 
 def get_ing_to_title(ings=None):
     """Convert ing names to their Wikipedia titles."""
+    if ings is not None and len(ings) == 131:
+        # Products
+        return get_product_to_title()
     if ings is None:
         with open(os.path.join(DIRNAME, 'ing_to_hits.pkl'), 'rb') as f:
             ing_to_hits = pickle.load(f)
@@ -116,15 +125,42 @@ def get_ing_to_title(ings=None):
             pickle.dump(ing_to_hits, f)
     return ing_to_hits
 
+def get_ings_wiki_links():
+    ings_wiki_links = pd.read_csv(os.path.join(
+        DIRNAME, 'ings_wiki_links.csv'), header=None, index_col=0).to_dict()[1]
+    for k,v in ings_wiki_links.iteritems():
+        if pd.isnull(v):
+            clean_v = ''
+        else:
+            assert 'https://en.wikipedia.org/wiki/' in v
+            clean_v = requests.utils.unquote(v)
+            clean_v = clean_v.replace('https://en.wikipedia.org/wiki/', '')
+            if '#' in clean_v:
+                clean_v = clean_v[:clean_v.index('#')]
+        ings_wiki_links[k] = [clean_v]
+    ings_wiki_links['jalape\xc3\x91o pepper'] = ings_wiki_links['jalapeno pepper']
+    return ings_wiki_links
+
+def get_product_to_title():
+    product_to_hit = pd.read_csv(os.path.join(DIRNAME, 'product_to_hit.csv'), 
+        header=None, index_col=0).to_dict()[1]
+    for k,v in product_to_hit.iteritems():
+        product_to_hit[k] = [v.replace('https://en.wikipedia.org/wiki/', '')]
+    return product_to_hit
+
 def clean_title(title):
-        title = title.strip()
-        title = title.replace('/', '-')
-        title = title.replace(' ', '_')
-        return title
+    title = title.strip()
+    title = title.replace('/', '-')
+    title = title.replace(' ', '_')
+    return title
 
 def run_wiki(ings=None, start=0, summary=True, overwrite=False):
     """Download Wikipedia text from title."""
-    ing_to_hits = get_ing_to_title(ings)
+    if ings is not None and len(ings) == 131:
+        # product categories
+        ing_to_hits = get_product_to_title()
+    else:
+        ing_to_hits = get_ings_wiki_links() #get_ing_to_title(ings)
     if ings is None:
         ings = sorted(ing_to_hits.keys())
     seen_titles = set()
@@ -141,6 +177,7 @@ def run_wiki(ings=None, start=0, summary=True, overwrite=False):
             fname = 'summary/{}.txt'.format(file_title)
         else:
             fname = 'pages/{}.txt'.format(file_title)
+        fname = os.path.join(DIRNAME, fname)
         if os.path.isfile(fname) and not overwrite:
             print "File already exists for: {}. overwrite is False.".format(fname)
             continue
@@ -206,6 +243,7 @@ def tokenize(text):
     punctuations = ''
     #clean_text = text.lower().translate(
     #    {i:None for i in punctuations})
+    print type(text)
     clean_text = text.lower().translate(None, punctuations)
     clean_text = clean_text.replace('?', '.').replace('!', '.')
     clean_text = clean_text.decode('utf8')
@@ -213,17 +251,26 @@ def tokenize(text):
     tokens = filter_tokens(tokens)
     return tokens
 
-def read_corpus():
+def read_corpus(wanted_titles=None):
     corpus = {}
     titles = []
-    for fname in sorted(glob.glob('summary/*.txt')):
+    for fname in sorted(glob.glob(os.path.join(DIRNAME, 'summary/*.txt'))):
         with open(fname, 'r') as f_in:
             title = f_in.readline().replace('\n', '')
             text = ''.join(f_in.readlines())
-        #title = os.path.basename(fname)[:-4]
-        titles.append(title)
+        file_title = os.path.basename(fname)[:-4]
+        file_title = file_title.replace('e\xcc\x81', '\xc3\xa9')  # Tomato_puree
+        file_title = file_title.replace('n\xcc\x83', '\xc3\xb1') # Jalapeno
+        file_title = file_title.replace('c\xcc\xa7ai\xcc\x81', '\xc3\xa7a\xc3\xad') # Acai_palm
+        file_title = file_title.replace('a\xcc\x82', '\xc3\xa2') # Neufchâtel_cheese
+        file_title = file_title.replace('e\xcc\x82', '\xc3\xaa') # Crepe
+        #if file_title.endswith('pe'):
+        #    print file_title, file_title in wanted_titles
+        if wanted_titles and file_title not in wanted_titles:
+            continue
+        titles.append(file_title)
         #count = Counter(tokens)
-        corpus[title] = text
+        corpus[file_title] = text
     titles = np.array(titles)
     return corpus, titles
 
@@ -265,7 +312,10 @@ def input_to_tokens(inp=None, ings=None):
         ings = get_ings(5000)
     if inp is None:
         inp = range(len(ings))
-    ing_to_title = get_ing_to_title()
+    if len(ings) == 131:
+        ing_to_title = get_ing_to_title(ings)
+    else:
+        ing_to_title = get_ings_wiki_links() #get_ing_to_title()
     for i in inp:
         if not ings[i]:
             all_tokens.append([])
@@ -303,13 +353,25 @@ def gen_inputs_to_outputs(inputs, outputs, save_file='input_to_outputs.pkl'):
     return input_to_outputs
 
 def tf_idf():
-    corpus, titles = read_corpus()
+    def tf_idf_tokenize(text):
+        clean_text = text.replace('?', '.').replace('!', '.')
+        #clean_text = clean_text.decode('utf8')
+        tokens = nltk.word_tokenize(clean_text)
+        tokens = filter_tokens(tokens)
+        return tokens
+
+    ings = get_ings(5000)
+    ings_wiki_links = get_ings_wiki_links()
+    wanted_titles = [ings_wiki_links[i][0] for i in ings]
+
+    corpus, titles = read_corpus(wanted_titles)
     num_docs = len(titles)
 
-    tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english', min_df=2)
-    tfs = tfidf.fit_transform(corpus.values())
+    tfidf = TfidfVectorizer(tokenizer=tf_idf_tokenize, stop_words='english', min_df=2)
+    tfs = tfidf.fit_transform([corpus[t] for t in wanted_titles if t])#corpus.values())
     tfidf_arr = tfs.toarray()
     feature_names = np.array(tfidf.get_feature_names())
+    num_tokens = len(feature_names)
 
     title_to_features = {}
     for title, vec in zip(titles, tfidf_arr):
