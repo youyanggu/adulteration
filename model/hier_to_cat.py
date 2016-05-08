@@ -19,7 +19,11 @@ embed_dir = 'embeddings/'
 
 #theano.config.floatX = 'float32'
 
-def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=None):
+def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=None, ings_wiki_links=None):
+    """Prints predictions based on vector of distribution.
+
+    target_ings : only prints ingredients that contain this word (e.g. 'oil')
+    """
     ranks = np.fliplr(np.argsort(results))
     if top_n:
         ranks = ranks[:,:top_n]
@@ -34,7 +38,14 @@ def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=No
                     include = True
                     break
         if include:
-            s = u'{} --> {}'.format(ing, [idx_to_cat[j] for j in ranks[i]])
+            if abs(results).sum()==0:
+                preds = None
+            else:
+                preds = [idx_to_cat[j] for j in ranks[i]]
+            if ings_wiki_links:
+                s = u'{} / {} --> {}'.format(ing.decode('utf-8'), ings_wiki_links.get(ing), preds)
+            else:
+                s = u'{} --> {}'.format(ing.decode('utf-8'), preds)
             if fname:
                 s = s+'\n'
                 f_out.write(s.encode('utf8'))
@@ -240,7 +251,7 @@ def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
     chemicals = df_['chemical_'].values
     categories = df_['category_'].values
     for chem, cat in zip(chemicals, categories):
-        if not cat or cat == '---':
+        if not cat or not chem or cat == '---':
             continue
         cat = cat.lower()
         idx = np.where(found_ings==chem)[0]
