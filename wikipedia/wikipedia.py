@@ -20,6 +20,8 @@ from sklearn.neighbors import NearestNeighbors
 
 WIKI_URL = 'https://en.wikipedia.org/w/api.php'
 DIRNAME = os.path.dirname(__file__)
+sys.path.append(os.path.join(DIRNAME, '../model'))
+from gen_embeddings import get_nearest_neighbors, print_nearest_neighbors
 
 def get_summary(title):
     params = {
@@ -254,6 +256,7 @@ def tokenize(text):
 def read_corpus(wanted_titles=None):
     corpus = {}
     titles = []
+    assert os.path.isdir('summary')
     for fname in sorted(glob.glob(os.path.join(DIRNAME, 'summary/*.txt'))):
         with open(fname, 'r') as f_in:
             title = f_in.readline().replace('\n', '')
@@ -285,10 +288,25 @@ def get_all_tokens(corpus, titles):
             tokens.add(token)
     return list(tokens)
 
-def tokens_to_word2vec(tokens, model=None):
-    if model is None:
+def tokens_to_word2vec(tokens, model):
+    if model == 'word2vec':
         model = Word2Vec.load_word2vec_format(
             os.path.join(DIRNAME, '../word2vec/GoogleNews-vectors-negative300.bin'), binary=True)
+    elif model == 'glove':
+        word_to_vector_glove = {}
+        tokens_glove = set(tokens)
+        #with open(os.path.join(DIRNAME, '../glove/glove.6B/glove.6B.300d.txt'), 'r') as f:
+        with open(os.path.join(DIRNAME, '../glove/glove.42B.300d.txt'), 'r') as f:
+            for line in f:
+                split_index = line.index(' ')
+                word = line[:split_index]
+                vector = np.fromstring(line[split_index+1:], dtype=float, sep=' ')
+                assert len(vector)==300
+                if word == '.':
+                    word = '</s>'
+                if word in tokens_glove:
+                    word_to_vector_glove[word] = vector
+        return word_to_vector_glove
     word_to_vector = {}
     for word in tokens:
         try:
@@ -336,6 +354,18 @@ def input_to_tokens(inp=None, ings=None):
                 tokens = tokenize(text)
                 all_tokens.append(tokens)
     return all_tokens
+
+def nearest_neighbors_vectors(fname, out_fname):
+    """Print out the nearest neighbors of each word embedding given a dictionary 
+    of word to embedding."""
+    top_n=3
+    with open(fname, 'r') as f:
+        word_to_vector = pickle.load(f)
+    ing_names = np.array(sorted(word_to_vector.keys()))
+    vectors = np.array([word_to_vector[i] for i in ing_names])
+    ranks, neigh = get_nearest_neighbors(vectors, k=top_n)
+    print_nearest_neighbors(ing_names, ranks, top_n=3, fname=out_fname, argsort=False)
+
 
 def gen_inputs_to_outputs_adulterants(adulterant_cat_pair_map, save_file='input_to_outputs_adulterants.pkl'):
     """Generates map of input index to vector of food categories with their counts.

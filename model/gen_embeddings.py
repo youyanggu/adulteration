@@ -287,19 +287,25 @@ def get_counts(inputs):
         d[i] = (j, int(s[i]))
     return d
 
-def print_nearest_neighbors(ing_names, ranks, top_n=3, fname=None):
+def print_nearest_neighbors(ing_names, ranks, top_n=3, fname=None, argsort=True):
     if fname:
         with open(fname, 'wb') as f_out:
             for i in range(ranks.shape[0]):
-                nearest_neighbors = np.argsort(ranks[i])
-                f_out.write('{} --> {}\n'.format(ing_names[i], 
+                if argsort:
+                    nearest_neighbors = np.argsort(ranks[i])
+                else:
+                    nearest_neighbors = ranks[i]
+                f_out.write('{} --> {}\n'.format(ing_names[i].encode('utf8'), 
                 np.array_str(ing_names[nearest_neighbors[1:top_n+1]], 
                     max_line_width=10000).replace('\n', '')
                 ))
     else:
         for i in range(ranks.shape[0]):
-            nearest_neighbors = np.argsort(ranks[i])
-            print '{} --> {}'.format(ing_names[i], 
+            if argsort:
+                nearest_neighbors = np.argsort(ranks[i])
+            else:
+                nearest_neighbors = ranks[i]
+            print '{} --> {}'.format(ing_names[i].encode('utf8'), 
                 np.array_str(ing_names[nearest_neighbors[1:top_n+1]], 
                     max_line_width=10000).replace('\n', '')
                 )
@@ -325,16 +331,20 @@ def compare_neighbors(neigh, embeddings, all_ings, ing, ings_to_compare):
         print sorted_ings_to_compare[i], sorted_cosine_distances[i]
     return sorted_cosine_distances, sorted_ings_to_compare
 
-def get_nearest_neighbors(embeddings):
+def get_nearest_neighbors(embeddings, k=None):
     num_ingredients = embeddings.shape[0]
-    neigh = sklearn.neighbors.NearestNeighbors(
-        num_ingredients, algorithm='brute', metric='cosine')
+    if k is None:
+        k = num_ingredients
+    neigh = sklearn.neighbors.NearestNeighbors(k, algorithm='brute', metric='cosine')
     neigh.fit(embeddings)
     ranks_all = []
     for i in range(num_ingredients):
         nearest_neighbors = neigh.kneighbors(embeddings[i:i+1])[1][0]
-        ranks = np.argsort(nearest_neighbors)
-        ranks_all.append(ranks)
+        if k == num_ingredients:
+            ranks = np.argsort(nearest_neighbors)
+            ranks_all.append(ranks)
+        else:
+            ranks_all.append(nearest_neighbors)
     return np.array(ranks_all), neigh
 
 def save_input_outputs(inputs, outputs, output_lens, suffix=''):

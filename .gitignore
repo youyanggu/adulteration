@@ -16,3 +16,4 @@ scratch.py
 *.html
 chemnet_database/
 wikipedia/pages/
+glove/

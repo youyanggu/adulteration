@@ -43,7 +43,7 @@ def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=No
             else:
                 preds = [idx_to_cat[j] for j in ranks[i]]
             if ings_wiki_links:
-                s = u'{} / {} --> {}'.format(ing.decode('utf-8'), ings_wiki_links.get(ing), preds)
+                s = u'{} / {} --> {}'.format(ing.decode('utf-8'), ings_wiki_links.get(ing)[0].decode('utf-8'), preds)
             else:
                 s = u'{} --> {}'.format(ing.decode('utf-8'), preds)
             if fname:
