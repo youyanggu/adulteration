@@ -18,6 +18,7 @@ embed_dir = 'embeddings/'
 theano.config.floatX = 'float32'
 
 def test_model(predict_model, ings, idx_to_cat, top_n=None, fname=None):
+    # hier_to_cat also has a test_model.
     num_ingredients = len(ings)
     results = predict_model(range(num_ingredients))
     ranks = np.fliplr(np.argsort(results))

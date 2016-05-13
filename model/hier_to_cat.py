@@ -41,7 +41,8 @@ def test_model(results, ings, idx_to_cat, top_n=None, fname=None, target_ings=No
             if abs(results).sum()==0:
                 preds = None
             else:
-                preds = [idx_to_cat[j] for j in ranks[i]]
+                #preds = [idx_to_cat[j] for j in ranks[i]]
+                preds = ['{} ({:.3f})'.format(idx_to_cat[v], results[i][v]) for v in ranks[i]]
             if ings_wiki_links:
                 s = u'{} / {} --> {}'.format(ing.decode('utf-8'), ings_wiki_links.get(ing)[0].decode('utf-8'), preds)
             else:
@@ -209,7 +210,12 @@ def load_input_outputs(suffix=''):
         idx_to_cat = pickle.load(f_in)
     return inputs, outputs, idx_to_cat
 
-def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False):
+def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False, pca_file=None):
+    """Generate map of ingredient index to hierarchy representation. 
+
+    If pca_file is specified, it will load the sklearn.decomposition.PCA model and
+    transform the data.
+    """
     ing_to_idx_map = {ings_ordered[i] : i for i in range(len(ings_ordered))}
     ing_idx_to_hier_map = {}
     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -220,6 +226,10 @@ def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False):
         ings = np.load(parent_dir+'/ncim/all_ings.npy')
         reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
     assert len(ings)==len(reps)
+    if pca_file:
+        with open(pca_file, 'r') as f:
+            pca = pickle.load(f)
+        reps = pca.transform(reps)
     for i in range(len(ings)):
         if ings[i] not in ing_to_idx_map:
             continue
@@ -266,10 +276,10 @@ def default_args():
     df, df_i = import_data()
     counts = df_i['ingredient'].value_counts()
     num_ingredients=5000
-    m=20
+    m=20 # 100 for hier
     input_size=10
     learning_rate=0.1
-    L2_reg=0.0005
+    L2_reg=0.0005 # 1e-7 for hier
     n_epochs=10
     batch_size=100
     seed=3
@@ -286,6 +296,7 @@ def run_nn_helper(df, counts,
          ings_per_prod=5,
          min_count=None,
          **kwargs):
+    pca_file = None#'../../rcnn/code/adulteration/pca_100.pkl'
     ings = counts.index.values[:num_ingredients]
     if use_npy:
         inputs, outputs, idx_to_cat = load_input_outputs(num_ingredients)
@@ -306,8 +317,9 @@ def run_nn_helper(df, counts,
     inputs = inputs[random_idx]
     outputs = outputs[random_idx]
 
-    ing_idx_to_hier_map = gen_ing_idx_to_hier_map(ings)
+    ing_idx_to_hier_map = gen_ing_idx_to_hier_map(ings, pca_file=pca_file)
     input_size = ing_idx_to_hier_map.values()[0].shape[0]
+    print "Input size:", input_size
     inp_exist_indices = np.array(
         [i for i in range(len(inputs)) if inputs[i] in ing_idx_to_hier_map])
     inputs = inputs[inp_exist_indices]
@@ -323,6 +335,7 @@ def run_nn_helper(df, counts,
     ing_cat_pair_map = gen_ing_cat_pair_map(inputs, outputs)
     adulterant_cat_pair_map = gen_adulterant_cat_pair_map()
 
+    #np.random.shuffle(inputs_tr) # benchmark/sanity check
     classifier, predict_model = run_nn(inputs_tr, outputs_tr, 
                         num_ingredients=num_ingredients, 
                         num_outputs=num_outputs,
@@ -346,13 +359,17 @@ def run_nn_helper(df, counts,
     #test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
     """
     valid_ing_indices = range(num_ingredients)
-    valid_ing_reps = np.array([ing_idx_to_hier_map.get(i, np.zeros(3751).astype('float32')) for i in valid_ing_indices])
+    valid_ing_reps = np.array([ing_idx_to_hier_map.get(i, np.zeros(input_size).astype('float32')) for i in valid_ing_indices])
     valid_ing_results = predict_model(valid_ing_reps)
     
     #evaluate_map(valid_ing_indices, valid_ing_results, ing_cat_pair_map)
 
     found_ings = np.load('../rasff/found_chems.npy')
     new_ings_reps = np.load('../rasff/found_chems_reps.npy').astype('float32')
+    if pca_file:
+        with open(pca_file, 'r') as f:
+            pca = pickle.load(f)
+        new_ings_reps = pca.transform(new_ings_reps)
     new_ings_results = predict_model(new_ings_reps)
     #test_model(new_ings_results, found_ings, idx_to_cat, 3)
     #evaluate_map(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
