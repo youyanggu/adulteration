@@ -245,7 +245,10 @@ def gen_ing_cat_pair_map(inputs, outputs):
     return ing_cat_pair_map
 
 def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
-    """Generate map that contains existing adulterant/category pairs."""
+    """Generate map that contains existing adulterant/category pairs.
+
+    df_ is generated via rasff.load_df()
+    """
     if df_ is None:
         with open('../model/adulterant_cat_pair_map.pkl', 'rb') as f_in:
             adulterant_cat_pair_map = pickle.load(f_in)
@@ -269,7 +272,10 @@ def gen_adulterant_cat_pair_map(df_=None, found_ings=None, idx_to_cat=None):
             continue
         idx = idx[0]
         cat_idx = cat_to_idx[cat]
-        adulterant_cat_pair_map[(idx, cat_idx)] = True
+        if (idx, cat_idx) not in adulterant_cat_pair_map:
+            adulterant_cat_pair_map[(idx, cat_idx)] = 1
+        else:
+            adulterant_cat_pair_map[(idx, cat_idx)] += 1
     return adulterant_cat_pair_map
 
 def default_args():

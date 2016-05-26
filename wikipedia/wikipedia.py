@@ -171,7 +171,7 @@ def run_wiki(ings=None, start=0, summary=True, overwrite=False):
         if i < start:
             continue
         title = ing_to_hits[ing][0]
-        print i, ing, title
+        #print i, ing, title
         if not title or title in seen_titles:
             continue
         seen_titles.add(title)
@@ -182,7 +182,7 @@ def run_wiki(ings=None, start=0, summary=True, overwrite=False):
             fname = 'pages/{}.txt'.format(file_title)
         fname = os.path.join(DIRNAME, fname)
         if os.path.isfile(fname) and not overwrite:
-            print "File already exists for: {}. overwrite is False.".format(fname)
+            #print "File already exists for: {}. overwrite is False.".format(fname)
             continue
         if summary:
             html = get_summary(title)
@@ -191,6 +191,7 @@ def run_wiki(ings=None, start=0, summary=True, overwrite=False):
         soup = BeautifulSoup(html, 'lxml')
         raw_text = soup.text
         with open(fname, 'wb') as f:
+            print "Writing:", title
             f.write(title+'\n')
             f.write(raw_text.encode('utf8'))
 
@@ -379,8 +380,9 @@ def gen_inputs_to_outputs_adulterants(adulterant_cat_pair_map, save_file='input_
     input_max = max([k[0] for k in adulterant_cat_pair_map.keys()])
     output_max = 131 #max([k[1] for k in adulterant_cat_pair_map.keys()])
     input_to_outputs = {i : np.zeros(output_max, dtype=int) for i in range(input_max+1)}
-    for inp, out in adulterant_cat_pair_map.keys():
-        input_to_outputs[inp][out] += 1
+    for k,v in adulterant_cat_pair_map.iteritems():
+        inp, out = k
+        input_to_outputs[inp][out] += v
     if save_file:
         with open(os.path.join(DIRNAME, save_file), 'w') as f:
             pickle.dump(input_to_outputs, f)
