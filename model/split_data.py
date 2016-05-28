@@ -69,3 +69,5 @@ def split_data_by_indices(inputs, outputs, train_indices, test_indices):
     outputs_te = [outputs[i] for i in range(len(inputs)) if inputs[i] in test_idx_set]
     return (np.array(inputs_tr), np.array(outputs_tr), 
         np.array(inputs_te), np.array(outputs_te))
+
+    

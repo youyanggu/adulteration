@@ -62,10 +62,21 @@ def get_category(title):
     categories = [i['title'] for i in content]
     return categories
 
-def get_adulterants():
-    return np.load(os.path.join(DIRNAME, '../rasff/all_rasff_chems.npy'))
+def get_adulterants(get_all=False):
+    """Get names of adulterants.
 
-def get_ings(num_ingredients):
+    If get_all is False, returns only adulterants with product categories.
+    """
+    adulterants = np.load(os.path.join(DIRNAME, '../rasff/all_rasff_chems.npy'))
+    if get_all:
+        return adulterants
+    with open(os.path.join(DIRNAME, 'input_to_outputs_adulterants.pkl'), 'r') as f_in:
+        input_to_outputs = pickle.load(f_in)
+    assert len(adulterants) == len(input_to_outputs)
+    adulterants = [v for i,v in enumerate(adulterants) if input_to_outputs[i].sum()>0]
+    return adulterants
+
+def get_ings(num_ingredients=5000):
     df_i = pd.read_hdf(
         os.path.join(DIRNAME, '../foodessentials/ingredients.h5'), 'ingredients')
     counts = df_i['ingredient'].value_counts()

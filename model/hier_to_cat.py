@@ -335,6 +335,8 @@ def run_nn_helper(df, counts,
     #    inputs, outputs, test_size=1/3.)
     train_indices, test_indices = train_test_split(
                 range(num_ingredients), test_size=1/3., random_state=42)
+    #train_indices, dev_indices, test_indices = split_data_by_wiki(
+    #            ings, args.seed)
     inputs_tr, outputs_tr, inputs_te, outputs_te = split_data_by_indices(
         inputs, outputs, train_indices, test_indices)
     
