@@ -23,10 +23,20 @@ def gen_avg_true_results(valid_ing_indices):
     avg_true_results = np.array([avg_true_results for i in valid_ing_indices])
     return avg_true_results
 
-def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False):
-    """Evaluation metric via the mean average precision."""
+def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False, results_indices=None):
+    """Evaluation metric via the mean average precision.
+
+    Let N be the number of ingredients and d be the number of categories.
+
+    valid_ing_indices - indices to ing_cat_pair_map. Should be the same length as results.
+    results - Nxd matrix of the scores.
+    ing_cat_pair_map - (ing_idx, cat_idx) = True if this pair exists.
+    random - random ordering of ranks.
+    results_indices - category indices of the results. If None, it is range(d).
+    """
     # Match prec: 0.448 vs 0.136 for random
     # MAP: 0.497 vs 0.166 for random
+    results = np.array(results)
     if not random:
         ranks = np.fliplr(np.argsort(results))
     else:
@@ -36,11 +46,14 @@ def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False):
     match_percs = []
     for i, rank in enumerate(ranks):
         ing_idx = valid_ing_indices[i]
+        if results_indices is not None:
+            rank = np.array([r for r in rank if r in results_indices])
 
         cats = set()
         for j in range(results.shape[1]):
-            if (ing_idx, j) in ing_cat_pair_map:
-                cats.add(j)
+            if results_indices is None or j in results_indices:
+                if (ing_idx, j) in ing_cat_pair_map:
+                    cats.add(j)
         num_cats = len(cats)
 
         c_ranks = sorted([np.where(rank==c)[0][0] for c in cats])
@@ -61,8 +74,11 @@ def evaluate_map(valid_ing_indices, results, ing_cat_pair_map, random=False):
         match_percs.append(match_perc)
     precisions = np.array(precisions)
     match_percs = np.array(match_percs)
-    print "MAP    :", precisions.mean()
-    print "Match %:", match_percs.mean()
+    map_score = precisions.mean() if len(precisions)>0 else 0
+    match_score = match_percs.mean() if len(match_percs)>0 else 0
+    print "MAP    :", map_score
+    print "Match %:", match_score
+    return map_score, match_score
 
 
 def calc_avg_rank_of_ing_cat(ranks, score_dir='data'):
