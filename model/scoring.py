@@ -11,6 +11,15 @@ def gen_avg_true_results(valid_ing_indices):
     fname = os.path.join(DIRNAME, '../wikipedia/input_to_outputs.pkl')
     with open(fname, 'r') as f_in:
         input_to_outputs = pickle.load(f_in)
+    with open(os.path.join(
+        DIRNAME, '../wikipedia/input_to_outputs_adulterants.pkl'), 'r') as f_in:
+        input_to_outputs_adulterants = pickle.load(f_in)
+        idx = max(input_to_outputs.keys())+1
+        for i in range(len(input_to_outputs_adulterants)):
+            v = input_to_outputs_adulterants[i]
+            if v.sum() > 0:
+                input_to_outputs[idx] = v
+                idx += 1
 
     avg_true_results = None
     for i in valid_ing_indices:
@@ -176,8 +185,8 @@ def calc_score(ranks, total_ings, print_scores=True, score_dir='data'):
     return highest_ranks, avg_rankings, avg_rank_of_ing_cat, random_avg_rankings
 
 
-def get_ing_category(score_dir='data'):
-    df = pd.read_csv(score_dir+'/scores2.csv', header=0)
+def get_ing_category(fname):
+    df = pd.read_csv(fname, header=0)
     df = df.ix[:,:2]
     df = df[df['category'].notnull()]
     df['category'] = df['category'].astype(int)

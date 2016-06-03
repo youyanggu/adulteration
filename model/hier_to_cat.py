@@ -219,21 +219,30 @@ def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False, pca_file=None):
     ing_to_idx_map = {ings_ordered[i] : i for i in range(len(ings_ordered))}
     ing_idx_to_hier_map = {}
     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    
+    ings = np.load(parent_dir+'/ncim/all_ings.npy')
+    reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
     if adulterants:
-        ings = np.load(parent_dir+'/rasff/found_chems.npy')
-        reps = np.load(parent_dir+'/rasff/found_chems_reps.npy').astype('float32')
-    else:
-        ings = np.load(parent_dir+'/ncim/all_ings.npy')
-        reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
+        ings_adult = np.load(parent_dir+'/rasff/found_chems.npy')
+        reps_adult = np.load(parent_dir+'/rasff/found_chems_reps.npy').astype('float32')
     assert len(ings)==len(reps)
     if pca_file:
         with open(pca_file, 'r') as f:
             pca = pickle.load(f)
         reps = pca.transform(reps)
+        if adulterants is not None:
+            reps_adult = pca.transform(reps_adult)
     for i in range(len(ings)):
         if ings[i] not in ing_to_idx_map:
             continue
         ing_idx_to_hier_map[ing_to_idx_map[ings[i]]] = reps[i]
+    if adulterants is not None:
+        for i, a in enumerate(adulterants):
+            idx = np.where(ings_adult==a)[0]
+            if len(idx) == 0:
+                continue
+            idx = idx[0]
+            ing_idx_to_hier_map[len(ings_ordered)+i] = reps_adult[idx]
     return ing_idx_to_hier_map
 
 def gen_ing_cat_pair_map(inputs, outputs):
@@ -315,6 +324,12 @@ def run_nn_helper(df, counts,
         save_input_outputs(inputs_, outputs_, num_ingredients)
         inputs, outputs = break_down_inputs(inputs_, outputs_)
 
+    adulterants = wikipedia.get_adulterants() #need to import
+    ings = np.hstack([ings, adulterants])
+
+    train_indices, dev_indices, test_indices = split_data_by_wiki(
+        ings, seed)
+
     num_outputs = outputs.max()+1
     print "# of data points:", len(inputs)
     # Scramble inputs/outputs
@@ -323,7 +338,7 @@ def run_nn_helper(df, counts,
     inputs = inputs[random_idx]
     outputs = outputs[random_idx]
 
-    ing_idx_to_hier_map = gen_ing_idx_to_hier_map(ings, pca_file=pca_file)
+    ing_idx_to_hier_map = gen_ing_idx_to_hier_map(ings[:num_ingredients], adulterants, pca_file=pca_file)
     input_size = ing_idx_to_hier_map.values()[0].shape[0]
     print "Input size:", input_size
     inp_exist_indices = np.array(
@@ -333,8 +348,8 @@ def run_nn_helper(df, counts,
 
     #inputs_tr, outputs_tr, inputs_te, outputs_te = split_data(
     #    inputs, outputs, test_size=1/3.)
-    train_indices, test_indices = train_test_split(
-                range(num_ingredients), test_size=1/3., random_state=42)
+    #train_indices, test_indices = train_test_split(
+    #            range(num_ingredients), test_size=1/3., random_state=42)
     #train_indices, dev_indices, test_indices = split_data_by_wiki(
     #            ings, args.seed)
     inputs_tr, outputs_tr, inputs_te, outputs_te = split_data_by_indices(
@@ -366,7 +381,7 @@ def run_nn_helper(df, counts,
     valid_ing_results = predict_model(valid_ing_reps)
     #test_model(valid_ing_results, valid_ings, idx_to_cat, 3)
     """
-    valid_ing_indices = range(num_ingredients)
+    valid_ing_indices = range(len(ings))
     valid_ing_reps = np.array([ing_idx_to_hier_map.get(i, np.zeros(input_size).astype('float32')) for i in valid_ing_indices])
     valid_ing_results = predict_model(valid_ing_reps)
     
@@ -389,6 +404,8 @@ def run_nn_helper(df, counts,
     print "======= Training evaluation ========"
     evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, set(train_indices))
     print "======= Validation evaluation ========"
+    evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, set(dev_indices))
+    print "======= Test evaluation ========"
     evaluate(valid_ing_indices, valid_ing_results, ing_cat_pair_map, set(test_indices))
     print "======= Adulteration evaluation ========"
     evaluate(np.arange(len(found_ings)), new_ings_results, adulterant_cat_pair_map)
