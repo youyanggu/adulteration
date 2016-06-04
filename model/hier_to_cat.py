@@ -220,9 +220,13 @@ def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False, pca_file=None):
     ing_idx_to_hier_map = {}
     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     
-    ings = np.load(parent_dir+'/ncim/all_ings.npy')
-    reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
-    if adulterants:
+    if adulterants == True:
+        ings = np.load(parent_dir+'/rasff/found_chems.npy')
+        reps = np.load(parent_dir+'/rasff/found_chems_reps.npy').astype('float32')
+    elif adulterants == False:
+        ings = np.load(parent_dir+'/ncim/all_ings.npy')
+        reps = np.load(parent_dir+'/ncim/all_ings_reps.npy').astype('float32')
+    else:
         ings_adult = np.load(parent_dir+'/rasff/found_chems.npy')
         reps_adult = np.load(parent_dir+'/rasff/found_chems_reps.npy').astype('float32')
     assert len(ings)==len(reps)
@@ -230,13 +234,13 @@ def gen_ing_idx_to_hier_map(ings_ordered, adulterants=False, pca_file=None):
         with open(pca_file, 'r') as f:
             pca = pickle.load(f)
         reps = pca.transform(reps)
-        if adulterants is not None:
+        if type(adulterants) != bool:
             reps_adult = pca.transform(reps_adult)
     for i in range(len(ings)):
         if ings[i] not in ing_to_idx_map:
             continue
         ing_idx_to_hier_map[ing_to_idx_map[ings[i]]] = reps[i]
-    if adulterants is not None:
+    if type(adulterants) != bool:
         for i, a in enumerate(adulterants):
             idx = np.where(ings_adult==a)[0]
             if len(idx) == 0:
