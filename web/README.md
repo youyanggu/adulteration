@@ -43,3 +43,7 @@ If for whatever reason a hierarchy is unable to be found, we recommend that you 
 #### Nodes
 
 Each hierarchy consists of multiple nodes. For example, the hierarchy for oats has 5 nodes: oats → grain → foods → dietary substance → substance. The model uses these nodes to make predictions. In order to make a useful prediction from a node (e.g. "grain"), the model must have seen the node during training. Therefore, even though a hierarchy can exist in the Metathesaurus, the model is sometimes unable to make a prediction because it has not seen many of the nodes in the hierarchy. A warning will show up when the number of nodes used in the prediction is low.
+
+### Predictions
+
+The model outputs a table of the top 20 most likely food product categories (out of 131). The score represents the following: Given all food products which contains this substance, what fraction of them belong in this category. Therefore, the sum of the scores of all 131 categories is 1. For a more general purpose analysis, the score can be ignored in favor of the rank.
