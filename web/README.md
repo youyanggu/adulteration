@@ -18,6 +18,7 @@ The number in parenthesis states the package version that was used during testin
 This was written for (and tested on) Mac OS X and Linux. Some modification to the installation instructions might be necessary to get it to run on Windows.
 
 1. Install all the required packages above: `pip install -r requirements.txt`.
+2. Download two files containing the Metathesaurus data and place them in the folder: [File 1](https://www.dropbox.com/s/7yntvewhb8uxrlc/mrhier.h5?dl=1) (1GB) and [File 2](https://www.dropbox.com/s/9vishxtcdpft5hg/mrconso.h5?dl=1) (500MB).
 2. Go to this directory in a terminal. Type `export FLASK_APP=main.py`
 3. Type `flask run` to run locally and `flask run --host=0.0.0.0` to run an externally visible server. See the Flask documentation for more options on how to deploy the server: http://flask.pocoo.org/docs/0.11/quickstart/
 4. Visit http://0.0.0.0:5000. It's ready for use! (If you use an externally visible server, you can also replace "0.0.0.0" with the IP address of the machine to view it from any machine. However, this is subject to router/firewall restrictions.).
