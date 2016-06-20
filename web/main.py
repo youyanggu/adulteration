@@ -17,16 +17,11 @@ from nn import NN
 
 
 print "Loading dfs"
-#folder = '../../Metathesaurus.RRF/META/'
-prefix = '../ncim/'
 sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH']
-df_conso = pd.read_hdf('{}mrconso.h5'.format(prefix), 'mrconso')
-df_hier = pd.read_hdf('{}mrhier.h5'.format(prefix), 'mrhier')
-#cui = 'C0206136'
-#ing_to_hiers = ncim.get_ing_to_hiers({cui:cui}, df_hier, sources)
+df_conso = pd.read_hdf('mrconso.h5', 'mrconso')
+df_hier = pd.read_hdf('mrhier.h5', 'mrhier')
 with open('cuis_to_idx.pkl', 'r') as f:
     cuis_to_idx = pickle.load(f)
-
 with open('idx_to_cat.pkl', 'rb') as f:
     idx_to_cat = pickle.load(f)
 categories = [idx_to_cat[i] for i in range(len(idx_to_cat))]

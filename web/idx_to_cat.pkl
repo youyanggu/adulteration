@@ -1,0 +1,395 @@
+(dp0
+I0
+S'alcohol'
+p1
+sI1
+S'all noodles'
+p2
+sI2
+S'amino acid supplements'
+p3
+sI3
+S'antioxidant supplements'
+p4
+sI4
+S'apple sauce'
+p5
+sI5
+Vbaby & child supplements
+p6
+sI6
+S'baby food shelf'
+p7
+sI7
+S'bacon, sausages & ribs'
+p8
+sI8
+Vbaking
+p9
+sI9
+S'baking additives & extracts'
+p10
+sI10
+S'baking decorations & dessert toppings'
+p11
+sI11
+S'bread & muffin mixes'
+p12
+sI12
+S'breads & buns'
+p13
+sI13
+Vbreakfast drinks
+p14
+sI14
+Vbreakfast foods
+p15
+sI15
+S'breakfast sandwiches, biscuits & meals'
+p16
+sI16
+S'butter & spread'
+p17
+sI17
+S'cake, cookie & cupcake mixes'
+p18
+sI18
+S'cakes, cupcakes, snack cakes'
+p19
+sI19
+S'candy'
+p20
+sI20
+S'canned & bottled beans'
+p21
+sI21
+S'canned fruit'
+p22
+sI22
+S'canned meat'
+p23
+sI23
+S'canned seafood'
+p24
+sI24
+S'canned soup'
+p25
+sI25
+S'canned tuna'
+p26
+sI26
+S'canned vegetables'
+p27
+sI27
+S'cereal'
+p28
+sI28
+S'cheese'
+p29
+sI29
+S'chewing gum & mints'
+p30
+sI30
+S'chili & stew'
+p31
+sI31
+S'chips, pretzels & snacks'
+p32
+sI32
+S'chocolate'
+p33
+sI33
+S'coffee'
+p34
+sI34
+Vconfection & snacks
+p35
+sI35
+S'cookies & biscuits'
+p36
+sI36
+S'crackers & biscotti'
+p37
+sI37
+S'cream'
+p38
+sI38
+S'croissants, sweet rolls, muffins & other pastries'
+p39
+sI39
+S'digestive & fiber supplements'
+p40
+sI40
+S'dips & salsa'
+p41
+sI41
+S'dried fruit, vegetables & nuts'
+p42
+sI42
+S'eggs & egg substitutes'
+p43
+sI43
+S'energy, protein & muscle recovery drinks'
+p44
+sI44
+Ventrees, sides & small meals
+p45
+sI45
+S'fatty acid supplements'
+p46
+sI46
+S'fish & seafood'
+p47
+sI47
+S'flavored rice dishes'
+p48
+sI48
+S'flavored snack crackers'
+p49
+sI49
+S'flours & corn meal'
+p50
+sI50
+S'french fries, potatoes & onion rings'
+p51
+sI51
+S"frozen appetizers & hors d'oeuvres"
+p52
+sI52
+S'frozen bread & dough'
+p53
+sI53
+S'frozen dinners'
+p54
+sI54
+S'frozen fruit & fruit juice concentrates'
+p55
+sI55
+S'frozen vegetables'
+p56
+sI56
+S'fruit & vegetable juice, nectars & fruit drinks'
+p57
+sI57
+Vfruits, vegetables & produce
+p58
+sI58
+S'gelatin, gels, pectins & desserts'
+p59
+sI59
+S'granulated, brown & powdered sugar'
+p60
+sI60
+S'gravy mix'
+p61
+sI61
+S'green supplements'
+p62
+sI62
+S'herbal supplements'
+p63
+sI63
+S'herbs & spices'
+p64
+sI64
+S'homeopathy'
+p65
+sI65
+S'honey'
+p66
+sI66
+S'ice cream & frozen yogurt'
+p67
+sI67
+S'iced & bottle tea'
+p68
+sI68
+S'jam, jelly & fruit spreads'
+p69
+sI69
+S'ketchup, mustard, bbq & cheese sauce'
+p70
+sI70
+S'liquid water enhancer'
+p71
+sI71
+S'lunch snacks & combinations'
+p72
+sI72
+S'meal replacement supplements'
+p73
+sI73
+S'mexican dinner mixes & seasonings'
+p74
+sI74
+Vmilk
+p75
+sI75
+S'milk additives'
+p76
+sI76
+S'minerals'
+p77
+sI77
+S'nut & seed butters'
+p78
+sI78
+S'oriental, mexican & ethnic sauces'
+p79
+sI79
+S'other cooking sauces'
+p80
+sI80
+S'other drinks'
+p81
+sI81
+S'other frozen desserts'
+p82
+sI82
+Vother grains & seeds
+p83
+sI83
+S'other meats'
+p84
+sI84
+S'other snacks'
+p85
+sI85
+S'other soups'
+p86
+sI86
+S'pancakes, waffles, french toast & crepes'
+p87
+sI87
+S'pasta by shape & type'
+p88
+sI88
+S'pasta dinners'
+p89
+sI89
+S'pastry shells & fillings'
+p90
+sI90
+S'pepperoni, salami & cold cuts'
+p91
+sI91
+S'pickles, olives, peppers & relishes'
+p92
+sI92
+S'pizza'
+p93
+sI93
+S'pizza mixes & other dry dinners'
+p94
+sI94
+S'plant based water'
+p95
+sI95
+S'popcorn, peanuts, seeds & related snacks'
+p96
+sI96
+S'poultry, chicken & turkey'
+p97
+sI97
+S'powdered drinks'
+p98
+sI98
+S'pre-packaged fruit & vegetables'
+p99
+sI99
+S'prepared pasta & pizza sauces'
+p100
+sI100
+S'processed cheese & cheese novelties'
+p101
+sI101
+S'puddings'
+p102
+sI102
+S'rice'
+p103
+sI103
+S'salad dressing & mayonnaise'
+p104
+sI104
+S'sausages, hotdogs & brats'
+p105
+sI105
+Vseasoning mixes, salts, marinades & tenderizers
+p106
+sI106
+S'snack, energy & granola bars'
+p107
+sI107
+S'soda'
+p108
+sI108
+S'specialty formula supplements'
+p109
+sI109
+S'sport drinks'
+p110
+sI110
+S'spreadable cheese'
+p111
+sI111
+S'stuffing'
+p112
+sI112
+S'subs & sandwiches'
+p113
+sI113
+S'sushi'
+p114
+sI114
+S'syrups & molasses'
+p115
+sI115
+S'tea bags'
+p116
+sI116
+S'tomatoes'
+p117
+sI117
+Vusda beans & legumes
+p118
+sI118
+Vusda eggs
+p119
+sI119
+Vusda fish
+p120
+sI120
+Vusda fruit
+p121
+sI121
+S'usda meat'
+p122
+sI122
+Vusda poultry
+p123
+sI123
+Vusda vegetable
+p124
+sI124
+S'vegetable & cooking oils'
+p125
+sI125
+S'vegetable and lentil mixes'
+p126
+sI126
+S'vitamins'
+p127
+sI127
+S'water'
+p128
+sI128
+S'weight control'
+p129
+sI129
+Vwholesome snacks
+p130
+sI130
+S'yogurt'
+p131
+s.
