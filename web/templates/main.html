@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>FDA Tool</title>
+    <title>Home | Food Category Predictor | FDA</title>
 
     <!-- Bootstrap -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -28,7 +28,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Tool</a>
+          <a class="navbar-brand" href="/">Food Category Predictor</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -43,14 +43,14 @@
         <div style="padding: 60px 15px;">
             <h1>Welcome.</h1>
             <br />
-            <p class="lead">This tool helps generate food category predictions based on the Concept Unique Identifier (CUI) of a substance. You can find the CUI for a substance on the <a href="https://ncimeta.nci.nih.gov/ncimbrowser/" target="_blank">NCI Metathesaurus</a> website. For example, the CUI for "<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0028753" target="_blank">oat</a>" is C0028753.</p>
+            <p class="lead">This tool uses neural networks to generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. You can search for the CUI of a substance on the <a href="https://ncimeta.nci.nih.gov/ncimbrowser/" target="_blank">NCI Metathesaurus</a> website. For example, the CUI for "<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0028753" target="_blank">oat</a>" is <i>C0028753</i>. See the <a href="https://github.com/youyanggu/adulteration/tree/master/web" target="_blank">Github repo</a> for more information on how to use this tool and to download the source code.</p>
 
             <form action="/show" method="post">
                 <p><input type="text" name="cui" class="form-control" placeholder="Enter CUI here", style="width:300px">
                 <p><button type="submit" class="btn btn-info">Submit</button>
             </form>
             <p><i>Note: It might take several seconds to return the result, as 1) the database is rather large and 2) the model is actively computing the predictions.</i></p>
-
+            <br />
 
             {% if cui %}
                 {% if result %}
@@ -67,14 +67,20 @@
                     </ul>
                     
                 {% else %}
-                    <p class="lead">There are no matches for CUI: {{ cui }}</p>
+                    <p class="lead">{{ ret_str }}: {{ cui }}</p>
                 {% endif %}
 
                 {% if category_to_score %}
                     <br />
                     <p class="lead">Predictions for {{ cui }}:</p>
+                    <p>Number of nodes in the hierarchy used for prediction: {{ num_nodes }}
+                    {% if num_nodes <= 5 %}
+                        <i>Warning: There are very few nodes, which can lead to inaccurate predictions.</i>
+                    {% endif %}
+                    </p>
                     <table class="table table-striped table-condensed">
                         <thead>
+                            <th>Rank</th>
                             <th>Food Product Category</th>
                             <th>Score</th>
                         </thead>
@@ -82,6 +88,7 @@
                         <tbody>
                             {% for cat, score in category_to_score %}
                                 <tr>
+                                    <td>{{ loop.index }}</td>
                                     <td>{{ cat }}</td>
                                     <td>{{ score }}</td>
                                 </tr>

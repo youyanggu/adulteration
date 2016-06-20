@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+"""
+Author: Youyang Gu (yygu@mit.edu)
+
+Web tool to display likely food category predictions given an 
+ingredient/substance. Please refer to the README at: 
+https://github.com/youyanggu/adulteration/web/README.md.
+
+"""
+
 import numpy as np
 import pandas as pd
 import cPickle as pickle
@@ -8,16 +18,13 @@ import theano.tensor as T
 from flask import Flask
 from flask import render_template
 from flask import request
-app = Flask(__name__)
 
-sys.path.append('../ncim')
-import ncim
 from nn import NN
 
+app = Flask(__name__)
 
-
-print "Loading dfs"
-sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH']
+print "Loading data. Will take 1 minute."
+sources = ['SNOMEDCT_US', 'NCI', 'NDFRT', 'MSH'] # use data from these 4 sources
 df_conso = pd.read_hdf('mrconso.h5', 'mrconso')
 df_hier = pd.read_hdf('mrhier.h5', 'mrhier')
 with open('cuis_to_idx.pkl', 'r') as f:
@@ -25,10 +32,12 @@ with open('cuis_to_idx.pkl', 'r') as f:
 with open('idx_to_cat.pkl', 'rb') as f:
     idx_to_cat = pickle.load(f)
 categories = [idx_to_cat[i] for i in range(len(idx_to_cat))]
-print "Loaded dfs"
+print "Done loading data"
 
 def get_ing_to_hiers(cui, df_hier, sources):
-    # Get hierarchy for CUI
+    """Get the hierarchy for CUI in the form of AUIs.
+    AUIs are a more specific form of CUIs, which we will not use.
+    """
     df_hier_short = df_hier[df_hier['CUI']==cui]
     hiers = df_hier_short[df_hier_short['SAB'].isin(sources)]
     sources_count = {}
@@ -41,16 +50,15 @@ def get_ing_to_hiers(cui, df_hier, sources):
             sources_count[i] = 1
         else:
             sources_count[i] += 1
-    #print hiers
     cur_auis = hiers['AUI'].values
     rows = hiers['PTR'].str.split('.').values
     auis = []
     for aui, r in zip(cur_auis, rows):
         auis.append([j for j in r] + [aui])
-    #print ing, auis
     return auis
 
 def convert_auis_to_cuis(auis, df):
+    """Convert the hierarchy from AUIs to CUIs."""
     aui_to_cui = df.set_index('AUI')['CUI'].to_dict()
     cuis = []
     for path in auis:
@@ -58,14 +66,15 @@ def convert_auis_to_cuis(auis, df):
     return cuis
 
 def convert_hier_to_str(auis, df):
+    """Convert the hierarchy from AUIs to human understandable format."""
     aui_to_str = df.set_index('AUI')['STR'].to_dict()
     strs = []
     for path in auis:
         strs.append([aui_to_str[aui] for aui in path])
     return strs
 
-
 def convert_hiers_to_rep(hiers, cuis_to_idx):
+    """Convert hierarchy into a vector representation."""
     vectors = []
     for path in hiers:
         v = np.zeros(len(cuis_to_idx))
@@ -77,16 +86,16 @@ def convert_hiers_to_rep(hiers, cuis_to_idx):
     return rep.astype('float32')
 
 def get_hiers_from_cui(cui):
+    """Runs pipeline that converts a CUI to a hierarchy."""
     hiers_aui = get_ing_to_hiers(cui, df_hier, sources)
     if len(hiers_aui) == 0:
         return [], []
     hiers = convert_auis_to_cuis(hiers_aui, df_conso)
     hiers_str = convert_hier_to_str(hiers_aui, df_conso)
-    #rep = convert_hiers_to_rep(hiers, cuis_to_idx)
-    #cui_ings, cui_reps, cuis_to_idx_ = ncim.gen_ing_rep(hiers)
     return hiers, hiers_str
 
 def load_model():
+    """Load the pre-trained neural network model."""
     W_hid = np.load('W_hid.npy')
     b_hid = np.load('b_hid.npy')
     W_out = np.load('W_out.npy')
@@ -94,7 +103,7 @@ def load_model():
     x = T.fmatrix('x')
     classifier = NN(
         inp=x,
-        n_in=4290,             # length of input
+        n_in=4290,             # length of hierarchy representation
         m=100,                 # number of hidden layers
         n_out=len(categories), # number of outputs
         W_hid=W_hid,
@@ -109,12 +118,13 @@ def load_model():
     return predict_model
 
 def predict(predict_model, rep):
+    """Generates prediction given a hierarchy representation using the 
+    neural network."""
     rep = rep.reshape(1,-1)
     result = predict_model(rep)[0]
-    category_to_score = [(cat,score) for cat, score in zip(categories, result)]
+    category_to_score = [(cat.capitalize(), score) for cat, score in zip(categories, result)]
     category_to_score = sorted(category_to_score, key=lambda x:x[1], reverse=True)
-    return category_to_score
-
+    return category_to_score[:20]
 
 @app.route("/")
 def show_home():
@@ -131,17 +141,19 @@ def show_main():
 @app.route('/show', methods=['POST'])
 def show_post():
     cui = request.form['cui']
-    result = df_conso[df_conso['CUI']==cui] #result['STR'].tolist()
+    result = df_conso[df_conso['CUI']==cui]
     if len(result) == 0:
-        # No CUI matches
-        return render_template('main.html', result=None, cui=cui)
+        ret_str = 'CUI not found'
+        return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     hiers, hiers_str = get_hiers_from_cui(cui)
     if len(hiers) == 0:
-        # No hierarchy found for CUI
-        return render_template('main.html', result=None, cui=cui)
+        ret_str = ('A match is found, but either 1) no hierarchy exists or'
+        '2) the hierarchy does not exist in our database')
+        return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     rep = convert_hiers_to_rep(hiers, cuis_to_idx)
+    num_nodes = (rep>0).sum()
     predict_model = load_model()
     category_to_score = predict(predict_model, rep)
-    #category_to_score = [(cat, np.random.random()) for cat, score in zip(categories, categories)]
-    return render_template('main.html', result=hiers_str, cui=cui, category_to_score=category_to_score)
+    return render_template('main.html', result=hiers_str, cui=cui, 
+        category_to_score=category_to_score, num_nodes=num_nodes)
 
