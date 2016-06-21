@@ -39,6 +39,8 @@ Using the tool is very easy. Say you have an ingredient/adulterant that you woul
 
 This tool relies on the hierarchy of the CUI to make accurate predictions. Therefore, a hierarchy must exist for a prediction to exist. The hierarchy can be found as "Parent Concepts" under the "Relationships" tab of a CUI page. You can click on each parent concept to take you to the CUI of the parent, allowing you to essentially traverse the hierarchy tree.
 
+We use the hierarchy relationships from four data sources: Systematized Nomenclature of Medicine - Clinical Terms (SNOMEDCT), National Cancer Institute (NCI), National Drug File - Reference Terminology (NDFRT), and Management Sciences for Health (MSH).
+
 Sometimes, a CUI has a hierarchy on the NCI Metathesaurus page, but the web tool will say that no hierarchy exists in the database. This is because the concepts within the hierarchy were not seen during the training of the model. Hence, the model is not able to make a prediction from this. 
 
 If for whatever reason a hierarchy is unable to be found, we recommend that you choose another CUI for the substance in question. If there are multiple CUI candidates for the same substance, there might be one that would generate better results. If not, then we are out of luck - the model is unable to make a prediction for this substance.
