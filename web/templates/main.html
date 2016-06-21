@@ -43,12 +43,13 @@
         <div style="padding: 60px 15px;">
             <h1>Welcome.</h1>
             <br />
-            <p class="lead">This tool uses neural networks to generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. You can search for the CUI of a substance on the <a href="https://ncimeta.nci.nih.gov/ncimbrowser/" target="_blank">NCI Metathesaurus</a> website. For example, the CUI for "<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0028753" target="_blank">oat</a>" is <i>C0028753</i>. See the <a href="https://github.com/youyanggu/adulteration/tree/master/web" target="_blank">Github repo</a> for more information on how to use this tool and to download the source code.</p>
+            <p class="lead">This tool uses neural networks to generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. You can search for the CUI of a substance on the <a href="https://ncimeta.nci.nih.gov/ncimbrowser/" target="_blank">NCI Metathesaurus</a> website. For more information on how to use this tool and to download the source code, see the <a href="https://github.com/youyanggu/adulteration/tree/master/web" target="_blank">Github repository</a>.</p>
 
             <form action="/show" method="post">
                 <p><input type="text" name="cui" class="form-control" placeholder="Enter CUI here", style="width:300px">
                 <p><button type="submit" class="btn btn-info">Submit</button>
             </form>
+            <p><i>Sample CUIs: C0457802 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0457802" target="_blank">strawberry</a>), C0006507 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0006507" target="_blank">bht</a>), C0028753 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0028753" target="_blank">oat</a>), C0075492 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0075492" target="_blank">Sudan II dye</a>), C0053225 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0053225" target="_blank">benzoic acid</a>).</i></p>
             <br />
 
             {% if cui %}
