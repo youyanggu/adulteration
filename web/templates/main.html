@@ -45,11 +45,11 @@
             <br />
             <p class="lead">This tool uses neural networks to generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. You can search for the CUI of a substance on the <a href="https://ncimeta.nci.nih.gov/ncimbrowser/" target="_blank">NCI Metathesaurus</a> website. For more information on how to use this tool and to download the source code, see the <a href="https://github.com/youyanggu/adulteration/tree/master/web" target="_blank">Github repository</a>.</p>
 
-            <form action="/show" method="post">
+            <form action="/show" method="get">
                 <p><input type="text" name="cui" class="form-control" placeholder="Enter CUI here", style="width:300px">
                 <p><button type="submit" class="btn btn-info">Submit</button>
             </form>
-            <p><i>Sample CUIs: C0457802 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0457802" target="_blank">strawberry</a>), C0006507 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0006507" target="_blank">bht</a>), C0028753 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0028753" target="_blank">oat</a>), C0075492 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0075492" target="_blank">Sudan II dye</a>), C0053225 (<a href="https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C0053225" target="_blank">benzoic acid</a>).</i></p>
+            <p><i>Sample CUIs: <a href="/show?cui=C0457802">C0457802</a> (strawberry), <a href="/show?cui=C0006507">C0006507</a> (bht), <a href="/show?cui=C0028753">C0028753</a> (oat), <a href="/show?cui=C0075492">C0075492</a> (Sudan II dye), <a href="/show?cui=C0053225">C0053225</a> (benzoic acid).</i></p>
             <br />
 
             {% if cui %}

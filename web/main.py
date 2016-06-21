@@ -117,37 +117,40 @@ def predict(predict_model, rep):
     return category_to_score[:20]
 
 @app.route("/")
-def show_home():
+def home():
     return render_template('main.html')
 
 @app.route("/about", methods=['GET'])
-def show_about():
+def about():
     return render_template('about.html')
 
-@app.route("/show", methods=['GET'])
-def show_main():
-    return render_template('main.html')
-
-@app.route('/show', methods=['POST'])
-def show_post():
-    cui = request.form['cui']
+@app.route('/show', methods=['GET'])
+def show():
+    cui = request.args.get('cui')
+    if cui is None:
+        return render_template('main.html')
+    print "Request:", cui
     if len(cui) != 8 or not cui.startswith('C'):
         ret_str = 'CUI must start with C and contain exactly 8 characters/digits'
+        print '{}: {}'.format(ret_str, cui)
         return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     result = df_conso[df_conso['CUI']==cui]
     if len(result) == 0:
         ret_str = 'CUI not found'
+        print '{}: {}'.format(ret_str, cui)
         return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     hiers, hiers_str, cuis_to_str = get_hiers_from_cui(cui)
     if len(hiers) == 0:
         ret_str = ('A match is found, but either 1) no hierarchy exists or '
         '2) the hierarchy does not exist in our database')
+        print '{}: {}'.format(ret_str, cui)
         return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     rep, rep_str = convert_hiers_to_rep(hiers, cuis_to_idx, cuis_to_str)
     num_nodes = (rep>0).sum()
     if num_nodes == 0:
         ret_str = ('The model is unable to make a prediction from this '
             'hierarchy due to lack of data:')
+        print '{}: {}'.format(ret_str, cui)
         return render_template('main.html', result=None, ret_str=ret_str, cui=cui)
     predict_model = load_model()
     category_to_score = predict(predict_model, rep)
