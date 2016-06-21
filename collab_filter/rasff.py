@@ -9,7 +9,7 @@ from utils import *
 # Load CSV file
 ###################
 
-rasff_dir = '../../rasff_data'
+rasff_dir = '../rasff_data'
 fnames = ['co', 'fa', 'ic', 'hm', 'cc']
 
 def load_csv(fname):

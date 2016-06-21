@@ -174,7 +174,7 @@ def run_nn(x_train, y_train, num_ingredients, num_outputs, m, input_size,
             #print ret
             costs.append(ret)
         print "Learning rate:", learning_rate
-        learning_rate = max(0.005, learning_rate/2.)
+        learning_rate = max(0.002, learning_rate/2.)
         updates = [
                 (param, param - learning_rate * gparam)
                 for param, gparam in zip(classifier.params, gparams)

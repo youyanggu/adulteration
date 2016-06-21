@@ -207,15 +207,15 @@ def gen_ing_rep(ing_to_hiers, cuis_to_idx=None):
         cuis_to_idx = gen_cuis_to_idx(ing_to_hiers)
     l = len(cuis_to_idx)
     ings, reps = [], []
-    for k,v in ing_to_hiers.iteritems():
+    for ing, hiers in ing_to_hiers.iteritems():
         vectors = []
-        for path in v:
+        for path in hiers:
             v = np.zeros(l)
             for cui in path:
                 if cui in cuis_to_idx:
                     v[cuis_to_idx[cui]] = 1
             vectors.append(v)
-        ings.append(k)
+        ings.append(ing)
         reps.append(np.mean(np.array(vectors), axis=0))
     assert(len(cuis_to_idx) == max(cuis_to_idx.values())+1)
     return np.array(ings), np.array(reps), cuis_to_idx

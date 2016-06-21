@@ -25,7 +25,7 @@ def retrieve_embeddings(model, ings, limit=120):
             embeddings.append(np.zeros(model.vector_size))
     found_ings = np.array(found_ings)
     embeddings = np.array(embeddings)
-    np.save('word2vec_embeddings.npy', np.array([found_ings, embeddings]))
+    #np.save('word2vec_embeddings.npy', np.array([found_ings, embeddings]))
     return found_ings, embeddings
 
 def get_most_similar(model, ings, limit=120, topn=3, print_nn=True):
@@ -59,8 +59,8 @@ def get_most_similar_restricted(limit=120):
     counts = df_i['ingredient'].value_counts()
     ings = counts.index.values
 
-    #found_ings, embeddings = retrieve_embeddings(model, ings)
-    found_ings, embeddings = np.load('word2vec_embeddings.npy')
+    found_ings, embeddings = retrieve_embeddings(model, ings)
+    #found_ings, embeddings = np.load('word2vec_embeddings.npy')
     ranks = get_nearest_neighbors(embeddings)
     print_nearest_neighbors(ings[:limit], found_ings, ranks)
     highest_ranks, avg_rankings, random_avg_rankings = calc_score(ranks, limit, 

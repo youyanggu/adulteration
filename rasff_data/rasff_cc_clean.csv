@@ -1,0 +1,70 @@
+,classification,date_case,date_last_change,reference,country,type,category,subject
+0,information for follow-up,15/07/2015,07/10/2015,2015.0919,France,food,fish and fish products,phenoxyethanol (0.73 ; 1.1 ; 0.93 ; 1.04 ; 1.14 ; 0.83 ; 1.01 mg/kg - ppm) in trout eggs from Italy
+1,alert,21/04/2015,26/05/2015,2015.0496,Italy,food,"nuts, nut products and seeds","naphthalene (7.73 mg/kg - ppm) in dried organic pumpkin seeds from Italy, with raw material from Switzerland"
+2,information for attention,30/01/2015,02/03/2015,2015.0117,Ireland,food,fruits and vegetables,risk of chemical contamination (aluminium phosphide) of brown beans from Nigeria
+3,alert,19/11/2014,22/12/2014,2014.1572,Ireland,food,non-alcoholic beverages,tetrachloroethene (sum: 31<-->117 µg/l) and trichloroethene in bottled water from Ireland
+4,information for attention,11/11/2014,11/11/2014,2014.1517,Ireland,food,fruits and vegetables,risk of chemical contamination (aluminium phosphide) of brown beans from Nigeria
+5,alert,22/10/2014,24/11/2014,2014.1434,United Kingdom,food,fruits and vegetables,risk of chemical contamination (aluminium phosphide) of brown beans from unknown origin
+6,information for follow-up,20/11/2013,16/04/2014,2013.1529,Germany,food,"dietetic foods, food supplements, fortified foods","chloroform (414 µg/l) and high level of chlorine (total active chlorine: 27 mg/l) in liquid food supplement from the United States, via the Netherlands"
+7,information for follow-up,14/05/2013,24/05/2013,2013.0665,Germany,food,alcoholic beverages,detergent (dilution with rinse water and low contamination with acidic cleaners) in beer in barrels from Germany
+8,information for attention,01/02/2013,06/02/2013,2013.0130,Germany,food,alcoholic beverages,ethylcarbamate (8.72; 6.8 mg/l) in kirsch from Germany
+9,border rejection,26/04/2012,26/04/2012,2012.AYH,Netherlands,food,fish and fish products,poor temperature control - rupture of the cold chain - and risk of chemical contamination (Freon gas) of frozen mackerels (Scomber japonicus) from China
+10,information for follow-up,10/02/2012,19/03/2012,2012.0214,United Kingdom,food,alcoholic beverages,methanol (104 g/100 l) in vodka from Italy
+11,information for attention,24/11/2011,05/01/2012,2011.1698,Switzerland,food,non-alcoholic beverages,butanone (found in 2 bottles) in mineral water from Italy
+12,alert,24/11/2011,02/12/2011,2011.1693,Germany,food,alcoholic beverages,methanol (13990 mg/l) in vodka from Germany
+13,alert,24/11/2011,29/11/2011,2011.1695,Germany,food,alcoholic beverages,methanol (17540 mg/l) in wodka from Germany
+14,alert,24/11/2011,29/11/2011,2011.1694,Germany,food,alcoholic beverages,methanol (18360 mg/l) in wodka from Germany
+15,information for follow-up,22/03/2011,28/03/2011,2011.0382,Denmark,food,fish and fish products,risk of chemical contamination (mustard gas) of chilled cod (Gadus morhua) from Denmark
+16,alert,18/03/2011,10/06/2011,2011.0371,Germany,food,alcoholic beverages,cleaning lye in different sorts of beer and tablewater from Germany
+17,information for follow-up,04/03/2011,04/03/2011,2011.0292,United Kingdom,food,non-alcoholic beverages,"1,3-pentadiene in sport drink from the United Kingdom"
+18,alert,31/12/2010,24/01/2011,2010.1784,Italy,food,cereals and bakery products,xylene (500 mg/kg - ppm) in savoury biscuits (salatini) from Hungary
+19,information,11/02/2010,11/02/2010,2010.0167,Italy,food,natural mineral water,detergent (0.27 mg/l) in sparkling mineral water from Italy
+20,border rejection,14/11/2008,04/01/2011,2008.BTX,Cyprus,food,water for human consumption (other),"benzo(a)pyrene (9.1, 8.9 µg/l) in, unsuitable organoleptic characteristics of and volatile organic compounds and too high content of fluoride in non-carbonated, fluoride added baby water from Puerto Rico, via Switzerland"
+21,information,29/08/2008,15/09/2008,2008.1044,Cyprus,food,water for human consumption (other),unsuitable organoleptic characteristics of and volatile organic compounds in bottled drinking water intended for infants from the United States
+22,information,06/12/2007,21/02/2008,2007.CVH,United Kingdom,food,confectionery,Christmas hampers from the United Kingdom packaged in boxes from China (Hong Kong) contaminated with aromatic hydrocarbons
+23,alert,07/11/2007,22/11/2007,2007.0806,Spain,food,cereals and bakery products,detergent in egg pasta nests from France
+24,alert,18/10/2007,06/11/2007,2007.0750,Germany,food,food contact materials,migration of aromatic hydrocarbons from plastic coffee cup from China
+25,alert,06/07/2007,01/08/2007,2007.0449,Germany,food,non-alcoholic beverages,sodium hydroxide in soya drink from France
+26,alert,22/01/2007,,2007.0049,Germany,food,crustaceans and products thereof,paraffin (presence) in shrimp paste from Thailand via the Netherlands
+27,alert,23/11/2006,,2006.0823,Czech Republic,food,herbs and spices,styrene (22 mg/kg - ppm) in ground cassia from Indonesia via the Netherlands
+28,alert,20/11/2006,,2006.0811,Czech Republic,food,fruits and vegetables,styrene (1.71 mg/kg - ppm) in frozen strawberry puree from the Slovak Republic
+29,information,06/11/2006,,2006.CMY,Germany,food,wine,red wine from Kosovo (UNSCR1244) contaminated with oily substance
+30,alert,20/10/2006,,2006.0730,Spain,food,natural mineral water,chlorine (2; 1.2; 1; 1 mg/l) in natural mineral water from Spain
+31,information,24/03/2006,,2006.ATR,Italy,food,food contact materials,paraffin coating (total hydrocarbons 1614-03 mg/dm²) on cast iron grill from China
+32,information,15/02/2006,16/04/2015,2006.ALB,Germany,food,food contact materials,migration of naphthalene (216 µg/kg - ppb) from baking brush from China
+33,alert,05/12/2005,,2005.883,Ireland,food,cereals and bakery products,kerosene oil (2 complaints) in paradise slices (bakery products) from the United Kingdom
+34,information,24/10/2005,,2005.CSB,Italy,food,natural mineral water,high level of chlorine (1700 mg/l) in mineral water from Italy
+35,alert,18/01/2005,,2005.028,United Kingdom,food,prepared dishes and snacks,chlorine (taint) in cheesy spirals from the United Kingdom
+36,alert,08/11/2004,,2004.571,France,food,fruits and vegetables,polybutadiene in different fruits and vegetables
+37,information,14/04/2004,18/05/2009,2004.AVF,Italy,food,fruits and vegetables,paraffin oil (presence) in sultanas
+38,alert,30/01/2004,,2004.057,United Kingdom,food,prepared dishes and snacks,guaiacol (15 mg/kg - ppm) in creamy dairy rice with apple pieces in syrup
+39,alert,28/11/2003,16/04/2015,2003.405,Belgium,food,fruits and vegetables,toluene (0.04 mg/kg - ppm) in and migration of naphthalene (0.05 mg/kg - ppm) from canned peeled tomatoes from Italy
+40,alert,16/05/2003,,2003.124,Spain,food,non-alcoholic beverages,chlorine (0.2 mg/kg - ppm) in natural mineral water
+41,alert,07/04/2003,,2003.089,United Kingdom,food,alcoholic beverages,methanol (5.47; 5.76 %) in vodka
+42,information,07/03/2002,,2002.AGJ,Italy,food,fruits and vegetables,paraffin in Sultanas
+43,information,07/03/2002,,2002.AGI,Italy,food,fruits and vegetables,paraffin in Sultanas
+44,information,15/02/2002,,2002.ADS,Italy,food,fruits and vegetables,paraffin oil in Sultanas
+45,alert,06/07/2001,,2001.106,France,food,fruits and vegetables,formol (formaldehyde) (300 mg/kg - ppm) in Mushrooms - fresh
+46,alert,22/05/2001,,2001.066,Germany,food,fruits and vegetables,"chlorine (0,05  -  0,15 mg/l) in Green beans - canned"
+47,information,15/02/2000,,2000.BC,Netherlands,food,alcoholic beverages,sodium hydroxide in beer in bottles
+48,alert,09/02/2000,,2000.013,France,food,alcoholic beverages,residues of solution of sodium in beer in barrels (fûts)
+49,information,23/06/1999,,1999.DV,Portugal,food,non-alcoholic beverages,activated carbon in Soft Drink
+50,alert,18/10/1994,,1994.17,Spain,food,non-alcoholic beverages,detergent in Water - bottled
+51,alert,09/03/1994,,1994.07,Germany,food,prepared dishes and snacks,PVC in Ravioli
+52,alert,16/11/1993,,1993.18,Netherlands,food,"dietetic foods, food supplements, fortified foods",para-toluene sulphonamide in baby and toddler food
+53,alert,05/03/1993,,1993.06,Commission Services,food,wine,methanol in Wines poisoned
+54,alert,09/01/1992,,1992.01,Germany,food,wine,methyl isocyanate in Wines
+55,alert,25/04/1991,,1991.06,United Kingdom,food,alcoholic beverages,methanol in arrack
+56,alert,10/11/1989,,1989.25,Spain,food,non-alcoholic beverages,bleach in Mineral waters
+57,alert,20/09/1988,,1988.21-1,Germany,food,"soups, broths, sauces and condiments",cristalsulphate in Mayonaise
+58,alert,07/09/1988,19/11/2014,1988.21,Germany,food,non-alcoholic beverages,trichloroethene in Cola from the Netherlands
+59,alert,14/04/1988,,1988.07,Germany,food,fish and fish products,tetrachloroethylene (presence in the oil) in canned anchovy
+60,alert,24/03/1988,,1988.04,Germany,food,fats and oils,tetrachloroethylene in Olive oil
+61,alert,08/01/1988,,1988.01,France,food,non-alcoholic beverages,potassium ferrocyanide in Orange juice
+62,alert,09/06/1987,,1987.11,Germany,food,non-alcoholic beverages,soda lye in Orange juice
+63,alert,30/04/1986,,1986.12,Denmark,food,alcoholic beverages,sodium hydroxide in JAEGERMEISTER
+64,alert,30/04/1986,,1986.11,Germany,food,alcoholic beverages,ethylcarbamate in Spirits
+65,alert,28/04/1986,,1986.10,Belgium,food,wine,methanol in Vermouth
+66,alert,20/03/1986,,1986.08,Italy,food,wine,methanol in Wines poisoned
+67,alert,31/10/1985,,1985.14,Austria,food,wine,sodium azide in Wines
+68,alert,14/09/1983,08/01/2010,1983.10,France,food,herbs and spices,formol in batches of vanilla from Madagascar

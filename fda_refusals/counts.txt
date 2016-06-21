@@ -1,0 +1,796 @@
+charge_code      category
+=========================================================================================================                                                                       
+FILTHY-249       Fishery/Seafood Products                                                           10109
+PESTICIDE-241    Vegetables and Vegetable Products                                                   7429
+SALMONELLA-9     Fishery/Seafood Products                                                            6438
+                 Spices, Flavors, and Salts                                                          4637
+NO PROCESS-83    Vegetables and Vegetable Products                                                   4512
+UNSAFE COL-11    Candy without Chocolate, Candy Specialties, and Chewing Gum                         3820
+FILTHY-249       Vegetables and Vegetable Products                                                   3419
+                 Fruit and Fruit Products                                                            3147
+UNSAFE COL-11    Bakery Products, Doughs, Bakery Mixes, and Icings                                   2198
+NEEDS FCE-62     Vegetables and Vegetable Products                                                   2150
+PESTICIDE-241    Fruit and Fruit Products                                                            1716
+NO PROCESS-83    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                1686
+VETDRUGRES-2860  Fishery/Seafood Products                                                            1563
+FILTHY-249       Candy without Chocolate, Candy Specialties, and Chewing Gum                         1485
+PESTICIDE2-3721  Whole Grains, Milled Grain Products, and Starch                                     1449
+UNSAFE COL-11    Fruit and Fruit Products                                                            1338
+                 Soft Drinks and Waters                                                              1304
+NO PROCESS-83    Fruit and Fruit Products                                                            1283
+                 Fishery/Seafood Products                                                            1206
+UNSAFE COL-11    Snack Food Items (Flour, Meal, or Vegetable Base)                                   1107
+INSANITARY-306   Cheese and Cheese Products                                                          1101
+SALMONELLA-9     Fruit and Fruit Products                                                            1024
+FILTHY-249       Bakery Products, Doughs, Bakery Mixes, and Icings                                   1017
+PESTICIDES-2920  Vegetables and Vegetable Products                                                    977
+INSANITARY-306   Fishery/Seafood Products                                                             943
+FILTHY-249       Spices, Flavors, and Salts                                                           935
+LISTERIA-295     Cheese and Cheese Products                                                           928
+NEEDS FCE-62     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                 914
+LISTERIA-295     Fishery/Seafood Products                                                             890
+UNSAFE ADD-238   Miscellaneous Food Related Items                                                     880
+PESTICIDE2-3721  Vegetables and Vegetable Products                                                    878
+FILTHY-249       Whole Grains, Milled Grain Products, and Starch                                      869
+UNSAFE COL-11    Chocolate and Cocoa Products                                                         845
+NO PROCESS-83    Dressings and Condiments                                                             800
+NEEDS FCE-62     Fishery/Seafood Products                                                             758
+                 Fruit and Fruit Products                                                             720
+SALMONELLA-9     Vegetables and Vegetable Products                                                    673
+POISONOUS-251    Fishery/Seafood Products                                                             641
+NO PROCESS-83    Soft Drinks and Waters                                                               613
+MFRHACCP-2580    Fishery/Seafood Products                                                             612
+UNSFDIETSP-2120  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      610
+PESTICIDE2-3721  Fruit and Fruit Products                                                             599
+HISTAMINE-2360   Fishery/Seafood Products                                                             589
+FILTHY-249       Macaroni and Noodle Products                                                         584
+NITROFURAN-3220  Fishery/Seafood Products                                                             577
+SALMONELLA-9     Nuts and Edible Seeds                                                                575
+PESTICIDES-2920  Fruit and Fruit Products                                                             538
+UNSAFE COL-11    Vegetables and Vegetable Products                                                    521
+FILTHY-249       Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                 474
+PESTICIDES-2920  Spices, Flavors, and Salts                                                           447
+UNSAFE COL-11    Beverage Bases                                                                       436
+                 Spices, Flavors, and Salts                                                           426
+UNSAFE ADD-238   Fishery/Seafood Products                                                             421
+MELAMINE-3421    Bakery Products, Doughs, Bakery Mixes, and Icings                                    389
+UNSAFE ADD-238   Fruit and Fruit Products                                                             386
+CYCLAMATE-2640   Fruit and Fruit Products                                                             377
+NEEDS FCE-62     Dressings and Condiments                                                             361
+FILTHY-249       Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      355
+PESTICIDES-2920  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      348
+PESTICIDE2-3721  Spices, Flavors, and Salts                                                           346
+FILTHY-249       Cheese and Cheese Products                                                           343
+UNSAFE ADD-238   Vegetables and Vegetable Products                                                    342
+NEEDS FCE-62     Soft Drinks and Waters                                                               331
+IMPTRHACCP-2000  Fishery/Seafood Products                                                             323
+INSANITARY-306   Vegetables and Vegetable Products                                                    316
+CHLORAMP-2900    Fishery/Seafood Products                                                             313
+UNSAFE COL-11    Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                     310
+AFLATOXIN-297    Nuts and Edible Seeds                                                                309
+PESTICIDE2-3721  Vegetable Oils (Includes Olive Oil)                                                  307
+NO PROCESS-83    Soups                                                                                302
+SALMONELLA-9     Snack Food Items (Flour, Meal, or Vegetable Base)                                    302
+NO PROCESS-83    Spices, Flavors, and Salts                                                           301
+BACTERIA-281     Cheese and Cheese Products                                                           291
+PESTICIDE2-3721  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      277
+UNSAFE COL-11    Color Additives for Foods, Drugs, and Cosmetics                                      266
+                 Nuts and Edible Seeds                                                                253
+NO PROCESS-83    Beverage Bases                                                                       244
+FILTHY-249       Nuts and Edible Seeds                                                                238
+UNSAFE COL-11    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                 234
+UNDER PRC-181    Vegetables and Vegetable Products                                                    229
+POISONOUS-251    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      227
+PESTICIDE-241    Spices, Flavors, and Salts                                                           227
+SALMONELLA-9     Cheese and Cheese Products                                                           225
+FILTHY-249       Snack Food Items (Flour, Meal, or Vegetable Base)                                    222
+UNSAFE ADD-238   Vegetable Oils (Includes Olive Oil)                                                  218
+INSANITARY-306   Fruit and Fruit Products                                                             217
+UNSAFE COL-11    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      216
+UNSAFE ADD-238   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      215
+NEW VET DR-72    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      212
+CONTAINER-171    Miscellaneous Food Related Items                                                     210
+INSANITARY-306   Bakery Products, Doughs, Bakery Mixes, and Icings                                    209
+NO PROCESS-83    Milk, Butter, and Dried Milk Products                                                208
+LISTERIA-295     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                 207
+NEEDS FCE-62     Milk, Butter, and Dried Milk Products                                                204
+NO PROCESS-83    Coffee and Tea                                                                       196
+YELLOW #5-64     Bakery Products, Doughs, Bakery Mixes, and Icings                                    190
+NO PROCESS-83    Nuts and Edible Seeds                                                                179
+UNSFDIETLB-2460  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      175
+POISONOUS-251    Miscellaneous Food Related Items                                                     167
+                 Bakery Products, Doughs, Bakery Mixes, and Icings                                    165
+PESTICIDES-2920  Dressings and Condiments                                                             164
+NO PROCESS-83    Macaroni and Noodle Products                                                         164
+UNSAFE COL-11    Ice Cream and Related Products                                                       162
+POISONOUS-251    Fruit and Fruit Products                                                             161
+UNSAFE COL-11    Whole Grains, Milled Grain Products, and Starch                                      160
+MELAMINE-3421    Chocolate and Cocoa Products                                                         157
+PESTICIDE2-3721  Snack Food Items (Flour, Meal, or Vegetable Base)                                    154
+NO PROCESS-83    Whole Grains, Milled Grain Products, and Starch                                      151
+NEEDS FCE-62     Spices, Flavors, and Salts                                                           146
+UNSAFE COL-11    Macaroni and Noodle Products                                                         146
+                 Food Sweeteners (Nutritive)                                                          141
+FILTHY-249       Dressings and Condiments                                                             140
+LISTERIA-295     Fruit and Fruit Products                                                             136
+SALMONELLA-9     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      136
+PESTICIDES-2920  Whole Grains, Milled Grain Products, and Starch                                      134
+NEEDS FCE-62     Coffee and Tea                                                                       134
+DIET INGRE-2200  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      130
+NO PROCESS-83    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans      130
+UNSAFE COL-11    Fishery/Seafood Products                                                             129
+                 Dressings and Condiments                                                             128
+YELLOW #5-64     Candy without Chocolate, Candy Specialties, and Chewing Gum                          122
+NEEDS FCE-62     Soups                                                                                122
+PB-FOOD-3400     Candy without Chocolate, Candy Specialties, and Chewing Gum                          115
+POISONOUS-251    Candy without Chocolate, Candy Specialties, and Chewing Gum                          113
+NEEDS FCE-62     Beverage Bases                                                                       111
+UNDER PRC-181    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                 109
+YELLOW #5-64     Vegetables and Vegetable Products                                                    108
+FILTHY-249       Food Sweeteners (Nutritive)                                                          107
+UNDER PRC-181    Fishery/Seafood Products                                                             107
+SALMONELLA-9     Meat, Meat Products, and Poultry                                                     107
+UNSAFE ADD-238   Food Sweeteners (Nutritive)                                                          105
+NO PROCESS-83    Bakery Products, Doughs, Bakery Mixes, and Icings                                     99
+SALMONELLA-9     Candy without Chocolate, Candy Specialties, and Chewing Gum                           98
+NEEDS ACID-48    Vegetables and Vegetable Products                                                     97
+SALMONELLA-9     Bakery Products, Doughs, Bakery Mixes, and Icings                                     95
+YELLOW #5-64     Snack Food Items (Flour, Meal, or Vegetable Base)                                     93
+POISONOUS-251    Nuts and Edible Seeds                                                                 93
+AFLATOXIN-297    Candy without Chocolate, Candy Specialties, and Chewing Gum                           91
+UNSAFE ADD-238   Food Additives - for Human Use                                                        88
+UNSAFE COL-11    Food Additives - for Human Use                                                        84
+UNSAFE ADD-238   Candy without Chocolate, Candy Specialties, and Chewing Gum                           84
+JUICEHACCP-3621  Fruit and Fruit Products                                                              83
+POISONOUS-251    Cheese and Cheese Products                                                            83
+PESTICIDE-241    Whole Grains, Milled Grain Products, and Starch                                       83
+PESTICIDES-2920  Nuts and Edible Seeds                                                                 82
+UNSAFE ADD-238   Bakery Products, Doughs, Bakery Mixes, and Icings                                     81
+INSANITARY-306   Spices, Flavors, and Salts                                                            79
+UNSAFE ADD-238   Chocolate and Cocoa Products                                                          78
+PESTICIDE2-3721  Coffee and Tea                                                                        78
+UNSAFE ADD-238   Spices, Flavors, and Salts                                                            77
+FOREIGN OB-157   Spices, Flavors, and Salts                                                            77
+NEEDS FCE-62     Macaroni and Noodle Products                                                          73
+FILTHY-249       Soups                                                                                 72
+UNSAFE ADD-238   Soft Drinks and Waters                                                                72
+FILTHY-249       Coffee and Tea                                                                        71
+NEEDS FCE-62     Nuts and Edible Seeds                                                                 71
+NO PROCESS-83    Cheese and Cheese Products                                                            71
+YELLOW #5-64     Soft Drinks and Waters                                                                71
+UNSAFE COL-11    Cheese and Cheese Products                                                            70
+NO PROCESS-83    Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                      68
+NEEDS FCE-62     Bakery Products, Doughs, Bakery Mixes, and Icings                                     66
+UNSAFE ADD-238   Cheese and Cheese Products                                                            65
+DRUG GMPS-27     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       65
+NEEDS FCE-62     Whole Grains, Milled Grain Products, and Starch                                       64
+                 Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       62
+UNSAFE COL-11    Dietary Conventional Foods and Meal Replacements                                      61
+NO PROCESS-83    Snack Food Items (Flour, Meal, or Vegetable Base)                                     59
+RADIONUC-2420    Vegetables and Vegetable Products                                                     59
+SUBSTITUTE-265   Food Sweeteners (Nutritive)                                                           59
+EPHEDALK-3120    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       58
+UNDER PRC-181    Bakery Products, Doughs, Bakery Mixes, and Icings                                     56
+PB-FOOD-3400     Miscellaneous Food Related Items                                                      56
+UNDER PRC-181    Fruit and Fruit Products                                                              56
+FILTHY-249       Chocolate and Cocoa Products                                                          56
+SALMONELLA-9     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  55
+POISONOUS-251    Chocolate and Cocoa Products                                                          53
+SUBSTITUTE-265   Fruit and Fruit Products                                                              53
+PESTICIDE2-3721  Macaroni and Noodle Products                                                          52
+FILTHY-249       Beverage Bases                                                                        51
+NO PROCESS-83    Candy without Chocolate, Candy Specialties, and Chewing Gum                           50
+NEEDS FCE-62     Cheese and Cheese Products                                                            49
+UNSAFE COL-11    Cereal Preparations, Breakfast Foods                                                  49
+SALMONELLA-9     Coffee and Tea                                                                        48
+FILTHY-249       Soft Drinks and Waters                                                                47
+NEEDS FCE-62     Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                      47
+PESTICIDE2-3721  Nuts and Edible Seeds                                                                 46
+BACTERIA-281     Fishery/Seafood Products                                                              46
+MELAMINE-3421    Whole Grains, Milled Grain Products, and Starch                                       45
+INSANITARY-306   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  43
+MELAMINE-3421    Snack Food Items (Flour, Meal, or Vegetable Base)                                     42
+UNSAFE ADD-238   Dressings and Condiments                                                              42
+COUMARIN-2080    Spices, Flavors, and Salts                                                            42
+IMBED OBJT-299   Chocolate and Cocoa Products                                                          42
+NEEDS FCE-62     Baby (Infant and Junior) Food Products                                                41
+EXCESS SUL-245   Fruit and Fruit Products                                                              40
+CYCLAMATE-2640   Vegetables and Vegetable Products                                                     39
+NO PROCESS-83    Baby (Infant and Junior) Food Products                                                39
+ADDED BULK-315   Food Sweeteners (Nutritive)                                                           39
+UNSAFE ADD-238   Nuts and Edible Seeds                                                                 39
+PESTICIDE2-3721  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  38
+PESTICIDES-2920  Coffee and Tea                                                                        37
+INSANITARY-306   Milk, Butter, and Dried Milk Products                                                 37
+INSANITARY-186   Milk, Butter, and Dried Milk Products                                                 36
+PB-FOOD-3400     Fruit and Fruit Products                                                              36
+SALMONELLA-9     Whole Grains, Milled Grain Products, and Starch                                       36
+INSANITARY-306   Nuts and Edible Seeds                                                                 36
+NOCONTCODE-3240  Vegetables and Vegetable Products                                                     35
+PESTICIDE-241    Nuts and Edible Seeds                                                                 35
+YELLOW #5-64     Fruit and Fruit Products                                                              35
+PESTICIDE2-3721  Chocolate and Cocoa Products                                                          35
+INSANITARY-306   Candy without Chocolate, Candy Specialties, and Chewing Gum                           34
+CHLORAMP-2900    Food Sweeteners (Nutritive)                                                           34
+YELLOW #5-64     Spices, Flavors, and Salts                                                            33
+SALMONELLA-9     Macaroni and Noodle Products                                                          33
+LEAK/SWELL-160   Soft Drinks and Waters                                                                33
+EXCESS SUL-245   Vegetables and Vegetable Products                                                     32
+YELLOW #5-64     Chocolate and Cocoa Products                                                          32
+FILTHY-249       Cereal Preparations, Breakfast Foods                                                  32
+NEEDS FCE-62     Snack Food Items (Flour, Meal, or Vegetable Base)                                     32
+INSANITARY-306   Coffee and Tea                                                                        32
+NO PROCESS-83    Dietary Conventional Foods and Meal Replacements                                      32
+AFLATOXIN-297    Whole Grains, Milled Grain Products, and Starch                                       32
+NEEDS ACID-48    Fruit and Fruit Products                                                              32
+UNSAFE ADD-238   Whole Grains, Milled Grain Products, and Starch                                       31
+FILTHY-249       Miscellaneous Food Related Items                                                      31
+CYCLAMATE-2640   Soft Drinks and Waters                                                                31
+BUTTER-302       Milk, Butter, and Dried Milk Products                                                 30
+FOREIGN OB-157   Candy without Chocolate, Candy Specialties, and Chewing Gum                           30
+NO PROCESS-83    Vegetable Protein Products (Simulated Meats)                                          30
+                 Food Sweeteners (Nutritive)                                                           30
+YELLOW #5-64     Beverage Bases                                                                        30
+UNSAFE COL-11    Soups                                                                                 29
+MELAMINE-3421    Candy without Chocolate, Candy Specialties, and Chewing Gum                           29
+POISONOUS-251    Soft Drinks and Waters                                                                28
+UNSAFE ADD-238   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  28
+OFF ODOR-337     Fishery/Seafood Products                                                              28
+POISONOUS-251    Spices, Flavors, and Salts                                                            28
+NO PROCESS-83    Vegetable Oils (Includes Olive Oil)                                                   28
+YELLOW #5-64     Macaroni and Noodle Products                                                          28
+NONRSP-PRC-3161  Vegetables and Vegetable Products                                                     28
+E COLI 157-3480  Cheese and Cheese Products                                                            27
+PESTICIDES-2920  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  27
+SUPPL GMP-3560   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       27
+UNSAFE ADD-238   Coffee and Tea                                                                        27
+INSANITARY-306   Whole Grains, Milled Grain Products, and Starch                                       26
+UNSAFE ADD-238   Dietary Conventional Foods and Meal Replacements                                      26
+NEEDS ACID-48    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  26
+NEEDS FCE-62     Egg and Egg Products                                                                  26
+FILTHY-249       Milk, Butter, and Dried Milk Products                                                 25
+NO PROCESS-83    Filled Milk and Imitation Milk Products                                               25
+INSANITARY-306   Chocolate and Cocoa Products                                                          24
+                 Soft Drinks and Waters                                                                23
+LEAK/SWELL-160   Fruit and Fruit Products                                                              23
+INSANITARY-186   Cheese and Cheese Products                                                            23
+UNSAFE COL-11    Alcoholic Beverages                                                                   23
+FILTHY-249       Food Additives - for Human Use                                                        23
+COSM COLOR-197   Color Additives for Foods, Drugs, and Cosmetics                                       23
+FILTHY-249       Meat, Meat Products, and Poultry                                                      23
+POIS CHLOR-3060  Fishery/Seafood Products                                                              22
+UNSAFE COL-11    Coffee and Tea                                                                        22
+UNSAFE ADD-238   Beverage Bases                                                                        22
+                 Macaroni and Noodle Products                                                          22
+VETDRUGRES-2860  Food Sweeteners (Nutritive)                                                           21
+INSANITARY-306   Vegetable Oils (Includes Olive Oil)                                                   21
+NEEDS FCE-62     Meat, Meat Products, and Poultry                                                      21
+AFLATOXIN-297    Fruit and Fruit Products                                                              21
+NEEDS FCE-62     Filled Milk and Imitation Milk Products                                               21
+POISONOUS-251    Vegetables and Vegetable Products                                                     20
+PESTICIDE2-3721  Bakery Products, Doughs, Bakery Mixes, and Icings                                     20
+INSANITARY-306   Egg and Egg Products                                                                  20
+PESTICIDES-2920  Fishery/Seafood Products                                                              20
+INSANITARY-186   Vegetables and Vegetable Products                                                     20
+NEEDS FCE-62     Chocolate and Cocoa Products                                                          20
+NO PROCESS-83    Prepared Salad                                                                        20
+AFLATOXIN-297    Snack Food Items (Flour, Meal, or Vegetable Base)                                     19
+                 Bakery Products, Doughs, Bakery Mixes, and Icings                                     19
+UNSAFE COL-11    Milk, Butter, and Dried Milk Products                                                 19
+PESTICIDES-2920  Food Sweeteners (Nutritive)                                                           19
+NO PROCESS-83    Egg and Egg Products                                                                  18
+NEEDS FCE-62     Food Sweeteners (Nutritive)                                                           18
+UNSAFE COL-11    Vegetable Protein Products (Simulated Meats)                                          18
+FOREIGN OB-157   Vegetables and Vegetable Products                                                     17
+LISTERIA-295     Vegetables and Vegetable Products                                                     17
+NEEDS FCE-62     Candy without Chocolate, Candy Specialties, and Chewing Gum                           17
+POISONOUS-251    Whole Grains, Milled Grain Products, and Starch                                       17
+NEEDS FCE-62     Vegetable Protein Products (Simulated Meats)                                          17
+PESTICIDE2-3721  Cereal Preparations, Breakfast Foods                                                  16
+NO PROCESS-83    Chocolate and Cocoa Products                                                          16
+YELLOW #5-64     Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                      16
+PESTICIDE2-3721  Dressings and Condiments                                                              16
+SHIGELLA-293     Vegetables and Vegetable Products                                                     16
+YELLOW #5-64     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  15
+BSE FILTH-2201   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       15
+SALMONELLA-9     Chocolate and Cocoa Products                                                          15
+VIBRIO-3460      Nuts and Edible Seeds                                                                 15
+MELAMINE-3421    Milk, Butter, and Dried Milk Products                                                 15
+NEEDS ACID-48    Fishery/Seafood Products                                                              14
+YELLOW #5-64     Nuts and Edible Seeds                                                                 14
+NO PROCESS-83    Meat, Meat Products, and Poultry                                                      14
+INSANITARY-186   Fishery/Seafood Products                                                              14
+UNDER PRC-181    Spices, Flavors, and Salts                                                            14
+TP FLAVOR-3520   Spices, Flavors, and Salts                                                            14
+NEEDS FCE-62     Dietary Conventional Foods and Meal Replacements                                      14
+UNDER PRC-181    Soft Drinks and Waters                                                                14
+SOAKED/WET-152   Fishery/Seafood Products                                                              14
+INSANITARY-306   Beverage Bases                                                                        14
+FILTHY-249       Vegetable Oils (Includes Olive Oil)                                                   14
+SALMONELLA-9     Soups                                                                                 13
+AFLATOXIN-297    Chocolate and Cocoa Products                                                          13
+SALMONELLA-9     Cereal Preparations, Breakfast Foods                                                  13
+MELAMINE-3421    Ice Cream and Related Products                                                        13
+MFRHACCP-2580    Bakery Products, Doughs, Bakery Mixes, and Icings                                     13
+ANDRO-3100       Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       13
+SALMONELLA-9     Food Sweeteners (Nutritive)                                                           12
+UNSFDIETUS-2461  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       12
+UNFIT4FOOD-3422  Bakery Products, Doughs, Bakery Mixes, and Icings                                     12
+INSANITARY-306   Snack Food Items (Flour, Meal, or Vegetable Base)                                     12
+UNSAFE SUB-280   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       12
+UNSAFE ADD-238   Snack Food Items (Flour, Meal, or Vegetable Base)                                     12
+NONRSP-PRC-3161  Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                      12
+FOREIGN OB-157   Fruit and Fruit Products                                                              12
+PATULIN-3180     Fruit and Fruit Products                                                              11
+YELLOW #5-64     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans       11
+                 Whole Grains, Milled Grain Products, and Starch                                       11
+NEEDS FCE-62     Cereal Preparations, Breakfast Foods                                                  11
+SALMONELLA-9     Dressings and Condiments                                                              11
+FOREIGN OB-157   Chocolate and Cocoa Products                                                          11
+                 Fishery/Seafood Products                                                              11
+YELLOW #5-64     Ice Cream and Related Products                                                        11
+SOAKED/WET-152   Vegetables and Vegetable Products                                                     11
+PESTICIDES-2920  Macaroni and Noodle Products                                                          11
+INSANITARY-306   Food Sweeteners (Nutritive)                                                           11
+NONRSP-VER-3160  Vegetables and Vegetable Products                                                     11
+PESTICIDES-2920  Bakery Products, Doughs, Bakery Mixes, and Icings                                     11
+SUBSTITUTE-265   Milk, Butter, and Dried Milk Products                                                 11
+LEAK/SWELL-160   Fishery/Seafood Products                                                              11
+                 Vegetables and Vegetable Products                                                     11
+MELAMINE-3421    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                  11
+                 Soft Drinks and Waters                                                                11
+                 Vegetable Protein Products (Simulated Meats)                                          11
+UNDER PRC-181    Cheese and Cheese Products                                                            11
+NEEDS ACID-48    Soft Drinks and Waters                                                                11
+                 Spices, Flavors, and Salts                                                            11
+FILTHY-249       Dietary Conventional Foods and Meal Replacements                                      11
+YELLOW #5-64     Dressings and Condiments                                                              10
+AF-NONRSP-3841   Vegetables and Vegetable Products                                                     10
+CONTAINER-171    Fishery/Seafood Products                                                              10
+                 Fruit and Fruit Products                                                              10
+CYCLAMATE-2640   Candy without Chocolate, Candy Specialties, and Chewing Gum                           10
+INSANITARY-306   Dressings and Condiments                                                              10
+UNSFDIETSP-2120  Dietary Conventional Foods and Meal Replacements                                      10
+FOREIGN OB-157   Food Sweeteners (Nutritive)                                                           10
+INSANITARY-306   Dietary Conventional Foods and Meal Replacements                                      10
+UNSAFE COL-11    Meat, Meat Products, and Poultry                                                      10
+UNSAFE SUB-280   Bakery Products, Doughs, Bakery Mixes, and Icings                                     10
+UNSAFE COL-11    Vegetable Oils (Includes Olive Oil)                                                   10
+INSANITARY-306   Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                      10
+MELAMINE-3421    Macaroni and Noodle Products                                                          10
+PESTICIDES-2920  Cereal Preparations, Breakfast Foods                                                  10
+SALMONELLA-9     Vegetable Protein Products (Simulated Meats)                                          10
+PESTICIDE2-3721  Vegetable Protein Products (Simulated Meats)                                          10
+SALMONELLA-9     Egg and Egg Products                                                                   9
+RADIONUC-2420    Coffee and Tea                                                                         9
+MELAMINE-3421    Filled Milk and Imitation Milk Products                                                9
+POISONOUS-251    Snack Food Items (Flour, Meal, or Vegetable Base)                                      9
+NITROFURAN-3220  Food Sweeteners (Nutritive)                                                            9
+EXCESS SUL-245   Nuts and Edible Seeds                                                                  9
+MELAMINE-3421    Spices, Flavors, and Salts                                                             9
+FILTHY-249       Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       9
+PB-FOOD-3400     Vegetables and Vegetable Products                                                      9
+UNDER PRC-181    Coffee and Tea                                                                         9
+INSANITARY-306   Ice Cream and Related Products                                                         8
+DISEASED-469     Fishery/Seafood Products                                                               8
+SOAKED/WET-152   Fruit and Fruit Products                                                               8
+SALMONELLA-9     Dietary Conventional Foods and Meal Replacements                                       8
+UNSAFE ADD-238   Filled Milk and Imitation Milk Products                                                8
+OMITTED-55       Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        8
+MELAMINE-3421    Cereal Preparations, Breakfast Foods                                                   8
+UNFIT4FOOD-3422  Vegetables and Vegetable Products                                                      8
+PESTICIDE-241    Fishery/Seafood Products                                                               8
+INSANITARY-306   Miscellaneous Food Related Items                                                       8
+POISONOUS-251    Vegetable Oils (Includes Olive Oil)                                                    8
+SALMONELLA-9     Milk, Butter, and Dried Milk Products                                                  8
+NONRSP-PRC-3161  Fruit and Fruit Products                                                               8
+YELLOW #5-64     Cereal Preparations, Breakfast Foods                                                   8
+DR QUALITY-115   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        7
+YELLOW #5-64     Food Sweeteners (Nutritive)                                                            7
+NEEDS FCE-62     Prepared Salad                                                                         7
+UNSAFE ADD-238   Milk, Butter, and Dried Milk Products                                                  7
+AFLATOXIN-297    Vegetables and Vegetable Products                                                      7
+CONTAINER-171    Vegetables and Vegetable Products                                                      7
+PESTICIDE-241    Food Sweeteners (Nutritive)                                                            7
+VETDRUGRES-2860  Dietary Conventional Foods and Meal Replacements                                       7
+UNDER PRC-181    Nuts and Edible Seeds                                                                  7
+NEEDS ACID-48    Milk, Butter, and Dried Milk Products                                                  7
+FLUOROCARB-154   Fishery/Seafood Products                                                               7
+POISONOUS-251    Cereal Preparations, Breakfast Foods                                                   7
+PESTICIDE2-3721  Fishery/Seafood Products                                                               6
+BIO TOXIN-2981   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        6
+SOAKED/WET-152   Soft Drinks and Waters                                                                 6
+MELAMINE-3421    Fruit and Fruit Products                                                               6
+UNSAFE ADD-238   Cereal Preparations, Breakfast Foods                                                   6
+PESTICIDES-2920  Vegetable Oils (Includes Olive Oil)                                                    6
+INSANITARY-306   Soups                                                                                  6
+CHOKE HZRD-3641  Candy without Chocolate, Candy Specialties, and Chewing Gum                            6
+PB-FOOD-3400     Chocolate and Cocoa Products                                                           6
+COL ADDED-178    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        6
+PB-FOOD-3400     Fishery/Seafood Products                                                               6
+UNSAFE COL-11    Miscellaneous Food Related Items                                                       6
+INSANITARY-306   Macaroni and Noodle Products                                                           6
+UNSAFE COL-11    Baby (Infant and Junior) Food Products                                                 6
+OMITTED-55       Fruit and Fruit Products                                                               6
+NEW VET DR-72    Fishery/Seafood Products                                                               6
+BACTERIA-281     Vegetables and Vegetable Products                                                      6
+NOCONTCODE-3240  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   6
+CYCLAMATE-2640   Snack Food Items (Flour, Meal, or Vegetable Base)                                      6
+NONRSP-PRC-3161  Fishery/Seafood Products                                                               6
+HEPATITISA-3040  Vegetables and Vegetable Products                                                      6
+ALRGN402A4-3701  Bakery Products, Doughs, Bakery Mixes, and Icings                                      6
+NONRSP-VER-3160  Fruit and Fruit Products                                                               6
+OFF ODOR-337     Fruit and Fruit Products                                                               6
+NEEDS ACID-48    Dressings and Condiments                                                               5
+IMBED OBJT-299   Candy without Chocolate, Candy Specialties, and Chewing Gum                            5
+PESTICIDES-2920  Milk, Butter, and Dried Milk Products                                                  5
+AF-NONRSP-3841   Fruit and Fruit Products                                                               5
+POISONOUS-251    Food Sweeteners (Nutritive)                                                            5
+E COLI 157-3480  Fishery/Seafood Products                                                               5
+INSANITARY-306   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        5
+UNSAFE ADD-238   Egg and Egg Products                                                                   5
+UNDER PRC-181    Milk, Butter, and Dried Milk Products                                                  5
+RADIONUC-2420    Fishery/Seafood Products                                                               5
+CONTAINER-171    Candy without Chocolate, Candy Specialties, and Chewing Gum                            5
+EXCESS SUL-245   Food Sweeteners (Nutritive)                                                            5
+CONTAM CAN-170   Whole Grains, Milled Grain Products, and Starch                                        5
+SUBSTITUTE-265   Spices, Flavors, and Salts                                                             5
+NEEDS FCE-62     Vegetable Oils (Includes Olive Oil)                                                    5
+NO PROCESS-83    Cereal Preparations, Breakfast Foods                                                   5
+CYCLAMATE-2640   Coffee and Tea                                                                         5
+VETDRUGRES-2860  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        5
+INSAN BSE-2202   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        5
+UNDER PRC-181    Beverage Bases                                                                         5
+CONTAM CAN-170   Vegetables and Vegetable Products                                                      5
+BACTERIA-281     Nuts and Edible Seeds                                                                  5
+MELAMINE-3421    Dietary Conventional Foods and Meal Replacements                                       5
+EXCESS SUL-245   Bakery Products, Doughs, Bakery Mixes, and Icings                                      5
+FILTHY-249       Egg and Egg Products                                                                   5
+INSANITARY-186   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   5
+EXCESS SUL-245   Miscellaneous Food Related Items                                                       5
+NEEDS ACID-48    Nuts and Edible Seeds                                                                  4
+MELAMINE-3421    Vegetables and Vegetable Products                                                      4
+BACTERIA-281     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        4
+POISONOUS-251    Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   4
+FOREIGN OB-157   Bakery Products, Doughs, Bakery Mixes, and Icings                                      4
+DISEASED-469     Candy without Chocolate, Candy Specialties, and Chewing Gum                            4
+MELAMINE-3421    Beverage Bases                                                                         4
+SALMONELLA-9     Beverage Bases                                                                         4
+NONRSP-PRC-3161  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   4
+POISONOUS-251    Coffee and Tea                                                                         4
+AF-NONRSP-3841   Bakery Products, Doughs, Bakery Mixes, and Icings                                      4
+MFR INJ-3821     Fishery/Seafood Products                                                               4
+UNDER PRC-181    Candy without Chocolate, Candy Specialties, and Chewing Gum                            4
+CYCLAMATE-2640   Nuts and Edible Seeds                                                                  4
+IMPTRHACCP-2000  Vegetables and Vegetable Products                                                      4
+STERILITY-78     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        4
+CONTAINER-171    Vegetable Oils (Includes Olive Oil)                                                    4
+POISONOUS-310    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        4
+NONRSP-VER-3160  Soft Drinks and Waters                                                                 4
+UNFIT4FOOD-3422  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        4
+POISONOUS-310    Color Additives for Foods, Drugs, and Cosmetics                                        4
+UNFIT4FOOD-3422  Fruit and Fruit Products                                                               4
+                 Dressings and Condiments                                                               4
+DISEASED-469     Meat, Meat Products, and Poultry                                                       4
+SOAKED/WET-152   Spices, Flavors, and Salts                                                             4
+INSANITARY-306   Prepared Salad                                                                         4
+UNFIT4FOOD-3422  Chocolate and Cocoa Products                                                           4
+OFF ODOR-337     Vegetables and Vegetable Products                                                      4
+SALMONELLA-9     Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       4
+POISONOUS-251    Macaroni and Noodle Products                                                           4
+AFLATOXIN-297    Cereal Preparations, Breakfast Foods                                                   4
+DULCIN-2720      Fruit and Fruit Products                                                               4
+FOREIGN OB-157   Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       4
+PB-FOOD-3400     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        4
+POISONOUS-251    Beverage Bases                                                                         4
+INSANITARY-306   Meat, Meat Products, and Poultry                                                       4
+FOREIGN OB-157   Whole Grains, Milled Grain Products, and Starch                                        3
+FILTH-312        Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        3
+INSANITARY-186   Fruit and Fruit Products                                                               3
+UNSFDIETSP-2120  Spices, Flavors, and Salts                                                             3
+                 Color Additives for Foods, Drugs, and Cosmetics                                        3
+CYCLAMATE-2640   Bakery Products, Doughs, Bakery Mixes, and Icings                                      3
+CONTAINER-171    Cheese and Cheese Products                                                             3
+SUBSTITUTE-265   Vegetable Oils (Includes Olive Oil)                                                    3
+CONTAINER-171    Nuts and Edible Seeds                                                                  3
+INSANITARY-186   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        3
+INSANITARY-306   Alcoholic Beverages                                                                    3
+FILTHY-249       Vegetable Protein Products (Simulated Meats)                                           3
+LEAK/SWELL-160   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   3
+                 Cheese and Cheese Products                                                             3
+DISEASED-469     Spices, Flavors, and Salts                                                             3
+INSANITARY-306   Vegetable Protein Products (Simulated Meats)                                           3
+CYCLAMATE-2640   Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       3
+POISONOUS-251    Milk, Butter, and Dried Milk Products                                                  3
+SUBSTITUTE-265   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        3
+PESTICIDES-2920  Baby (Infant and Junior) Food Products                                                 3
+PESTICIDE2-3721  Dietary Conventional Foods and Meal Replacements                                       3
+PESTICIDE-241    Snack Food Items (Flour, Meal, or Vegetable Base)                                      3
+NONRSP-PRC-3161  Coffee and Tea                                                                         3
+UNSAFE COL-11    Filled Milk and Imitation Milk Products                                                3
+NO PROCESS-83    Alcoholic Beverages                                                                    3
+BACTERIA-281     Milk, Butter, and Dried Milk Products                                                  3
+PESTICIDE-241    Bakery Products, Doughs, Bakery Mixes, and Icings                                      3
+UNSAFE ADD-238   Vegetable Protein Products (Simulated Meats)                                           3
+UNDER PRC-181    Dressings and Condiments                                                               3
+PESTICIDE-241    Vegetable Oils (Includes Olive Oil)                                                    3
+OFF ODOR-337     Whole Grains, Milled Grain Products, and Starch                                        3
+NONNUT SUB-300   Candy without Chocolate, Candy Specialties, and Chewing Gum                            3
+                 Chocolate and Cocoa Products                                                           3
+UNDER PRC-181    Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       3
+NO PROCESS-83    Ice Cream and Related Products                                                         3
+PESTICIDE-241    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        3
+NO PROCESS-83    Color Additives for Foods, Drugs, and Cosmetics                                        3
+UNFIT4FOOD-3422  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   3
+                 Whole Grains, Milled Grain Products, and Starch                                        3
+EXCESS SUL-245   Snack Food Items (Flour, Meal, or Vegetable Base)                                      3
+PESTICIDE-241    Dressings and Condiments                                                               3
+EXCESS SUL-245   Egg and Egg Products                                                                   3
+NO PROCESS-83    Food Additives - for Human Use                                                         2
+SALMONELLA-9     Color Additives for Foods, Drugs, and Cosmetics                                        2
+AFLATOXIN-297    Vegetable Oils (Includes Olive Oil)                                                    2
+OFF ODOR-337     Soft Drinks and Waters                                                                 2
+SOAKED/WET-152   Coffee and Tea                                                                         2
+UNFIT4FOOD-3422  Vegetable Protein Products (Simulated Meats)                                           2
+HELD INSAN-313   Color Additives for Foods, Drugs, and Cosmetics                                        2
+OMITTED-55       Macaroni and Noodle Products                                                           2
+UNSAFE SUB-280   Spices, Flavors, and Salts                                                             2
+CYCLAMATE-2640   Food Sweeteners (Nutritive)                                                            2
+UNFIT4FOOD-3422  Spices, Flavors, and Salts                                                             2
+ALCOHOL-175      Chocolate and Cocoa Products                                                           2
+NO PROCESS-83    Miscellaneous Food Related Items                                                       2
+UNFIT4FOOD-3422  Snack Food Items (Flour, Meal, or Vegetable Base)                                      2
+CYCLAMATE-2640   Dietary Conventional Foods and Meal Replacements                                       2
+UNFIT4FOOD-3422  Coffee and Tea                                                                         2
+ALRGN402A4-3701  Dressings and Condiments                                                               2
+IMPTRHACCP-2000  Fruit and Fruit Products                                                               2
+FILTH-312        Fishery/Seafood Products                                                               2
+POISONOUS-251    Vegetable Protein Products (Simulated Meats)                                           2
+FOREIGN OB-157   Soft Drinks and Waters                                                                 2
+POISONOUS-251    Egg and Egg Products                                                                   2
+NONRSP-VER-3160  Nuts and Edible Seeds                                                                  2
+UNSFDIETSP-2120  Vegetables and Vegetable Products                                                      2
+FILTHY-249       Prepared Salad                                                                         2
+NONRSP-VER-3160  Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   2
+UNSFDIETSP-2120  Food Additives - for Human Use                                                         2
+POISONOUS-251    Dietary Conventional Foods and Meal Replacements                                       2
+NONRSP-VER-3160  Milk, Butter, and Dried Milk Products                                                  2
+                 Beverage Bases                                                                         2
+EXCESS SUL-245   Candy without Chocolate, Candy Specialties, and Chewing Gum                            2
+FILTHY-249       Ice Cream and Related Products                                                         2
+SALMONELLA-9     Ice Cream and Related Products                                                         2
+NONRSP-PRC-3161  Bakery Products, Doughs, Bakery Mixes, and Icings                                      2
+YELLOW #5-64     Vegetable Oils (Includes Olive Oil)                                                    2
+NONNUT SUB-300   Fishery/Seafood Products                                                               2
+OFF ODOR-337     Cheese and Cheese Products                                                             2
+CYCLAMATE-2640   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   2
+SOAKED/WET-152   Macaroni and Noodle Products                                                           2
+NOCONTCODE-3240  Fruit and Fruit Products                                                               2
+SOAKED/WET-152   Milk, Butter, and Dried Milk Products                                                  2
+AFLATOXIN-297    Dressings and Condiments                                                               2
+FOREIGN OB-157   Macaroni and Noodle Products                                                           2
+NOCONTCODE-3240  Beverage Bases                                                                         2
+FOREIGN OB-157   Nuts and Edible Seeds                                                                  2
+                 Snack Food Items (Flour, Meal, or Vegetable Base)                                      2
+ALRGN402A4-3701  Fishery/Seafood Products                                                               2
+CONTAM CAN-170   Fruit and Fruit Products                                                               2
+EXCESS SUL-245   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   2
+PESTICIDE-241    Macaroni and Noodle Products                                                           2
+NEEDS ACID-48    Egg and Egg Products                                                                   2
+JUICEHACCP-3621  Beverage Bases                                                                         2
+NEEDS ACID-48    Bakery Products, Doughs, Bakery Mixes, and Icings                                      2
+JUICEHACCP-3621  Vegetables and Vegetable Products                                                      2
+BACTERIA-281     Miscellaneous Food Related Items                                                       2
+MFR INJ-3821     Vegetables and Vegetable Products                                                      2
+                 Cheese and Cheese Products                                                             2
+SOAKED/WET-152   Chocolate and Cocoa Products                                                           2
+CHOKE HZRD-3641  Whole Grains, Milled Grain Products, and Starch                                        2
+YELLOW #5-64     Dietary Conventional Foods and Meal Replacements                                       2
+FILTHY-249       Baby (Infant and Junior) Food Products                                                 2
+PESTICIDE2-3721  Soft Drinks and Waters                                                                 2
+FILTHY-249       Alcoholic Beverages                                                                    2
+BACTERIA-281     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   2
+PESTICIDE2-3721  Beverage Bases                                                                         2
+SOAKED/WET-152   Candy without Chocolate, Candy Specialties, and Chewing Gum                            2
+UNSAFE COL-330   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        2
+PESTICIDE2-3721  Color Additives for Foods, Drugs, and Cosmetics                                        2
+BUTTER-302       Vegetable Oils (Includes Olive Oil)                                                    2
+UNSAFE COL-330   Candy without Chocolate, Candy Specialties, and Chewing Gum                            2
+LISTERIA-295     Nuts and Edible Seeds                                                                  2
+BIO TOXIN-2981   Fishery/Seafood Products                                                               2
+UNSAFE COL-330   Bakery Products, Doughs, Bakery Mixes, and Icings                                      2
+UNDER PRC-181    Chocolate and Cocoa Products                                                           2
+NEEDS ACID-48    Candy without Chocolate, Candy Specialties, and Chewing Gum                            2
+                 Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        2
+EXCESS SUL-245   Soft Drinks and Waters                                                                 2
+OMITTED-55       Soft Drinks and Waters                                                                 2
+BACTERIA-281     Soft Drinks and Waters                                                                 2
+YELLOW #5-64     Soups                                                                                  2
+POISONOUS-251    Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       2
+PESTICIDES-2920  Soups                                                                                  2
+                 Soft Drinks and Waters                                                                 2
+INSANITARY-306   Cereal Preparations, Breakfast Foods                                                   2
+UNSAFE ADD-238   Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       2
+PESTICIDE-241    Dietary Conventional Foods and Meal Replacements                                       2
+UNSAFE ADD-238   Ice Cream and Related Products                                                         2
+PESTICIDES-2920  Snack Food Items (Flour, Meal, or Vegetable Base)                                      2
+PB-FOOD-3400     Spices, Flavors, and Salts                                                             2
+                 Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   2
+CONTAINER-171    Chocolate and Cocoa Products                                                           2
+PESTICIDE-241    Color Additives for Foods, Drugs, and Cosmetics                                        2
+EXCESS SUL-245   Spices, Flavors, and Salts                                                             2
+BACTERIA-281     Egg and Egg Products                                                                   2
+CHLORAMP-2900    Food Additives - for Human Use                                                         2
+UNSAFE ADD-238   Soups                                                                                  2
+PB-FOOD-3400     Food Sweeteners (Nutritive)                                                            2
+SHIGELLA-293     Fruit and Fruit Products                                                               2
+EPHEDALK-3120    Spices, Flavors, and Salts                                                             1
+DRUG GMPS-27     Food Additives - for Human Use                                                         1
+YELLOW #5-64     Fishery/Seafood Products                                                               1
+DISEASED-469     Milk, Butter, and Dried Milk Products                                                  1
+                 Macaroni and Noodle Products                                                           1
+DULCIN-2720      Chocolate and Cocoa Products                                                           1
+DISEASED-469     Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   1
+                 Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+OFF ODOR-337     Alcoholic Beverages                                                                    1
+DIET INGRE-2200  Coffee and Tea                                                                         1
+CHLORAMP-2900    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+SOAKED/WET-152   Beverage Bases                                                                         1
+BACTERIA-281     Spices, Flavors, and Salts                                                             1
+                 Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+                 Meat, Meat Products, and Poultry                                                       1
+                 Fruit and Fruit Products                                                               1
+                 Food Additives - for Human Use                                                         1
+                 Dietary Conventional Foods and Meal Replacements                                       1
+SHIGELLA-293     Cheese and Cheese Products                                                             1
+ANDRO-3100       Food Additives - for Human Use                                                         1
+ALRGN402A4-3701  Milk, Butter, and Dried Milk Products                                                  1
+                 Macaroni and Noodle Products                                                           1
+                 Chocolate and Cocoa Products                                                           1
+AF-NONRSP-3841   Soft Drinks and Waters                                                                 1
+                 Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   1
+                 Milk, Butter, and Dried Milk Products                                                  1
+                 Fishery/Seafood Products                                                               1
+                 Candy without Chocolate, Candy Specialties, and Chewing Gum                            1
+RADIONUC-2420    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+CHOKE HZRD-3641  Chocolate and Cocoa Products                                                           1
+DEVICE GMP-226   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+CHOKE HZRD-3641  Fishery/Seafood Products                                                               1
+POISONOUS-251    Soups                                                                                  1
+CYCLAMATE-2640   Food Additives - for Human Use                                                         1
+SOAKED/WET-152   Cereal Preparations, Breakfast Foods                                                   1
+CYCLAMATE-2640   Beverage Bases                                                                         1
+COUMARIN-2080    Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+COSM COLOR-197   Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+CONTAM CAN-170   Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+                 Miscellaneous Food Related Items                                                       1
+                 Chocolate and Cocoa Products                                                           1
+                 Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+CONTAINER-171    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+                 Spices, Flavors, and Salts                                                             1
+RADIONUC-2420    Miscellaneous Food Related Items                                                       1
+CONCEALED-268    Milk, Butter, and Dried Milk Products                                                  1
+COL ADDED-178    Food Additives - for Human Use                                                         1
+                 Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+CHOKE HZRD-3641  Fruit and Fruit Products                                                               1
+YELLOW #5-64     Egg and Egg Products                                                                   1
+INSANITARY-186   Color Additives for Foods, Drugs, and Cosmetics                                        1
+EXCESS SUL-245   Beverage Bases                                                                         1
+PESTICIDE2-3721  Food Sweeteners (Nutritive)                                                            1
+PB-FOOD-3400     Dietary Conventional Foods and Meal Replacements                                       1
+                 Egg and Egg Products                                                                   1
+NEEDS FCE-62     Color Additives for Foods, Drugs, and Cosmetics                                        1
+PESTICIDE-241    Cereal Preparations, Breakfast Foods                                                   1
+NEEDS FCE-62     Alcoholic Beverages                                                                    1
+PESTICIDE-241    Soups                                                                                  1
+MFRHACCP-2580    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+MELAMINE-3421    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+                 Nuts and Edible Seeds                                                                  1
+SALMONELLA-9     Miscellaneous Food Related Items                                                       1
+MELAMINE-3421    Dressings and Condiments                                                               1
+                 Coffee and Tea                                                                         1
+UNDER PRC-181    Baby (Infant and Junior) Food Products                                                 1
+PB-FOOD-3400     Beverage Bases                                                                         1
+MELAMINE-3421    Baby (Infant and Junior) Food Products                                                 1
+MELAMINE-3420    Candy without Chocolate, Candy Specialties, and Chewing Gum                            1
+PESTICIDE2-3721  Milk, Butter, and Dried Milk Products                                                  1
+LISTERIA-295     Milk, Butter, and Dried Milk Products                                                  1
+                 Ice Cream and Related Products                                                         1
+UNSAFE COL-330   Fruit and Fruit Products                                                               1
+                 Soft Drinks and Waters                                                                 1
+LISTERIA-295     Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+LEAK/SWELL-160   Whole Grains, Milled Grain Products, and Starch                                        1
+TAMPERING-339    Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+LEAK/SWELL-160   Spices, Flavors, and Salts                                                             1
+                 Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+NEEDS FCE-62     Miscellaneous Food Related Items                                                       1
+NEW VET DR-72    Dietary Conventional Foods and Meal Replacements                                       1
+SUBSTITUTE-292   Food Sweeteners (Nutritive)                                                            1
+NOCONTCODE-3240  Coffee and Tea                                                                         1
+NONRSP-VER-3160  Fishery/Seafood Products                                                               1
+OFF ODOR-337     Baby (Infant and Junior) Food Products                                                 1
+NONRSP-PRC-3161  Vegetable Oils (Includes Olive Oil)                                                    1
+                 Spices, Flavors, and Salts                                                             1
+                 Nuts and Edible Seeds                                                                  1
+OFF ODOR-337     Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+NONRSP-PRC-3161  Dressings and Condiments                                                               1
+                 Cheese and Cheese Products                                                             1
+                 Beverage Bases                                                                         1
+NONNUT SUB-300   Spices, Flavors, and Salts                                                             1
+NOCONTCODE-3240  Spices, Flavors, and Salts                                                             1
+                 Milk, Butter, and Dried Milk Products                                                  1
+OFF ODOR-337     Coffee and Tea                                                                         1
+OMITTED-55       Milk, Butter, and Dried Milk Products                                                  1
+OFF ODOR-337     Nuts and Edible Seeds                                                                  1
+                 Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+UNDER PRC-181    Whole Grains, Milled Grain Products, and Starch                                        1
+OFF ODOR-337     Spices, Flavors, and Salts                                                             1
+UNFIT4FOOD-3422  Candy without Chocolate, Candy Specialties, and Chewing Gum                            1
+                 Macaroni and Noodle Products                                                           1
+OMITTED-55       Dietary Conventional Foods and Meal Replacements                                       1
+                 Dressings and Condiments                                                               1
+                 Food Sweeteners (Nutritive)                                                            1
+UNSAFE ADD-238   Alcoholic Beverages                                                                    1
+NO PMA-237       Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+NO EXP DAT-3540  Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+PESTICIDE2-3721  Soups                                                                                  1
+LEAK/SWELL-160   Dressings and Condiments                                                               1
+EXCESS SUL-245   Coffee and Tea                                                                         1
+SOAKED/WET-152   Color Additives for Foods, Drugs, and Cosmetics                                        1
+                 Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   1
+UNSAFE SUB-280   Vegetable Oils (Includes Olive Oil)                                                    1
+FOREIGN OB-157   Multiple Food Dinners, Gravies, Sauces, and Specialties (Total Diet)                   1
+                 Coffee and Tea                                                                         1
+                 Cheese and Cheese Products                                                             1
+                 Cereal Preparations, Breakfast Foods                                                   1
+FLUOROCARB-154   Fruit and Fruit Products                                                               1
+                 Food Sweeteners (Nutritive)                                                            1
+UNSAFE SUB-280   Vegetables and Vegetable Products                                                      1
+UNSFDIETLB-2460  Cereal Preparations, Breakfast Foods                                                   1
+POISONOUS-251    Color Additives for Foods, Drugs, and Cosmetics                                        1
+                 Dressings and Condiments                                                               1
+                 Food Additives - for Human Use                                                         1
+UNSAFE SUB-280   Soft Drinks and Waters                                                                 1
+VETDRUGRES-2860  Fruit and Fruit Products                                                               1
+FILTHY-249       Filled Milk and Imitation Milk Products                                                1
+VIBRIO-3460      Fishery/Seafood Products                                                               1
+FILTHY-249       Color Additives for Foods, Drugs, and Cosmetics                                        1
+POISONOUS-251    Ice Cream and Related Products                                                         1
+YELLOW #5-64     Alcoholic Beverages                                                                    1
+FILTH-312        Soft Drinks and Waters                                                                 1
+                 Fruit and Fruit Products                                                               1
+EXPIRED-3380     Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+EXCESS SUL-245   Soups                                                                                  1
+SOAKED/WET-152   Cheese and Cheese Products                                                             1
+EXCESS SUL-245   Fishery/Seafood Products                                                               1
+GINSENG-74       Vitamins, Minerals, Proteins, and Unconventional Dietary Specialties for Humans        1
+IMBED OBJT-299   Food Sweeteners (Nutritive)                                                            1
+LEAK/SWELL-160   Beverage Bases                                                                         1
+PESTICIDES-2920  Gelatin, Rennet, Pudding Mixes, and Pie Fillings                                       1
+LEAK/SWELL-160   Bakery Products, Doughs, Bakery Mixes, and Icings                                      1
+                 Alcoholic Beverages                                                                    1
+UNSAFE SUB-280   Candy without Chocolate, Candy Specialties, and Chewing Gum                            1
+                 Coffee and Tea                                                                         1
+PESTICIDES-2920  Beverage Bases                                                                         1
+UNSAFE SUB-280   Color Additives for Foods, Drugs, and Cosmetics                                        1
+PESTICIDES-2920  Chocolate and Cocoa Products                                                           1
+UNSAFE SUB-280   Dietary Conventional Foods and Meal Replacements                                       1
+PESTICIDES-2920  Dietary Conventional Foods and Meal Replacements                                       1
+INSANITARY-306   Food Additives - for Human Use                                                         1
+UNSAFE SUB-280   Food Sweeteners (Nutritive)                                                            1
+SUBSTITUTE-265   Coffee and Tea                                                                         1
+UNSAFE SUB-280   Fruit and Fruit Products                                                               1
+IMBED OBJT-299   Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+UNSAFE SUB-280   Nuts and Edible Seeds                                                                  1
+INSANITARY-186   Whole Grains, Milled Grain Products, and Starch                                        1
+                 Spices, Flavors, and Salts                                                             1
+SOAKED/WET-152   Nuts and Edible Seeds                                                                  1
+INSANITARY-186   Beverage Bases                                                                         1
+INSAN BSE-2202   Dietary Conventional Foods and Meal Replacements                                       1
+IMPTRHACCP-2000  Vegetable Oils (Includes Olive Oil)                                                    1
+                 Spices, Flavors, and Salts                                                             1
+                 Miscellaneous Food Related Items                                                       1
+                 Milk, Butter, and Dried Milk Products                                                  1
+UNSAFE SUB-280   Snack Food Items (Flour, Meal, or Vegetable Base)                                      1
+IMPTRHACCP-2000  Coffee and Tea                                                                         1
+SALMONELLA-9     Soft Drinks and Waters                                                                 1

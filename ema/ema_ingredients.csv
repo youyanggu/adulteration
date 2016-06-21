@@ -1,0 +1,1111 @@
+ingredient,function,form,id_test,assay,type,sort_name
+Acesulfame Potassium,"Flavor Enhancer, Non Nutritive Sweetener","White, Free Flowing, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Acesulfamepotassium
+Acetaldehyde,Flavoring Agent,"Flammable, Colorless Liquid",Infrared spectra,Procedure,pending,Acetaldehyde
+Acetaldehyde Diethyl Acetal,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Acetaldehydediethylacetal
+Acetanisole,Flavoring Agent,Colorless To Pale Yellow Fused Solid,Infrared spectra,Procedure,pending,Acetanisole
+"Acetic Acid, Glacial","Acidifier, Flavoring Agent","Clear, Colorless Liquid",Acetate,Procedure,pending,Aceticacidglacial
+Acetoin (Dimer),Flavoring Agent,White To Pale Yellow Powder,None,Procedure,pending,Acetoindimer
+Acetoin (Monomer),Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Acetoinmonomer
+Acetone,Extraction Solvent,"Clear, Colorless, Volatile Liquid",Procedure,Procedure,high_suscept_id,Acetone
+Acetone Peroxides,"Bleaching Agent, Dough Conditioner, Maturing Agent","Fine, White, Free Flowing Powder (Usually Mixed With An Edible Carrier)",Procedure,Procedure,high_suscept_id,Acetoneperoxides
+Acetophenone,Flavoring Agent,Practically Colorless Liquid,Infrared spectra,Procedure,pending,Acetophenone
+Acetylated Monoglycerides,"Coating Agent, Emulsifier, Lubricant, Solvent, Texture Modifying Agent","Clear, Thin Liquids Or Solids, Ranging In Color From White To Pale Yellow",None,None,pending,Acetylatedmonoglycerides
+"3 Acetyl 2,5 Dimethyl Furan",Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Acetyldimethylfuran
+N Acetyl L Methionine,Nutrient,"Colorless Or Lustrous, White, Crystalline Solid Or White Powder",Infrared absorption,Procedure,high_suscept_id,Acetylmethionine
+2 Acetylpyrazine,Flavoring Agent,Colorless To Pale Yellow Crystals,Infrared spectra,Procedure,pending,Acetylpyrazine
+3 Acetylpyridine,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Acetylpyridine
+2 Acetylpyrrole,Flavoring Agent,White To Pale Brown Fine Crystal,None,Procedure,pending,Acetylpyrrole
+2 Acetyl Thiazole,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Acetylthiazole
+Acid Hydrolysates Of Proteins,"Flavor Enhancer, Flavoring Agent","Liquids, Pastes, Powders, Or Granules",None,Total nitrogen,high_suscept,Acidhydrolysatesofproteins
+Acidified Sodium Chlorite Solutions,Antimicrobial Agent,"Clear, Colorless To Pale Yellow Liquids",None,None,high_suscept_id,Acidifiedsodiumchloritesolutions
+Aconitic Acid,"Adjuvant, Flavoring Substance",See Monograph,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Aconiticacid
+5' Adenylic Acid,Source Of 5' Adenylic Acid,"Colorless Or White Crystals, Or White Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Adenylicacid
+Adipic Acid,"Buffer, Neutralizing Agent",White Crystals Or A Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Adipicacid
+Agar,"Emulsifier, Stabilizer, Thickener","White To Pale Yellow Bundles Of Thin, Membranous Agglutinated Strips, Or In Cut, Flaked, Granulated, Or Powdered Forms",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Agar
+Dl Alanine,Nutrient,White Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Alanine2
+L Alanine,Nutrient,White Crystalline Powder,Infrared absorption,Procedure,pending,Alanine3
+Alginic Acid,"Emulsifier, Stabilizer, Thickener","White To Yellow White, Fibrous Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Alginicacid
+Alitame,"Flavor Enhancer, Sweetener","White, Odorless, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Alitame
+Allura Red,Color,Red Brown Powder Or Granule,Procedure,Total color,low_suscept,Allurared
+Allyl Cyclohexanepropionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Allylcyclohexanepropionate
+Allyl Heptanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Allylheptanoate
+Allyl Hexanoate,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Allylhexanoate
+Allyl Alpha Ionone,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Allylionone
+Allyl Isothiocyanate,Flavoring Agent,"Colorless To Pale Yellow, Strongly Refractive Liquid",Infrared spectra,Procedure,pending,Allylisothiocyanate
+Allyl Isovalerate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Allylisovalerate
+Allyl Phenoxy Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Allylphenoxyacetate
+Allyl Propionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Allylpropionate
+"Almond Oil, Bitter, Ffpa",Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Aldehydes,high_suscept,Almondoilbitterffpa
+Aluminum Ammonium Sulfate,"Buffer, Neutralizing Agent","Large, Colorless Crystals, White Granules, Or Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Aluminumammoniumsulfate
+Aluminum Potassium Sulfate,"Buffer, Firming Agent, Neutralizing Agent","Large, Transparent Crystals Or Crystalline Fragments, Or White Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Aluminumpotassiumsulfate
+Aluminum Sodium Sulfate,"Buffer, Firming Agent, Neutralizing Agent","Colorless Crystals, White Granules, Or Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Aluminumsodiumsulfate
+Aluminum Sulfate,Firming Agent,"White Powder, Shining Plates, Or Crystalline Fragments",All ID tests listed in monograph,All assays listed in monograph,pending,Aluminumsulfate
+Ambrette Seed Oil,Flavoring Agent,Clear Yellow To Amber Liquid,Infrared spectra,None,high_suscept,Ambretteseedoil
+Ammonia Solution,"Boiler Water Additive, P H Control Agent, Surface Finishing Agent","Clear, Colorless Liquid",Procedure,Procedure,high_suscept_id,Ammoniasolution
+Ammoniated Glycyrrhizin,"Flavor Enhancer, Flavoring Agent",Brown Powder,Ammonium,Procedure,high_suscept,Ammoniatedglycyrrhizin
+Ammonium Alginate,"Emulsifier, Stabilizer, Thickener","White To Yellow, Fibrous Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Ammoniumalginate
+Ammonium Bicarbonate,"Alkali, Leavening Agent",White Crystals Or A Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumbicarbonate
+Ammonium Carbonate,"Buffer, Leavening Agent, Neutralizing Agent","White Powder Or Hard, White Or Translucent Masses",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumcarbonate
+Ammonium Chloride,"Dough Conditioner, Yeast Food","Colorless Crystals Or White, Fine Or Coarse, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumchloride
+"Ammonium Citrate, Dibasic",P H Control Agent,White To Off White Crystals,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,"Ammoniumcitrate,Dibasic"
+"Ammonium Citrate, Tribasic",P H Control Agent,White Crystals Or A Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Ammoniumcitratetribasic
+"Ammonium Phosphate, Dibasic","Buffer, Dough Conditioner, Leavening Agent, Yeast Food","White Crystals, Crystalline Powder, Or Granules",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumphosphatedibasic
+"Ammonium Phosphate, Monobasic","Buffer, Dough Conditioner, Leavening Agent, Yeast Food","White Crystals, Crystalline Powder, Or Granules",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumphosphatemonobasic
+Ammonium Saccharin,Nonnutritive Sweetener,"White Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumsaccharin
+Ammonium Sulfate,"Dough Conditioner, Yeast Nutrient",Colorless Or White Crystals Or Granules,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ammoniumsulfate
+1 Amyl Alcohol,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Amylalcohol
+Amyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Amylbutyrate
+Alpha Amylcinnamaldehyde,Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Amylcinnamaldehyde
+Amyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Amylformate
+Amyl Heptanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Amylheptanoate
+Amyl Octanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Amyloctanoate
+Amyl Propionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Amylpropionate
+"Amyris Oil, West Indian Type",Flavoring Agent,"Clear, Pale Yellow, Viscous Liquid",Infrared spectra,None,high_suscept_id,Amyrisoilwestindiantype
+Anethole,Flavoring Agent,Colorless To Faintly Yellow Liquid,Infrared absorption,Procedure,pending,Anethole
+Angelica Root Oil,Flavoring Agent,Pale Yellow To Deep Amber Liquid,Infrared spectra,None,high_suscept,Angelicarootoil
+Angelica Seed Oil,Flavoring Agent,Light Yellow Liquid,Infrared spectra,None,high_suscept_id,Angelicaseedoil
+Anise Oil,Flavoring Agent,"Pale Yellow, Strongly Refractive Liquid",Infrared spectra,None,high_suscept,Aniseoil
+Anisole,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Anisole
+Anisyl Acetate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Anisylacetate
+Anisyl Alcohol,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Anisylalcohol
+Anisyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Anisylformate
+Annatto Extracts,Color,"Dark Red Solutions, Emulsions, Or Suspensions In Water Or Oil As Dark Red Powders",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Annattoextracts
+Beta Apo 8' Carotenal,Color,"Fine, Crystalline Powder With A Dark, Metallic Sheen",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Apocarotenal
+Arabinogalactan,"Dietary Fiber, Humectant, Stabilizer","White To Yellow White, Coarse Or Fine Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Arabinogalactan
+L Arginine,Nutrient,White Crystals Or As A White Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Arginine
+L Arginine Monohydrochloride,Nutrient,White Or Nearly White Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Argininemonohydrochloride
+Ascorbic Acid,"Antioxidant, Meat Curing Aid, Nutrient",White Or Slighty Yellow Crystals Or Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Ascorbicacid
+Ascorbyl Palmitate,Antioxidant,White Or Yellow White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ascorbylpalmitate
+L Asparagine,Nutrient,White Crystals Or Crystalline Powder,Infrared spectra,Procedure,high_suscept_id,Asparagine
+Aspartame,"Flavor Enhancer, Sugar Substitute, Sweetener","White, Crystalline Powder",Infrared absorption,Procedure,high_suscept,Aspartame
+Aspartame Acesulfame Salt,Sweetener,"White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Aspartameacesulfamesalt
+Dl Aspartic Acid,Nutrient,Colorless Or White Crystals,Infrared spectra,Procedure,high_suscept_id,Asparticacid2
+L Aspartic Acid,Nutrient,White Crystals Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Asparticacid3
+Azodicarbonamide,Maturing Agent For Flour,"Yellow To Orange Red, Crystalline Powder",Ultraviolet absorption,Procedure,pending,Azodicarbonamide
+Azorubine,Color,Red Powder Or Granules,Visible absorption spectrum,Total color,pending,Azorubine
+Balsam Peru Oil,Flavoring Agent,"Yellow To Pale Brown, Slightly Viscous Liquid",Infrared spectra,None,high_suscept,Balsamperuoil
+"Basil Oil, Comoros Type",Flavoring Agent,Light Yellow Liquid,Infrared spectra,None,high_suscept,Basiloilcomorostype
+"Basil Oil, European Type",Flavoring Agent,Pale Yellow To Yellow Liquid,Infrared spectra,None,high_suscept_id,Basiloileuropeantype
+Bay Oil,Flavoring Agent,Yellow Or Brown Yellow Liquid,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Bayoil
+"Beeswax, White","Raw Material For Flavoring Agent, Release Agent, Surface Finishing (Glazing) Agent","Yellow White Solid, Somewhat Translucent In Thin Layers",None,None,high_suscept,Beeswaxwhite
+"Beeswax, Yellow","Candy Glaze And Polish, Raw Material For Flavoring Agent",Yellow To Gray Brown Solid,None,None,high_suscept_id,Beeswaxyellow
+Bentonite,"Clarifying, Filter Agent",Powders Ranging In Colors And Tints From Off White To Pale Brown To Gray,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Bentonite
+Benzaldehyde,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Benzaldehyde
+Benzaldehyde Glyceryl Acetal,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Benzaldehydeglycerylacetal
+"1,2 Benzodihydropyrone",Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Benzodihydropyrone
+Benzoic Acid,"Antimicrobial Agent, Preservative","White Crystals, Scales, Or Needles",Procedure,Procedure,high_suscept_id,Benzoicacid
+Benzophenone,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzophenone
+Benzoyl Peroxide,Bleaching Agent,"Colorless, Crystalline Solid",Melting range or temperature,Procedure,pending,Benzoylperoxide
+Benzyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylacetate
+Benzyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Benzylalcohol
+Benzyl Benzoate,Flavoring Agent,"Colorless, Oily Liquid",Infrared absorption,Procedure,pending,Benzylbenzoate
+Benzyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylbutyrate
+Benzyl Cinnamate,Flavoring Agent,White To Pale Yellow Solid,Infrared spectra,Procedure,pending,Benzylcinnamate
+Benzyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Benzylformate
+Benzyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylisobutyrate
+Benzyl Isovalerate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylisovalerate
+Benzyl Phenylacetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylphenylacetate
+Benzyl Propionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Benzylpropionate
+Benzyl Salicylate,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Benzylsalicylate
+"Bergamot Oil, Coldpressed",Flavoring Agent,Green To Yellow Green Or Yellow Brown Liquid,Infrared spectra,Esters,high_suscept,Bergamotoilcoldpressed
+Betaine,"Flavoring Agent, Source Of Betaine","White, Very Hygroscopic Powder",Infrared absorption,Procedure,pending,Betaine
+Bha,Antioxidant,White Or Slightly Yellow Waxy Solid,Procedure,Procedure,low_suscept,Bha
+Bht,Antixodant,"White, Crystalline Solid",Procedure,Solidification point,high_suscept,Bht
+Biotin,Nutrient,"White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Biotin
+"Birch Tar Oil, Rectified",Flavoring Agent,"Clear, Dark Brown Liquid",Infrared spectra,None,high_suscept,Birchtaroilrectified
+Black Pepper Oil,Flavoring Agent,Almost Colorless To Slightly Green Liquid,Infrared spectra,None,high_suscept,Blackpepperoil
+Bohenin,"Antibloom Agent, Tempering Aid","Light Tan, Waxy Solid",Fatty acid composition,None,high_suscept,Bohenin
+Bois De Rose Oil,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Linalool,high_suscept,Boisderoseoil
+Borneol,Flavoring Agent,White To Off White Crystal,Infrared spectra,Procedure,pending,Borneol
+Bornyl Acetate,Flavoring Agent,"Colorless Liquid, Semicrystalline Mass, Or White Crystalline Solid",Infrared spectra,Procedure,pending,Bornylacetate
+Brilliant Blue,Color,Dark Purple To Bronze Powder Or Granules,Infrared spectra,Total color,high_suscept_id,Brilliantblue
+Brominated Vegetable Oil,"Beverage Stabilizer, Flavoring Agent","Pale Yellow To Dark Brown, Viscous, Oily Liquid",Procedure,None,high_suscept,Brominatedvegetableoil
+Butadiene Styrene Rubber,Masticatory Substance In Chewing Gum Base,Synthetic Liquid Latex Or Solid Rubber,Infrared spectra,None,high_suscept,Butadienestyrenerubber
+Butane,"Aerating Agent, Propellant","Colorless, Flammable Gas",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Butane
+2 Butanone,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Butanone
+Butan 3 One 2 Yl Butanoate,Flavoring Agent,White To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Butanonebutanoate
+Butyl Acetate,Flavoring Agent,"Colorless, Mobile Liquid",Infrared absorption,Procedure,pending,Butylacetate
+Butyl Alcohol,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Butylalcohol
+Butylated Hydroxymethylphenol,Antioxidant,"Nearly White, Crystalline Solid",Procedure,Solidification point,high_suscept_id,Butylatedhydroxymethylphenol
+Butyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Butylbutyrate
+Butyl Butyryllactate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Butylbutyryllactate
+2 Sec Butyl Cyclohexanone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Butylcyclohexanone
+"1,3 Butylene Glycol",Solvent For Flavoring Agents,"Clear, Colorless, Hygroscopic, Viscous Liquid",None,Procedure,high_suscept_id,Butyleneglycol
+Butyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Butylisobutyrate
+Butyl Isovalerate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Butylisovalerate
+Butyl 2 Methyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Butylmethylbutyrate
+Butyl Phenylacetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Butylphenylacetate
+Butyl Stearate,Flavoring Agent,"Colorless, Waxy Solid",None,None,pending,Butylstearate
+Butyraldehyde,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Butyraldehyde
+Butyric Acid,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Butyricacid
+Gamma Butyrolactone,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Butyrolactone
+Caffeine,Flavoring Agent,"White Powder Or White, Glistening Needles, Usually Matted Together, Sometimes Compacted Or Compressed",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Caffeine
+Calcium Acetate,"Buffer, Firming Agent, Stabilizer","Fine, White, Bulky Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumacetate
+Calcium Acid Pyrophosphate,"Leavening Agent, Nutrient","Fine, White, Acidic Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumacidpyrophosphate
+Calcium Alginate,"Emulsifier, Stabilizer, Thickener","White To Yellow, Fibrous Or Granular Powder",Procedure,Procedure,high_suscept,Calciumalginate
+Calcium Ascorbate,Antioxidant,"White To Slightly Yellow, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumascorbate
+Calcium Benzoate,"Antimicrobial Agent, Preservative","White Or Colorless Crystals, Or White Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumbenzoate
+Calcium Bromate,"Maturing Agent, Oxidizing Agent","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumbromate
+Calcium Carbonate,"Dough Conditioner, Firming Agent, Nutrient, P H Control Agent, Yeast Nutrient","Fine, White Or Colorless, Microcrystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumcarbonate
+Calcium Chloride,Firming Agent,"White, Hard Fragments, Granules, Or Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumchloride
+Calcium Chloride Solution,"Firming Agent, Sequestrant","Clear To Slightly Turbid, Colorless Or Slightly Colored Liquid",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumchloridesolution
+Calcium Citrate,"Buffer, Firming Agent, Sequestrant","Fine, White Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumcitrate
+Calcium Disodium Edta,"Preservative, Sequestrant","White, Crystalline Granules Or White To Off White Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumdisodiumedta
+Calcium Gluconate,"Firming Agent, Stabilizer, Texturizer","White, Crystalline Granules Or Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumgluconate
+Calcium Glycerophosphate,Nutrient,"Fine, White Powder, Somewhat Hygroscopic",Calcium,Procedure,high_suscept_id,Calciumglycerophosphate
+Calcium Hydroxide,"Buffer, Firming Agent, Neutralizing Agent",White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumhydroxide
+Calcium Iodate,"Dough Conditioner, Maturing Agent",White Powder,Procedure,Procedure,high_suscept_id,Calciumiodate
+Calcium Lactate,"Buffer, Dough Conditioner, Yeast Nutrient",White To Cream Colored Crystalline Powder Or Granules,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumlactate
+Calcium Lactobionate,"Firming Agent In Dry Pudding Mixes, Nutrient",White To Cream Colored Free Flowing Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumlactobionate
+Calcium Lignosulfonate,"Binder, Dispersant","Brown, Amorphous Polymer",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Calciumlignosulfonate
+Calcium Lignosulfonate (40 65),"Carrier, Encapsulating Agent",Yellow Brown To Brown Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumlignosulfonate40 65
+Calcium Oxide,"Dough Conditioner, Nutrient, P H Control Agent, Yeast Food","Hard, White Or Gray White Masses Or Granules Or White To Gray White Powder",Calcium,Procedure,high_suscept_id,Calciumoxide
+Calcium Pantothenate,Nutrient,Slightly Hygroscopic White Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumpantothenate
+"Calcium Pantothenate, Calcium Chloride Double Salt",Nutrient,"White, Free Flowing, Fine Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumpantothenatecalciumchloridedoublesalt
+"Calcium Pantothenate, Racemic",Nutrient,"White, Slightly Hygroscopic Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Calciumpantothenateracemic
+Calcium Peroxide,"Dough Conditioner, Oxidizing Agent",White Or Yellow Powder Or Granular Material,Calcium,Procedure,high_suscept_id,Calciumperoxide
+"Calcium Phosphate, Dibasic","Dough Conditioner, Leavening Agent, Nutrient",White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumphosphatedibasic
+"Calcium Phosphate, Monobasic","Buffer, Dough Conditioner, Firming Agent, Leavening Agent, Nutrient, Sequestrant, Yeast Food",White Crystals Or Granules Or Granular Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumphosphatemonobasic
+"Calcium Phosphate, Tribasic","Anticaking Agent, Buffer, Clouding Agent, Nutrient",White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumphosphatetribasic
+Calcium Propionate,"Mold Inhibitor, Preservative",White Crystals Or Crystalline Solid,All ID tests listed in monograph,All assays listed in monograph,pending,Calciumpropionate
+Calcium Pyrophosphate,"Buffer, Neutralizing Agent, Nutrient","Fine, White Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumpyrophosphate
+Calcium Saccharin,Non Nutritive Sweetener,"White Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumsaccharin
+Calcium Silicate,"Anticaking Agent, Filter Aid","White To Off White, Free Flowing Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumsilicate
+Calcium Sorbate,"Antimicrobial Agent, Preservative","Fine, White Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumsorbate
+Calcium Stearate,"Anticaking Agent, Binder, Emulsifier","Fine, White To Yellow White, Bulky Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Calciumstearate
+Calcium Stearoyl Lactylate,"Dough Conditioner, Stabilizer, Whipping Agent",Cream Colored Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumstearoyllactylate
+Calcium Sulfate,"Dough Conditioner, Firming Agent, Nutrient, Sequestrant, Yeast Food","Fine, White To Slightly Yellow White Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Calciumsulfate
+Camphene,Flavoring Agent,Colorless Crystalline Mass,None,Procedure,pending,Camphene
+(+) Camphor,Flavoring Agent,White To Gray Translucent Crystalline Or Fused Mass,Infrared absorption,None,pending,Camphor
+Cananga Oil,Flavoring Agent,Light To Deep Yellow Liquid,Infrared spectra,None,high_suscept,Canangaoil
+Candelilla Wax,"Masticatory Substance In Chewing Gum Base, Surface Finishing Agent","Hard, Yellow Brown, Opaque To Translucent Wax",Infrared spectra,None,pending,Candelillawax
+Canola Oil,"Coating Agent, Component Of Margarine Or Shortening, Cooking Or Salad Oil, Texturizer",Light Yellow Oil,Fatty acid composition,None,pending,Canolaoil
+Canthaxanthin,Color,"Dark, Crystalline Powder",Procedure,Procedure,high_suscept_id,Canthaxanthin
+Caramel,Color,Dark Brown To Black Liquid Or Solid,None,None,high_suscept,Caramel
+Caraway Oil,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Ketones,high_suscept,Carawayoil
+"Carbon, Activated","Decolorizing Agent, Purification Agent In Food Processing, Taste And Odor Removing Agent","Black Substance, Varying In Particle Size From Coarse Granules To A Fine Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Carbonactivated
+Carbon Dioxide,"Carbonating Agent, Direct Contact Freezing Agent, Propellant And Aerating Agent",Colorless Gas,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Carbondioxide
+Cardamom Oil,Flavoring Agent,Colorless Or Very Pale Yellow Liquid,Infrared spectra,Aldehydes,high_suscept_id,Cardamomoil
+Carmine,Color,"Bright Red, Friable Pieces Or Dark Red Powder",Procedure,Procedure,high_suscept_id,Carmine
+Carnauba Wax,"Anticaking Agent, Carrier For Flavors, Release Agent, Surface Finishing (Glazing) Agent","Hard, Brittle Substance With A Resinous Fracture And A Color Ranging From Light Brown To Pale Yellow",None,None,high_suscept,Carnaubawax
+L Carnitine,Nutrient,"White Crystals Or White, Crystalline, Hygroscopic Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Carnitine
+Beta Carotene,"Color, Nutrient",Red Crystals Or Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Carotene
+Carrageenan,"Emulsifier, Gelling Agent, Stabilizer, Thickener","Yellow Or Tan To White, Coarse Or Fine Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Carrageenan
+Carrot Seed Oil,Flavoring Agent,Light Yellow To Amber Liquid,Infrared spectra,None,pending,Carrotseedoil
+Carvacrol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Carvacrol
+( ) Carveol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Carveol
+(Ã�) Carvone,Flavoring Agent,Colorless To Pale Strawberry Colored Liquid,Infrared spectra,Procedure,pending,Carvone
+(Ã�) Carvyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Carvylacetate
+Beta Caryophyllene,Flavoring Agent,"Colorless To Slightly Yellow, Oily Liquid",Infrared spectra,Procedure,pending,Caryophyllene
+Cascarilla Oil,Flavoring Agent,Light Yellow To Brown Amber Liquid,Infrared spectra,None,high_suscept,Cascarillaoil
+Casein And Caseinate Salts,"Binder, Clarifying Agent, Emulsifier, Extender, Stabilizer",Off White To Cream Colored Granular Or Fine Powder,None,Protein,high_suscept,Caseinandcaseinatesalts
+Cassia Oil,Flavoring Agent,Yellow Or Brown Liquid,Infrared spectra,Aldehydes,high_suscept_id,Cassiaoil
+Castor Oil,"Antisticking Agent, Component Of Protective Coatings, Release Agent","Pale Yellow Or Almost Colorless, Transparent, Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Castoroil
+Cedar Leaf Oil,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Ketones,high_suscept_id,Cedarleafoil
+Celery Seed Oil,Flavoring Agent,Yellow To Green Brown Liquid,Infrared spectra,None,high_suscept,Celeryseedoil
+Cellulose Gel,"Anticaking Agent, Binding Agent, Dispersing Agent","Fine, White Or Almost White Powder; May Be Compressed Into Self Binding Tablets",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Cellulosegel
+Cellulose Gum,"Stabilizer, Thickener",White To Cream Colored Powder Or Granules,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Cellulosegum
+"Cellulose, Powdered","Anticaking Agent, Binding Agent, Bulking Agent, Dispersing Agent, Filter Aid, Texturizing Agent, Thickening Agent","White Substance, Fibrous Particles That May Be Compressed Into Self Binding Tablets",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Cellulosepowdered
+"Chamomile Oil, English Type",Flavoring Agent,Light Blue Or Light Green Blue Liquid,Infrared spectra,None,high_suscept_id,Chamomileoilenglishtype
+"Chamomile Oil, German Type",Flavoring Agent,Deep Blue Or Blue Green Liquid,Infrared spectra,None,high_suscept,Chamomileoilgermantype
+Chlorine,"Antimicrobial Agent, Bleaching Agent, Oxidizing Agent","Green Yellow Gas, Packaged As A Liquid Under Pressure",Chloride,Procedure,low_suscept,Chlorine
+Cholic Acid,Emulsifier,Colorless Plates Or White Crystalline Powder,Procedure,Procedure,high_suscept_id,Cholicacid
+Choline Bitartrate,Nutrient,"White, Hygroscopic, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Cholinebitartrate
+Choline Chloride,Nutrient,"Colorless Or White Crystals, Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Cholinechloride
+Cinnamaldehyde,Flavoring Agent,"Yellow, Strongly Refractive Liquid",Infrared spectra,Procedure,pending,Cinnamaldehyde
+Cinnamic Acid,Flavoring Agent,White Crystalline Scales,Infrared spectra,Procedure,pending,Cinnamicacid
+"Cinnamon Bark Oil, Ceylon Type",Flavoring Agent,Yellow Liquid,Infrared spectra,Aldehydes,pending,Cinnamonbarkoilceylontype
+Cinnamon Leaf Oil,Flavoring Agent,Light To Dark Brown Liquid,Infrared spectra,Phenols,pending,Cinnamonleafoil
+Cinnamyl Acetate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylacetate
+Cinnamyl Alcohol,Flavoring Agent,White To Slightly Yellow Crystalline Solid,Infrared spectra,Procedure,pending,Cinnamylalcohol
+Cinnamyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylbutyrate
+Cinnamyl Cinnamate,Flavoring Agent,Solid,Infrared spectra,Procedure,pending,Cinnamylcinnamate
+Cinnamyl Formate,Flavoring Agent,Colorless To Slighty Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylformate
+Cinnamyl Isobutyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylisobutyrate
+Cinnamyl Isovalerate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylisovalerate
+Cinnamyl Propionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cinnamylpropionate
+Citral,Flavoring Agent,Pale Yellow Liquid,Infrared spectra,Procedure,pending,Citral
+Citric Acid,"Acidifier, Dispersing Agent, Flavoring Agent, Sequestrant","Colorless, Translucent Crystals Or White, Granular To Fine, Crystalline Powder",Citrate,Procedure,low_suscept,Citricacid
+Citronellal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Citronellal
+Citronellol,Flavoring Agent,"Colorless, Oily Liquid",Infrared spectra,Procedure,pending,Citronellol
+Citronellyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Citronellylacetate
+Citronellyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Citronellylbutyrate
+Citronellyl Formate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Citronellylformate
+Citronellyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Citronellylisobutyrate
+Citronellyl Propionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Citronellylpropionate
+Clary Oil,Flavoring Agent,Pale Yellow To Yellow Liquid,Infrared spectra,Esters,high_suscept,Claryoil
+Clove Leaf Oil,Flavoring Agent,Pale Yellow Liquid,Infrared spectra,Phenols,high_suscept,Cloveleafoil
+Clove Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,Infrared spectra,Phenols,high_suscept,Cloveoil
+Clove Stem Oil,Flavoring Agent,Yellow To Light Brown Liquid,Infrared spectra,Phenols,high_suscept,Clovestemoil
+Cocoa Butter Substitute,"Coating Agent, Texturizer","White, Waxy Solid",Fatty acid composition,None,high_suscept,Cocoabuttersubstitute
+Coconut Oil (Unhydrogenated),"Coating Agent, Emulsifying Agent, Texturizer","Viscous, White To Light Yellow Tan Liquid",Fatty acid composition,None,high_suscept,Coconutoilunhydrogenated
+"Cognac Oil, Green",Flavoring Agent,Green To Blue Green Liquid,Infrared spectra,None,high_suscept,Cognacoilgreen
+Copaiba Oil,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,None,high_suscept,Copaibaoil
+Copovidone,"Binding, Coating For Fresh And Fresh Cut Fruits And Vegetables, Crystallization Inhibitor, Film Forming Agent",White To Yellowish White Powder Or Flakes,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Copovidone
+Copper Gluconate,Nutrient,"Fine, Light Blue Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Coppergluconate
+Copper Sulfate,Nutrient,"Blue Crystals, Crystalline Granules, Or Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Coppersulfate
+Coriander Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,Infrared spectra,None,high_suscept,Corianderoil
+Corn Oil (Unhydrogenated),"Coating Agent, Emulsifying Agent, Texturizer",Amber Colored Oil,Fatty acid composition,None,high_suscept,Cornoilunhydrogenated
+Costus Root Oil,Flavoring Agent,Light Yellow To Brown Viscous Liquid,Infrared spectra,None,high_suscept,Costusrootoil
+Cottonseed Oil (Unhydrogenated),"Carrier, Coating Agent, Component Of Margarine Or Shortening, Cooking Or Salad Oil, Stabilizer, Tenderizer, Texturizer, Thickener",Dark Red Brown Oil,Fatty acid composition,None,high_suscept,Cottonseedoilunhydrogenated
+P Cresyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Cresylacetate
+Crospovidone,"Clarifying Agent, Stabilizer","Off White, Hygroscopic, Free Flowing Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Crospovidone
+Cubeb Oil,Flavoring Agent,Colorless Or Light Green To Blue Green Liquid,Infrared spectra,None,high_suscept,Cubeboil
+Cuminic Aldehyde,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cuminicaldehyde
+Cumin Oil,Flavoring Agent,Light Yellow To Brown Liquid,Infrared spectra,Procedure,high_suscept,Cuminoil
+Curdlan,"Firming Agent, Gelling Agent, Stabilizer, Thickener",White To Nearly White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Curdlan
+Cyclamen Aldehyde,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cyclamenaldehyde
+Alpha Cyclodextrin,"Carrier, Encapsulating Agent, Stabilizer",White Or Almost White Crystalline Solid,Procedure,Procedure,low_suscept,Cyclodextrin4
+Beta Cyclodextrin,"Encapsulating Agent, Stabilizer","White, Fine, Crystalline Solid Or Fine, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Cyclodextrin5
+Gamma Cyclodextrin,"Carrier, Emulsifier, Stabilizer",White Or Almost White Crystalline Solid,Infrared spectra,Procedure,low_suscept,Cyclodextrine6
+Cyclohexane,Extraction Solvent,"Clear, Colorless, Flammable Liquid",Specific gravity,Procedure,pending,Cyclohexane
+Cyclohexyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Cyclohexylacetate
+P Cymene,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Cymene
+L Cysteine Monohydrochloride,Nutrient,"White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Cysteinemonohydrochloride
+L Cystine,Nutrient,Colorless To White Crystals,Infrared spectra,Nitrogen determination,pending,Cystine3
+5' Cytidylic Acid,Source Of 5' Cytidylic Acid,"Colorless Or White Crystals, Or White Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Cytidylicacid
+Dammar Gum,"Glazing Agent, Stabilizer","Irregular, White To Yellow To Brown Tears, Fragments, Or Powder, Sometimes Admixed With Fragments Of Bark",Thin-layer chromatography,None,high_suscept,Dammargum
+"(E),(E) 2,4 Decadienal",Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Decadienal
+Delta Decalactone,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Decalactone
+Gamma Decalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Decalactone6
+Decanal,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Decanal
+Decanoic Acid,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent, Flavoring Agent",White Crystals,None,None,high_suscept_id,Decanoicacid
+(E) 2 Decenal,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Decenal1
+(Z) 4 Decenal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Decenal2
+Decyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Decylalcohol
+Dehydroacetic Acid,"Antimicrobial Agent, Preservative","White Or Nearly White, Crystalline Powder",Infrared absorption,Dehydroacetic acid,high_suscept_id,Dehydroaceticacid
+Desoxycholic Acid,Emulsifier,"White, Crystalline Powder",Procedure,Procedure,high_suscept_id,Desoxycholicacid
+Dexpanthenol,Nutrient,"Clear, Viscous, Somewhat Hygroscopic Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Dexpanthenol
+Dextrin,"Binder, Colloidal Stabilizer, Surface Finishing Agent, Thickener","Free Flowing White, Yellow, Or Brown Powder",Procedure,None,pending,Dextrin
+Dextrose,"Humectant, Nutritive Sweetener, Texturizing Agent","White, Crystalline Granules Or Granular Powder",Procedure,Reducing sugars,high_suscept_id,Dextrose
+Dha From Algal (Crypthecodinium) Oil,Source Of Dha,Light Yellow To Orange Colored Oil,Fatty acid composition,DHA,high_suscept_id,Dhafromalgalcrypthecodiniumoil
+Dha From Algal (Schizochytrium) Oil,Source Of Dha,Light Yellow To Orange Colored Oil,Fatty acid composition,DHA,high_suscept,Dhafromalgalschizochytriumoil
+Diacetyl,Flavoring Agent,Yellow To Yellow Green Liquid,Infrared spectra,Procedure,pending,Diacetyl
+Diacetyl Tartaric Acid Esters Of Mono And Diglycerides,Emulsifier,"Ranges From Sticky, Viscous Liquid To Fatlike Consistency To Waxy Solid",Procedure,Tartaric acid,pending,Diacetyltartaricacidestersofmono Anddiglycerides
+Diacylglycerol Oil,"Coating Agent, Component Of Shortening, Texturizer","Opaque White To Pale Yellow, Usually Viscous Liquid At Room Temperature, And Free From Particulate Matter",Fatty acid composition,Procedure,high_suscept,Diacylglyceroloil
+Diatomaceous Earth,Filter Aid In Food Processing,Powder Of Varying Colors,Microscopy,None,high_suscept,Diatomaceousearth
+Dibenzyl Ether,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Dibenzylether
+"1,2 Di[(1' Ethoxy)Ethoxy]Propane",Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Diethoxyethyoxypropane
+Diethyl Malonate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Diethylmalonate
+Diethyl Sebacate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared absorption,Procedure,pending,Diethylsebacate
+Diethyl Succinate,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Diethylsuccinate
+Dihydrocarveol,Flavoring Agent,"Colorless, Oily Liquid",None,Procedure,pending,Dihydrocarveol
+(+) Dihydrocarvone,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Dihydrocarvone
+Dilauryl Thiodipropionate,Antioxidant,"White, Crystalline Flakes",Solidification point,Procedure,pending,Dilaurylthiodipropionate
+"Dill Seed Oil, European Type",Flavoring Agent,Pale Yellow To Light Yellow Liquid,Infrared spectra,Ketones,high_suscept,Dillseedoileuropeantype
+"Dill Seed Oil, Indian Type",Flavoring Agent,Light Yellow To Light Brown Liquid,Infrared spectra,Ketones,high_suscept,Dillseedoilindiantype
+"Dillweed Oil, American Type",Flavoring Agent,Light Yellow To Yellow Liquid,Infrared spectra,Ketones,high_suscept,Dillweedoilamericantype
+Dimethyl Anthranilate,Flavoring Agent,Pale Yellow Liquid With Pale Blue Fluorescence,None,Procedure,pending,Dimethylanthranilate
+Dimethyl Benzyl Carbinol,Flavoring Agent,"White Crystalline Solid, Or In Supercooled Form As A Colorless To Pale Yellow Liquid",Infrared spectra,Procedure,pending,Dimethylbenzylcarbinol
+Dimethyl Benzyl Carbinyl Acetate,Flavoring Agent,Colorless Liquid That Solidifies At Room Temperature,Infrared spectra,Procedure,pending,Dimethylbenzylcarbinylacetate
+Dimethyl Benzyl Carbinyl Butyrate,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Dimethylbenzylcarbinylbutyrate
+"3,4 Dimethyl 1,2 Cyclopentandione",Flavoring Agent,Pale Yellow To Orange Crystal,Infrared spectra,Procedure,pending,Dimethylcyclopentandione
+Dimethyl Dicarbonate,"Antimicrobial, Preservative","Clear, Colorless Liquid",Infrared spectra,Procedure,high_suscept_id,Dimethyldicarbonate
+"2,6 Dimethyl 5 Heptenal",Flavoring Agent,Pale Yellow Liquid,Infrared spectra,Procedure,pending,Dimethylheptenal
+"3,7 Dimethyl 1 Octanol",Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Dimethyloctanol
+Dimethylpolysiloxane,Defoaming Agent,"Clear, Colorless, Viscous Liquid",Infrared absorption,None,high_suscept,Dimethylpolysiloxane
+"2,6 Dimethylpyrazine",Flavoring Agent,"White To Yellow, Lumpy Crystals",Infrared spectra,Procedure,pending,Dimethylpyrazine
+"2,5 Dimethylpyrrole",Flavoring Agent,"Colorless To Yellow, Oily Liquid",Infrared spectra,Procedure,pending,Dimethylpyrrole
+Dimethyl Succinate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Dimethylsuccinate
+Dimethyl Sulfide,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Dimethylsulfide
+"2,6 Dimethoxy Phenol",Flavoring Agent,White To Brown Crystal,Infrared spectra,Procedure,pending,Dimethyoxyphenol
+Dioctyl Sodium Sulfosuccinate,"Emulsifier, Wetting Agent","White, Waxlike, Plastic Solid",Infrared absorption,Procedure,high_suscept,Dioctylsodiumsulfosuccinate
+Diphenyl Ether,Flavoring Agent,Colorless To White To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Diphenylether
+Disodium Edta,"Preservative, Sequestrant, Stabilizer","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Disodiumedta
+Disodium Guanylate,Flavor Enhancer,"Colorless Or White Crystals, Or White Crystalline Powder",Ultraviolet absorption spectrum,Procedure,high_suscept_id,Disodiumguanylate
+Disodium Inosinate,Flavor Enhancer,Colorless Or White Crystals Or White Crystalline Powder,Ultraviolet absorption spectrum,Procedure,low_suscept,Disodiuminosinate
+Disodium 5' Uridylate,Source Of Disodium 5' Uridylate,Colorless Or White Crystals,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Disodiumuridylate
+Delta Dodecalactone,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Dodecalactone
+Gamma Dodecalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Dodecalactone6
+(E) 2 Dodecen 1 Al,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Dodecenal
+Enzyme Modified Fats,Flavoring Agent,"Light To Medium Tan Liquid, Paste Or Powder",Procedure,None,high_suscept,Enzymemodifiedfats
+Enzyme Preparations,Enzyme,See Monograph,Classification,Procedure,pending,Enzymepreparations
+Erythorbic Acid,"Antioxidant, Preservative",White Or Slighty Yellow Crystals Or Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Erythorbicacid
+Erythritol,"Flavor Enhancer, Humectant, Nutritive Sweetener, Stabilizer, Texturizing Agent",White Crystals,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Erythritol
+Erythrosine,Color,Brown Powder Or Granules,Procedure,Total color,high_suscept_id,Erythrosine
+Estragole,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Estragole
+Ethone,Flavoring Agent,"White To Pale Yellow, Crystalline Solid",Infrared spectra,Procedure,pending,Ethone
+Ethoxylated Mono And Diglycerides,"Dough Conditioner, Emulsifier","Pale, Slightly Yellow Colored, Oily Liquid Or Semigel",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Ethoxylatedmonoanddiglycerides
+Ethoxyquin,Antioxidant,Clear Yellow To Red Liquid That May Darken With Age,Procedure,Procedure,high_suscept,Ethoxyquin
+Ethyl Acetate,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Ethylacetate
+Ethyl Acetoacetate,Flavoring Agent,"Colorless To Very Light Yellow, Mobile Liquid",Infrared spectra,Procedure,pending,Ethylacetoacetate
+Ethyl Acrylate,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Ethylacrylate
+Ethyl Alcohol,"Carrier Solvent, Extraction Solvent","Clear, Colorless Mobile Liquid",None,Specific gravity,high_suscept_id,Ethylalcohol
+Ethyl P Anisate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Ethylanisate
+Ethyl Anthranilate,Flavoring Agent,Colorless To Amber Colored Liquid,Infrared spectra,Procedure,pending,Ethylanthranilate
+Ethyl Benzoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylbenzoate
+Ethyl Benzoyl Acetate,Flavoring Agent,Colorless To Light Yellow Liquid,None,Procedure,pending,Ethylbenzoylacetate
+Ethyl (E) 2 Butenoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylbutenoate
+2 Ethylbutyraldehyde,Flavoring Agent,"Colorless, Mobile Liquid",None,Procedure,pending,Ethylbutyraldehyde
+Ethyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylbutyrate
+2 Ethylbutyric Acid,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylbutyricacid
+Ethyl Cellulose,"Binder, Filler, Protective Coating",Free Flowing White To Light Tan Powder,Procedure,Procedure,high_suscept,Ethylcellulose
+Ethyl Cinnamate,Flavoring Agent,"Colorless, Oily Liquid",Infrared spectra,Procedure,pending,Ethylcinnamate
+Ethyl Decanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethyldecanoate
+"2 Ethyl 3,5(6) Dimethylpyrazine",Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Ethyldimethylpyrazine
+Ethylene Brassylate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylenebrassylate
+Ethylene Dichloride,Extraction Solvent,"Clear, Colorless, Flammable Oily Liquid",None,None,high_suscept_id,Ethylenedichloride
+2 Ethyl Fenchol,Flavoring Agent,Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylfenchol
+Ethyl Formate,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Ethylformate
+4 Ethyl Guaiacol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylguaiacol
+Ethyl Heptanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylheptanoate
+Ethyl Hexanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylhexanoate
+2 Ethyl Hexanol,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Ethylhexanol
+5 Ethyl 3 Hydroxy 4 Methyl 2(5 H) Furanone,Flavoring Agent,Pale Yellow To Yellow Liquid,Infrared spectra,Procedure,pending,Ethylhydroxymethylfuranone
+Ethyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylisobutyrate
+Ethyl Isovalerate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylisovalerate
+Ethyl Lactate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethyllactate
+Ethyl Laurate,Flavoring Agent,"Colorless, Oily Liquid",Infrared absorption,Procedure,pending,Ethyllaurate
+Ethyl Levulinate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethyllevulinate
+Ethyl Maltol,Flavoring Agent,"White, Crystalline Powder",Infrared absorption,Procedure,pending,Ethylmaltol
+Ethyl 2 Methylbutyrate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Ethylmethylbutyrate
+Ethyl 2 Methylpentanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylmethylpentanoate
+Ethyl Methylphenylglycidate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylmethylphenylglycidate
+2 Ethyl 3 Methylpyrazine,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Ethylmethylpyrazine
+Ethyl 3 Methylthiopropionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylmethylthiopropionate
+Ethyl Myristate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ethylmyristate
+Ethyl Nonanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylnonanoate
+Ethyl Octanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethyloctanoate
+Ethyl Oleate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,None,pending,Ethyloleate
+Ethyl Oxyhydrate (So Called),Flavoring Agent,Colorless Liquid,None,None,pending,Ethyloxyhydrate
+Ethyl Phenylacetate,Flavoring Agent,Colorless Or Nearly Colorless Liquid,Infrared spectra,Procedure,pending,Ethylphenylacetate
+Ethyl Phenylglycidate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Ethylphenylglycidate
+Ethyl Propionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylpropionate
+3 Ethyl Pyridine,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Ethylpyridine
+Ethyl Salicylate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Ethylsalicylate
+Ethyl 10 Undecenoate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Ethylundecenoate
+Ethyl Valerate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Ethylvalerate
+Ethyl Vanillin,Flavoring Agent,Fine White Or Slightly Yellow Crystalline Powder,Infrared absorption,Procedure,pending,Ethylvanillin
+Eucalyptol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Eucalyptol
+Eucalyptus Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,Infrared spectra,Cineole,high_suscept,Eucalyptusoil
+Eugenol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared absorption,Procedure,pending,Eugenol
+Eugenyl Acetate,Flavoring Agent,Fused Solid That Melts At Warm Room Temperature To A Pale Yellow Liquid,Infrared spectra,Procedure,pending,Eugenylacetate
+Farnesol,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Farnesol
+Fast Green,Color,Red To Brown Violet Powder Or Granules,Procedure,Total color,high_suscept_id,Fastgreen
+Fd&C Blue No. 1,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept_id,Fdcblueno1
+Fd&C Blue No. 2,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept_id,Fdcblueno2
+Fd&C Green No. 3,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept,Fdcgreenno3
+Fd&C Red No. 3,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept_id,Fdcredno3
+Fd&C Red No. 40,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept_id,Fdcredno40
+Fd&C Yellow No. 5,Color,See Monograph,Visible absorption spectrum,Total color,pending,Fdcyellowno5
+Fd&C Yellow No. 6,Color,See Monograph,Visible absorption spectrum,Total color,high_suscept_id,Fdcyellowno6
+(+) Fenchone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Fenchone
+Fenchyl Alcohol,Flavoring Agent,White To Pale Yellow Crystalline Solid,Infrared spectra,Procedure,pending,Fenchylalcohol
+Fennel Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,Infrared spectra,None,high_suscept,Fenneloil
+"Ferric Ammonium Citrate, Brown",Nutrient,"Thin, Transparent Brown, Red Brown, Or Garnet Red Scales Or Granules, Or As A Brown Yellow Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ferricammoniumcitratebrown
+"Ferric Ammonium Citrate, Green","Anticaking Agent For Sodium Chloride, Nutrient","Thin, Transparent Green Scales, As Granules, As A Powder, Or As Transparent Green Crystals",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Ferricammoniumcitrategreen
+Ferric Citrate,Nutrient,"Brown Granules Or Thin, Transparent, Garnet Red Scales",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ferriccitrate
+Ferric Phosphate,Nutrient,"Crystalline Or Amorphous Material In Shades Of Yellow, White, Purple Or Pink",Procedure,Procedure,high_suscept_id,Ferricphosphate
+Ferric Pyrophosphate,Nutrient,Tan Or Yellow White Powder,Procedure,Procedure,high_suscept_id,Ferricpyrophosphate
+Ferrous Citrate,Nutrient,Slightly Gray Green Powder Or As White Crystals,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ferrouscitrate
+Ferrous Fumarate,Nutrient,Red Orange To Red Brown Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Ferrousfumarate
+Ferrous Gluconate,"Color Adjunct, Nutrient","Fine, Yellow Gray Or Pale Green Yellow Powder Or Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Ferrousgluconate
+Ferrous Glycinate,Source Of Dietary Iron,"Fine, Free Flowing Powder",Iron (ferrous salts),Procedure,high_suscept,Ferrousglycinate
+Ferrous Lactate,Nutrient,Green White Powder Or As Crystals,All ID tests listed in monograph,All assays listed in monograph,pending,Ferrouslactate
+Ferrous Sulfate,Nutrient,"Pale, Blue Green Crystals Or Granules That Are Efflorescent In Dry Air",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ferroussulfate
+"Ferrous Sulfate, Dried",Nutrient,Gray White To Buff Colored Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Ferroussulfatedried
+"Fir Needle Oil, Canadian Type",Flavoring Agent,Colorless To Faintly Yellow Liquid,Infrared spectra,Esters,high_suscept,Firneedleoilcanadiantype
+"Fir Needle Oil, Siberian Type",Flavoring Agent,Almost Colorless Or Faintly Yellow Liquid,Infrared spectra,Esters,high_suscept,Firneedleoilsiberiantype
+Folic Acid,Nutrient,Yellow Or Yellow Orange Crystals Or Crystalline Powder,Ultraviolet absorption,Procedure,pending,Folicacid
+"Food Starch, Modified","Binder, Colloidal Stabilizer, Thickener","White Or Nearly White Powder, Intact Granules, Or Flakes, Amorphous Powders, Or Coarse Particles",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Foodstarchmodified
+"Food Starch, Unmodified","Binder, Colloidal Stabilizer, Thickener","White Or Nearly White Powder, Intact Granules, Or Flakes, Amorphous Powders, Or Coarse Particles",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Foodstarchunmodified
+Formic Acid,"Flavoring Adjunct, Preservative","Clear, Colorless, Highly Corrosive Liquid",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Formicacid
+"Fructooligosaccharides, Short Chain","Bulking Agent, Prebiotic, Source Of Dietary Fiber, Sweetener",See Monograph,Procedure,Procedure,high_suscept,Fructooligosaccharidesshortchain
+Fructose,Nutritive Sweetener,"White, Hygroscopic, Purified Crystals Or Purified Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Fructose
+Fumaric Acid,"Acidifier, Flavoring Agent",White Granules Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Fumaricacid
+Furcelleran,"Gelling Agent, Stabilizer, Thickener","Brown Or Tan To White, Coarse Or Fine Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Furcelleran
+Furfural,Flavoring Agent,Colorless To Yellow Oily Liquid,Infrared spectra,Procedure,pending,Furfural
+Furfuryl Alcohol,Flavoring Agent,Pale Yellow To Brown Liquid,Infrared spectra,Procedure,pending,Furfurylalcohol
+Furfuryl Mercaptan,Flavoring Agent,Yellow To Brown Liquid,Infrared spectra,Procedure,pending,Furfurylmercaptan
+2 Furyl Methyl Ketone,Flavoring Agent,Yellow To Brown Liquid,Infrared spectra,Procedure,pending,Furylmethylketone
+"Fusel Oil, Refined",Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,"Fuseloil,Refined"
+Garlic Oil,Flavoring Agent,Clear Yellow To Red Orange Liquid,Infrared spectra,None,high_suscept_id,Garlicoil
+Gelatin,"Firming Agent, Stabilizer, Surface Active Agent, Surface Finishing Agent, Thickener","Vitreous, Brittle Solid That Is Faintly Yellow",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Gelatin
+Gellan Gum,"Stabilizer, Thickener",Off White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Gellangum
+Geraniol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Geraniol
+"Geranium Oil, Algerian Type",Flavoring Agent,Light To Deep Yellow Liquid,Infrared spectra,Procedure,high_suscept,Geraniumoilalgeriantype
+Geranyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Geranylacetate
+Geranyl Benzoate,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Geranylbenzoate
+Geranyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Geranylbutyrate
+Geranyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Geranylformate
+Geranyl Isovalerate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Geranylisovalerate
+Geranyl Phenylacetate,Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Geranylphenylacetate
+Geranyl Propionate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Geranylpropionate
+Gibberellic Acid,Enzyme Activator,"White To Pale Yellow, Crystalline Powder",Procedure,Procedure,high_suscept_id,Gibberellicacid
+Ginger Oil,Flavoring Agent,Light Yellow To Yellow Liquid,Infrared spectra,None,high_suscept,Gingeroil
+Glucono Delta Lactone,"Acidifier, Leavening Agent, Sequestrant","Fine, White, Crystalline Powder",Thin-layer chromatography,Procedure,high_suscept_id,Gluconodeltalactone
+Glucose Syrup,Nutritive Sweetener,"Clear, White To Light Yellow, Viscous Liquid",Procedure,Reducing sugars assay,high_suscept,Glucosesyrup
+"Glucose Syrup, Dried",Nutritive Sweetener,White To Light Yellow Powder Or Granules,Procedure,Reducing sugars assay,high_suscept,Glucosesyrupdried
+L Glutamic Acid,"Nutrient, Salt Substitute","White, Free Flowing, Crystalline Powder",Infrared absorption,Procedure,pending,Glutamicacid3
+L Glutamic Acid Hydrochloride,"Flavoring Agent, Nutrient, Salt Substitute","White, Crystalline Powder",Infrared spectra,Procedure,high_suscept_id,Glutamicacidhydrochloride3
+L Glutamine,Nutrient,White Crystals Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Glutamine3
+Glutaraldehyde,"Antimicrobial For Sugar Milling, Cross Linking Agent For Microencapsulating Flavoring Substances, Fixing Agent In The Immobilization Of Enzyme Preparations","Clear, Nearly Colorless, Aqueous Solution",Melting range or temperature determination,Procedure,pending,Glutaraldehyde
+Glycerin,"Bodying Agent, Humectant, Plasticizer, Solvent","Clear, Colorless, Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Glycerin
+Glycerol Ester Of Gum Rosin,"Beverage Stabilizer, Masticatory Substance In Chewing Gum Base","Hard, Pale, Amber Colored Resin",Infrared spectra,None,pending,Glycerolesterofgumrosin
+Glycerol Ester Of Partially Dimerized Rosin,Masticatory Substance In Chewing Gum Base,"Hard, Pale, Amber Colored Resin",Infrared spectra,None,high_suscept,Glycerolesterofpartiallydimerizedrosin
+Glycerol Ester Of Partially Hydrogenated Gum Rosin,Masticatory Substance In Chewing Gum Base,"Medium Hard, Pale Amber Colored Resin",Infrared spectra,None,high_suscept,Glycerolesterofpartiallyhydrogenatedgumrosin
+Glycerol Ester Of Partially Hydrogenated Wood Rosin,Masticatory Substance In Chewing Gum Base,"Medium Hard, Pale Amber Colored Resin",Infrared spectra,None,high_suscept,Glycerolesterofpartiallyhydrogenatedwoodrosin
+Glycerol Ester Of Polymerized Rosin,Masticatory Substance In Chewing Gum Base,"Hard, Pale, Amber Colored Resin",Infrared spectra,None,high_suscept,Glycerolesterofpolymerizedrosin
+Glycerol Ester Of Tall Oil Rosin,Masticatory Substance In Chewing Gum Base,Pale Amber Colored Resin,Infrared spectra,None,pending,Glycerolesteroftalloilrosin
+Glycerol Ester Of Wood Rosin,Masticatory Substance In Chewing Gum Base,"Hard, Pale, Amber Colored Resin",Infrared spectra,None,high_suscept,Glycerolesterofwoodrosin
+Glyceryl Behenate,"Emulsifier, Texturizer",Fine Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Glycerylbehenate
+Glyceryl Lacto Esters Of Fatty Acids,"Emulsifier, Stabilizer",Waxy Solid That Varies In Consistency From Soft To Hard,Procedure,None,high_suscept_id,Glyceryllactoestersoffattyacids
+Glyceryl Monooleate,"Emulsifier, Flavoring Agent",Clear Liquid,Fatty acid composition,Procedure,low_suscept,Glycerylmonooleate
+Glyceryl Monostearate,Emulsifier,"White, Wax Like Solid, Flakes, Or Beads",Procedure,Procedure,high_suscept_id,Glycerylmonostearate
+Glyceryl Palmitostearate,Emulsifier,Fine Powder Or Waxy Solid,Procedure,None,pending,Glycerylpalmitostearate
+Glyceryl Tripropanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Glyceryltripropanoate
+Glyceryl Tristearate,"Crystallization Accelerator, Lubricant, Surface Finishing Agent","White, Microfine, Crystalline Powder",Fatty acid composition,None,high_suscept_id,Glyceryltristearate
+Glycine,Nutrient,"White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Glycine
+"Grapefruit Oil, Coldpressed",Flavoring Agent,"Yellow, Sometimes Red Liquid That Often Shows A Flocculent Separation Of Waxy Material",Infrared spectra,None,pending,"Grapefruitoil,Coldpressed"
+Grape Skin Extract,Color,Red To Purple Powder Or Liquid Concentrate,Procedure,Procedure,high_suscept,Grapeskinextract
+Guar Gum,"Emulsifier, Stabilizer, Thickener",White To Yellow White Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Guargum
+Gum Arabic,"Emulsifier, Stabilizer","Dried, Gummy Exudation",Procedure,None,high_suscept,Gumarabic
+Gum Ghatti,Emulsifier,"Colorless Or Light To Dark Tan Tears, Or A Gray To Red Gray Powder",Procedure,None,high_suscept,Gumghatti
+Gum Guaiac,Antioxidant,"Irregular Masses Enclosing Fragments Of Vegetable Tissues; Large, Nearly Homogeneous Masses; Or More Or Less Rounded Or Ovoid Tears",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Gumguaiac
+Helium,Processing Aid,Colorless Gas,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Helium
+"(E),(E) 2,4 Heptadienal",Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Heptadienal
+Gamma Heptalactone,Flavoring Agent,"Colorless, Slightly Oily Liquid",Infrared spectra,Procedure,pending,Heptalactone
+Heptanal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Heptanal
+"2,3 Heptandione",Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Heptandione
+2 Heptanone,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Heptanone1
+3 Heptanone,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Heptanone2
+(Z) 4 Hepten 1 Al,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Heptenal
+Heptyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Heptylalcohol
+Heptylparaben,"Antimicrobial Agent, Preservative","Small, Colorless Crystals Or White, Crystalline Powder",Melting range or temperature,Procedure,high_suscept_id,Heptylparaben
+Gamma Hexalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexalactone6
+Hexanal,Flavoring Agent,Almost Colorless Liquid,None,Procedure,pending,Hexanal
+Hexanes,Extraction Solvent,"Clear, Colorless, Flammable Liquid",None,None,high_suscept_id,Hexanes
+Hexanoic Acid,Flavoring Agent,"Colorless To Very Pale Yellow, Oily Liquid",Infrared spectra,Procedure,pending,Hexanoicacid
+(E) 2 Hexen 1 Al,Flavoring Agent,Pale Yellow Liquid,None,Procedure,pending,Hexenal
+(E) 2 Hexen 1 Ol,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Hexenol1
+(Z) 3 Hexenol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Hexenol2
+(E) 2 Hexenyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexenylacetate1
+(Z) 3 Hexenyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexenylacetate2
+(Z) 3 Hexenyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexenylbutyrate
+(Z) 3 Hexenyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexenylformate
+(Z) 3 Hexenyl Isovalerate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Hexenylisovalerate
+(Z) 3 Hexenyl 2 Methylbutyrate,Flavoring Agent,Almost Colorless Liquid,None,Procedure,pending,Hexenylmethylbutyrate
+Hexyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Hexylacetate
+Hexyl Alcohol,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Hexylalcohol
+Hexyl 2 Butenoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Hexylbutenoate
+Hexyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexylbutyrate
+Alpha Hexylcinnamaldehyde,Flavoring Agent,Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexylcinnamaldehyde
+Hexyl Hexanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Hexylhexanoate
+Hexyl Isovalerate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Hexylisovalerate
+Hexyl 2 Methylbutyrate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Hexylmethylbutyrate
+4 Hexylresorcinol,"Color Stabilizer, Enzymatic Browning Inhibitor",White Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Hexylresorcinol
+High Fructose Corn Syrup,Nutritive Sweetener,"Water White To Light Yellow, Somewhat Viscous Liquid",Procedure,Procedure,high_suscept,Highfructosecornsyrup
+L Histidine,Nutrient,White Crystals Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Histidine3
+L Histidine Monohydrochloride,Nutrient,White Crystals Or Crystalline Powder,Infrared spectra,Procedure,high_suscept_id,Histidinemonohydrochloride3
+Hops Oil,Flavoring Agent,Light Yellow To Green Yellow Liquid,Infrared spectra,None,high_suscept,Hopsoil
+Hydrochloric Acid,Acidifier,"Clear, Colorless Or Slightly Yellow, Corrosive Liquid",Chloride,Procedure,high_suscept_id,Hydrochloricacid
+Hydrogenated Starch Hydrolysate,"Crystal Modification Agent, Humectant, Stabilizer, Texturizing Agent, Thickener","Concentrated, Aqueous Solution Or Spray Dried Or Dried Powder",None,Procedure,high_suscept,Hydrogenatedstarchhydrolysate
+Hydrogen Peroxide,"Antimicrobial Agent, Bleaching, Oxidizing Agent, Starch Modifier","Clear, Colorless Liquid",Procedure,Procedure,high_suscept_id,Hydrogenperoxide
+Hydroxycitronellal,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Hydroxycitronellal
+Hydroxycitronellal Dimethyl Acetal,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Hydroxycitronellaldimethylacetal
+"4 Hydroxy 2,5 Dimethyl 3(2 H) Furanone",Flavoring Agent,White To Pale Yellow Solid,Infrared spectra,Procedure,pending,Hydroxydimethylfuranone
+"6 Hydroxy 3,7 Dimethyloctanoic Acid Lactone",Flavoring Agent,"Colorless, Low Melting Solid",None,Procedure,pending,Hydroxydimethyloctanoicacidlactone
+Hydroxylated Lecithin,"Clouding Agent, Emulsifier",Light Yellow Substance That May Vary In Consistency From Fluid To Plastic,None,None,high_suscept_id,Hydroxylatedlecithin
+4 (P Hydroxyphenyl) 2 Butanone,Flavoring Agent,White Solid,Infrared absorption,Procedure,pending,Hydroxyphenylbutanone
+Hydroxypropyl Cellulose,"Emulsifier, Film Coating, Protective Colloid, Stabilizer, Suspending Agent, Thickener",White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Hydroxypropylcellulose
+Hydroxypropyl Methylcellulose,"Emulsifier, Stabilizer, Thickening Agent","White To Off White, Fibrous Powder Or Granules",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Hydroxypropylmethylcellulose
+Indigotine,Color,Blue Brown To Red Brown Powder Or As Granules,Procedure,Total color,pending,Indigotine
+Indole,Flavoring Agent,"White, Lustrous, Flaky, Crystalline Solid",Infrared spectra,Procedure,pending,Indole
+Inositol,Nutrient,"Fine, White Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Inositol
+Inulin,"Binder, Bulking Agent, Source Of Dietary Fiber, Texturizer",White Powder,Procedure,Procedure,high_suscept,Inulin
+Invert Sugar,Nutritive Sweetener,Hygroscopic Liquid,Procedure,Invert sugar,high_suscept,Invertsugar
+Alpha Ionone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Ionone4
+Beta Ionone,Flavoring Agent,Colorless To Pale Straw Colored Liquid,Infrared spectra,Procedure,pending,Ionone5
+"Iron, Carbonyl",Nutrient,Dark Gray Powder,Ferrous salts,Procedure,high_suscept_id,Ironcarbonyl
+"Iron, Electrolytic",Nutrient,"Amorphous, Lusterless, Gray Black Powder",Ferrous salts,Procedure,high_suscept_id,Ironelectrolytic
+"Iron, Reduced",Nutrient,Gray Black Powder,Ferrous salts,Procedure,pending,Ironreduced
+Isoamyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isoamylacetate
+Isoamyl Alcohol,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Isoamylalcohol
+Isoamyl Benzoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isoamylbenzoate
+Isoamyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isoamylbutyrate
+Isoamyl Cinnamate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isoamylcinnamate
+Isoamyl Formate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isoamylformate
+Isoamyl Hexanoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isoamylhexanoate
+Isoamyl Isobutyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isoamylisobutyrate
+Isoamyl Isovalerate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Isoamylisovalerate
+Isoamyl Phenyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isoamylphenylacetate
+Isoamyl Salicylate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isoamylsalicylate
+Isoborneol,Flavoring Agent,White Crystalline Solid,Infrared spectra,None,pending,Isoborneol
+Isobornyl Acetate,Flavoring Agent,Colorless Liquid (When Fresh),Infrared spectra,Procedure,pending,Isobornylacetate
+Isobutane,"Aerating Agent, Propellant","Colorless, Flammable Gas",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Isobutane
+Isobutyl Acetate,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Isobutylacetate
+Isobutyl Alcohol,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Isobutylalcohol
+Isobutyl 2 Butenoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutylbutenoate
+Isobutyl Butyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutylbutyrate
+Isobutyl Cinnamate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutylcinnamate
+Isobutylene Isoprene Copolymer,Masticatory Substance In Chewing Gum Base,See Monograph,Infrared spectra,None,high_suscept,Isobutyleneisoprenecopolymer
+Isobutyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isobutylformate
+Isobutyl Hexanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isobutylhexanoate
+Isobutyl Phenylacetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutylphenylacetate
+Isobutyl Salicylate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutylsalicylate
+Isobutyraldehyde,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Isobutyraldehyde
+Isobutyric Acid,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isobutyricacid
+Isoeugenol,Flavoring Agent,"Pale Yellow, Viscous Liquid",Infrared spectra,Procedure,pending,Isoeugenol
+Isoeugenyl Acetate,Flavoring Agent,White Crystalline Solid,Infrared spectra,Procedure,pending,Isoeugenylacetate
+Dl Isoleucine,Nutrient,White Crystalline Powder,Infrared spectra,Procedure,pending,Isoleucine2
+L Isoleucine,Nutrient,"Crystalline Leaflets Or White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Isoleucine3
+Isomalt,"Formulation Aid, Nutritive Sweetener, Stabilizer And Thickener, Surface Finishing Agent, Texturizer",White Crystalline Slightly Hygroscopic Substance,Thin-layer chromatography,Procedure,high_suscept,Isomalt
+Isomaltulose,"Formulation And Texturizing Aid, Nutritive Sweetener","White Or Colorless, Crystalline, Sweet Substance",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Isomaltulose
+Isopropyl Acetate,Flavoring Agent,"Colorless, Mobile Liquid",Infrared absorption,Procedure,pending,Isopropylacetate
+Isopropyl Alcohol,Extraction Solvent,"Clear, Colorless, Flammable Liquid",Refractive index,Procedure,high_suscept_id,Isopropylalcohol
+Isopulegol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Isopulegol
+Isovaleric Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Isovalericacid
+Juniper Berries Oil,Flavoring Agent,"Colorless, Faintly Green Or Yellow Liquid",Infrared spectra,None,high_suscept,Juniperberriesoil
+Kaolin,Anticaking Agent,"Fine, White To Yellow White Or Gray Powder That Becomes Darker When Moistened",Procedure,None,high_suscept,Kaolin
+Karaya Gum,"Emulsifier, Stabilizer, Thickener","Tears Of Variable Size Or Broken, Irregular Pieces Having A Somewhat Crystalline Appearance",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Karayagum
+Kelp,"Nutrient, Source Of Iodine","Dark Green To Olive Brown, Dry Substance",None,None,pending,Kelp
+Konjac Flour,"Film Former, Gelling Agent, Stabilizer, Thickener",Cream To Light Tan Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Konjacflour
+Labdanum Oil,Flavoring Agent,"Golden Yellow, Viscous Liquid",Infrared spectra,None,high_suscept_id,Labdanumoil
+Alpha Lactalbumin,"Nutrient, Source Of Alpha Lactalbumin, Source Of Tryptophan","Homogenous, Free Flowing, Semi Hygroscopic, Light Cream Colored Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Lactalbumin
+Lactic Acid,Acidifier,"Colorless Or Yellow, Syrupy Liquid",Lactate,Procedure,high_suscept_id,Lacticacid
+Lactitol,"Humectant, Stabilizer, Sweetener","White, Crystalline Powder",Thin-layer chromatography,Procedure,low_suscept,Lactitol
+Lactose,"Humectant (Anhydrous Form), Nutritive Sweetener, Processing Aid, Texturizer","White To Creamy White, Crystalline Powder",Procedure,Lactose,high_suscept_id,Lactose
+Lactylated Fatty Acid Esters Of Glycerol And Propylene Glycol,"Emulsifier, Plasticizer, Stabilizer, Whipping Agent","Varies In Consistency From A Soft Solid To A Hard, Waxy Solid",Gas chromatography,None,high_suscept,Lactylatedfattyacidestersofglycerolandpropyleneglycol
+Lactylic Esters Of Fatty Acids,"Emulsifier, Surface Active Agent","Liquids To Hard, Waxy Solids",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Lactylicestersoffattyacids
+"Lanolin, Anhydrous",Masticatory Substance In Chewing Gum Base,"Purified, Yellow White, Semisolid, Fat Like Substance",None,None,high_suscept,Lanolinanhydrous
+Lard (Unhydrogenated),"Coating Agent, Texturizer",Soft To Semisolid,Fatty acid composition,None,high_suscept,Lardunhydrogenated
+Laurel Leaf Oil,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent","White Or Faintly Yellow, Somewhat Glossy, Crystalline Solid Or Powder",None,None,pending,Laurelleafoil
+Lauric Acid,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent","Faintly Yellow, Somewhat Glossy, Crystalline Solid Or Powder",None,None,high_suscept_id,Lauricacid
+Lauryl Alcohol,Flavoring Agent,Colorless Liquid (Above 21 Degrees),Infrared spectra,Procedure,pending,Laurylalcohol
+Lauryl Aldehyde,Flavoring Agent,Colorless To Light Yellow Liquid (That Can Solidify At Room Temperature),Infrared spectra,Procedure,pending,Laurylaldehyde
+"Lavandin Oil, Abrial Type",Flavoring Agent,Pale Yellow To Yellow Liquid,Infrared spectra,Ester determination,pending,Lavandinoilabrialtype
+Lavender Oil,Flavoring Agent,Colorless Or Yellow Liquid,Infrared spectra,Ester determination,high_suscept,Lavenderoil
+Lecithin,"Antioxidant, Emulsifier",Substance Varying In Consistency From Plastic To Fluid; Color Varies From Light Yellow To Brown,None,None,high_suscept,Lecithin
+Lemongrass Oil,Flavoring Agent,"Dark Yellow To Light Brown Red Liquid (East Indian Type), Or Light Yellow To Light Brown Liquid (West Indian Type)",Infrared spectra,Procedure,high_suscept,Lemongrassoil
+"Lemon Oil, Coldpressed",Flavoring Agent,Pale To Deep Yellow Or Green Yellow Liquid,Infrared spectra,Aldehydes,high_suscept,Lemonoilcoldpressed
+"Lemon Oil, Desert Type, Coldpressed",Flavoring Agent,Pale To Deep Yellow Or Green Yellow Liquid,Infrared spectra,Aldehydes,high_suscept,Lemonoildeserttypecoldpressed
+"Lemon Oil, Distilled",Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,None,high_suscept,Lemonoildistilled
+Dl Leucine,Nutrient,"Small, White Crystals Or Crystalline Powder",Infrared spectra,Procedure,high_suscept_id,Leucine2
+L Leucine,Nutrient,"Small, White, Lustrous Plates Or White, Crystalline Powder",Infrared absorption,Procedure,pending,Leucine3
+Levulinic Acid,Flavoring Agent,"Yellow To Brown Liquid, May Congeal",Infrared spectra,Procedure,pending,Levulinicacid
+"Lime Oil, Coldpressed",Flavoring Agent,Yellow To Brown Green To Green Liquid That Often Shows A Waxy Separation,Infrared spectra,Aldehydes,high_suscept,Limeoilcoldpressed
+"Lime Oil, Distilled",Flavoring Agent,Colorless To Green Yellow Liquid,Infrared spectra,None,high_suscept,Limeoildistilled
+"Limestone, Ground","Modifier For Chewing Gum Base And Chewing Gum, Release Agent, Texturizing Agent","Fine, White To Off White, Microcrystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Limestoneground
+(Ã�) Limonene,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Limonene
+Linaloe Wood Oil,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Alcohols,high_suscept,Linaloewoodoil
+Linalool,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Linalool
+Linalool Oxide,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Linalooloxide
+Linalyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Linalylacetate
+Linalyl Benzoate,Flavoring Agent,Yellow To Brown Yellow Liquid,Infrared spectra,Procedure,pending,Linalylbenzoate
+Linalyl Formate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Linalylformate
+Linalyl Isobutyrate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Linalylisobutyrate
+Linalyl Propionate,Flavoring Agent,Colorless Or Almost Colorless Liquid,Infrared spectra,Procedure,pending,Linalylpropionate
+Linoleic Acid,"Flavoring Adjuvant, Nutrient","Colorless To Pale Yellow, Oily Liquid",Fatty acid composition,Fatty acid composition,low_suscept,Linoleicacid
+Locust (Carob) Bean Gum,"Stabilizer, Thickener",White To Yellow White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Locustcarobbeangum
+Lovage Oil,Flavoring Agent,Yellow Green Brown To Deep Brown Liquid,Infrared spectra,None,high_suscept,Lovageoil
+Lutein,"Color, Source Of Lutein",Free Flowing Orange Red Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Lutein
+Lycopene Extract From Tomato,"Antioxidant, Color, Source Of Lycopene",Dark Red Viscous Liquid,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Lycopeneextractfromtomato
+Lycopene From Blakeslea Trispora,"Color, Source Of Lycopene",Red Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Lycopenefromblakesleatrispora
+"Lycopene, Synthetic",Source Of Lycopene,Dark Red To Dark Violet Crystals Or Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Lycopenesynthetic
+L Lysine Monohydrochloride,Nutrient,"White Or Nearly White, Free Flowing, Crystalline Powder",Infrared absorption,Procedure,pending,Lysinemonohydrochloride3
+Mace Oil,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,None,pending,Maceoil
+"Magnesium Ammonium Potassium Chloride, Hydrate","Dough Conditioner, Flavoring Agent, Flavoring Intensifier, Salt Substitute",White Co Crystalline Salt,All ID tests listed in monograph,All assays listed in monograph,pending,Magnesiumammoniumpotassiumchloridehydrate
+Magnesium Carbonate,"Anticaking Agent, Carrier, Color Retention Agent, Drying Agent, P H Control","Light, White, Friable Masses Or A Bulky White Powder",Magnesium,Procedure,high_suscept_id,Magnesiumcarbonate
+Magnesium Chloride,"Color Retention Agent, Firming Agent",Colorless Flakes Or Crystals,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumchloride
+Magnesium Gluconate,Nutrient,White To Off White Powder Or Granulate,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumgluconate
+Magnesium Hydroxide,"Color Retention Agent, Drying Agent, P H Control","White, Bulky Powder",Magnesium,Procedure,pending,Magnesiumhydroxide
+Magnesium Lactate,"Buffer, Dough Conditioner, Nutrient","White Or Almost White, Crystalline Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumlactate
+Magnesium Oxide,"Anticaking Agent, Firming Agent, Free Flowing Agent, Neutralizer, P H Control","Very Bulky, White Powder (Light Magnesium Oxide) Or Relatively Dense, White Powder (Heavy Magnesium Oxide)",Magnesium,Procedure,pending,Magnesiumoxide
+"Magnesium Phosphate, Dibasic, Mixed Hydrates","Leavening Agent, Nutrient, P H Control Agent","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumphosphatedibasicmixedhydrates
+"Magnesium Phosphate, Dibasic, Trihydrate","Leavening Agent, Nutrient, P H Control Agent","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumphosphatedibasictrihydrate
+"Magnesium Phosphate, Monobasic","Nutrient, P H Control Agent","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Magnesiumphosphatemonobasic
+"Magnesium Phosphate, Tribasic",Nutrient,"White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Magnesiumphosphatetribasic
+Magnesium Silicate,"Anticaking Agent, Filter Aid","Very Fine, White Powder Free From Grittiness",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumsilicate
+Magnesium Stearate,"Anticaking Agent, Binder, Emulsifier","Fine, White, Bulky Powder That Is Unctuous And Free From Grittiness",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Magnesiumstearate
+Magnesium Sulfate,Nutrient,Colorless Crystal Or Granular Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Magnesiumsulfate
+Malic Acid,"Acidifier, Flavoring Agent","White Or Nearly White, Crystalline Powder Or Granules",Infrared absorption,Procedure,high_suscept_id,Malicacid
+Maltitol,"Humectant, Stabilizer, Sweetener","White, Crystalline Powder",Thin-layer chromatography,Procedure,low_suscept,Maltitol
+Maltitol Syrup,"Humectant, Stabilizer, Sweetener, Texturizing Agent","Clear, Colorless, Syrupy Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Maltitolsyrup
+Maltodextrin,"Anticaking Agent, Bulking Agent, Free Flowing Agent, Stabilizer, Thickener","White, Slightly Hygroscopic Powder, As Granules, Or As A Clear To Hazy Solution In Water",Procedure,Reducing sugars assay,high_suscept,Maltodextrin
+Maltol,Flavoring Agent,"White, Crystalline Powder",UV-visible absorption spectrum,Procedure,pending,Maltol
+Maltol Isobutyrate,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Maltolisobutyrate
+Malt Syrup,"Color, Enzyme, Flavoring Agent, Humectant, Nutritive Sweetener, Stabilizer, Texturizer, Thickener","Yellow To Brown, Viscous Liquid",Procedure,Procedure,pending,Maltsyrup
+"Mandarin Oil, Coldpressed",Flavoring Agent,"Clear, Dark Orange To Red Yellow Or Brown Orange Liquid",Infrared spectra,Aldehydes,pending,Mandarinoilcoldpressed
+Manganese Chloride,Nutrient,"Large, Irregular, Pink, Translucent Crystals",All ID tests listed in monograph,All assays listed in monograph,pending,Manganesechloride
+Manganese Citrate,Nutrient,"Large Pink Or Pink White, Fine, Granular Solid",All ID tests listed in monograph,All assays listed in monograph,pending,Manganesecitrate
+Manganese Gluconate,Nutrient,Slightly Pink Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Manganesegluconate
+Manganese Glycerophosphate,Nutrient,White Or Pink White Powder,Manganese,Procedure,pending,Manganeseglycerophosphate
+Manganese Hypophosphite,Nutrient,"Pink, Granular Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Manganesehypophosphite
+Manganese Sulfate,Nutrient,"Pale Pink, Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Manganesesulfate
+Mannitol,"Nutritive Sweetener, Texturizing Agent","White, Crystalline Powder Or Free Flowing Granules",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Mannitol
+Maritime Pine Extract,Source Of Procyanidins And Other Phenolic Compounds,"Fine, Brown Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Maritimepineextract
+"Marjoram Oil, Spanish Type",Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Cineole,pending,Marjoramoilspanishtype
+"Marjoram Oil, Sweet",Flavoring Agent,Yellow Or Green Yellow Oil,Infrared spectra,None,pending,Marjoramoilsweet
+"Masticatory Substances, Natural",Masticatory Substance In Chewing Gum Base,Coagulated Material That Varies In Color From White To Brown,None,None,pending,Masticatorysubstancesnatural
+"Menhaden Oil, Hydrogenated","As A Blend With Other Fats And Oils, Coating Agent, Crystal Stabilizer","Opaque, White Solid Or Semisolid",Fatty acid composition,None,pending,Menhadenoilhydrogenated
+"Menhaden Oil, Refined","As A Blend With Other Fats And Oils, Source Of Long Chain Polyunsaturated Fatty Acids",See Monograph,Fatty acid composition,None,pending,Menhadenoilrefined
+"Mentha Arvensis Oil, Partially Dementholized",Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Total alcohols,pending,Menthaarvensisoilpartiallydementholized
+Menthol,Flavoring Agent,"Colorless, Hexagonal Crystals, Usually Like Needles, As Fused Masses, Or As A Crystalline Powder",Infrared spectra,None,pending,Menthol
+(Ã�) Menthyl Acetate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Menthylacetate
+"Menthyl Acetate, Racemic",Flavoring Agent,Colorless Liquid,None,Procedure,pending,Menthylacetateracemic
+2 Mercaptopropionic Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Mercaptopropionicacid
+Meso Zeaxanthin,"Color, Source Of Meso Zeaxanthin",Free Flowing Orange To Pale Yellow Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Mesozeaxanthin
+Dl Methionine,Nutrient,White Crystalline Platelets Or Powder,Infrared spectra,Procedure,high_suscept_id,Methionine2
+L Methionine,Nutrient,"Colorless Or White, Lustrous Plates, Or White, Crystalline Powder",Infrared absorption,Procedure,low_suscept,Methionine3
+(Ã�) Menthone,Flavoring Agent,Almost Colorless Liquid,None,Procedure,pending,Methone
+P Methoxybenzaldehyde,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methoxybenzaldehyde
+2 Methoxy 3 (Or 5 Or 6 ) Isopropyl Pyrazine,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methoxyisopropylpyrazine
+2 Methoxy 3(5) Methylpyrazine,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methoxymethylpyrazine
+4 P Methoxyphenyl 2 Butanone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methoxyphenylbutanone
+2 Methoxypyrazine,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Methoxypyrazine
+Methyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylacetate
+4 Methyl Acetophenone,Flavoring Agent,Colorless Or Nearly Colorless Liquid,Infrared spectra,Procedure,pending,Methylacetophenone
+Methyl Alcohol,Extraction Solvent,"Clear, Colorless, Flammable Liquid",None,Specific gravity,pending,Methylalcohol
+P Methyl Anisole,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylanisole
+Methyl Anthranilate,Flavoring Agent,Colorless To Pale Yellow Liquid With Blue Fluorescence,Infrared spectra,Procedure,pending,Methylanthranilate
+Methyl Benzoate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylbenzoate
+Methylbenzyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylbenzylacetate
+Alpha Methylbenzyl Alcohol,Flavoring Agent,Colorless Liquid Above Room Temperature,Infrared spectra,Procedure,pending,Methylbenzylalcohol
+2 Methyl Butanal,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Methylbutanal1
+3 Methyl Butanal,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylbutanal2
+2 Methylbutyl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Methylbutylacetate
+2 Methylbutyl Isovalerate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Methylbutylisovalerate
+Methyl Butyrate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Methylbutyrate
+2 Methylbutyric Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylbutyricacid
+Methylcellulose,"Binder, Bodying Agent, Bulking Agent, Emulsifier, Film Former, Stabilizer, Thickener","White, Fibrous Powder Or Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Methylcellulose
+Alpha Methylcinnamaldehyde,Flavoring Agent,Yellow Liquid,Infrared spectra,Procedure,pending,Methylcinnamaldehyde
+Methyl Cinnamate,Flavoring Agent,White To Slightly Yellow Crystalline Mass,Infrared spectra,Procedure,pending,Methylcinnamate
+6 Methylcoumarin,Flavoring Agent,White Crystalline Solid,Infrared spectra,Procedure,pending,Methylcoumarin
+Methyl Cyclopentenolone,Flavoring Agent,"White, Crystalline Powder",Infrared spectra,None,pending,Methylcyclopentenolone
+"5 H 5 Methyl 6,7 Dihydrocyclopenta[B]Pyrazine",Flavoring Agent,Yellow To Brown Liquid,None,Procedure,pending,Methyldihydrocyclopentapyrazine
+Methylene Chloride,Extraction Solvent,"Clear, Colorless, Nonflammable Liquid",None,Procedure,high_suscept_id,Methylenechloride
+"Methyl Ester Of Rosin, Partially Hydrogenated",Masticatory Substance In Chewing Gum Base,Light Amber Colored Liquid Resin,Infrared spectra,None,pending,Methylesterofrosinpartiallyhydrogenated
+Methyl Ethyl Cellulose,"Emulsifier, Foaming Agent, Stabilizer","White Or Pale Cream, Fibrous Solid Or Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Methylethylcellulose
+Methyl Eugenol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methyleugenol
+5 Methyl Furfural,Flavoring Agent,Yellow To Brown Liquid,Infrared spectra,Procedure,pending,Methylfurfural
+Methyl Furoate,Flavoring Agent,Pale Yellow To Brown Liquid,Infrared spectra,Procedure,pending,Methylfuroate
+6 Methyl 5 Hepten 2 One,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methylheptenone
+Methyl Hexanoate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylhexanoate
+Methyl Hexyl Ketone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylhexylketone
+Methyl Ionones,Flavoring Agent,Clear To Pale Yellow To Yellow Liquid,None,Procedure,pending,Methylionones
+Methyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylisobutyrate
+Methyl Isoeugenol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylisoeugenol
+5 Methyl 2 Isopropyl 2 Hexenal,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methylisopropylhexenal
+Methyl Isovalerate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylisovalerate
+Methyl 2 Methylbutyrate,Flavoring Agent,Almost Colorless Liquid,None,Procedure,pending,Methylmethylbutyrate
+Methyl 3 Methylthiopropionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylmethylthiopropionate
+Methyl Beta Naphthyl Ketone,Flavoring Agent,White Or Nearly White Crystalline Solid,Infrared spectra,Procedure,pending,Methylnaphthylketone
+Methyl 2 Octynoate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methyloctynoate
+Methylparaben,"Antimicrobial Agent, Preservative","Small, Colorless Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Methylparaben
+2 Methylpentanoic Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylpentanoicacid
+4 Methyl 2 Pentanone,Flavoring Agent,"Colorless, Mobile Liquid",None,Procedure,pending,Methylpentanone
+2 Methyl 2 Pentenoic Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylpentenoicacid
+Methyl Phenylacetate,Flavoring Agent,Colorless Or Nearly Colorless Liquid,Infrared spectra,Procedure,pending,Methylphenylacetate
+Methyl Phenylcarbinyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Methylphenylcarbinylacetate
+5 Methyl 2 Phenyl 2 Hexenal,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Methylphenylhexenal
+2 Methyl Propyl 3 Methyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Methylpropylmethylbutyrate
+2 Methylpyrazine,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methylpyrazine
+Methyl Salicylate,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Methylsalicylate
+4 Methyl 5 Thiazole Ethanol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylthiazoleethanol
+Methyl Thiobutyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylthiobutyrate
+3 Methylthiopropionaldehyde,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylthiopropionaldehyde
+2 Methylundecanal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Methylundecanal
+Methyl Valerate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Methylvalerate
+"Mineral Oil, High Viscosity","Lubricant, Protective Coating, Release Agent","Colorless, Transparent, Oily Liquid, Free Or Nearly Free From Fluorescence",Carbon number at 5% distillation point,None,pending,Mineraloilhighviscosity
+"Mineral Oil, Medium And Low Viscosity","Defoaming Agent, Glazing Agent, Release Agent, Sealing Agent","Colorless, Transparent, Oily Liquid, Free Or Nearly Free From Fluorescence",Carbon number at 5% distillation point,None,pending,Mineraloilmediumandlowviscosity
+Monoammonium L Glutamate,"Flavor Enhancer, Salt Substitute","White, Free Flowing, Crystalline Powder",Infrared spectra,Procedure,high_suscept_id,Monoammoniumglutamate
+Monoammonium Glycyrrhizinate,Flavoring Agent,White Powder,Ammonium,Procedure,high_suscept_id,Monoammoniumglycyrrhizinate
+Mono And Diglycerides,"Emulsifier, Stabilizer","Substance That Varies In Consistency From Yellow Liquid Through White To Pale Yellow Colored Plastic To Hard, Ivory Colored Solid",None,None,high_suscept,Monoanddiglycerides
+Monoglyceride Citrate,Solubilizer For Antioxidants,"Viscous, Amber Liquid",None,None,pending,Monoglyceridecitrate
+Monopotassium L Glutamate,"Flavor Enhancer, Salt Substitute","White, Free Flowing, Crystalline Powder",Infrared spectra,Procedure,high_suscept_id,Monopotassiumglutamate
+Monosodium L Glutamate,Flavor Enhancer,"White, Free Flowing Crystals Or Crystalline Powder",Infrared spectra,Procedure,low_suscept,Monosodiumglutamate
+Morpholine,"Boiler Water Additive, Component Of Coatings For Fruits And Vegetables","Clear, Colorless, Mobile, Hygroscopic Liquid",Infrared spectra,Procedure,pending,Morpholine
+Mustard Oil,Flavoring Agent,"Clear, Pale Yellow Liquid",Infrared spectra,Procedure,pending,Mustardoil
+Myrcene,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Myrcene
+Myristaldehyde,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Myristaldehyde
+Myristic Acid,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent","Hard, White Or Faintly Yellow, Somewhat Glossy, Crystalline Solid Or As A White Or Yellow White Powder",None,None,high_suscept_id,Myristicacid
+Myristyl Alcohol,Flavoring Agent,"Colorless To White, Waxy, Solid Flakes",None,Procedure,pending,Myristylalcohol
+Myrrh Oil,Flavoring Agent,Light Brown Or Green Liquid,Infrared spectra,None,high_suscept_id,Myrrhoil
+Beta Naphthyl Ethyl Ether,Flavoring Agent,White To Pale Yellow Crystals,Infrared spectra,Procedure,pending,Napthylethylether
+Natamycin,Antimycotic,Off White To Cream Colored Powder,Ultraviolet absorption,Procedure,low_suscept,Natamycin
+Neotame,"Flavor Enhancer, Non Nutritive Sweetener",White To Off White Powder,Infrared absorption,Procedure,pending,Neotame
+Nerol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Nerol
+Nerolidol,Flavoring Agent,Colorless To Straw Colored Liquid,Infrared spectra,Procedure,pending,Nerolidol
+Neryl Acetate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Nerylacetate
+Niacin,Nutrient,White Or Light Yellow Crystals Or A Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Niacin
+Niacinamide,Nutrient,"White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Niacinamide
+Niacinamide Ascorbate,Nutrient,Yellow Colored Powder That May Gradually Darken Upon Exposure To Air,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Niacinamideascorbate
+Nickel,Catalyst For Hydrogenation Reactions,"Lustrous, White, Hard, Ferromagnetic, Metallic Solid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Nickel
+Nisin A Preparation,Antimicrobial Agent,"White, Free Flowing Powder",None,Procedure,pending,Nisinapreparation
+Nitrogen,"Air And Oxygen Displacer, Direct Contact Freezing Agent (In Liquid Form), Packaging Gas, Propellant And Aerating Agent",Colorless Non Combustible Gas,Flame test,Procedure,pending,Nitrogen
+Nitrogen Enriched Air,Air And Oxygen Displacer,Colorless Gas,Flame test,Procedure,pending,Nitrogenenrichedair
+Nitrous Oxide,"Aerating Agent, Packaging Gas, Propellant",Colorless Gas,All ID tests listed in monograph,All assays listed in monograph,pending,Nitrousoxide
+"(E),(Z) 2,6 Nonadienal",Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Nonadienal
+"(E),(Z) 2,6 Nonadienol",Flavoring Agent,White To Yellow Liquid,Infrared spectra,Procedure,pending,Nonadienol
+Delta Nonalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Nonalactone
+Gamma Nonalactone,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Nonalactone6
+Nonanal,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Nonanal
+Nonanoic Acid,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Nonanoicacid
+2 Nonanone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Nonanone
+Noncrystallizing Sorbitol Solution,"Nutritive Sweetener, Texturizing Agent","Clear, Colorless, Syrupy Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Noncrystallizingsorbitolsolution
+(E) 2 Nonenal,Flavoring Agent,White To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Nonenal
+(E) 2 Nonen 1 Ol,Flavoring Agent,White Liquid,Infrared spectra,Procedure,pending,Nonenol1
+(Z) 6 Nonen 1 Ol,Flavoring Agent,White To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Nonenol2
+Nonyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Nonylacetate
+Nonyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Nonylalcohol
+Nutmeg Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,Infrared spectra,None,high_suscept,Nutmegoil
+Delta Octalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Octalactone
+Gamma Octalactone,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Octalactone6
+Octanal,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Octanal
+Octanoic Acid,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent, Flavoring Agent","Colorless, Oily Liquid",None,None,high_suscept_id,Octanoicacid
+3 Octanol,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Octanol
+(E) 2 Octen 1 Al,Flavoring Agent,Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Octenal
+1 Octen 3 Ol,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Octenol1
+(Z) 3 Octen 1 Ol,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Octenol2
+1 Octen 3 Yl Acetate,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Octenylacetate
+1 Octen 3 Yl Butyrate,Flavoring Agent,Almost Colorless Liquid,Infrared spectra,Procedure,pending,Octenylbutyrate
+Octyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Octylacetate1
+3 Octyl Acetate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Octylacetate2
+Octyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Octylalcohol
+Octyl Formate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Octylformate
+Octyl Isobutyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Octylisobutyrate
+Oleic Acid,"Binder, Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent, Lubricator","Colorless To Pale Yellow, Oily Liquid That Darkens With Exposure To Air",None,None,high_suscept_id,Oleicacid
+Olestra,Calorie Free Substitute For Fats And Oils,"Solid, Soft Gel, Or Liquid At Room Temperature",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Olestra
+Olibanum Oil,Flavoring Agent,Pale Yellow Liquid,Infrared spectra,None,pending,Olibanumoil
+Onion Oil,Flavoring Agent,"Clear, Amber Yellow To Amber Orange Liquid",Infrared spectra,None,high_suscept,Onionoil
+"Orange Oil, Bitter, Coldpressed",Flavoring Agent,Pale Yellow Or Yellow Brown Liquid,Infrared spectra,None,pending,Orangeoilbittercoldpressed
+"Orange Oil, Coldpressed",Flavoring Agent,"Intensely Yellow, Orange, Or Deep Orange Liquid",Infrared spectra,Aldehydes,pending,Orangeoilcoldpressed
+"Orange Oil, Distilled",Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,None,pending,Orangeoildistilled
+"Origanum Oil, Spanish Type",Flavoring Agent,"Yellow Red To Dark, Brown Red Liquid",Infrared spectra,Phenols,pending,Origanumoilspanishtype
+Orris Root Oil,Flavoring Agent,Light Yellow To Brown Yellow Mass At Room Temperature,Infrared spectra,Keystones,high_suscept,Orrisrootoil
+Ox Bile Extract,Surfactant,Yellow Green Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Oxbileextract
+Oxystearin,"Crystallization Inhibitor In Salad And Cooking Oils, Defoaming Agent, Sequestrant","Tan To Light Brown, Fatty Or Wax Like Substance",None,None,pending,Oxystearin
+Ozone,"And Storage Or Display Of Fish, Antimicrobial In The Treatment, Meat And Poultry And In Preparing, Or Holding Raw Agricultural Commodities; Disinfectant For Water To Be Used For Direct Consumption Or To Make Ice, Packing, Processing","Unstable, Colorless Gas",Procedure,Procedure,high_suscept_id,Ozone
+Palmarosa Oil,Flavoring Agent,"Light Yellow To Yellow Oil, Often Hazy And Brown",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Palmarosaoil
+Palmitic Acid,"Component In The Manufacture Of Other Food Grade Additives, Defoaming Agent","Hard, White Or Faintly Yellow, Somewhat Glossy Crystalline Solid Or As A White Or Pale Yellow Powder",None,None,pending,Palmiticacid
+Palm Kernel Oil (Unhydrogenated),"Coating Agent, Texturizer",See Monograph,Fatty acid composition,None,pending,Palmkerneloilunhydrogenated
+Palm Oil (Unhydrogenated),"Coating Agent, Emulsifying Agent, Texturizer",See Monograph,Fatty acid composition,None,pending,Palmoilunhydrogenated
+Dl Panthenol,Nutrient,"White To Creamy White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Panthenol2
+"Paraffin, Synthetic",Masticatory Substance In Chewing Gum Base,White Wax That Is Very Hard At Room Temperature,Infrared spectra,None,pending,Paraffinsynthetic
+Parsley Herb Oil,Flavoring Agent,Yellow To Light Brown Liquid,Infrared spectra,None,pending,Parsleyherboil
+Parsley Seed Oil,Flavoring Agent,Yellow To Light Brown Liquid,Infrared spectra,None,pending,Parsleyseedoil
+Partially Hydrolyzed Proteins,"Binder, Dough Conditioner, Emulsifier, Emulsifier Salt, Fermentation Aid, Flavor Enhancer, Flavoring Agent, Nutrient, Surface Active Agent, Texturizer","Liquid, Paste, Powder, Or Granules",None,Total nitrogen,high_suscept_id,Partiallyhydrolyzedproteins
+Patent Blue V,Color,Blue Powder Or Granules,Visible absorption spectrum,Total color,pending,Patentbluev
+Peanut Oil (Unhydrogenated),"Coating Agent, Texturizer",Pale Yellow Oil,Fatty acid composition,None,high_suscept,Peanutoilunhydrogenated
+Pectins,"Gelling Agent, Stabilizer, Thickener","White, Yellow, Light Gray, Or Light Brown Powder",Procedure,None,high_suscept,Pectins
+Pennyroyal Oil,Flavoring Agent,Light Yellow To Yellow Liquid,Infrared spectra,Ketones,pending,Pennyroyaloil
+Omega Pentadecalactone,Flavoring Agent,White To Tan Or Blue Gray Crystalline Solid,Infrared spectra,Procedure,pending,Pentadecalactone
+Pentaerythritol Ester Of Partially Hydrogenated Wood Rosin,Masticatory Substance In Chewing Gum Base,"Hard, Amber Colored Resin",Infrared spectra,None,pending,Pentaerythritolesterofpartiallyhydrogenatedwoodrosin
+Pentaerythritol Ester Of Wood Rosin,Masticatory Substance In Chewing Gum Base,"Hard, Pale Amber Colored Resin",Infrared spectra,None,high_suscept,Pentaerythritolesterofwoodrosin
+"2,3 Pentanedione",Flavoring Agent,Yellow To Yellow Green Liquid,Infrared spectra,Procedure,pending,Pentanedione
+2 Pentanone,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Pentanone
+Peppermint Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,All ID tests listed in monograph,All assays listed in monograph,pending,Peppermintoil
+Perlite,Filter Aid In Food Processing,"Dense, Gray To Brown, Glassy Volcanic Rock",All ID tests listed in monograph,All assays listed in monograph,pending,Perlite
+"Petitgrain Oil, Paraguay Type",Flavoring Agent,Yellow To Brown Yellow Liquid,Infrared spectra,Esters,pending,Petitgrainoilparaguaytype
+Petrolatum,"Defoaming Agent, Lubricant, Protective Coating, Release Agent",Unctuous Mass Varying In Color From White To Yellow To Light Amber,None,None,high_suscept,Petrolatum
+Petroleum Wax,"Defoaming Agent, Masticatory Substance In Chewing Gum Base, Microcapsules For Spices And Flavoring Agents, Protective Coating",Translucent Wax That Ranges In Color From Amber To Almost White,Infrared spectra,None,pending,Petroleumwax
+"Petroleum Wax, Synthetic","Defoaming Agent, Masticatory Substance In Chewing Gum Base, Protective Coating",Off White To White Wax,Infrared spectra,None,high_suscept,Petroleumwaxsynthetic
+Alpha Phellandrene,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,None,pending,Phellandrene
+Phenethyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Phenethylacetate
+Phenethyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Phenethylalcohol
+Phenethyl Isobutyrate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Phenethylisobutyrate
+Phenethyl Isovalerate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Phenethylisovalerate
+2 Phenethyl 2 Methylbutyrate,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Phenethylmethylbutyrate
+Phenethyl Phenylacetate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Phenethylphenylacetate
+Phenethyl Salicylate,Flavoring Agent,White Crystalline Solid,Infrared spectra,Procedure,pending,Phenethylsalicylate
+Phenoxyethyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Phenoxyethylisobutyrate
+Phenylacetaldehyde,Flavoring Agent,"Colorless To Slightly Yellow, Oily Liquid",Infrared spectra,Procedure,pending,Phenylacetaldehyde
+Phenylacetaldehyde Dimethyl Acetal,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Phenylacetaldehydedimethylacetal
+Phenylacetic Acid,Flavoring Agent,Glistening White Crystalline Solid,Infrared spectra,Procedure,pending,Phenylaceticacid
+Dl Phenylalanine,Nutrient,White Crystalline Platelets,Infrared spectra,Procedure,high_suscept_id,Phenylalanine2
+L Phenylalanine,Nutrient,"Colorless Or White, Plate Like Crystals Or White Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Phenylalanine3
+Phenylethyl Anthranilate,Flavoring Agent,Colorless To Pale Yellow Crystalline Mass,Infrared spectra,Procedure,pending,Phenylethylanthranilate
+Phenylethyl Butyrate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Phenylethylbutyrate
+Phenyl Ethyl Cinnamate,Flavoring Agent,White To Pale Yellow Crystalline Solid,Infrared spectra,Procedure,pending,Phenylethylcinnamate
+Phenyl Ethyl Propionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Phenylethylpropionate
+3 Phenyl 1 Propanol,Flavoring Agent,"Colorless, Slightly Viscous Liquid",Infrared spectra,Procedure,pending,Phenylpropanol
+3 Phenylpropionaldehyde,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Phenylpropionaldehyde
+2 Phenylpropionaldehyde Dimethyl Acetal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Phenylpropionaldehydedimethylacetal
+3 Phenylpropyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Phenylpropylacetate
+Phosphoric Acid,"Acidifier, Sequestrant","Colorless, Aqueous Solution",Phosphate,Procedure,high_suscept_id,Phosphoricacid
+Pimenta Leaf Oil,Flavoring Agent,Pale Yellow To Light Brown Yellow Liquid That Becomes Darker With Age,Infrared spectra,Phenols,pending,Pimentaleafoil
+Pimenta Oil,Flavoring Agent,"Colorless, Yellow, Or Orange Liquid That Becomes Darker With Age",Infrared spectra,Phenols,pending,Pimentaoil
+Beta Pinene,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Pinene
+"Pine Needle Oil, Dwarf",Flavoring Agent,Colorless Or Yellow Liquid,Infrared spectra,Esters,pending,Pineneedleoildwarf
+"Pine Needle Oil, Scotch Type",Flavoring Agent,Colorless Or Yellow Liquid,Infrared spectra,Procedure,high_suscept,Pineneedleoilscotchtype
+Piperidine,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Piperidine
+Piperonal,Flavoring Agent,White Crystalline Substance,Infrared spectra,Procedure,pending,Piperonal
+Poloxamer 331,"Solubilizing Agent In Flavor Concentrates, Stabilizing Agent In Flavor Concentrates",Practically Colorless Liquid,None,None,pending,Poloxamer331
+Poloxamer 407,"Solubilizing Agent In Flavor Concentrates, Stabilizing Agent In Flavor Concentrates",White Solid,None,None,pending,Poloxamer407
+Polydextrose,"Bulking Agent, Humectant, Texturizer",Off White To Light Tan Solid,All ID tests listed in monograph,All assays listed in monograph,pending,Polydextrose
+Polydextrose Solution,"Bulking Agent, Humectant, Texturizer","Clear, Straw Colored Liquid",All ID tests listed in monograph,All assays listed in monograph,pending,Polydextrosesolution
+Polyethylene,Masticatory Substance In Chewing Gum Base,"White, Translucent, Partially Crystalline And Partly Amorphous Resin",Infrared spectra,None,pending,Polyethylene
+Polyethylene Glycols,"Binding Agent, Coating Agent, Dispersing Agent, Flavoring Adjuvant, Lubricant, Plasticizing Agent","Slightly Hazy, Colorless Or Practically Colorless, Viscous, Slightly Hygroscopid Liquid (If M.W.?600); Or Creamy White, Waxy Solid Or Flakes Resembling Paraffin That Are Freely Soluble In Water (If M.W.?1000)",None,None,high_suscept_id,Polyethyleneglycols
+Polyglycerol Esters Of Fatty Acids,Emulsifier,"Light Yellow To Amber, Oily To Very Viscous Liquid; Light Tan To Medium Brown, Plastic Or Soft Solids; Or Light Tan To Brown, Hard, Waxy Solids",None,None,pending,Polyglycerolestersoffattyacids
+Polyglycerol Polyricinoleic Acid,Emulsifier,"Clear, Light Brown, Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,pending,Polyglycerolpolyricinoleicacid
+Polyisobutylene,Masticatory Substance In Chewing Gum Base,"Light In Color; Soft And Gummy (Low M.W. Grades), Or Tough And Elastic (High M.W. Grades)",Infrared spectra,None,pending,Polyisobutylene
+Polypropylene Glycol,Defoaming Agent,"Clear, Colorless Or Practically Colorless, Viscous Liquid",None,None,pending,Polypropyleneglycol
+Polysorbate 20,"Emulsifier, Stabilizer",Yellow To Amber Colored Liquid,Procedure,Oxyethylene content,pending,Polysorbate20
+Polysorbate 40,"Emulsifier, Stabilizer",Lemon To Orange Colored Oily Liquid Or Semi Gel,All ID tests listed in monograph,All assays listed in monograph,pending,Polysorbate40
+Polysorbate 60,"Emulsifier, Emulsifier, Stabilizer, Stabilizer","Yellow To Orange Colored, Oily Liquid Or Semigel",Procedure,Oxyethylene content,pending,Polysorbate60
+Polysorbate 80,"Emulsifier, Stabilizer","Yellow To Orange Colored, Oily Liquid",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Polysorbate80
+Polyvinyl Acetate,Masticatory Substance In Chewing Gum Base,"Clear, Water White To Pale Yellow, Solid Resin",Infrared absorption,None,low_suscept,Polyvinylacetate
+Polyvinyl Alcohol,"Binder, Coating, Sealing Agent, Surface Finishing Agent","Translucent, White Or Cream Colored Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Polyvinylalcohol
+Pork Collagen,"Binder, Purge Reduction",Light Tan Powder,Procedure,Hydroxyproline content,high_suscept,Porkcollagen
+Potassium Acid Tartrate,"Acidifier, Buffer","Colorless Or Slightly Opaque Crystals, Or As A White Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumacidtartrate
+Potassium Alginate,"Gelling Agent, Stabilizer, Thickener","White To Yellow, Fibrous Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Potassiumalginate
+Potassium Benzoate,"Antimicrobial Agent, Preservative","White Granules, Crystalline Powder, Or Flakes",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumbenzoate
+Potassium Bicarbonate,"Leavening Agent, P H Control","Colorless, Transparent, Monoclinic Prisms Or As A White, Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumbicarbonate
+Potassium Bromate,"Maturing Agent, Oxidizing Agent",White Crystals Or Granular Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumbromate
+Potassium Carbonate,P H Control,"White, Granular Powder (Anhydrous Form); Or Small, White, Translucent Crystals Or Granules (Hydrated Form)",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumcarbonate
+Potassium Carbonate Solution,P H Control,"Clear Or Slightly Turbid, Colorless, Alkaline Solution",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumcarbonatesolution
+Potassium Chloride,"Gelling Agent, Nutrient, Salt Substitute, Yeast Food","Colorless, Elongated, Prismatic, Or Cubical Crystals, Or As A White, Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumchloride
+Potassium Citrate,"Buffer, Sequestrant, Stabilizer","Transparent Crystals Or White, Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Potassiumcitrate
+Potassium Gibberellate,Enzyme Activator,"White To Slightly Off White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumgibberellate
+Potassium Gluconate,"Nutrient, Sequestrant","White Or Yellow White, Crystalline Powder Or Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumgluconate
+Potassium Glycerophosphate,Nutrient,"Pale Yellow, Syrupy Liquid; Or, A Colorless To Pale Yellow, Syrupy Solution",Potassium,Procedure,pending,Potassiumglycerophosphate
+Potassium Hydroxide,P H Control,"White Or Nearly White Pellets, Flakes, Sticks, Fused Masses, Or Other Forms",Potassium,Total alkali,pending,Potassiumhydroxide
+Potassium Hydroxide Solution,P H Control,"Clear Or Slightly Turbid, Colorless Or Slightly Colored, Strongly Caustic, Hygroscopic Solution",Potassium,Total alkali,pending,Potassiumhydroxidesolution
+Potassium Iodate,"Dough Conditioner, Maturing Agent, Oxidizing Agent","White, Crystalline Powder",Procedure,Procedure,pending,Potassiumiodate
+Potassium Iodide,Nutrient,"Hexahedral Crystals, Either Transparent And Colorless Or Somewhat Opaque And White, Or As A White, Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumiodide
+Potassium Lactate Solution,"Emulsifier, Flavor Enhancer, Flavoring Adjuvant, Flavoring Agent, Humectant, P H Control Agent","Clear, Colorless, Or Practically Colorless, Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumlactatesolution
+Potassium Metabisulfite,"Antioxidant, Bleaching Agent, Preservative","White Or Colorless, Free Flowing Crystals, As A Crystalline Powder, Or As Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiummetabisulfite
+Potassium Nitrate,"Antimicrobial Agent, Preservative","Colorless, Transparent Prisms, As White Granules, Or As A White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumnitrate
+Potassium Nitrite,"Antimicrobial Agent, Color Fixative In Meat And Meat Products","Small, White Or Yellow, Deliquescent Granules Or Cylindrical Sticks",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumnitrite
+"Potassium Phosphate, Dibasic","Buffer, Sequestrant, Yeast Food","Colorless Or White, Granular Salt",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumphosphatedibasic
+"Potassium Phosphate, Monobasic","Buffer, Sequestrant, Yeast Food","Colorless Crystals Or As White, Granular Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumphosphatemonobasic
+"Potassium Phosphate, Tribasic",Emulsifier,"White, Hygroscopic Crystals Or Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumphosphatetribasic
+Potassium Polymetaphosphate,"Emulsifier, Moisture Retaining Agent",White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumpolymetaphosphate
+Potassium Pyrophosphate,"Emulsifier, Texturizer","Colorless Or White Crystals Or As A White, Crystalline Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumpyrophosphate
+Potassium Sorbate,"Antimicrobial Agent, Preservative","White To Off White Crystals, Crystalline Powder, Or Pellets",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Potassiumsorbate
+Potassium Sulfate,P H Control,Colorless Or White Crystals Or As A Crystalline Powder,Potassium,Procedure,pending,Potassiumsulfate
+Potassium Sulfite,"Antioxidant, Preservative",White Granular Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumsulfite
+Potassium Tripolyphosphate,Texturizer,White Granules Or White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Potassiumtripolyphosphate
+Povidone,"Bodying Agent, Clarifying Agent, Coating On Fresh Fruit, Dispersant, Filtration Aid, Separation Aid, Stabilizer, Tableting Aid",White To Tan Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Povidone
+L Proline,Nutrient,White Crystals Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Proline
+Propane,"Aerating Agent, Propellant","Colorless, Flammable Gas",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Propane
+Propenylguaethol,Flavoring Agent,"White, Crystalline Powder",Infrared spectra,Procedure,pending,Propenylguaethol
+Propionaldehyde,Flavoring Agent,"Colorless, Mobile Liquid",Infrared spectra,Procedure,pending,Propionaldehyde
+Propionic Acid,"Mold Inhibitor, Preservative",Oily Liquid,None,Procedure,pending,Propionicacid
+Propyl Acetate,Flavoring Agent,Colorless Liquid,Infrared absorption,Procedure,pending,Propylacetate
+Propyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Propylalcohol
+P Propyl Anisole,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Propylanisole
+Propylene Glycol,"Humectant, Solvent, Wetting Agent","Clear, Colorless, Viscous Liquid",Infrared absorption,Procedure,low_suscept,Propyleneglycol
+Propylene Glycol Alginate,"Emulsifier, Stabilizer, Thickener","White To Yellow, Fibrous Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Propyleneglycolalginate
+Propylene Glycol Mono And Diesters,"Emulsifier, Stabilizer","Clear Liquid Or As White To Yellow White Beads, Flakes, Or Other Solid Material",None,None,pending,Propyleneglycolmonoanddiesters
+Propylene Oxide,"Antimicrobial Agent, Etc.), Modified Food Starch, Preservative, Propylene Glycol, Reactive Chemical Intermediate Used In The Manufacture Of Food Ingredients (Polyols",Colorless Volatile Liquid,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Propyleneoxide
+Propyl Formate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Propylformate
+Propyl Gallate,Antioxidant,"Fine, White To Nearly White Powder",Melting range or temperature determination,Procedure,pending,Propylgallate
+Propyl Mercaptan,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Propylmercaptan
+Propylparaben,"Antimicrobial Agent, Preservative","Small, Colorless Crystals Or As A White Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Propylparaben
+Propyl Propionate,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Propylpropionate
+Pullulan,"Film Forming Agent, Glazing Agent, Thickener",White To Off White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Pullulan
+Pyridoxine Hydrochloride,Nutrient,"Colorless Or White Crystals, Or As A White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Pyridoxinehydrochloride
+Pyrrole,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Pyrrole
+Quinine Hydrochloride,Flavoring Agent,"White, Silky, Glistening Needle Like Crystals",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Quininehydrochloride
+Quinine Sulfate,Flavoring Agent,"Fine, White, Needle Like Crystals, Usually Lusterless",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Quininesulfate
+"Rapeseed Oil, Fully Hydrogenated","Coating Agent, Component Of Margarine Or Shortening, Cooking Or Salad Oil, Emulsifying Agent, Stabilizer, Texturizer, Thickener","White, Waxy Solid",Fatty acid composition,None,high_suscept,Rapeseedoilfullyhydrogenated
+"Rapeseed Oil, Superglycerinated","Coating Agent, Component Of Margarine Or Shortening, Cooking Or Salad Oil, Emulsifying Agent, Texturizer",White Solid,Fatty acid composition,None,high_suscept,Rapeseedoilsuperglycerinated
+Rebaudioside A,"Nonnutritive Sweetener, Sugar Substitute","White To Off White, Hygroscopic Fine Crystal, Granule, Or Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Rebaudiosidea
+Rhodinol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Rhodinol
+Rhodinyl Acetate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Rhodinylacetate
+Rhodinyl Formate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Rhodinylformate
+Riboflavin,Nutrient,"Yellow To Orange Yellow, Crystalline Powder",Procedure,Procedure,high_suscept_id,Riboflavin
+Riboflavin 5' Phosphate Sodium,Nutrient,"Fine, Orange Yellow, Crystalline Powder",Procedure,Procedure,pending,Riboflavinphosphatesodium
+Rice Bran Wax,"Coating Agent, Masticatory Substance In Chewing Gum Base","Hard, Slightly Crystalline Substances That Ranges In Color From Tan To Light Brown",Infrared spectra,None,pending,Ricebranwax
+Rosemary Oil,Flavoring Agent,Colorless Or Pale Yellow Liquid,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Rosemaryoil
+Rose Oil,Flavoring Agent,Colorless Or Yellow Liquid,Infrared spectra,None,high_suscept,Roseoil
+Rue Oil,Flavoring Agent,Yellow To Yellow Amber Liquid,Infrared spectra,Ketones,high_suscept,Rueoil
+Saccharin,Nonnutritive Sweetener,"White Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Saccharin
+Safflower Oil (Unhydrogenated),"Coating Agent, Texturizer",Light Yellow Oil,Fatty acid composition,None,pending,Saffloweroilunhydrogenated
+"Sage Oil, Dalmatian Type",Flavoring Agent,Yellow Or Green Yellow Liquid,Infrared spectra,Procedure,high_suscept,Sageoildalmatiantype
+"Sage Oil, Spanish Type",Flavoring Agent,Colorless To Slightly Yellow Oil,Infrared spectra,None,high_suscept,Sageoilspanishtype
+Salatrim,Reduced Energy Fat Replacement For Conventional Fats And Oils,"Ranges From A Slightly Viscous, Clear Amber Liquid To A Light Colored Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Salatrim
+Salicylaldehyde,Flavoring Agent,Colorless To Yellow Liquid,Infrared spectra,Procedure,pending,Salicylaldehyde
+"Sandalwood Oil, East Indian Type",Flavoring Agent,"Pale Yellow To Yellow, Somewhat Viscous, Oily Liquid",Infrared spectra,Total alcohols,high_suscept,Sandalwoodoileastindiantype
+Santalol,Flavoring Agent,"Colorless To Slightly Yellow, Viscous Liquid",Infrared spectra,Procedure,pending,Santalol
+Santalyl Acetate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Santalylacetate
+Savory Oil (Summer Variety),Flavoring Agent,Light Yellow To Dark Brown Liquid,Infrared spectra,Phenols,high_suscept,Savoryoilsummervariety
+Seaweed Derived Calcium,Source Of Dietary Calcium,"Inert, Non Hygroscopic, White Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Seaweedderivedcalcium
+L Selenomethionine,"Nutrient, Source Of Selenium","White To Off White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Selenomethionine3
+Dl Serine,Nutrient,White Crystals Or Crystalline Powder,Infrared spectra,Procedure,high_suscept_id,Serine2
+L Serine,Nutrient,White Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Serine3
+"Sheanut Oil, Refined","Coating Agent, Component Of A Mixture Of Oils Used As A Cocoa Butter Substitute, Used In Margarine And Shortening","Pale Yellow, Viscous Liquid",Fatty acid composition,None,pending,Sheanutoilrefined
+"Shellac, Bleached","Coating Agent, Glaze, Surface Finishing Agent","Off White To Tan, Amorphous, Granular Resin",Procedure,None,pending,Shellacbleached
+"Shellac, Bleached, Wax Free","Coating Agent, Glaze, Surface Finishing Agent","Amorphous, Light Yellow, Granular Resin",Procedure,None,pending,Shellacbleachedwaxfree
+Silicon Dioxide,"Anticaking Agent, Carrier, Chillproofing Agent In Malt Beverages, Conditioning Agent, Defoaming Agent, Filter Aid",Amorphous Substance That Shows A Noncrystalline Pattern When Examined By X Ray Diffraction,All ID tests listed in monograph,All assays listed in monograph,pending,Silicondioxide
+Sodium Acetate,Buffer,"Colorless, Transparent Crystals Or As A Granular, Crystalline Or White Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumacetate
+Sodium Acid Pyrophosphate,"Buffer, Emulsifier, Leavening Agent, Sequestrant","White, Crystalline Powder Or Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumacidpyrophosphate
+Sodium Alginate,"Emulsifier, Gelling Agent, Stabilizer, Thickener","White To Yellow Brown, Fibrous Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sodiumalginate
+Sodium Aluminosilicate,Anticaking Agent,"Fine, White, Amorphous Powder, Or As Beads",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumaluminosilicate
+"Sodium Aluminum Phosphate, Acidic",Leavening Agent,White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumaluminumphosphateacidic
+"Sodium Aluminum Phosphate, Basic",Emulsifier,White Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumaluminumphosphatebasic
+Sodium Ascorbate,"Antioxidant, Meat Curing Aid, Nutrient",White To Yellow Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumascorbate
+Sodium Benzoate,"Antimicrobial Agent, Preservative","White Granules, A Crystalline Powder, Or Flakes",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumbenzoate
+Sodium Bicarbonate,"Leavening Agent, P H Control Agent","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumbicarbonate
+Sodium Bisulfate,Acidifier,White Crystals Or Granules,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumbisulfate
+Sodium Bisulfite,Preservative,White Or Yellow White Crystals Or As A Granular Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumbisulfite
+Sodium Carbonate,P H Control,"Colorless Crystals Or As A White, Granular Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumcarbonate
+"Sodium Carboxymethyl Cellulose, Enzymatically Hydrolyzed","Stabilizer, Thickener",White Or Slightly Yellowish Or Grayish Granular Or Fibrous Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumcarboxymethylcelluloseenzymaticallyhydrolyzed
+Sodium Chloride,"Curing Agent, Dough Conditioner, Flavoring Agent, Flavoring Intensifier, Nutrient, Preservative","Transparent To Opaque, White Crystalline Solid Of Variable Particle Size",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumchloride
+Sodium Citrate,"Buffer, Emulsion Stabilizer, Nutrient For Cultured Buttermilk, Sequestrant","Colorless Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumcitrate
+Sodium Dehydroacetate,Preservative,White Or Nearly White Powder,Melting range or temperature determination,Procedure,pending,Sodiumdehydroacetate
+Sodium Diacetate,"Antimicrobial Agent, Mold Inhibitor, Preservative, Sequestrant","White, Hygroscopic, Crystalline Solid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumdiacetate
+Sodium Erythorbate,"Antioxidant, Preservative","White, Crystalline Powder Or As Granules",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumerythorbate
+Sodium Ferric Pyrophosphate,Nutrient,White To Tan Powder,Procedure,Procedure,pending,Sodiumferricpyrophosphate
+Sodium Ferrocyanide,Anticaking Agent For Sodium Chloride,Yellow Crystals Or As A Crystalline Powder,Procedure,Procedure,pending,Sodiumferrocyanide
+Sodium Fumarate,"Acidulant, Buffering Agent, Flavoring Enhancer",White Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Sodiumfumarate
+Sodium Gluconate,"Nutrient, Sequestrant","White To Tan, Granular To Fine, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumgluconate
+Sodium Hydroxide,P H Control Agent,"White Or Nearly White Pellets, Flakes, Sticks, Fused Masses, Or Other Forms",Sodium,Procedure,pending,Sodiumhydroxide
+Sodium Hydroxide Solutions,P H Control Agent,"Clear Or Slightly Turbid, Colorless Or Slightly Colored Liquids",Sodium,Total alkalinity,pending,Sodiumhydroxidesolutions
+Sodium Hypophosphite,"Antioxidant, Preservative","White, Crystalline Powder, As White Granules, Or As Colorless, Pearly Crystalline Plates",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumhypophosphite
+Sodium Iron Edta,Nutrient,Light Yellow To Yellow Brown Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumironedta
+Sodium Lactate Solution,"Emulsifier, Flavor Enhancer, Flavoring Adjuvant, Flavoring Agent, Humectant, P H Control Agent","Clear, Colorless Or Practically Colorless, Slightly Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumlactatesolution
+Sodium Lauryl Sulfate,Surface Active Agent,"Small, White Or Light Yellow Crystals",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Sodiumlaurylsulfate
+Sodium Lignosulfonate,"Binder, Boiler Water Additive, Dispersant","Brown, Amorphous Polymer",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sodiumlignosulfonate
+Sodium Magnesium Aluminosilicate,Anticaking Agent,"Fine, White Powders Or Beads",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiummagnesiumaluminosilicate
+Sodium Metabisulfite,"Antioxidant, Preservative","Colorless Crystals Or White To Yellow, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiummetabisulfite
+"Sodium Metaphosphate, Insoluble","Emulsifier, Sequestrant, Texturizer","White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiummetaphosphateinsoluble
+Sodium Metasilicate,"Boiler Water Additive, Saponifying Agent","White, Free Flowing Granular Material",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiummetasilicate
+Sodium Methylate,Catalyst For The Trans Esterification Of Fats,"White, Amorphous, Hygroscopic, Free Flowing Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiummethylate
+Sodium Nitrate,"Antimicrobial Agent, Preservative",Colorless Crystals Or White Crystalline Granules Or Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumnitrate
+Sodium Nitrite,"Antimicrobial Agent, Color Fixative In Meat And Meat Products, Preservative","White To Slightly Yellow, Granular Powder, Or As White Or Nearly White, Opaque, Fused Masses Or Sticks",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Sodiumnitrite
+"Sodium Phosphate, Dibasic","Buffer, Emulsifier, Nutrient, Texturizer","White, Crystalline Powder Or As Granules",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sodiumphosphatedibasic
+"Sodium Phosphate, Monobasic","Buffer, Emulsifier, Nutrient","White, Crystalline Powder Or Granules (Anhydrous Form); Or White Or Transparent Crystals Or Granules (Hydrated Form)",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumphosphatemonobasic
+"Sodium Phosphate, Tribasic","Antimicrobial, Buffer, Emulsifier, Nutrient",White Crystals Or Granules Or As A Crystalline Material,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumphosphatetribasic
+"Sodium Polyphosphates, Glassy","Emulsifier, Sequestrant, Texturizer","Colorless Or White, Transparent Platelets, Granules, Or Powders",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumpolyphosphatesglassy
+Sodium Potassium Tartrate,"Buffer, Sequestrant","Colorless Crystals Or White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Sodiumpotassiumtartrate
+Sodium Potassium Tripolyphosphate,"Sequestrant, Texturizer","White, Slightly Hygroscopic Granules Or As A Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumpotassiumtripolyphosphate
+Sodium Propionate,"Mold Inhibitor, Preservative","White Or Colorless, Transparent Crystals Or As A Granular, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumpropionate
+Sodium Pyrophosphate,"Buffer, Emulsifier, Nutrient, Sequestrant, Texturizer","Colorless Or White Crystals Or As A White, Crystalline Or Granular Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumpyrophosphate
+Sodium Saccharin,Non Nutritive Sweetener,"White Crystals Or As A White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumsaccharin
+Sodium Sesquicarbonate,"Buffer, Neutralizer In Dairy Products, P H Control Agent",White Crystals Or Flakes Or As A Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumsesquicarbonate
+Sodium Stearoyl Lactylate,"Dough Conditioner, Emulsifier, Stabilizer, Whipping Agent",Cream Colored Powder Or Brittle Solid,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumstearoyllactylate
+Sodium Stearyl Fumarate,Dough Conditioner,"Fine, White Powder",Infrared absorption,Procedure,pending,Sodiumstearylfumarate
+Sodium Sulfate,Agent In Caramel Production,"Colorless Crystals Or Fine, White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumsulfate
+Sodium Sulfite,"Antioxidant, Bleaching Agent, Preservative",White Or Tan To Slightly Pink Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumsulfite
+Sodium Tartrate,Sequestrant,"Transparent, Colorless Crystals",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumtartrate
+Sodium Thiosulfate,"Antioxidant, Sequestrant","Large, Colorless Crystals Or As A Coarse, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Sodiumthiosulfate
+Sodium Trimetaphosphate,Starch Modifying Agent,"White Crystals Or As A White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumtrimetaphosphate
+Sodium Tripolyphosphate,"Emulsifier, Sequestrant","White, Slightly Hygroscopic Granules Or As A Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sodiumtripolyphosphate
+Solin Oil,"Coating Agent, Texturizer",Light Yellow Oil,Fatty acid composition,None,pending,Solinoil
+Sorbic Acid,"Mold Inhibitor, Preservative","Colorless Needles Or As A White To Off White, Free Flowing Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sorbicacid
+Sorbitan Monolaurate,"Emulsifier, Stabilizer","Amber Colored, Oily, Viscous Liquid; Light Cream To Tan Beads Or Flakes; Or A Hard, Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sorbitanmonolaurate
+Sorbitan Monooleate,"Emulsifier, Stabilizer","Amber Colored, Oily, Viscous Liquid; Light Cream To Tan Beads Or Flakes; Or A Hard, Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sorbitanmonooleate
+Sorbitan Monopalmitate,"Emulsifier, Stabilizer","Light Cream To Tan Beads Or Flakes, Or A Hard, Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sorbitanmonopalmitate
+Sorbitan Monostearate,"Defoaming Agent, Emulsifier, Stabilizer","Off White To Tan Colored, Hard, Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,pending,Sorbitanmonostearate
+Sorbitan Tristearate,Emulsifier,"Light Cream To Tan Beads Or Flakes, Or A Hard, Waxy Solid",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Sorbitantristearate
+Sorbitol,"Humectant, Nutritive Sweetener, Texturizing Agent","White Powder, Granules, Or Crystalline Masses",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sorbitol
+Sorbitol Solution,"Humectant, Nutritive Sweetener, Texturizing Agent","Clear, Colorless, Syrupy Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sorbitolsolution1
+Soybean Oil (Unhydrogenated),"Coating Agent, Texturizer",Light Amber Colored Oil,Fatty acid composition,None,pending,Soybeanoilunhydrogenated1
+High Oleic Soybean Oil (Unhydrogenated),"Coating Agent, Source Of Oleic Acid, Texturizer",Light Amber Colored Oil,Fatty acid composition,Oleic acid content,pending,Soybeanoilunhydrogenated2
+Soy Protein Concentrate,"Protein Supplement, Stabilizer And Thickener, Texturizing Agent, Water And Fat Binder","Powder Or Granules, Textured Flakes, Or Textured Chunks, With Color Ranging From Off White To Tan",Procedure,None,high_suscept,Soyproteinconcentrate
+Spearmint Oil,Flavoring Agent,"Colorless, Yellow, Or Green Yellow Liquid",Infrared spectra,Procedure,high_suscept,Spearmintoil
+Spice Oleoresins,"Color (Oleoresins Paprika And Turmeric Only), Flavoring Agent",See Monograph,Volatile oil content,None,pending,Spiceoleoresins
+Spike Lavender Oil,Flavoring Agent,Pale Yellow To Yellow Liquid,Infrared spectra,Linalool Dtermination,high_suscept,Spikelavenderoil
+Stannous Chloride,"Antioxidant, Reducing Agent",White Or Colorless Crystals,All ID tests listed in monograph,All assays listed in monograph,pending,Stannouschloride
+Starter Distillate,Flavoring Agent,"Clear, Yellow, Water Soluble Liquid",None,Diacetyl,pending,Starterdistillate
+Stearic Acid,,"Hard, White Or Faintly Yellow, Somewhat Glossy And Crystalline Solid Or As A White Or Yellow White Powder",None,None,pending,Stearicacid
+Stearyl Citrate,"Antioxidant, Emulsifier, Sequestrant, Surface Active Agent","Cream Colored, Unctuous Substance",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Stearylcitrate
+Stearyl Monoglyceridyl Citrate,Emulsion Stabilizer,"Soft, Off White To Tan, Waxy Solid Having A Lardlike Consistency",None,None,pending,Stearylmonoglyceridylcitrate
+Succinic Acid,"Buffer, Neutralizing Agent",Colorless Or White Crystals,Infrared absorption,Procedure,high_suscept_id,Succinicacid
+Succinylated Monoglycerides,"Dough Conditioner, Emulsifier",Waxy Solids Having An Off White Color,None,None,high_suscept_id,Succinylatedmonoglycerides
+Sucralose,"Flavor Enhancer, Non Nutritive Sweetener","White To Off White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Sucralose
+Sucrose,"Formulation Aid, Nutritive Sweetener, Texturizing Aid","White, Crystalline Solid",Optical (specific) rotation,Procedure,pending,Sucrose
+Sucrose Acetate Isobutyrate,Stabilizer,"Clear, Pale Yellow, Viscous Liquid",Infrared spectra,Procedure,pending,Sucroseacetateisobutyrate
+Sucrose Fatty Acid Esters,"Emulsifier, Stabilizer, Texturizer","Stiff Gel, Soft Solid, Or White To Slightly Gray White Powder",All ID tests listed in monograph,All assays listed in monograph,pending,Sucrosefattyacidesters
+Sugar Beet Fiber,"Anticaking Agent, Binding Agent, Bulking Agent, Dispersing Agent, Source Of Dietary Fiber, Stabilizing Agent, Texturizing Agent, Thickening Agent","Various Grades From Coarse Fibrous Flakes To Fine, Free Flowing Powders",All ID tests listed in monograph,All assays listed in monograph,pending,Sugarbeetfiber
+Sulfur Dioxide,"Antioxidant, Bleaching Agent, Preservative","Colorless, Nonflammable Gas Under Normal Conditions Of Temperature And Pressure",Sulfite,Procedure,pending,Sulfurdioxide
+Sulfuric Acid,Acidifier,"Clear, Colorless Or Slightly Brown, Oily Liquid",Sulfate,Procedure,pending,Sulfuricacid
+Sunflower Oil (Unhydrogenated),"Coating Agent, Texturizer",Light Amber Colored Oil,Fatty acid composition,None,high_suscept,Sunfloweroilunhydrogenated
+Sunset Yellow,Color,Brown Orange Powder Or Granules,Procedure,Total color,pending,Sunsetyellow
+Synthetic Iron Oxide,Color,See Monograph,None,Assay for iron (III),pending,Syntheticironoxide
+D Tagatose,Sweetener,White Crystal Or Powder,Infrared absorption spectra,Procedure,low_suscept,Tagatose1
+Tagetes Extract,Color,Dark Yellow To Brown Liquid,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Tagetesextract
+Talc,"Anticaking Agent, Coating Agent, Lubricating And Release Agent, Surface Finishing Agent, Texturizing Agent","White To Gray White, Unctuous Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Talc
+Tallow,"Coating Agent, Texturizer",Off White Fat,Fatty acid composition,None,pending,Tallow
+"Tangerine Oil, Coldpressed",Flavoring Agent,Red Orange To Brown Orange Liquid,Infrared spectra,None,high_suscept,Tangerineoilcoldpressed
+Tannic Acid,"Clarifying Agent, Flavor Enhancer, Flavoring Adjuvant, Flavoring Agent","Amorphous Powder, Glistening Scales, Or Spongy Masses, Varying In Color From Yellow White To Light Brown",All ID tests listed in monograph,All assays listed in monograph,pending,Tannicacid
+Tara Gum,"Stabilizer, Thickener",White To Tan Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Taragum
+Tarragon Oil,Flavoring Agent,Pale Yellow To Amber Liquid,Infrared spectra,None,high_suscept,Tarragonoil
+Tartaric Acid,"Acidifier, Flavoring Agent, Sequestrant","Colorless Or Translucent Crystals Or As A White, Fine To Granular, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Tartaricacid
+Tartrazine,Color,Yellow Orange Powder Or Granules,Procedure,Total color,pending,Tartrazine
+Tbhq,Antioxidant,"White, Crystalline Solid",Procedure,Procedure,pending,Tbhq
+"Terpene Resin, Natural",Masticatory Substance In Chewing Gum Base,"Pale Yellow To Yellow, Solid, Thermoplastic Resin",None,None,high_suscept,Terpeneresinnatural
+"Terpene Resin, Synthetic",Masticatory Substance In Chewing Gum Base,"Pale Yellow To Yellow, Solid, Thermoplastic Resin",None,None,pending,Terpeneresinsynthetic
+Alpha Terpinene,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Terpinene4
+Gamma Terpinene,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Terpinene6
+Terpinen 4 Ol,Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Terpinenol
+Alpha Terpineol,Flavoring Agent,"Colorless, Viscous Liquid; High Purity Material May Solidify",Infrared spectra,Procedure,pending,Terpineol
+Terpinyl Acetate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Terpinylacetate
+Terpinyl Propionate,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Terpinylpropionate
+Delta Tetradecalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Tetradecalactone
+Tetrahydrofurfuryl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Tetrahydrofurfurylalcohol
+Tetrahydrolinalool,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Tetrahydrolinalool
+"2,3,5,6 Tetramethylpyrazine",Flavoring Agent,"White, Crystalline Solid Or Powder",Infrared spectra,Procedure,pending,Tetramethylpyrazine
+Thaumatin,"Flavor Enhancer, Sweetener",Cream Colored Powder,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Thaumatin
+Thiamine Hydrochloride,Nutrient,"Small, White To Yellow White Crystals Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Thiaminehydrochloride
+Thiamine Mononitrate,Nutrient,White To Yellow White Crystals Or Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,pending,Thiaminemononitrate
+L Threonine,Nutrient,"White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Threonine3
+Thyme Oil,Flavoring Agent,"Colorless, Yellow, Or Red Liquid",Infrared spectra,Phenols,high_suscept,Thymeoil
+Thymol,Flavoring Agent,White Crystals,Infrared spectra,Procedure,pending,Thymol
+Titanium Dioxide,Color,"White, Amorphous Powder",Procedure,Procedure,high_suscept_id,Titaniumdioxide
+All Rac Alpha Tocopherol,"Antioxidant, Nutrient","Yellow To Amber, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Tocopherol
+All Rac Alpha Tocopheryl Acetate,Nutrient,"Colorless To Yellow Or Green Yellow, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Tocopherolacetate
+Rrr Alpha Tocopherol Concentrate,"Antioxidant, Nutrient","Brown Red To Light Yellow, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Tocopherolconcentrate
+"Rrr Tocopherols Concentrate, Mixed","Antioxidant, Nutrient (High Alpha Type Only)","Brown Red To Light Yellow, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Tocopherolsconcentratemixed
+Rrr Alpha Tocopheryl Acetate,Nutrient,"Colorless To Yellow, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,pending,Tocopherylacetate
+Rrr Alpha Tocopheryl Acetate Concentrate,Nutrient,"Light Brown To Light Yellow, Clear, Viscous Oil",All ID tests listed in monograph,All assays listed in monograph,pending,Tocopherylacetateconcentrate
+Rrr Alpha Tocopheryl Acid Succinate,Nutrient,"White To Off White, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Tocopherylacidsuccinate
+P Tolualdehyde,Flavoring Agent,Colorless Liquid,None,Procedure,pending,Tolualdehyde
+"Tolualdehyde, Mixed Isomers",Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Tolualdehydemixedisomers
+P Tolyl Isobutyrate,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Tolylisobutyrate
+Tragacanth,"Emulsifier, Stabilizer, Thickener",See Monograph,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Tragacanth
+Trehalose,"Humectant, Nutritive Sweetener, Stabilizer, Texturizer, Thickener","Nonhygroscopic, White, Crystalline Powder",Infrared absorption,Procedure,low_suscept,Trehalose
+Triacetin,"Humectant, Solvent","Colorless, Somewhat Oily Liquid",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Triacetin
+Tributyrin,Flavoring Agent,"Colorless, Somewhat Oily Liquid",Infrared spectra,Procedure,pending,Tributyrin
+Trichloroethylene,Extraction Solvent,"Clear, Colorless Liquid Free From Sediment And Suspended Matter",Procedure,None,high_suscept_id,Trichloroethylene
+2 Tridecanone,Flavoring Agent,White To Pale Yellow Solid,Infrared spectra,Procedure,pending,Tridecanone
+2 Tridecenal,Flavoring Agent,White Or Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Tridecenal
+Triethyl Citrate,Solvent,"Practically Colorless, Oily Liquid",None,Procedure,high_suscept_id,Triethylcitrate
+Trimethylamine,Flavoring Agent,Gas,None,Procedure,pending,Trimethylamine
+"2,4,5 Trimethyl Delta 3 Oxazoline",Flavoring Agent,Yellow Orange Liquid,Infrared spectra,Procedure,pending,Trimethyldeltaoxazoline
+"3,5,5 Trimethyl Hexanal",Flavoring Agent,Colorless To Pale Yellow Liquid,None,Procedure,pending,Trimethylhexanal
+"2,3,5 Trimethylpyrazine",Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Trimethylpyrazine
+Dl Tryptophan,Nutrient,White Crystals Or Crystalline Powder,Infrared spectra,Procedure,high_suscept_id,Tryptophan2
+L Tryptophan,Nutrient,White To Yellow White Crystals Or Crystalline Powder,Infrared absorption,Procedure,high_suscept_id,Tryptophan3
+L Tyrosine,Nutrient,"Colorless, Silky Needles Or A White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Tyrosine3
+Delta Undecalactone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Undecalactone
+Gamma Undecalactone,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Undecalactone6
+Undecanal,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Undecanal
+2 Undecanone,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Undecanone
+"1,3,5 Undecatriene",Flavoring Agent,"Clear, Colorless To Pale Yellow Liquids",Infrared spectra,Procedure,pending,Undecatriene
+10 Undecenal,Flavoring Agent,Colorless To Light Yellow Liquid,Infrared spectra,Procedure,pending,Undecenal
+(E) 2 Undecenol,Flavoring Agent,White To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Undecenol
+Undecyl Alcohol,Flavoring Agent,Colorless Liquid,Infrared spectra,Procedure,pending,Undecylalcohol
+Urea,Fermentation Aid,"White, Prismatic, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Urea
+Valeraldehyde,Flavoring Agent,Colorless To Pale Yellow Liquid,Infrared spectra,Procedure,pending,Valeraldehyde
+Valeric Acid,Flavoring Agent,"Pale Yellow, Mobile Liquid",Infrared spectra,Procedure,pending,Valericacid
+Gamma Valerolactone,Flavoring Agent,Colorless To Slightly Yellow Liquid,Infrared spectra,Procedure,pending,Valerolactone6
+L Valine,Nutrient,"White, Crystalline Powder",Infrared absorption,Procedure,high_suscept_id,Valine3
+Vanillin,Flavoring Agent,"Fine, White To Slightly Yellow Crystals, Usually Needles",Infrared spectra,Procedure,pending,Vanillin
+Vegetable Oil Phytosterol Esters,Source Of Phytoesterols,"Lighty Yellow, Thick Liquid To Waxy Solid At Room Temperature",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vegetableoilphytosterolesters
+Veratraldehyde,Flavoring Agent,White To Tan Or Blue Gray Flakes Or As A Solid,None,Procedure,pending,Veratraldehyde
+Vitamin A,Nutrient,Light Yellow To Red Oil That May Solidify On Refrigeration (Liquid Form); Or Solid Form,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vitamina
+Vitamin B12,Nutrient,Dark Red Crystals Or An Amorphous Or Crystalline Powder,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vitaminb12
+Vitamin D2,Nutrient,White Crystals,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vitamind2
+Vitamin D3,Nutrient,White Crystals,All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vitamind3
+Vitamin K,Nutrient,"Clear, Yellow To Amber, Very Viscous Liquid",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Vitamink
+Wheat Gluten,"Dough Strengthener, Nutrient, Stabilizer, Surface Finishing Agent, Texturizing Agent, Thickener","Cream To Light Tan, Free Flowing Powder",Procedure,Protein,high_suscept,Wheatgluten
+Wheat Protein Isolate,"Emulsifier, Foaming Agent, Gelling Agent, Nutrient, Texturizer, Water Binding Aid",Powder,Procedure,Protein,high_suscept_id,Wheatproteinisolate
+Whey,"Nutrient, Texturizer",Liquid Or Dry Product,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Whey
+Whey Protein Concentrate,"Emulsifier, Gelling Agent, Nutrient, Texturizer, Water Binding Aid",Liquid Or Dry Product,Procedure,None,high_suscept,Wheyproteinconcentrate
+Whey Protein Isolate,"Edible Coating Used As A Moisture Barrier, Emulsifier, Foaming Or Whipping Aid, Gelling Agent, Source Of High Quality Protein, Water Binding Agent",Liquid Or Dry Product,Procedure,None,high_suscept,Wheyproteinisolate
+"Whey, Reduced Lactose","Emulsifier, Nutrient, Texturizer",Liquid Or Dry Product,Procedure,None,high_suscept,Wheyreducedlactose
+"Whey, Reduced Minerals","Nutrient, Texturizer",Liquid Or Dry Product,Procedure,None,high_suscept,Wheyreducedminerals
+Wintergreen Oil,Flavoring Agent,Colorless To Yellow Liquid,All ID tests listed in monograph,All assays listed in monograph,high_suscept,Wintergreenoil
+Xanthan Gum,"Bodying Agent, Emulsifier, Foam Enhancer, Stabilizer, Suspending Agent, Thickener",Cream Colored Powder,Procedure,Alginates assay,high_suscept,Xanthangum
+Xylitol,Nutritive Sweetener,White Crystals Or Crystalline Powder,Infrared absorption,Procedure,low_suscept,Xylitol
+"Yeast, Autolyzed","Binder, Flavor Enhancer, Flavoring Agent, Protein Source","Granular, Powdered, Flake, Or Paste Form",None,Protein,high_suscept,Yeastautolyzed
+"Yeast, Dried","Carrier, Flavor Enhancer","Light Brown To Buff Powder, Granules, Or Flakes",Microscopy,Protein,high_suscept,Yeastdried
+Yeast Extract,"Flavor Enhancer, Flavoring Agent","Liquid, Paste, Powder, Or Granular Substance",None,Protein,high_suscept,Yeastextract
+Zein,"Surface Finishing Agent, Texturizing Agent","Very Light Yellow To Tan Colored, Granular Or Fine Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept,Zein
+Zinc Gluconate,Nutrient,"White Or Nearly White, Granular Or Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,low_suscept,Zincgluconate
+Zinc Oxide,Nutrient,"Fine, White, Amorphous Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Zincoxide
+Zinc Sulfate,Nutrient,"Colorless, Transparent Prisms Or Small Needles, Or As A Granular, Crystalline Powder",All ID tests listed in monograph,All assays listed in monograph,high_suscept_id,Zincsulfate
+Zingerone,Flavoring Agent,Yellow To Yellow Brown Fused Mass Or Crystals,Infrared spectra,Procedure,pending,Zingerone
