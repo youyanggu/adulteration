@@ -45,7 +45,9 @@ If for whatever reason a hierarchy is unable to be found, we recommend that you 
 
 #### Nodes
 
-Each hierarchy consists of multiple nodes. For example, the hierarchy for oats has 5 nodes: oats → grain → foods → dietary substance → substance. The model uses these nodes to make predictions. In order to make a useful prediction from a node (e.g. "grain"), the model must have seen the node during training. Therefore, even though a hierarchy can exist in the Metathesaurus, the model is sometimes unable to make a prediction because it has not seen many of the nodes in the hierarchy. A warning will show up when the number of nodes used in the prediction is low.
+Each hierarchy consists of multiple nodes (which themselves are a CUI). For example, the following hierarchy for "oats" has 5 nodes: oats → grain → foods → dietary substance → substance. The model uses these nodes to make predictions. 
+
+For each prediction, the tool displays the list of all nodes used by the model. If the list of nodes seems too general, then the model is unable to find a specific enough representation for prediction. In order to make a useful prediction from a node (e.g. "grain"), the model must have seen this node during training. Even if a hierarchy exists in the Metathesaurus, the model is sometimes unable to make a good prediction because it has not seen many of the nodes in the hierarchy. A warning will show up when the number of nodes used in the prediction is low.
 
 ### Predictions
 
