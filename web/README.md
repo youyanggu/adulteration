@@ -53,6 +53,8 @@ For each prediction, the tool displays the list of all nodes used by the model. 
 
 The model outputs a table of the top 20 most likely food product categories (out of 131). The score represents the following: Given all food products which contains this substance, what fraction of them belong in this category. Therefore, the sum of the scores of all 131 categories is 1. For a more general purpose analysis, the score can be ignored in favor of the rank.
 
+_Note: Without sufficient data, the model will often favor certain categories (e.g. snack, energy & granola bars and frozen appetizers & hors d'oeuvres) because there were a lot of products in this category during training._
+
 ## Model
 
 We trained a [multilayer perceptron](https://en.wikipedia.org/wiki/Multilayer_perceptron) to predict likely food product categories from the hierarchy of a substance. The model was trained on the 5000 common ingredients from [FoodEssentials](http://developer.foodessentials.com/) as well as 439 adulterants from [Rapid Alert System for Food and Feed](ec.europa.eu/food/safety/rasff/index_en.htm). We view this as a classification problem, where a substance must be classified to belong in one of 131 food product categories.
