@@ -49,7 +49,6 @@
                 <p><input type="text" name="cui" class="form-control" placeholder="Enter CUI here", style="width:300px">
                 <p><button type="submit" class="btn btn-info">Submit</button>
             </form>
-            <p><i>Note: It might take several seconds to return the result, as 1) the database is rather large and 2) the model is actively computing the predictions.</i></p>
             <br />
 
             {% if cui %}
@@ -73,7 +72,7 @@
                 {% if category_to_score %}
                     <br />
                     <p class="lead">Predictions for {{ cui }}:</p>
-                    <p>Number of nodes in the hierarchy used for prediction: {{ num_nodes }}
+                    <p>Nodes used for prediction: {{ rep_str|join(', ') }}</p>
                     {% if num_nodes <= 5 %}
                         <i>Warning: There are very few nodes, which can lead to inaccurate predictions.</i>
                     {% endif %}
