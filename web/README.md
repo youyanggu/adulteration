@@ -1,5 +1,7 @@
 # Food Category Predictor - FDA Web Tool
 
+Demo: http://people.csail.mit.edu/yygu/web_tool
+
 This tool helps generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. We extract the hierarchy based on the CUI, and run this hierarchy through a neural network to generate the predictions. The data for the hierarchies is extracted from the [UMLS Metathesaurus](https://www.nlm.nih.gov/pubs/factsheets/umlsmeta.html). 
 
 ## Requirements
@@ -18,7 +20,7 @@ The number in parenthesis states the package version that was used during testin
 This was written for (and tested on) Mac OS X and Linux. Some modification to the installation instructions might be necessary to get it to run on Windows.
 
 1. Install all the required packages above: `pip install -r requirements.txt`.
-2. Download two files containing the Metathesaurus data and place them in the folder: [File 1](https://www.dropbox.com/s/7yntvewhb8uxrlc/mrhier.h5?dl=1) (1GB) and [File 2](https://www.dropbox.com/s/9vishxtcdpft5hg/mrconso.h5?dl=1) (500MB).
+2. Download two files containing the Metathesaurus data: `wget https://www.dropbox.com/s/7yntvewhb8uxrlc/mrhier.h5 https://www.dropbox.com/s/9vishxtcdpft5hg/mrconso.h5`. Alternatively, you can download [File 1](https://www.dropbox.com/s/7yntvewhb8uxrlc/mrhier.h5?dl=1) (1GB) and [File 2](https://www.dropbox.com/s/9vishxtcdpft5hg/mrconso.h5?dl=1) (500MB) manually.
 2. Go to this directory in a terminal. Type `export FLASK_APP=main.py`
 3. Type `flask run` to run locally and `flask run --host=0.0.0.0` to run an externally visible server. See the Flask documentation for more options on how to deploy the server: http://flask.pocoo.org/docs/0.11/quickstart/
 4. Visit http://0.0.0.0:5000. It's ready for use! (If you use an externally visible server, you can also replace "0.0.0.0" with the IP address of the machine to view it from any machine. However, this is subject to router/firewall restrictions.).
@@ -43,8 +45,16 @@ If for whatever reason a hierarchy is unable to be found, we recommend that you 
 
 #### Nodes
 
-Each hierarchy consists of multiple nodes. For example, the hierarchy for oats has 5 nodes: oats → grain → foods → dietary substance → substance. The model uses these nodes to make predictions. In order to make a useful prediction from a node (e.g. "grain"), the model must have seen the node during training. Therefore, even though a hierarchy can exist in the Metathesaurus, the model is sometimes unable to make a prediction because it has not seen many of the nodes in the hierarchy. A warning will show up when the number of nodes used in the prediction is low.
+Each hierarchy consists of multiple nodes (which themselves are a CUI). For example, the following hierarchy for "oats" has 5 nodes: oats → grain → foods → dietary substance → substance. The model uses these nodes to make predictions. 
+
+For each prediction, the tool displays the list of all nodes used by the model. If the list of nodes seems too general, then the model is unable to find a specific enough representation for prediction. In order to make a useful prediction from a node (e.g. "grain"), the model must have seen this node during training. Even if a hierarchy exists in the Metathesaurus, the model is sometimes unable to make a good prediction because it has not seen many of the nodes in the hierarchy. A warning will show up when the number of nodes used in the prediction is low.
 
 ### Predictions
 
 The model outputs a table of the top 20 most likely food product categories (out of 131). The score represents the following: Given all food products which contains this substance, what fraction of them belong in this category. Therefore, the sum of the scores of all 131 categories is 1. For a more general purpose analysis, the score can be ignored in favor of the rank.
+
+## Model
+
+We trained a [multilayer perceptron](https://en.wikipedia.org/wiki/Multilayer_perceptron) to predict likely food product categories from the hierarchy of a substance. The model was trained on the 5000 common ingredients from [FoodEssentials](http://developer.foodessentials.com/) as well as 439 adulterants from [Rapid Alert System for Food and Feed](ec.europa.eu/food/safety/rasff/index_en.htm). We view this as a classification problem, where a substance must be classified to belong in one of 131 food product categories.
+
+For any questions or issues, contact Youyang Gu (yygu@csail.mit.edu).
