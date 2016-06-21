@@ -1,5 +1,7 @@
 # Food Category Predictor - FDA Web Tool
 
+Demo: http://people.csail.mit.edu/yygu/web_tool
+
 This tool helps generate food category predictions based on the Concept Unique Identifier (CUI) of an ingredient or adulterant. We extract the hierarchy based on the CUI, and run this hierarchy through a neural network to generate the predictions. The data for the hierarchies is extracted from the [UMLS Metathesaurus](https://www.nlm.nih.gov/pubs/factsheets/umlsmeta.html). 
 
 ## Requirements
